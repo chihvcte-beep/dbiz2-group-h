@@ -14,24 +14,24 @@ here: they already live in W0, the Function List and your Lesson 4 architecture.
 |---|---|
 | Product | Group H Library Core System |
 | Version | v0.1 |
-| Date | 2026-11-06 |
-| Sources | W0 Table 1 (use case inventory); Use Case Diagram; Context Diagram; `AD-UC-14.md`; `usage-flow-UC04.md` |
+| Date | 2026-11-07 |
+| Sources | W0 Table 1 (use case inventory); Use Case Diagram; `AD-UC-14.md`; `screen-list-UC14.md`; `docs/activity/activity-index.md` |
 
 ## Before you draw: is Lesson 4 still true?
 
-The supplied `AD-UC-14.md` identifies the inputs used for this flow: the Context Diagram, Use Case
-Diagram, User Review Reporting Flow sequence, W0 tables and W1 requirements. The supplied activity
-diagram is version v1.2 (Draft). The `activity-index.md` Inputs check table was not included with
-these files, so its overall status cannot be verified here.
+The Inputs check table at the top of `activity-index.md` has 8 findings. Rows 1, 2, 6 and 8 are
+"Done". Rows 3, 4, 5 and 7 are still "Open" and are logged as open questions:
 
-The following UC-14 decisions and distinctions are recorded in the activity diagram:
+- Row 3: a use case "Sync data from the library internal system" (started by time) is still to be added.
+- Row 4: the sequences User Review Interaction Flow (UC-05 + UC-04) and Book Review API Interaction
+  (UC-06 + UC-04) still tell two use cases and are to be split into one sequence per use case.
+- Row 5: the sequence User Review Interaction Flow still uses `opt` / `alt` for the reader's choice to
+  edit or delete a review; the choice is now a decision in AD-UC-04.
+- Row 7: a step of the sequence User Review Reporting Flow cites FR-02-10 instead of FR-02-14.
 
-- Reporting a review is started by the Reader, usually from UC-05 (View book reviews).
-- Reporting requires a signed-in Reader. If the Reader is not signed in, they can call UC-11
-  (Register and sign in with library card and email OTP), then the system checks the session again.
-- A Reader can report a particular review only once. A second report on the same review is rejected.
-- Saving the report ends UC-14. The reported review stays public until On-site Staff handle it
-  through UC-13; staff moderation is not part of this Reader flow.
+These findings do not change the flow below. It uses UC-05 to reach the book reviews, then UC-14
+to report a review. UC-14 ends when the report is saved and confirmed; staff handling is a separate
+UC-13 flow.
 
 - [ ] Every row of the Inputs check table has Status "Done", or is logged as an open question.
 
@@ -39,29 +39,29 @@ The following UC-14 decisions and distinctions are recorded in the activity diag
 
 ```mermaid
 flowchart LR
-  A(["The Reader finds a book review that may violate the rules"]) --> U5["UC-05: View book reviews"]
-  U5 --> U14["UC-14: Report a review that violates rules"]
-  U14 --> S{"Is the Reader signed in?"}
+  A(["The reader wants to report a review that violates the rules"]) --> U5["UC-05: View book reviews"]
+  U5 --> S{"Is the reader signed in?"}
   S -->|"No"| U11["UC-11: Register and sign in (library card with email OTP)"]
-  S -->|"Yes"| Z{"Has the Reader already reported this review?"}
-  U11 --> Z
-  Z -->|"No"| R(["The report is saved and a confirmation is displayed"])
-  Z -->|"Yes"| E(["The system displays that the review has already been reported; no second report is saved"])
+  S -->|"Yes"| U14["UC-14: Report a review that violates rules"]
+  U11 --> U14
+  U14 --> D{"Has the reader already reported this review?"}
+  D -->|"Yes"| Z1(["The reader is informed that the review has already been reported"])
+  D -->|"No"| Z2(["The report is saved and confirmation is displayed"])
 ```
 
 | Step | Use case | Activity diagram | Screens (fill in after Block 2) |
 |---|---|---|---|
-| 1 | UC-05 View book reviews (the Reader reaches the review from the book page) | `AD-UC-05.md` | S-F02-01 |
-| 2 | UC-14 Report a review that violates rules | `AD-UC-14.md` | (Lesson 8) |
-| 3 | UC-11 Register and sign in (library card with email OTP), only when the Reader is not signed in | `AD-UC-11.md` | S-F00-01 |
+| 1 | UC-05 View book reviews (reached from the OPAC Book Detail) | `AD-UC-05.md` | S-F02-01 |
+| 2 | UC-11 Register and sign in (library card with email OTP), only when the reader is not signed in | `AD-UC-11.md` | S-F00-01 |
+| 3 | UC-14 Report a review that violates rules | `AD-UC-14.md` | S-F02-01 |
 
-Step 3 is skipped when the Reader already has a valid session. If the Reader declines to sign in,
-the request is denied and no report is saved. If the Reader has already reported the selected
-review, the system displays a message and does not save a second report.
+Step 2 is skipped when the reader already has a valid session. UC-14 is performed on the existing
+Book Reviews screen (`S-F02-01`); it does not open a separate report screen. If the reader has
+already reported the selected review, no second report is saved. If not, the report is saved and
+a confirmation is displayed. The reported review remains public until staff handle it through UC-13.
 
 ## Use cases without a flow
 
-No use case in this flow is started by time or by an external system. UC-14 is started by the
-Reader. UC-13 (Remove reviews that violate rules) is performed later by On-site Staff and is not
-part of the Reader's reporting flow. The reported review remains publicly visible until staff
-handle it through UC-13.
+No use case in this flow is started by time or by an external system. UC-14 is started by the Reader
+when they select Report on a review, usually from UC-05. The later handling of the report is the
+separate staff-initiated UC-13 flow.

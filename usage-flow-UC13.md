@@ -14,27 +14,23 @@ here: they already live in W0, the Function List and your Lesson 4 architecture.
 |---|---|
 | Product | Group H Library Core System |
 | Version | v0.1 |
-| Date | 2026-11-06 |
-| Sources | W0 Table 1 (use case inventory); Use Case Diagram; Context Diagram; `AD-UC-13.md`; `screen-list-UC13.md` |
+| Date | 2026-11-07 |
+| Sources | W0 Table 1 (use case inventory); Use Case Diagram; `AD-UC-13.md`; `screen-list-UC13.md`; `docs/activity/activity-index.md` |
 
 ## Before you draw: is Lesson 4 still true?
 
-The supplied `AD-UC-13.md` identifies the inputs used for this flow: the Context Diagram, Use Case
-Diagram, User Review Reporting Flow sequence, W0 tables and W1 requirements. The supplied activity
-diagram is version v1.2 (Draft). The `activity-index.md` Inputs check table was not included with
-these files, so its overall status cannot be verified here.
+The Inputs check table at the top of `activity-index.md` has 8 findings. Rows 1, 2, 6 and 8 are
+"Done". Rows 3, 4, 5 and 7 are still "Open" and are logged as open questions:
 
-The following UC-13 decisions and distinctions are recorded in the activity diagram:
+- Row 3: a use case "Sync data from the library internal system" (started by time) is still to be added.
+- Row 4: the sequences User Review Interaction Flow (UC-05 + UC-04) and Book Review API Interaction
+  (UC-06 + UC-04) still tell two use cases and are to be split into one sequence per use case.
+- Row 5: the sequence User Review Interaction Flow still uses `opt` / `alt` for the reader's choice to
+  edit or delete a review; the choice is now a decision in AD-UC-04.
+- Row 7: a step of the sequence User Review Reporting Flow cites FR-02-10 instead of FR-02-14.
 
-- Staff sign in with their internal library account (FR-04-07), not with UC-11, because UC-11 is the
-  reader sign-in.
-- Staff judge whether a review violates the rules; the system does not judge review content.
-- If a review violates the rules, staff choose Remove and confirm the removal. The system removes
-  it from public display and writes an audit entry.
-- If a review follows the rules, staff dismiss the report. The review stays public and leaves the
-  reported-reviews list.
-- UC-14 is the reader-side use case that creates the reports handled in this staff flow; it is a
-  prerequisite/source of reported reviews, not a step in the staff's moderation flow.
+These findings do not change the staff moderation flow below. It uses UC-13, which is started by
+On-site Staff when they open the reported reviews.
 
 - [ ] Every row of the Inputs check table has Status "Done", or is logged as an open question.
 
@@ -42,24 +38,30 @@ The following UC-13 decisions and distinctions are recorded in the activity diag
 
 ```mermaid
 flowchart LR
-  A(["On-site Staff need to review reports about book reviews"]) --> U13["UC-13: Remove reviews that violate rules"]
-  U13 --> Z(["Reported reviews are handled: violating reviews are removed, while valid reviews remain public and their reports are dismissed"])
+  A(["On-site Staff want to review reports submitted by readers"]) --> U13["UC-13: Remove reviews that violate rules"]
+  U13 --> D{"Does the selected review violate the rules?"}
+  D -->|"Yes"| C{"Does staff confirm removal?"}
+  C -->|"Yes"| Z1(["The review is removed from public display and an audit entry is written"])
+  C -->|"No"| Z2(["The review stays public and remains in the reported-reviews list"])
+  D -->|"No"| Z3(["The report is dismissed and the review stays public"])
 ```
 
-| Step | Use case | Activity diagram | Screens (fill in after Block 2) |
+| Step | Use case | Activity diagram | Screens |
 |---|---|---|---|
-| 1 | UC-13 Remove reviews that violate rules | `AD-UC-13.md` | S-F02-04, S-F00-02 |
+| 1 | UC-13 Remove reviews that violate rules | `AD-UC-13.md` | S-F00-02, S-F02-04 |
 
-The staff flow is started when On-site Staff open the reported reviews. Staff need a valid internal
-library session and role; if they are not signed in, they can sign in with the internal library
-account and return to the moderation page. If no reports are waiting, the system displays that
-there are no reported reviews. Otherwise, staff review each report and decide whether the review
-violates the rules. Removing a review requires confirmation; cancelling the confirmation leaves
-the review public and in the reported list. Dismissing a report keeps the review public and removes
-the report from the reported-reviews list.
+The staff member uses the shared staff sign-in screen (`S-F00-02`) only when they do not have a
+valid staff session and choose to sign in. After access is allowed, they open the Reported Reviews
+screen (`S-F02-04`), select and inspect a reported review, and judge whether it violates the library's
+review rules. If it violates the rules, staff choose Remove and confirm or cancel in the
+"Confirm removal of reported review" modal. If confirmed, the system removes the review from public
+display and writes an audit entry. If staff cancel, the review stays public and remains in the
+reported-reviews list. If the review follows the rules, staff dismiss the report; the review stays
+public and is removed from the reported-reviews list. Staff can then choose whether to handle another
+reported review. The empty-list message is a state of `S-F02-04`, not a separate screen.
 
 ## Use cases without a flow
 
 No use case in this flow is started by time or by an external system. UC-13 is started by On-site
-Staff. UC-14 is performed separately by a Reader to report a review that may violate the rules;
-that reader action supplies the reported reviews but is not part of the staff's UC-13 usage flow.
+Staff when they open the reported reviews. The reports themselves are submitted by Readers through
+UC-14; handling those reports is the staff-initiated UC-13 flow above.
