@@ -66,6 +66,42 @@ Object state lists collected from all diagrams (copy into the data model in DBIZ
 | QR code | Generated |
 | Chatbot message | Saved |
 
+## Open questions from Lesson 8 (external design)
+
+Collected from `EXTERNAL DESIGN/usage-flow.md`, `screen-list.md` and `screen-transition.md` (2026-11-08).
+Inputs check rows 3, 4, 5 and 7 above are still Open and are the open rows the usage flow refers to.
+
+| # | Topic | Question | Decision | Status |
+|---|---|---|---|---|
+| L8-01 | Reader sign-in | How does a reader answer "Sign in now?" (d1 in AD-UC-04, 07, 08, 09, 12, 14), and where does the reader land afterwards? | One shared modal M-F00-01 "Sign in to continue?" on the screen where the reader asked. "Sign in" opens S-F00-01; "Not now" ends the request. After the OTP is accepted (or on Cancel) the reader returns to the screen where sign-in started. Reword FR-03-18-FE and FR-03-21-FE in W1 to match. | Default applied 2026-11-08; team to confirm |
+| L8-02 | Staff sign-in | Where do On-site Staff sign in, and when is the staff session checked? | Staff sign in on S-F00-03 before the staff page opens (FR-04-08); after sign-in S-F04-01 opens (FR-04-07). AD-UC-10 v1.2 and AD-UC-13 v1.3 redrawn; modal M-F00-02 dropped. | Decided by the team 2026-11-08 |
+| L8-03 | Staff sign-in | A rejected staff sign-in (wrong account, or no staff role) had no FR and was not drawn. | Branch added to AD-UC-10 and AD-UC-13 (`d6`, `s9`, `d1` "Try again?"); error state of S-F00-03. New edge-case FR-04-18 "Reject invalid staff sign-in" added to W1 on 2026-11-08: IF On-site Staff submit credentials the internal library accounts do not accept, or an account without the staff role, THEN the system SHALL reject the sign-in, display an error message and allow the staff to try again (UC-10, UC-13; Must; NC). | Decided by the team 2026-11-08 |
+| L8-04 | Staff page | Is the staff page a product screen? | Yes: S-F04-01 Staff page (F-04, FR-04-07 "staff page menu") with "Print QR labels" and "Reported reviews". | Default applied 2026-11-08; team to confirm |
+| L8-05 | Chatbot | When does the chatbot ask the reader to sign in? | After the reader sends the first message, as AD-UC-08 draws it, not when S-F03-06 opens. | Default applied 2026-11-08; team to confirm |
+| L8-06 | Saved books | Where does the reader press Save (UC-12 r2)? | On S-F01-01, for physical books only (FR-03-06-FE). "Saved" and "Already saved" are states of S-F01-01. No direct link from there to the saved list; the reader opens "Saved books" from the OPAC personal area. | Default applied 2026-11-08; team to confirm |
+| L8-07 | QR page | After a QR scan, where are Write, Edit and Delete own review done? | On S-F02-02 itself, with the same review panel as S-F02-01 and modal M-F02-01-01. Report (UC-14) only on S-F02-01, because AD-UC-06 has no Report call. | Default applied 2026-11-08; team to confirm |
+| L8-08 | QR page | S-F02-02 had no way to another screen (dead end). | A "View this book on the OPAC" link opens the book's existing OPAC Book Detail page. | Decided by the team 2026-11-08 |
+| L8-09 | QR labels | Is the printable QR label sheet a separate page? | No: modal M-F02-03-01 "QR label sheet preview" on S-F02-03 with a Print button (FR-02-08-FE). The browser print dialog is not a product screen. | Default applied 2026-11-08; team to confirm |
+| L8-10 | Report a review | Where does the reader submit a report (AD-UC-14 r2)? | Modal M-F02-01-02 "Report this review?" on S-F02-01, no reason field (AD-UC-14 open question 1). | Default applied 2026-11-08; team to confirm |
+| L8-11 | Map | AD-UC-01 s6, s7 (map unavailable, room cannot be identified): does the reader stay on S-F01-01? | S-F01-02 opens and shows the message with the shelf details kept visible, as in AD-UC-02 s2 and s4. | Default applied 2026-11-08; team to confirm |
+| L8-12 | Access-format filter | FR-03-12-FE says "filter on the advanced filter panel", but S-F03-01 is a new product page over the whole synced catalogue (AD-UC-03 open question 3). | S-F03-01 stays a product page reached by a link from the OPAC catalogue / search results. Reword FR-03-12-FE in W1. | Default applied 2026-11-08; team to confirm |
+| L8-13 | OPAC links | How do readers reach the F-03 screens and the sign-in screen from the OPAC? | Plain new links on existing OPAC pages (catalogue / search results, main menu, personal area, "Sign in"). No floating chat widget, no "Reader Dashboard". The library must agree to add the links. | Default applied 2026-11-08; team to confirm |
+| L8-14 | Priority | How is a screen's priority set? | Highest W4 priority among the FRs of the screen's own use cases; borrowed rules (FR-04-08, FR-01-07) do not raise it. Result: S-F02-04 Could; S-F03-01, S-F03-02, S-F03-03 Should. | Default applied 2026-11-08; team to confirm |
+| L8-15 | Screen IDs | Close the gap left by S-F03-04 and S-F03-05? | No. S-F03-04 and S-F03-05 are retired and never reused; S-F03-06 and S-F03-07 stay. | Default applied 2026-11-08; team to confirm |
+| L8-16 | Use case names | W0 Table 1 has long names for UC-06 and UC-12; this index uses short forms. | W0 Table 1 names are used in usage-flow.md (boxes and tables). | Default applied 2026-11-08; team to confirm |
+| L8-17 | UC-05 to UC-04 | AD-UC-05 has no branch to UC-04, while AD-UC-06 has. Keep the usage-flow arrow UC-05 to UC-04? | Kept: S-F02-01 hosts both use cases. Add the branch to AD-UC-05 when it is next revised. | Default applied 2026-11-08; team to confirm |
+| L8-18 | FR-01-03 owner | Which use case owns FR-01-03 (the book's room highlighted on the map)? It is drawn in AD-UC-01 and AD-UC-02. | UC-01, as drawn in AD-UC-01; the usage-flow arrow UC-01 to UC-02 stands for browsing the map further. | Default applied 2026-11-08; team to confirm |
+| L8-19 | FR-03-02 owner | The history entry when a signed-in reader opens an online book is drawn in AD-UC-03 (`s5`) and AD-UC-07 (`e1`). Which diagram owns it? | UC-07 (accept event `e1`), with AD-UC-03 `s5` as the step that triggers it; listed once under "Use cases without a flow". | Default applied 2026-11-08; team to confirm |
+| L8-20 | Sync use case | Name and ID of the planned use case for the daily sync with the library internal system (Inputs check row 3). | Listed without an ID as "Sync data from the library internal system (planned)" until the Integrator gives it an ID and draws its diagram. | Open (Integrator) |
+| L8-21 | AD-UC-12 | r1 "Request a saved-books action" is the same click as r2 (Save) or r3 (open the list). | Mapped to S-F01-01 or S-F03-03; tidy the AD when it is next revised. | Default applied 2026-11-08; team to confirm |
+
+Closed on 2026-11-08: section 5 "Screens touched" is filled in all 14 activity diagrams; the book links
+and the format-filter link used by the screen transition are drawn as calls in AD-UC-03 v1.3, AD-UC-08
+v1.2 and AD-UC-09 v1.2.
+
+W1 updated on 2026-11-08: FR-04-18 added (rows FR-04-18-FE and FR-04-18-BE, L8-03); FR-03-12-FE (L8-12),
+FR-03-18-FE and FR-03-21-FE (L8-01) reworded to match the external design.
+
 ## Exit ticket (one per team)
 
 To be filled in by the team after the peer review.

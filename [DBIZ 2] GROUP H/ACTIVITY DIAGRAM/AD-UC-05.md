@@ -124,8 +124,10 @@ Filled in during Lesson 8, from the Screen List.
 
 | Reader action | Screen ID |
 |---|---|
-| Ask to see the reviews of a book, Ask for the next page | (Lesson 8) |
-| Report a review (goes to UC-14) | (Lesson 8) |
+| Ask to see the reviews of a book (r1) | Existing OPAC Book Detail "Reviews" (entry point, outside the product) → S-F02-01 |
+| What does the reader do next? (d4), Ask for the next page of reviews (r2) | S-F02-01 |
+| Report a review (UC-14) (c1) | S-F02-01 (Report on a review; see AD-UC-14) |
+| See that there are no reviews to show (s4) | S-F02-01 (empty state) |
 
 ## 6. Open questions
 

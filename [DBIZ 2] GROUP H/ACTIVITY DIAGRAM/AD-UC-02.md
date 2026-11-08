@@ -130,8 +130,11 @@ Filled in during Lesson 8, from the Screen List.
 
 | Reader action | Screen ID |
 |---|---|
-| Request the digital library map | (Lesson 8) |
-| Request to view another floor, Select a reading room on the map | (Lesson 8) |
+| Request the digital library map (r1) | S-F01-02 (from the existing OPAC main menu link, or "View on map" on S-F01-01) |
+| What does the reader do next? (d4), Request to view another floor (r2), Select a reading room on the map (r3) | S-F01-02 |
+| See the book's room highlighted (s3), or the selected room's name, code and floor (s8) | S-F01-02 (room highlighted) |
+| See that the room cannot be identified on the map (s4) | S-F01-02 (message state, plain map shown) |
+| See that the map, or the selected floor's map, is unavailable (s2, s7) | S-F01-02 (error state) |
 
 ## 6. Open questions
 

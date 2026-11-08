@@ -116,8 +116,10 @@ Filled in during Lesson 8, from the Screen List.
 
 | Reader action | Screen ID |
 |---|---|
-| Scan the QR code on a physical book | (Lesson 8) |
-| Act on a review (goes to UC-04) | (Lesson 8) |
+| Scan the QR code on a physical book (r1) | Phone camera (entry point, outside the product) → S-F02-02 |
+| See that the book cannot be found (s2) | S-F02-02 (error state) |
+| Act on a review? (d2), Write a review (UC-04) (c1), Edit own review (UC-04) (c2) | S-F02-02 (review panel, as in AD-UC-04) |
+| Delete own review (UC-04) (c3) | S-F02-02 (modal M-F02-01-01 "Delete your review?") |
 
 ## 6. Open questions
 

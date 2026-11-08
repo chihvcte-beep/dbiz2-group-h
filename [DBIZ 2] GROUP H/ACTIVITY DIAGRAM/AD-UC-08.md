@@ -12,9 +12,9 @@
 | Preconditions | The reader may not be signed in yet: the flow checks the session and prompts sign-in with a library card (FR-03-18). |
 | Success end state | Each message got a reply: book result cards, or a no-results message with other search terms. The reader message and the chatbot reply are saved in that reader's conversation history (FR-03-10). |
 | Failure end state | The AI Service did not answer in time or returned an error: the reader is told AI search is temporarily unavailable and advised to use the format filter (FR-03-17). Or the reader chose not to sign in. |
-| FRs covered | FR-03-09, FR-03-10, FR-03-16, FR-03-17, FR-03-18, FR-04-08; FR-04-01 through the call to UC-11 |
+| FRs covered | FR-03-09, FR-03-10, FR-03-16, FR-03-17, FR-03-18, FR-04-08; FR-04-01, FR-01-01 and FR-03-12 through the calls to UC-11, UC-01 and UC-03 |
 | Business rules applied | The chatbot is only for signed-in library card readers (FR-03-18). Every reader message and chatbot reply is saved per reader (FR-03-10). If the AI fails, the reader is pointed to the format filter (FR-03-17). |
-| Version / status | v1.1 · Draft |
+| Version / status | v1.2 · Draft |
 | Author | Owner D (F-03) |
 
 ## 1. Diagram
@@ -40,9 +40,13 @@ swimlane-beta TB
     r1("Send an inquiry message to the chatbot (FR-03-09)")
     d1{"Sign in now?"}
     c1[["Sign in (UC-11) (FR-04-01)"]]
-    d4{"Send another message?"}
+    d4{"What does the reader do next?"}
+    c2[["View book shelf location (UC-01) (FR-01-01)"]]
+    c3[["Filter books by access format (UC-03) (FR-03-12)"]]
     stop1@{ shape: fr-circ }
     stop2@{ shape: fr-circ }
+    stop3@{ shape: fr-circ }
+    stop4@{ shape: fr-circ }
   end
   subgraph SYS["Library Core System"]
     s0("Check the reader's session (FR-04-08)")
@@ -70,8 +74,10 @@ swimlane-beta TB
   d3 -->|"[Yes]"| s6 --> m2
   d3 -->|"[No]"| s7 --> m2
   m2 --> d4
-  d4 -->|"[Yes]"| m0
-  d4 -->|"[No]"| stop2
+  d4 -->|"[Send another message]"| m0
+  d4 -->|"[Open a physical book from a result card]"| c2 --> stop3
+  d4 -->|"[Use the format filter]"| c3 --> stop4
+  d4 -->|"[Close the chat]"| stop2
 ```
 
 Reading notes:
@@ -82,6 +88,10 @@ Reading notes:
   system lane; `swimlane-beta` does not draw nested lanes.
 - `m0` is the merge the reader comes back through for each new message, and after signing in.
 - When the AI fails (`d2 [No]`), the reader message is already saved (`s2`) but no reply is saved.
+- v1.2 turns `d4` into the reader's next choice and adds two calls: `c2` opens a physical book from
+  a result card on the existing OPAC Book Detail and asks for its shelf location (UC-01, drawn in
+  AD-UC-01); `c3` follows the advice of `s4` and opens the format filter (UC-03, drawn in AD-UC-03).
+  They back the usage-flow arrows UC-08 to UC-01 and UC-08 to UC-03.
 
 ## 2. Node trace
 
@@ -102,7 +112,9 @@ Reading notes:
 | d3 | Decision | Are there matching catalogue books? | FR-03-16 |
 | s6 | Action | Display the reply with book result cards | FR-03-09 |
 | s7 | Action | Display that no results were found and suggest alternative search terms or subjects | FR-03-16 |
-| d4 | Decision (Reader) | Send another message? | FR-03-09 |
+| d4 | Decision (Reader) | What does the reader do next? | FR-03-09, FR-01-01, FR-03-17 |
+| c2 | Call (Reader) | View book shelf location (UC-01) | FR-01-01 |
+| c3 | Call (Reader) | Filter books by access format (UC-03) | FR-03-12 |
 
 ## 3. Branches and acceptance tests
 
@@ -113,8 +125,10 @@ Reading notes:
 | d0 [Yes] → d2 [No] | the AI Service does not answer within 10 seconds | the signed-in reader sends "books about supply chains" | the message is saved; a notice says AI search is temporarily unavailable and suggests the format filter |
 | d2 [Yes] → d3 [Yes] | the catalogue holds 4 books on supply chains | the reader sends "books about supply chains" | message and reply are saved; the reply shows 4 book cards |
 | d3 [No] | the catalogue holds no book on "underwater basket weaving" | the reader sends that inquiry | message and reply are saved; the reply says no results were found and suggests other terms or subjects |
-| d4 [Yes] | a reply is shown | the reader sends another message | the flow starts again from `r1` |
-| d4 [No] | a reply is shown | the reader closes the chat | the activity ends; the conversation stays saved |
+| d4 [Send another message] | a reply is shown | the reader sends another message | the flow starts again from `r1` |
+| d4 [Open a physical book from a result card] | the reply shows 4 book cards | the reader opens the card of a physical book | the book opens on the existing OPAC Book Detail and UC-01 starts (shelf location) |
+| d4 [Use the format filter] | the notice says AI search is temporarily unavailable | the reader follows the advice to use the format filter | the access-format filter opens and UC-03 starts |
+| d4 [Close the chat] | a reply is shown | the reader closes the chat | the activity ends; the conversation stays saved |
 
 ## 4. Object states used
 
@@ -128,8 +142,14 @@ Filled in during Lesson 8, from the Screen List.
 
 | Reader action | Screen ID |
 |---|---|
-| Send an inquiry message to the chatbot, Send another message | (Lesson 8) |
-| Sign in now? (prompt) | (Lesson 8) |
+| Send an inquiry message to the chatbot (r1), What does the reader do next? (d4) | S-F03-06 |
+| View book shelf location (UC-01) (c2) | S-F03-06 → existing OPAC Book Detail → S-F01-01 |
+| Filter books by access format (UC-03) (c3) | S-F03-06 → S-F03-01 |
+| Sign in now? (d1) | S-F03-06 (modal M-F00-01 "Sign in to continue?", text FR-03-18) |
+| Sign in (UC-11) (c1) | S-F00-01 → S-F00-02, then back to S-F03-06 |
+| See the reply with book result cards (s6) | S-F03-06 |
+| See that no results were found (s7) | S-F03-06 (no-results state) |
+| See that AI search is temporarily unavailable (s4) | S-F03-06 (error state) |
 
 ## 6. Open questions
 
@@ -146,7 +166,7 @@ says otherwise.
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.2.0, swimlane-beta) | Pass; still to open once on mermaid.live | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.3.0, swimlane-beta) | Pass (re-checked after the new calls); still to open once on mermaid.live | AI assistant | 2026-11-08 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |

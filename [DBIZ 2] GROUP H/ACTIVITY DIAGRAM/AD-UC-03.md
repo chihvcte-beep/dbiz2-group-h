@@ -12,9 +12,9 @@
 | Preconditions | No sign-in is needed (W0 Table 1). The catalogue, with the access format of each book, has been synced (FR-04-09). |
 | Success end state | The reader sees the books in the chosen access format, each with its access-format label. Every online book the reader opened from the results is recorded in the anonymous read log and, for a signed-in reader, in their reading history. |
 | Failure end state | No book matches: the reader is told no books were found and may choose another format. |
-| FRs covered | FR-03-12, FR-03-23, FR-03-13, FR-03-02 |
+| FRs covered | FR-03-12, FR-03-23, FR-03-13, FR-03-02; FR-01-01 through the call to UC-01 |
 | Business rules applied | Three choices only: Online, Physical or Both (FR-03-12). An empty result invites another choice instead of ending the search (FR-03-23). Every online-book read is logged without any reader identity (FR-03-13). Only a signed-in library card reader gets a history entry (FR-03-02). The book itself opens on the current OPAC; this platform builds no viewer or download (W0 Table 3). |
-| Version / status | v1.2 · Draft |
+| Version / status | v1.3 · Draft |
 | Author | Owner D (F-03) |
 
 ## 1. Diagram
@@ -41,7 +41,9 @@ swimlane-beta TB
     r2("Choose an access format:<br/>Online, Physical or Both (FR-03-12)")
     d2{"What does the reader do next?"}
     r3("Open an online book from the results (FR-03-13)")
+    c1[["View book shelf location (UC-01) (FR-01-01)"]]
     stop1@{ shape: fr-circ }
+    stop2@{ shape: fr-circ }
   end
   subgraph SYS["Library Core System"]
     s1("Retrieve the books in the selected access format (FR-03-12)")
@@ -62,6 +64,7 @@ swimlane-beta TB
   d2 -->|"[Open an online book]"| r3 --> s4 --> d3
   d3 -->|"[Yes]"| s5 --> m2
   d3 -->|"[No]"| m2
+  d2 -->|"[Open a physical book]"| c1 --> stop2
   d2 -->|"[Finish]"| stop1
 ```
 
@@ -78,6 +81,9 @@ Reading notes:
   accept event. It runs once per opening; it is not a second entry.
 - v1.1 adds `r3`, `s4`, `d3` and `s5`, so the diagram now covers all four FRs whose W1 source trace
   names UC-03.
+- v1.3 adds the call `c1`: from a physical book in the results the reader opens the book on the
+  existing OPAC Book Detail and asks for its shelf location, which is UC-01 (drawn once in AD-UC-01,
+  not copied here). It backs the usage-flow arrow UC-03 to UC-01.
 
 ## 2. Node trace
 
@@ -89,8 +95,9 @@ Reading notes:
 | d1 | Decision | Are there matching books? | FR-03-23 |
 | s2 | Action | Display the matching books with their access-format labels | FR-03-12 |
 | s3 | Action | Display that no books were found | FR-03-23 |
-| d2 | Decision (Reader) | What does the reader do next? | FR-03-23, FR-03-13 |
+| d2 | Decision (Reader) | What does the reader do next? | FR-03-23, FR-03-13, FR-01-01 |
 | r3 | Action (Reader) | Open an online book from the results | FR-03-13 |
+| c1 | Call (Reader) | View book shelf location (UC-01) | FR-01-01 |
 | s4 | Action | Record the book and the time of the read without any reader identity | FR-03-13 |
 | d3 | Decision | Is the reader signed in with a library card? | FR-03-02 |
 | s5 | Action | Add the book to the reader's reading history | FR-03-02 |
@@ -104,6 +111,7 @@ Reading notes:
 | d2 [Choose another access format] | "no books were found" is shown for Both | the reader chooses Physical | the physical books are listed with the label "Physical" |
 | d2 [Open an online book] → d3 [Yes] | reader 0012345 is signed in and the Online results are shown | they open "Digital Marketing Basics" | the read log gets one row (book, time, no reader identity) and the book is added to reader 0012345's reading history |
 | d3 [No] | the reader is not signed in and the Online results are shown | they open "Digital Marketing Basics" | the read log gets one row (book, time, no reader identity); no history entry is made |
+| d2 [Open a physical book] | the Physical results are shown | the reader opens "Principles of Economics" | the book opens on the existing OPAC Book Detail and UC-01 starts (shelf location) |
 | d2 [Finish] | a result list is shown | the reader stops filtering | the activity ends; the list stays on screen |
 
 ## 4. Object states used
@@ -120,8 +128,11 @@ Filled in during Lesson 8, from the Screen List.
 
 | Reader action | Screen ID |
 |---|---|
-| Open the access-format filter, Choose an access format | (Lesson 8) |
-| Choose another access format, Open an online book from the results | (Lesson 8) |
+| Open the access-format filter (r1) | S-F03-01 (from a link on the existing OPAC search results) |
+| Choose an access format: Online, Physical or Both (r2), What does the reader do next? (d2) | S-F03-01 |
+| See that no books were found (s3) | S-F03-01 (empty state) |
+| Open an online book from the results (r3) | S-F03-01 → exit: online book on the current OPAC (outside the product) |
+| View book shelf location (UC-01) (c1) | S-F03-01 → existing OPAC Book Detail → S-F01-01 |
 
 ## 6. Open questions
 
@@ -139,7 +150,7 @@ says otherwise.
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.2.0, swimlane-beta) | Pass; still to open once on mermaid.live | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.3.0, swimlane-beta) | Pass (re-checked after the new calls); still to open once on mermaid.live | AI assistant | 2026-11-08 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |

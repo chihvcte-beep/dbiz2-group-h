@@ -148,8 +148,11 @@ Filled in during Lesson 8, from the Screen List.
 
 | Reader action | Screen ID |
 |---|---|
-| Submit the library card number | (Lesson 8) |
-| Submit the OTP received by email, Request a new OTP | (Lesson 8) |
+| Submit the library card number (r1) | S-F00-01 |
+| See that the card number is not found (s2) | S-F00-01 (error state) |
+| Submit the OTP received by email (r2), Request a new OTP? (d5), Request a new OTP (r3) | S-F00-02 |
+| See that the code could not be sent (s5), is incorrect (s9), or that the sign-in is rejected (s10, s11) | S-F00-02 (error state) |
+| Signed in (s7) | Back to the screen where sign-in started (for example S-F02-01, S-F03-02) |
 
 ## 6. Open questions
 

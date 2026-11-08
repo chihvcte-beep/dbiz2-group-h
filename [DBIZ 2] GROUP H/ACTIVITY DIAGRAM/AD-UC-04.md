@@ -156,9 +156,13 @@ Filled in during Lesson 8, from the Screen List.
 
 | Reader action | Screen ID |
 |---|---|
-| Request a review action, Choose the action | (Lesson 8) |
-| Submit a new review text, Submit an edited text of own review | (Lesson 8) |
-| Choose own review to delete, Confirm or cancel the deletion | (Lesson 8) |
+| Request a review action on a book (r1), Which action? (d2) | S-F02-01 (or S-F02-02 when reached by QR, UC-06) |
+| Sign in now? (d1) | S-F02-01 / S-F02-02 (modal M-F00-01 "Sign in to continue?") |
+| Sign in (UC-11) (c1) | S-F00-01 → S-F00-02, then back to S-F02-01 / S-F02-02 |
+| Submit a new review text (r2), Submit an edited text of own review (r3), Choose own review to delete (r4) | S-F02-01 / S-F02-02 (review panel) |
+| Confirm the deletion? (d6), Cancel the deletion (r5) | S-F02-01 / S-F02-02 (modal M-F02-01-01 "Delete your review?") |
+| See the error message (s7) | S-F02-01 / S-F02-02 (error state) |
+| See the confirmation and the updated review list (s8) | S-F02-01 / S-F02-02 (success state) |
 
 ## 6. Open questions
 

@@ -175,9 +175,12 @@ screen.
 
 | Reader action | Screen ID |
 |---|---|
-| Open reading history and preferences | (Lesson 8) |
-| Submit the reading status and progress of a book | (Lesson 8) |
-| Submit updated reading preferences | (Lesson 8) |
+| Open reading history and preferences (r1) | S-F03-02 (from a link in the existing OPAC personal area) |
+| Sign in now? (d1) | S-F03-02 (modal M-F00-01 "Sign in to continue?") |
+| Sign in (UC-11) (c1) | S-F00-01 → S-F00-02, then back to S-F03-02 |
+| What does the reader do? (d2), Submit the reading status and progress of a book (r2), Submit updated reading preferences (r3) | S-F03-02 |
+| See the updated reading history or preferences (s6, s9) | S-F03-02 (success state) |
+| See the error message (s10) | S-F03-02 (error state, saved data kept) |
 
 ## 6. Open questions
 

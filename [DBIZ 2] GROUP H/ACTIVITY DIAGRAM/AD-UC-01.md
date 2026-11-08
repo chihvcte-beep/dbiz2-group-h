@@ -130,8 +130,12 @@ Filled in during Lesson 8, from the Screen List.
 
 | Reader action | Screen ID |
 |---|---|
-| Open a book's detail page and request its shelf location | (Lesson 8) |
-| View the book's room on the map, Request the library map for the book's room | (Lesson 8) |
+| Open a book's detail page and request its shelf location (r1) | Existing OPAC Book Detail (entry point, outside the product) → S-F01-01 |
+| See the floor, room and shelf code (s4) | S-F01-01 |
+| See that the book is electronic only (s2), or that the shelf location is unavailable (s3) | S-F01-01 (message state) |
+| View the book's room on the map? (d3), Request the library map for the book's room (r2) | S-F01-01 ("View on map") → S-F01-02 |
+| See the library map with the room highlighted (s8) | S-F01-02 (success state, shelf details kept visible) |
+| See that the map is unavailable (s6), or that the room cannot be identified on the map (s7) | S-F01-02 (error state, shelf details kept visible) |
 
 ## 6. Open questions
 

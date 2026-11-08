@@ -147,8 +147,14 @@ Filled in during Lesson 8, from the Screen List.
 
 | Reader action | Screen ID |
 |---|---|
-| Select Save on a physical book | (Lesson 8) |
-| Open the saved books list, Select Remove on a saved book | (Lesson 8) |
+| Request a saved-books action (r1), Which action? (d2) | S-F01-01 ("Save to my list") or the "Saved books" link in the existing OPAC personal area → S-F03-03 |
+| Sign in now? (d1) | S-F01-01 / S-F03-03 (modal M-F00-01 "Sign in to continue?") |
+| Sign in (UC-11) (c1) | S-F00-01 → S-F00-02, then back to S-F01-01 / S-F03-03 |
+| Select Save on a physical book (r2) | S-F01-01 |
+| See that the book is saved (s3), or already saved (s2) | S-F01-01 (success state / already-saved state) |
+| Open the saved books list (r3), Remove a saved book? (d6), Select Remove on a saved book (r4) | S-F03-03 |
+| See the saved books with their shelf locations (s7), "shelf location unavailable" for some books (s6) | S-F03-03 |
+| See that no books have been saved yet (s5) | S-F03-03 (empty state) |
 
 ## 6. Open questions
 

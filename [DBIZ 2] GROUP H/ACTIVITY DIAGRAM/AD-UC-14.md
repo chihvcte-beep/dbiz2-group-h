@@ -107,7 +107,12 @@ Filled in during Lesson 8, from the Screen List.
 
 | Reader action | Screen ID |
 |---|---|
-| Select Report on a review, Submit the report | (Lesson 8) |
+| Select Report on a review (r1) | S-F02-01 |
+| Sign in now? (d1) | S-F02-01 (modal M-F00-01 "Sign in to continue?") |
+| Sign in (UC-11) (c1) | S-F00-01 → S-F00-02, then back to S-F02-01 |
+| Submit the report for the selected review (r2) | S-F02-01 (modal M-F02-01-02 "Report this review?") |
+| See the confirmation (s4) | S-F02-01 (success state) |
+| See that the review has already been reported (s2) | S-F02-01 (already-reported state) |
 
 ## 6. Open questions
 
