@@ -26,7 +26,7 @@ Screens shared by every feature (sign in) use `S-F00-<nn>`.
 Notes on the table:
 
 - Priority is the highest W4 priority among the FRs of the screen's own use cases. Rules borrowed from another use case (FR-04-08 sign-in check, FR-01-07 on S-F03-03) do not raise it.
-- FR-04-08 (sign-in and staff access control) applies to every screen that needs a session. It is cited only on the sign-in screens, the staff page and the reader sign-in modal. The staff page opens only with a staff session, so staff sign in before any staff task (AD-UC-10 v1.2, AD-UC-13 v1.3).
+- FR-04-08 (sign-in and staff access control) applies to every screen that needs a session. It is cited only on the sign-in screens, the staff page and the reader sign-in modal. The staff page opens only with a staff session, so staff sign in before any staff task (AD-UC-10, AD-UC-13).
 - Could parts inside Must or Should screens, which disappear without removing the screen if they are cut: "View on map" on S-F01-01 (FR-01-03); Edit and Delete own review on S-F02-01 and S-F02-02 (FR-02-03, FR-02-04); Report on S-F02-01 (FR-02-09, FR-02-21); preferences part of S-F03-02 (FR-03-05); Remove on S-F03-03 (FR-03-08); "Reported reviews" on S-F04-01 (UC-13).
 
 ## Modals and overlays
