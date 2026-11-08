@@ -11,7 +11,7 @@ The product is an add-on to the library's existing OPAC. Existing OPAC pages (ca
 results, Book Detail, main menu, personal area, online book page) are where the reader comes from or
 goes back to; they are situations or exits in the flows below, never boxes.
 
-## Before you draw: is Lesson 4 still true?
+## Note
 
 - [x] Every row of the Inputs check table in `ACTIVITY DIAGRAM/activity-index.md` is "Done" or logged
       as an open question. Rows 1, 2, 6 and 8 are Done. These rows are still Open and are logged as
@@ -240,6 +240,3 @@ precondition).
       UC-13), S-F01-01 (UC-01, UC-12), S-F01-02 (UC-01, UC-02), S-F02-01 (UC-05, UC-04, UC-14),
       S-F02-02 (UC-06, UC-04), S-F02-03 (UC-10), S-F02-04 (UC-13), S-F03-01 (UC-03), S-F03-02
       (UC-07), S-F03-03 (UC-12), S-F03-06 (UC-08), S-F03-07 (UC-09), S-F04-01 (UC-10, UC-13).
-
----
-Template source: DBIZ2, VJCBI College - FTU, Lesson 8 (2026).
