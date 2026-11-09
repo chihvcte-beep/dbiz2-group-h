@@ -173,9 +173,11 @@ Conventions:
       physical book is" 2 screens; On-site Staff "print QR labels" 2 screens (3 with sign-in).
 - [x] Every arrow label is a user action or a system event, never a screen name (56 Reader and 10 staff
       labels checked; the entry arrow from the QR scan carries no label).
-- [x] Usage-flow paths: all 20 Reader arrows of usage-flow.md (17 solid, 3 dashed "not signed in") have a path (table below); the staff
-      usage flows have no UC-to-UC arrow. UC-03, UC-08 and UC-09 → UC-01 pass through the existing OPAC
-      Book Detail (the reader leaves the product in between).
+- [x] Usage-flow paths: all 20 Reader arrows between use cases in usage-flow.md (3 of them dashed
+      "not signed in") and the 2 staff arrows have a path (table below; flows joined on 2026-11-09).
+      UC-03, UC-08 and UC-09 → UC-01 pass through the existing OPAC Book Detail, and UC-07 → UC-09
+      from the personal area passes through the OPAC main menu (the reader leaves the product in
+      between).
 - [x] The diagram renders: both diagrams pass the Mermaid 11.4.1 parser without error (scripted check,
       2026-11-08); every label quoted, `<br>` for line breaks, no node named `end`, no `-` in node IDs.
       The Reader layout (56 arrows) is dense: look at it once on mermaid.live before the review.
@@ -191,7 +193,7 @@ Conventions:
 | Reader | UC-08 to UC-03 | S-F03-06 → S-F03-01 ("[AI search unavailable] chooses Use the format filter") |
 | Reader | UC-08 to UC-01 | S-F03-06 → entry point "OPAC Book Detail" ("opens a book card") → S-F01-01 ("requests the shelf location") |
 | Reader | UC-09 to UC-07 | S-F03-07 → S-F03-02 ("[no reading data yet] chooses Set your preferences") |
-| Reader | UC-07 to UC-09 | S-F03-02 → S-F03-07 ("back, when opened from recommendations") |
+| Reader | UC-07 to UC-09 | S-F03-02 → S-F03-07 ("back, when opened from recommendations"); when opened from the personal area: S-F03-02 → entry point "OPAC personal area" ("back") → OPAC main menu → S-F03-07 ("chooses Recommended for you") |
 | Reader | UC-09 to UC-01 | S-F03-07 → entry point "OPAC Book Detail" ("opens a recommended book") → S-F01-01 ("requests the shelf location") |
 | Reader | UC-11 to UC-08 | S-F03-06 → S-F00-01 ("sends a message without a session, chooses Sign in in dialog") → S-F00-02 → S-F03-06 ("[OTP accepted]") |
 | Reader | UC-11 to UC-09 | S-F03-07 → S-F00-01 ("opened without a session, chooses Sign in in dialog") → S-F00-02 → S-F03-07 ("[OTP accepted]") |
@@ -201,8 +203,9 @@ Conventions:
 | Reader | UC-11 to UC-04 | S-F02-01 or S-F02-02 → S-F00-01 ("review action without a session, chooses Sign in in dialog") → S-F00-02 → the same screen ("[OTP accepted]") |
 | Reader | UC-11 to UC-14 | S-F02-01 → S-F00-01 ("Report without a session, chooses Sign in in dialog") → S-F00-02 → S-F02-01 ("[OTP accepted]") |
 | Reader | UC-11 to UC-07 | S-F03-02 → S-F00-01 ("opened without a session, chooses Sign in in dialog") → S-F00-02 → S-F03-02 ("[OTP accepted]"), direct return, not through the personal area |
-| Reader | UC-01 to UC-11 | S-F01-01 → S-F00-01 ("Save without a session, chooses Sign in in dialog" M-F00-01) |
+| Reader | UC-12 to UC-11 | S-F01-01 → S-F00-01 ("Save without a session, chooses Sign in in dialog" M-F00-01), or S-F03-03 → S-F00-01 ("opened without a session, chooses Sign in in dialog") |
 | Reader | UC-05 to UC-11 | S-F02-01 → S-F00-01 ("review action or Report without a session, chooses Sign in in dialog" M-F00-01) |
 | Reader | UC-06 to UC-11 | S-F02-02 → S-F00-01 ("review action without a session, chooses Sign in in dialog" M-F00-01) |
-| On-site Staff | none | UC-10 and UC-13 have no UC-to-UC arrow; each starts from entry point "opens the staff page link" → S-F04-01 |
+| On-site Staff | UC-10 to UC-13 | S-F02-03 → S-F04-01 ("back") → S-F02-04 ("chooses Reported reviews") |
+| On-site Staff | UC-13 to UC-10 | S-F02-04 → S-F04-01 ("back") → S-F02-03 ("chooses Print QR labels") |
 

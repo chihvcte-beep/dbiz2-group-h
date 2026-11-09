@@ -34,62 +34,64 @@ Sign-in convention used in every flow: UC-11 is drawn as a box reached by a dash
 `"not signed in"`, then the flow goes on to the use case that needed it. A reader who is already
 signed in skips UC-11. In the Step tables UC-11 is marked "(if not signed in)".
 
-## Reader: find a book on the shelf
+## Reader: find my way in the library
 
 ```mermaid
 flowchart LR
-  A(["Reader wants a physical book<br>in the library"]) -->|"book already found on the OPAC"| U1["UC-01: View book shelf location"]
-  A -->|"narrow to physical books first"| U3["UC-03: Filter books by access format<br>(online, physical or both)"]
-  U3 --> U1
-  U1 -->|"wants to see the room"| U2["UC-02: Browse interactive<br>digital library map"]
-  U1 --> Z(["Reader knows the floor,<br>room and shelf"])
-  U2 --> Z
-  U1 -->|"keep it for the visit"| U12["UC-12: Save physical books to a personal list<br>for finding them later in the library,<br>and remove them from the list"]
-  U1 -.->|"not signed in"| U11["UC-11: Register and sign in<br>(library card with email OTP)"]
+  A(["Reader is going to the library,<br>or is already there"]) --> D{"A book, my saved books<br>or a room?"}
+  D -->|"book already found on the OPAC"| U1["UC-01: View book shelf location"]
+  D -->|"narrow to physical books first"| U3["UC-03: Filter books by access format<br>(online, physical or both)"]
+  D -->|"my saved books"| U12["UC-12: Save physical books to a personal list<br>for finding them later in the library,<br>and remove them from the list"]
+  D -->|"a floor or reading room"| U2["UC-02: Browse interactive<br>digital library map"]
+  U3 -->|"physical book chosen"| U1
+  U1 -->|"wants to see the room"| U2
+  U1 -->|"keep it for the visit"| U12
+  U12 -.->|"not signed in"| U11["UC-11: Register and sign in<br>(library card with email OTP)"]
   U11 --> U12
-  U12 --> Z2(["Book kept on the list<br>for the library visit"])
+  U1 --> Z(["Reader knows where to go:<br>floor, room and shelf"])
+  U2 --> Z
+  U12 -->|"shelf shown for each saved book"| Z
+  U12 -->|"book saved"| Z2(["Book kept on the list<br>for the library visit"])
 ```
 
 | Step | Use case | Activity diagram | Screens |
 |---|---|---|---|
 | (alt) | UC-03 Filter books by access format (online, physical or both) | `AD-UC-03.md` | S-F03-01 |
 | 1 | UC-01 View book shelf location | `AD-UC-01.md` | S-F01-01, S-F01-02 |
-| 2 | UC-02 Browse interactive digital library map | `AD-UC-02.md` | S-F01-02 |
-| (if not signed in) | UC-11 Register and sign in (library card with email OTP) | `AD-UC-11.md` | S-F00-01, S-F00-02 (from modal "Sign in to continue?" on S-F01-01) |
-| 3 (alt) | UC-12 Save physical books to a personal list for finding them later in the library, and remove them from the list | `AD-UC-12.md` | S-F01-01 (Save to my list), S-F03-03 |
+| 1 (alt) or 2 | UC-02 Browse interactive digital library map | `AD-UC-02.md` | S-F01-02 |
+| (if not signed in) | UC-11 Register and sign in (library card with email OTP) | `AD-UC-11.md` | S-F00-01, S-F00-02 (from modal "Sign in to continue?" on S-F01-01 or S-F03-03) |
+| 1 (alt) or 2 (alt) | UC-12 Save physical books to a personal list for finding them later in the library, and remove them from the list | `AD-UC-12.md` | S-F01-01 (Save to my list), S-F03-03 |
 
-The reader comes from the existing OPAC Book Detail page (UC-01 trigger) or from the access-format
-results, where a physical book leads back to its Book Detail page. Showing the book's room on the map
-is drawn in AD-UC-01; the arrow to UC-02 stands for browsing the map further (other floor, other
+One goal, four ways in: the reader comes from the existing OPAC Book Detail page (UC-01 trigger),
+from the access-format results, where a physical book leads back to its Book Detail page, from
+"Saved books" in the existing OPAC personal area (UC-12), or from "Library map" in the OPAC main menu
+when they look for a room, not a book (AD-UC-02 trigger "from the menu").
+
+This flow joins three earlier flows that had only one use case on each path (2026-11-09; open
+question L8-22 in `ACTIVITY DIAGRAM/activity-index.md`): "find a book on the shelf", "find a reading
+room in the library" and the saved-books half of "keep my reading history and reading list".
+
+Sign-in is asked by UC-12, both for Save on S-F01-01 and for opening S-F03-03 (AD-UC-12 call `c1`);
+UC-01, UC-02 and UC-03 need no sign-in. No arrow from UC-12 to UC-01: the saved books list already
+shows the shelf location of each book (AD-UC-12, FR-03-07). Showing the book's room on the map is
+drawn in AD-UC-01; the arrow UC-01 to UC-02 stands for browsing the map further (other floor, other
 room); see open question L8-18 in `ACTIVITY DIAGRAM/activity-index.md`.
 
-## Reader: find a reading room in the library
+## Reader: choose what to read
 
 ```mermaid
 flowchart LR
-  A(["Reader wants to find a floor<br>or reading room"]) --> U2["UC-02: Browse interactive<br>digital library map"]
-  U2 --> Z(["Reader knows where the room is"])
-```
-
-| Step | Use case | Activity diagram | Screens |
-|---|---|---|---|
-| 1 | UC-02 Browse interactive digital library map | `AD-UC-02.md` | S-F01-02 |
-
-Kept as its own flow, not merged into the flow above: here the reader comes for a room, not a book,
-and opens the map from the OPAC main menu (AD-UC-02 trigger "from the menu").
-
-## Reader: discover books to read
-
-```mermaid
-flowchart LR
-  A(["Reader looks for<br>something to read"]) --> D{"Ask the chatbot<br>or see suggestions?"}
+  A(["Reader looks for<br>something to read"]) --> D{"How does the reader<br>want to choose?"}
   D -->|"ask the chatbot"| U8["UC-08: AI-based conversational<br>book search"]
   D -->|"see suggestions"| U9["UC-09: Automatic personalised<br>book recommendations"]
+  D -->|"update history and<br>preferences first"| U7["UC-07: Update and view personal<br>reading history and preferences"]
   D -.->|"not signed in"| U11["UC-11: Register and sign in<br>(library card with email OTP)"]
   U11 -->|"then ask"| U8
   U11 -->|"then see suggestions"| U9
-  U9 -.->|"no reading data yet:<br>set preferences"| U7["UC-07: Update and view personal<br>reading history and preferences"]
-  U7 --> U9
+  U11 -->|"then update history"| U7
+  U9 -.->|"no reading data yet:<br>set preferences"| U7
+  U7 -->|"see suggestions built on them"| U9
+  U7 --> Z3(["History, progress and<br>preferences up to date"])
   U8 -.->|"AI search unavailable"| U3["UC-03: Filter books by access format<br>(online, physical or both)"]
   U8 -->|"physical book found"| U1["UC-01: View book shelf location"]
   U9 -->|"physical book chosen"| U1
@@ -100,16 +102,22 @@ flowchart LR
 
 | Step | Use case | Activity diagram | Screens |
 |---|---|---|---|
-| (if not signed in) | UC-11 Register and sign in (library card with email OTP) | `AD-UC-11.md` | S-F00-01, S-F00-02 (from modal "Sign in to continue?" on S-F03-06 or S-F03-07) |
+| (if not signed in) | UC-11 Register and sign in (library card with email OTP) | `AD-UC-11.md` | S-F00-01, S-F00-02 (from modal "Sign in to continue?" on S-F03-06, S-F03-07 or S-F03-02) |
 | 1 | UC-08 AI-based conversational book search | `AD-UC-08.md` | S-F03-06 |
 | 1 (alt) | UC-09 Automatic personalised book recommendations | `AD-UC-09.md` | S-F03-07 |
-| (alt) | UC-07 Update and view personal reading history and preferences | `AD-UC-07.md` | S-F03-02 |
+| 1 (alt) or (alt) | UC-07 Update and view personal reading history and preferences | `AD-UC-07.md` | S-F03-02 |
 | (alt) | UC-03 Filter books by access format (online, physical or both) | `AD-UC-03.md` | S-F03-01 |
 | 2 | UC-01 View book shelf location | `AD-UC-01.md` | S-F01-01, S-F01-02 |
 
+The reader opens the chatbot and the suggestions from the OPAC main menu, and the reading history
+and preferences from the OPAC personal area. UC-07 joined this flow from the earlier flow "keep my
+reading history and reading list" (2026-11-09; open question L8-22): the history and preferences are
+what the suggestions are built on (FR-03-19), so the reader either updates them first and then sees
+suggestions, or stops when the history is up to date. UC-07 is also reached from UC-09 when there is
+no reading data yet and the reader is asked to set preferences (FR-03-19).
+
 The chatbot checks sign-in after the reader sends the first message (AD-UC-08); the flow shows only
-that sign-in comes before the search can be used. UC-07 is reached when there is no reading data yet
-and the reader is asked to set preferences (FR-03-19). UC-03 is reached when AI search is temporarily
+that sign-in comes before the search can be used. UC-03 is reached when AI search is temporarily
 unavailable (FR-03-17). A book card on S-F03-06, S-F03-07 or S-F03-01 opens the existing OPAC Book
 Detail page, where the reader asks for the shelf location (UC-01).
 
@@ -146,62 +154,36 @@ label on the book with a phone camera (UC-06). Report is only offered from UC-05
 Report call. The arrow UC-05 to UC-04 is kept because S-F02-01 offers both, but AD-UC-05 has no
 branch to UC-04 yet (open question L8-17 in `ACTIVITY DIAGRAM/activity-index.md`).
 
-## Reader: keep my reading history and reading list
-
-```mermaid
-flowchart LR
-  A(["Reader wants to track what they read<br>and plan a library visit"]) --> D{"History or saved books?"}
-  A -.->|"not signed in"| U11["UC-11: Register and sign in<br>(library card with email OTP)"]
-  U11 --> D
-  D -->|"history and preferences"| U7["UC-07: Update and view personal<br>reading history and preferences"]
-  D -->|"saved books"| U12["UC-12: Save physical books to a personal list<br>for finding them later in the library,<br>and remove them from the list"]
-  U7 --> Z(["History, progress and<br>preferences up to date"])
-  U12 --> Z2(["Saved list ready<br>for the library visit"])
-```
-
-| Step | Use case | Activity diagram | Screens |
-|---|---|---|---|
-| (if not signed in) | UC-11 Register and sign in (library card with email OTP) | `AD-UC-11.md` | S-F00-01, S-F00-02 (from modal "Sign in to continue?" on S-F03-02 or S-F03-03) |
-| 1 | UC-07 Update and view personal reading history and preferences | `AD-UC-07.md` | S-F03-02 |
-| 1 (alt) | UC-12 Save physical books to a personal list for finding them later in the library, and remove them from the list | `AD-UC-12.md` | S-F03-03 |
-
-The reader opens both from new links in the existing OPAC personal area. No arrow from UC-12 to
-UC-01: the saved books list already shows the shelf location of each book (AD-UC-12, FR-03-07).
 
 UC-11 has no flow of its own: the reader signs in only when a use case needs it (flows above).
 
-## On-site Staff: label new physical books
+## On-site Staff: keep physical books and reviews in order
 
 ```mermaid
 flowchart LR
-  A(["New physical books arrived<br>after the daily sync"]) --> U10["UC-10: Print QR code labels for physical books<br>(QR codes are generated automatically)"]
-  U10 --> Z(["Books carry printed QR labels"])
+  A(["Staff open the staff page: new books arrived<br>after the daily sync, or readers reported reviews"]) --> D{"What is waiting?"}
+  D -->|"new physical books"| U10["UC-10: Print QR code labels for physical books<br>(QR codes are generated automatically)"]
+  D -->|"reported reviews"| U13["UC-13: Remove reviews<br>that violate rules"]
+  U10 -->|"reported reviews also waiting"| U13
+  U13 -->|"new books also waiting"| U10
+  U10 --> Z1(["Books carry printed QR labels"])
+  U13 --> Z2(["Reported reviews handled"])
 ```
 
 | Step | Use case | Activity diagram | Screens |
 |---|---|---|---|
-| 1 | UC-10 Print QR code labels for physical books (QR codes are generated automatically) | `AD-UC-10.md` | S-F00-03, S-F04-01, S-F02-03 (modal "QR label sheet preview") |
+| 1 or 2 | UC-10 Print QR code labels for physical books (QR codes are generated automatically) | `AD-UC-10.md` | S-F00-03, S-F04-01, S-F02-03 (modal "QR label sheet preview") |
+| 1 or 2 | UC-13 Remove reviews that violate rules | `AD-UC-13.md` | S-F00-03, S-F04-01, S-F02-04 (modal "Remove this review?") |
 
-Staff sign in inside UC-10 (and UC-13) with their internal library account on S-F00-03 before the
-staff page opens (FR-04-07, FR-04-08), not through
-UC-11, which is the reader sign-in (AD-UC-10). The printed labels are what make UC-06 possible for
-readers (AD-UC-06 precondition).
+This flow joins the earlier flows "label new physical books" and "moderate reported reviews", which
+had one use case each (2026-11-09; open question L8-22 in `ACTIVITY DIAGRAM/activity-index.md`). Both
+jobs start from the same staff page S-F04-01 and are often done in the same visit. On-site Staff
+start only these two use cases, so two boxes is the most this flow can have.
 
-## On-site Staff: moderate reported reviews
-
-```mermaid
-flowchart LR
-  A(["Readers have reported reviews"]) --> U13["UC-13: Remove reviews<br>that violate rules"]
-  U13 --> Z(["Reported reviews handled"])
-```
-
-| Step | Use case | Activity diagram | Screens |
-|---|---|---|---|
-| 1 | UC-13 Remove reviews that violate rules | `AD-UC-13.md` | S-F00-03, S-F04-01, S-F02-04 (modal "Remove this review?") |
-
-Staff sign in inside UC-13 with their internal library account (FR-04-07), not through UC-11. UC-13
-handles the reports that readers send in UC-14 (flow "Reader: read and review a book"; AD-UC-13
-precondition).
+Staff sign in once with their internal library account on S-F00-03 before the staff page opens
+(FR-04-07, FR-04-08), not through UC-11, which is the reader sign-in (AD-UC-10, AD-UC-13). The printed
+labels are what make UC-06 possible for readers (AD-UC-06 precondition). UC-13 handles the reports
+that readers send in UC-14 (flow "Reader: read and review a book"; AD-UC-13 precondition).
 
 ## Use cases without a flow
 
@@ -214,25 +196,25 @@ precondition).
 
 ## Checks before you save
 
-- [x] Every actor that starts a use case has at least one flow. Reader: 5 flows; On-site Staff: 2
-      flows.
+- [x] Every actor that starts a use case has at least one flow. Reader: 3 flows; On-site Staff: 1
+      flow.
 - [x] An actor with clearly different goals has one flow per goal; no flow has more than about
-      9 boxes. Boxes per flow: find a book 5, find a room 1, discover books 6, read and review 5,
-      history and list 3, label books 1, moderate reviews 1. Largest flow: 6 boxes.
+      9 boxes. Boxes per flow: find my way 5, choose what to read 6, read and review 5, staff 2.
+      Largest flow: 6 boxes. No flow is a single use case: the flows that had one use case on each
+      path were joined on 2026-11-09 (open question L8-22 in `ACTIVITY DIAGRAM/activity-index.md`).
 - [x] Every actor name matches the Use Case Diagram and the Context Diagram. "Reader" and "On-site
       Staff", as on the Context Diagram (READER, ON-SITE STAFF) and in the "Primary actor" row of
       every activity diagram.
 - [x] Coverage: every in-scope use case of W0 Table 1 that a person starts appears in at least one
-      flow, with the same ID and name. UC-01 (find a book, discover books), UC-02 (find a book, find
-      a room), UC-03 (find a book, discover books), UC-04 (read and review), UC-05 (read and
-      review), UC-06 (read and review), UC-07 (discover books, history and list), UC-08 (discover
-      books), UC-09 (discover books), UC-10 (label books), UC-11 (find a book, discover books, read
-      and review, history and list), UC-12 (find a book, history and list), UC-13 (moderate
-      reviews), UC-14 (read and review). The timed parts are under "Use cases without a flow"; no
+      flow, with the same ID and name. UC-01 (find my way, choose what to read), UC-02 (find my way),
+      UC-03 (find my way, choose what to read), UC-04 (read and review), UC-05 (read and review),
+      UC-06 (read and review), UC-07 (choose what to read), UC-08 (choose what to read), UC-09
+      (choose what to read), UC-10 (staff), UC-11 (find my way, choose what to read, read and
+      review), UC-12 (find my way), UC-13 (staff), UC-14 (read and review). The timed parts are under "Use cases without a flow"; no
       Won't-have item appears.
 - [x] No box is a click or a screen; no box tells two use cases. Every box is one `UC-xx` with its
-      W0 name; the only diamonds are the reader's choice between use cases.
-- [x] Every flow renders on mermaid.live. All 7 diagrams were parsed without error by Mermaid
+      W0 name; the only diamonds are the reader's or the staff's choice between use cases.
+- [x] Every flow renders on mermaid.live. All 4 diagrams were parsed without error by Mermaid
       11.4.1 (the engine behind mermaid.live); every label is in double quotes and no node is named
       `end`.
 - [x] After Block 2: every step has at least one screen, and every screen in the screen list
