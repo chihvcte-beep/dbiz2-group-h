@@ -7,7 +7,7 @@
 | Nhóm / sản phẩm | Group H · Group H Library Core System |
 | Phiên bản hướng dẫn | v1.0 · 12/11/2026 |
 | Hạn nộp UI Conventions (v0.1) | **14/11/2026** — đủ mục 1–6 của `ui-conventions.md` và 3 tệp khung (`tokens.css`, `_template.html`, `components.html`), để 4 bạn wireframe bắt đầu vẽ ảnh |
-| Hạn bản chốt v1.0 | **17/11/2026** — thêm mục 7 (soát nhất quán, làm dần khi các bạn nộp) và ảnh `ui-components.png`; cùng hạn với các bạn wireframe |
+| Hạn bản chốt v1.0 | Thêm mục 7 (soát nhất quán wireframe): làm dần khi 4 bạn nộp, xong ngay sau hạn wireframe **17/11/2026** |
 
 > **Tệp này viết cho hai người đọc: bạn và trợ lý AI bạn dùng.**
 > Khi làm việc với AI (ChatGPT, Claude, Gemini…), hãy đính kèm tệp này cùng các tệp đầu vào ở
@@ -29,8 +29,8 @@ sách online) **không phải màn hình của sản phẩm** — chúng chỉ l
 - **On-site Staff** (nhân viên thư viện) — dùng máy tính của thư viện.
 
 **Lesson 8 gồm những gì.** Nhóm đã xong `usage-flow.md`, `screen-list.md`, `screen-transition.md`.
-Phần còn lại là `ui-conventions.md` (bạn) và một **Screen Spec + ảnh wireframe** cho từng màn hình
-(4 bạn còn lại).
+Phần còn lại là `ui-conventions.md` (bạn) và, cho từng màn hình, **wireframe** (4 bạn còn lại, giai
+đoạn 1, hạn 17/11/2026) rồi **Screen Spec** (giai đoạn 2, giao sau).
 
 **Chia việc trong nhóm.**
 
@@ -53,14 +53,14 @@ nào. Tệp của bạn là "luật" cho mọi màn hình.
 
 | # | Tệp | Nội dung | Hạn |
 |---|---|---|---|
-| 1 | `EXTERNAL DESIGN/ui-conventions.md` | 6 mục theo mẫu của giáo viên + mục 7 "Change log and consistency review" | v0.1 (14/11/2026): đủ mục 1–6 · v1.0 (17/11/2026): thêm mục 7 |
+| 1 | `EXTERNAL DESIGN/ui-conventions.md` | 6 mục theo mẫu của giáo viên + mục 7 "Change log and consistency review" | v0.1 (14/11/2026): đủ mục 1–6 · v1.0 (sau 17/11/2026): thêm mục 7 |
 | 2 | `EXTERNAL DESIGN/screens/src/tokens.css` | Toàn bộ design token ở mục 6, viết thành biến CSS, kèm kiểu dáng của các thành phần ở mục 3 | 14/11/2026 |
 | 3 | `EXTERNAL DESIGN/screens/src/_template.html` | Khung HTML rỗng cho MỘT màn hình: chọn trạng thái bằng phần `#` của địa chỉ, bật số thứ tự bằng `-numbered` (chi tiết ở bước 9) | 14/11/2026 |
 | 4 | `EXTERNAL DESIGN/screens/src/components.html` | Một trang mẫu vẽ MỌI thành phần ở mục 3, đủ các trạng thái (bình thường, đang chọn, vô hiệu, lỗi) | 14/11/2026 |
-| 5 | `EXTERNAL DESIGN/screens/img/ui-components.png` | Ảnh chụp `components.html` để người đọc không cần mở HTML | 17/11/2026 |
-| 6 | Mục 7 trong `ui-conventions.md` | Kết quả soát nhất quán từng màn hình của 4 bạn | làm dần khi 4 bạn nộp, xong trước 17/11/2026 |
+| 5 | `EXTERNAL DESIGN/screens/img/ui-components.png` | Ảnh chụp `components.html` để người đọc không cần mở HTML | 14/11/2026 |
+| 6 | Mục 7 trong `ui-conventions.md` | Kết quả soát nhất quán từng màn hình của 4 bạn | làm dần khi 4 bạn nộp, xong ngay sau 17/11/2026 |
 
-**Bạn KHÔNG làm:** không vẽ màn hình cụ thể, không viết Screen Spec, không sửa `screen-list.md`,
+**Bạn KHÔNG làm:** không vẽ màn hình cụ thể, không viết tệp ghi chú hay Screen Spec, không sửa `screen-list.md`,
 `screen-transition.md`, các AD. Thấy chỗ cần sửa ở các tệp đó → báo nhóm.
 
 ---
@@ -90,8 +90,8 @@ tên, câu EARS) dán vào khung chat dưới dạng văn bản.
   ui-conventions.md                ← bạn
   screen-list.md, screen-transition.md, usage-flow.md   (đã có, không sửa)
   screens/
-    screen-spec-S-Fxx-nn.md        ← 4 bạn wireframe
-    modal-M-xxx.md                 ← wireframe 1 và 3
+    notes/S-Fxx-nn-notes.md, notes/M-xxx-notes.md   ← 4 bạn wireframe (giai đoạn 1)
+    screen-spec-S-Fxx-nn.md        ← 4 bạn wireframe (giai đoạn 2, giao sau)
     src/
       tokens.css                   ← bạn
       _template.html               ← bạn
@@ -111,8 +111,8 @@ tên, câu EARS) dán vào khung chat dưới dạng văn bản.
 Đi qua 15 màn hình và 5 modal trong `screen-list.md`, cùng bảng "What is deliberately not a screen",
 và lập danh sách mọi loại thành phần sẽ xuất hiện. Danh sách gợi ý dưới đây đã được soạn sẵn từ
 tài liệu của nhóm — **kiểm tra lại, thêm bớt nếu cần, rồi đưa vào mục 3 của `ui-conventions.md`**.
-Tên thành phần viết bằng tiếng Anh; 4 bạn wireframe sẽ dùng **đúng các tên này** ở cột "Type" của
-Screen Spec.
+Tên thành phần viết bằng tiếng Anh; 4 bạn wireframe sẽ dùng **đúng các tên này** ở cột "Component" của
+tệp ghi chú wireframe (sau này là cột "Type" của Screen Spec).
 
 | Component (tên chuẩn) | Dùng khi | Xuất hiện ở |
 |---|---|---|
@@ -226,7 +226,7 @@ Dùng bảng gợi ý sau (đã lấy ví dụ từ các AD của nhóm). Mỗi 
    - "Shelf location unavailable, ask at the ground-floor information desk." (FR-01-07, AD-UC-01
      câu hỏi 2) — dùng ở S-F01-01 và S-F03-03.
 3. Ghi rõ: **câu chữ của từng thông báo riêng của màn hình do người vẽ màn hình đó viết** trong
-   Screen Spec, theo đúng pattern ở trên; bạn soát lại ở bước 11.
+   wireframe và tệp ghi chú, theo đúng pattern ở trên; bạn soát lại ở bước 11.
 4. Ghi rõ **thông báo nằm ở đâu**: lỗi của ô nhập → Inline error ngay dưới ô; lỗi của cả màn
    hình → Banner đầu nội dung; thành công ngắn → Toast; hỏi xác nhận → Modal.
 
@@ -295,7 +295,7 @@ phải hiện đúng một khối.
 
 ### Bước 11 — Soát nhất quán các wireframe (cổng kiểm tra cuối)
 
-Khi mỗi bạn nộp Screen Spec + ảnh, soát bằng **Lời nhắc C** ở mục 7 và ghi kết quả vào mục 7 của
+Khi mỗi bạn nộp wireframe (tệp ghi chú + HTML + ảnh), soát bằng **Lời nhắc C** ở mục 7 và ghi kết quả vào mục 7 của
 `ui-conventions.md`:
 
 | Screen / modal | Màu chỉ từ token | Tên thành phần đúng mục 3 | Thông báo đúng pattern mục 4 | Tiếp cận (mục 5) | Khổ ảnh đúng | Kết quả | Người soát / ngày |
@@ -365,11 +365,11 @@ Sau khi xong, liệt kê mọi màu xuất hiện trong 3 tệp và chứng minh
 ### Lời nhắc C — Soát một wireframe của bạn khác
 
 ```text
-Đây là ui-conventions.md (phiên bản <v>), tokens.css, và bài của một thành viên: Screen Spec
-<screen-spec-S-Fxx-nn.md>, tệp HTML <S-Fxx-nn.html> và các ảnh PNG. Hãy soát và trả về bảng:
+Đây là ui-conventions.md (phiên bản <v>), tokens.css, và bài wireframe của một thành viên: tệp ghi chú
+<notes/S-Fxx-nn-notes.md>, tệp HTML <S-Fxx-nn.html> và các ảnh PNG. Hãy soát và trả về bảng:
 Screen | Màu chỉ từ token | Tên thành phần đúng mục 3 | Thông báo đúng pattern mục 4 |
 Tiếp cận theo mục 5 | Khổ ảnh đúng (360px x3 = 1080px, hoặc 1280px) | Kết quả.
-Với mỗi điểm "Fail", ghi chính xác chỗ sai (dòng trong HTML hoặc # trong Element inventory) và cách
+Với mỗi điểm "Fail", ghi chính xác chỗ sai (dòng trong HTML hoặc # trong phần Elements của tệp ghi chú) và cách
 sửa. Không tự sửa tệp.
 ```
 

@@ -1,4 +1,4 @@
-# Hướng dẫn Lesson 8 — Wireframe và Screen Spec, phần 4: Đọc cá nhân và AI
+# Hướng dẫn Lesson 8 — Wireframe, phần 4: Đọc cá nhân và AI
 
 | Mục | Nội dung |
 |---|---|
@@ -6,8 +6,8 @@
 | Vai trò | Wireframe 4 (Trieu) — Đọc cá nhân và AI |
 | Nhóm / sản phẩm | Group H · Group H Library Core System |
 | Phiên bản hướng dẫn | v1.0 · 12/11/2026 |
-| Hạn viết xong phần chữ (bước 1–2) | **14/11/2026** — cùng ngày Linh nộp UI Conventions, để bắt đầu vẽ ảnh ngay |
-| Hạn nộp ảnh + Screen Spec hoàn chỉnh | **17/11/2026** |
+| Hạn nộp wireframe (giai đoạn 1) | **17/11/2026** (bộ quy ước UI của Linh có từ 14/11/2026) |
+| Screen Spec (giai đoạn 2) | Chưa làm — sẽ giao riêng sau khi wireframe xong |
 
 > **Tệp này viết cho hai người đọc: bạn và trợ lý AI bạn dùng.**
 > Khi làm việc với AI (ChatGPT, Claude, Gemini…), hãy đính kèm tệp này cùng các tệp đầu vào ở
@@ -27,9 +27,15 @@ Sản phẩm có **15 màn hình** và **5 modal**, phục vụ 2 tác nhân: **
 tính) và **On-site Staff** (máy tính của thư viện).
 
 **Lesson 8 gồm những gì.** Nhóm đã xong `usage-flow.md`, `screen-list.md`, `screen-transition.md`.
-Phần còn lại: `ui-conventions.md` (Linh làm gốc) và **một Screen Spec + bộ ảnh wireframe cho
-từng màn hình** (4 bạn, trong đó có bạn). Sang DBIZ3, AI lập trình sẽ đọc đúng các Screen Spec này để
-dựng màn hình — viết sai hay thiếu ở đây là sai ở sản phẩm.
+Phần còn lại: `ui-conventions.md` (Linh làm gốc) và, cho từng màn hình, **bộ ảnh wireframe** rồi
+**Screen Spec**. Làm theo 2 giai đoạn:
+
+- **Giai đoạn 1 (tệp này, hạn 17/11/2026): chỉ vẽ wireframe** — ảnh cho mọi trạng thái, ảnh đánh số,
+  mã nguồn HTML, và một tệp ghi chú ngắn cho mỗi màn hình.
+- **Giai đoạn 2 (giao sau): Screen Spec** — viết từ wireframe và tệp ghi chú đã có.
+
+Sang DBIZ3, AI lập trình sẽ đọc wireframe và Screen Spec để dựng màn hình — vẽ sai hay thiếu ở đây là
+sai ở sản phẩm.
 
 **Chia việc trong nhóm.**
 
@@ -129,48 +135,45 @@ chatbot AI, và gợi ý sách. Cả 3 đều cần đăng nhập, nên đều d
 | # | Tệp | Lấy gì từ đó |
 |---|---|---|
 | 1 | `EXTERNAL DESIGN/screen-list.md` | Dòng của màn hình bạn (mục đích, điểm vào, UC/FR, priority); bảng "Modals and overlays"; bảng **"What is deliberately not a screen"** (các thông báo = trạng thái của màn hình bạn); bảng **"Activity diagram actions mapped to screens"** (mọi hành động người dùng làm trên màn hình bạn) |
-| 2 | `EXTERNAL DESIGN/screen-transition.md` | Các mũi tên đi ra/đi vào màn hình bạn → cột "Goes to screen" ở mục 5 của Screen Spec |
+| 2 | `EXTERNAL DESIGN/screen-transition.md` | Các mũi tên đi ra/đi vào màn hình bạn → nút, liên kết phải có trên hình |
 | 3 | `EXTERNAL DESIGN/usage-flow.md` | Màn hình bạn nằm ở bước nào trong luồng của người dùng |
 | 4 | Các AD ở mục 2 của tệp này (`ACTIVITY DIAGRAM/AD-UC-xx.md`) | Mục 2 Node trace (hành động + FR), mục 3 Branches (= các trạng thái và dữ liệu mẫu), mục 5 Screens touched, mục 6 Open questions |
 | 5 | `ACTIVITY DIAGRAM/activity-index.md`, bảng câu hỏi `L8-xx` | Các quyết định Lesson 8 đã chốt về màn hình |
-| 6 | `GROUP-H_UC_FR_COST.xlsx` — sheet **W1_FunctionList** (câu EARS của FR), **W4_Prioritization** (priority hiệu lực), **W0_Scope** Table 3 (Won't-have) và Table 4 (nhóm dữ liệu) | Nội dung FR, giới hạn dữ liệu, những gì KHÔNG được vẽ |
-| 7 | `1793594740300_external-design-templates/templates/screen-spec-template.md` | Khung Screen Spec bắt buộc |
-| 8 | Mẫu Screen Spec của giáo viên: https://github.com/chienact-code/dbiz2-labdesk-example/blob/main/docs/external-design/screens/screen-spec-S-F01-02.md | Cách viết đầy đủ: một ảnh cho mỗi trạng thái, ảnh đánh số khớp Element inventory |
-| 9 | Từ Linh (UI Conventions): `EXTERNAL DESIGN/ui-conventions.md`, `screens/src/tokens.css`, `screens/src/_template.html`, `screens/src/components.html` | Màu, chữ, khoảng cách, tên thành phần, mẫu câu thông báo, khung HTML. **Chưa có bản v0.1 thì chưa vẽ ảnh** (làm trước bước 1–2) |
+| 6 | `GROUP-H_UC_FR_COST.xlsx` — sheet **W1_FunctionList** (câu EARS của FR), **W0_Scope** Table 3 (Won't-have) và Table 4 (nhóm dữ liệu) | Nội dung FR, giới hạn dữ liệu, những gì KHÔNG được vẽ |
+| 7 | Mẫu của giáo viên: https://github.com/chienact-code/dbiz2-labdesk-example/tree/main/docs/external-design/screens/img | Một bộ ảnh hoàn chỉnh: ảnh Default, ảnh đánh số, một ảnh cho mỗi trạng thái |
+| 8 | Từ Linh (UI Conventions): `EXTERNAL DESIGN/ui-conventions.md`, `screens/src/tokens.css`, `screens/src/_template.html`, `screens/src/components.html` | Màu, chữ, khoảng cách, tên thành phần, mẫu câu thông báo, khung HTML. **Chưa có thì chưa vẽ** — làm trước bước 1–2 |
 
 **Mẹo cho AI không đọc được tệp Excel:** mở sheet W1, sao chép các hàng FR có trong mục 2 của tệp
 này (cột mã FR, tên, câu EARS) dán vào khung chat dưới dạng văn bản.
 
 ---
 
-## 4. Kết quả phải nộp
+## 4. Kết quả phải nộp (giai đoạn 1: chỉ wireframe)
 
 ```text
 [DBIZ 2] GROUP H/EXTERNAL DESIGN/screens/
-  screen-spec-<Screen ID>.md          một tệp cho mỗi màn hình của bạn
-  modal-<Modal ID>.md                 một tệp cho mỗi modal của bạn (nếu có)
-  src/<Screen ID>.html                mã nguồn wireframe (sao chép từ _template.html)
-  src/<Modal ID>.html
-  img/<Screen ID>.png                 trạng thái Default
-  img/<Screen ID>-numbered.png        Default có vòng tròn số
-  img/<Screen ID>-empty.png           mỗi trạng thái có hình thì một ảnh
-  img/<Screen ID>-loading.png
-  img/<Screen ID>-error.png           nhiều lỗi: -error-2.png, -error-3.png …
-  img/<Screen ID>-success.png
-  img/<Screen ID>-error-numbered.png  khi trạng thái lỗi có thành phần không có ở Default
-  img/<Modal ID>.png
+  notes/<ID>-notes.md                 tệp ghi chú ngắn cho mỗi màn hình / modal (mẫu ở bước 2)
+  src/<ID>.html                       mã nguồn wireframe (sao chép từ _template.html)
+  img/<ID>.png                        trạng thái Default
+  img/<ID>-numbered.png               Default có vòng tròn số
+  img/<ID>-empty.png                  mỗi trạng thái có hình thì một ảnh
+  img/<ID>-loading.png
+  img/<ID>-error.png                  nhiều lỗi: -error-2.png, -error-3.png …
+  img/<ID>-success.png
+  img/<ID>-error-numbered.png         khi trạng thái lỗi có thành phần không có ở Default
 ```
 
-- Trạng thái **không áp dụng** cho màn hình (ví dụ màn hình không bao giờ trống) thì **không vẽ
-  ảnh**, nhưng phải ghi "Not applicable: <lý do>" ở mục 4 của Screen Spec.
-- Một trạng thái có nhiều biến thể lỗi: vẽ ít nhất biến thể quan trọng nhất; các biến thể khác
-  vẽ thêm nếu bố cục khác đi, nếu chỉ khác câu chữ thì mô tả ở mục 4 (như mẫu giáo viên).
+`<ID>` là Screen ID (ví dụ `S-F01-01`) hoặc Modal ID (ví dụ `M-F00-01`). Modal chỉ cần ảnh
+`img/<Modal ID>.png` (vẽ trên nền màn hình cha mờ) và tệp ghi chú.
 
-**Quy ước riêng của nhóm cho modal** (mẫu giáo viên không có modal): mỗi modal có tệp
-`modal-<Modal ID>.md` gồm bảng đầu tệp (Modal ID, tên, mở từ màn hình nào, actor, FR, AD, ảnh),
-rồi 4 mục: **1. Purpose**, **2. Mockup**, **3. Element inventory**, **4. Interactions**
-(Element | User action | System response | Goes to). Screen Spec của màn hình mở modal ghi Modal ID
-ở cột "Goes to screen" của mục 5.
+- Trạng thái **không áp dụng** cho màn hình thì **không vẽ ảnh**, nhưng ghi "Not applicable:
+  <lý do>" trong tệp ghi chú.
+- Một trạng thái có nhiều biến thể lỗi: vẽ ít nhất biến thể quan trọng nhất; vẽ thêm biến thể khác
+  nếu bố cục khác đi, nếu chỉ khác câu chữ thì ghi câu chữ trong tệp ghi chú.
+
+**Chưa làm Screen Spec ở giai đoạn này.** Screen Spec (`screen-spec-<ID>.md`) sẽ được giao sau khi
+wireframe xong. Tệp ghi chú là phần chuẩn bị cho nó: danh sách thành phần đánh số chính là mục 3
+"Element inventory" của Screen Spec sau này, nên **giữ ổn định số thứ tự** sau khi đã chụp ảnh.
 
 ---
 
@@ -178,103 +181,107 @@ rồi 4 mục: **1. Purpose**, **2. Mockup**, **3. Element inventory**, **4. Int
 
 ### Bước 1 — Lập bảng hành động và bảng trạng thái cho từng màn hình (chưa vẽ gì)
 
-Với **mỗi** màn hình của bạn:
+Với **mỗi** màn hình / modal của bạn:
 
 1. Trong `screen-list.md`, bảng "Activity diagram actions mapped to screens": lọc mọi dòng có
-   Screen ID của bạn → đây là danh sách **hành động** bắt buộc phải có trên màn hình (mỗi dòng ít
-   nhất một dòng ở mục 5 Interactions).
-2. Trong bảng "What is deliberately not a screen": lọc mọi dòng nhắc Screen ID của bạn → đây là
-   danh sách **trạng thái và thông báo** (mỗi dòng phải xuất hiện ở mục 4 States).
-3. Trong `screen-transition.md`: lọc mọi mũi tên đi ra từ màn hình bạn → cột "Goes to screen".
+   Screen ID của bạn → danh sách **hành động** bắt buộc phải có nút / ô / liên kết trên hình.
+2. Trong bảng "What is deliberately not a screen": lọc mọi dòng nhắc Screen ID của bạn → danh sách
+   **trạng thái và thông báo** phải vẽ.
+3. Trong `screen-transition.md`: lọc mọi mũi tên đi ra từ màn hình bạn → nút Back, liên kết, nút
+   dẫn sang màn hình khác.
 4. Đối chiếu với mục 3 "Branches and acceptance tests" của các AD liên quan: mỗi nhánh mà người
    dùng nhìn thấy kết quả trên màn hình bạn phải khớp một trạng thái.
 
-### Bước 2 — Viết phần chữ của Screen Spec
+### Bước 2 — Viết tệp ghi chú `screens/notes/<ID>-notes.md`
 
-Tạo `screens/screen-spec-<Screen ID>.md` từ template. Viết **trước khi vẽ**: bảng đầu tệp, mục 1,
-3, 4, 5, 6, 7, 9. Mục 2 và 8 để sau.
+Ngắn, bằng tiếng Anh, đúng 4 phần sau:
 
-- **Bảng đầu tệp**: lấy Actor, Priority, Feature, UC/FR từ dòng của `screen-list.md`. Thêm dòng
-  "Frame width": 360px (Reader) hoặc 1280px (Staff) — theo `ui-conventions.md`. Dòng "Figma
-  frame": "not used (drawn as an HTML wireframe)". Status: Draft.
-- **Mục 1 Purpose**: "Shown when" và "The user leaves this screen when" — viết lại ngắn từ cột
-  "Shown when" và từ `screen-transition.md`.
-- **Mục 3 Element inventory**: đi từ trên xuống dưới, trái sang phải. Mỗi thứ người dùng nhìn
-  thấy hoặc bấm được là một dòng. Cột **Element** = tên ổn định bằng tiếng Anh (AI lập trình sẽ
-  dùng làm tên component). Cột **Type** = đúng tên thành phần ở mục 3 của `ui-conventions.md`.
-  Cột **Content / data source** = chữ cố định, hoặc trường dữ liệu theo bảng ở mục 9 của tệp này,
-  kèm FR. Cột **Validation** = luật, hoặc "none".
-- **Mục 4 States**: đủ 5 dòng Default, Empty, Loading, Error, Success. Mỗi trạng thái ghi FR gây
-  ra nó. Câu chữ thông báo viết theo **mẫu câu ở mục 4 của `ui-conventions.md`**; câu dùng chung
-  (modal đăng nhập, "Shelf location unavailable…") chép đúng nguyên văn từ đó.
-- **Mục 5 Interactions**: mỗi hành động từ bước 1 là ít nhất một dòng; "Goes to screen" chỉ được
-  là Screen ID / Modal ID có trong `screen-list.md`, "stays", hoặc tên trang OPAC hiện có
-  (ví dụ "Existing OPAC Book Detail (exit)").
-- **Mục 6 Screen-level rules**: luật `SR-001`, `SR-002`… lấy từ FR (giới hạn, điều kiện hiển thị),
-  từ quyết định `L8-xx`, và từ `ui-conventions.md` mục 5 (không chỉ dùng màu…).
-- **Mục 7 Linked requirements**: mọi FR ở dòng của màn hình trong `screen-list.md`, mỗi FR một câu
-  "màn hình này làm gì cho FR đó".
-- **Mục 9 Open questions**: các câu hỏi ở mục 2 của tệp này, cộng với câu hỏi bạn phát hiện thêm.
+```markdown
+# Wireframe notes: <ID> <name>
+
+Actor: <Reader | On-site Staff> · Frame: <360px | 1280px> · UI conventions: <version> · Author: <tên>
+
+## Elements
+| # | Element | Component | Content / data source | FR |
+|---|---|---|---|---|
+| 1 | Back | Screen header | static | — |
+
+## States drawn
+| State | Image | What the user sees | FR |
+|---|---|---|---|
+| Default | img/<ID>.png | | |
+| Empty | Not applicable: <lý do> | | |
+
+## Actions and where they go
+| Element | User action | Goes to |
+|---|---|---|
+| View on map | tap | S-F01-02 |
+
+## Open questions
+| # | Question | Default drawn |
+|---|---|---|
+| 1 | [NEEDS CLARIFICATION: ...] | |
+```
+
+- **Elements**: đi từ trên xuống dưới, trái sang phải; mỗi thứ người dùng nhìn thấy hoặc bấm được
+  là một dòng. Cột Element = tên tiếng Anh ổn định. Cột Component = đúng tên thành phần ở mục 3
+  của `ui-conventions.md`. Cột Content = chữ cố định, hoặc trường dữ liệu theo mục 9 của tệp này.
+- **States drawn**: đủ 5 dòng Default, Empty, Loading, Error, Success (thêm Error-2… nếu có).
+- **Actions**: mỗi hành động ở bước 1 là ít nhất một dòng. "Goes to" chỉ được là Screen ID /
+  Modal ID có trong `screen-list.md`, "stays", hoặc trang OPAC hiện có (ví dụ "Existing OPAC Book
+  Detail (exit)").
+- **Open questions**: các câu hỏi ở mục 2 của tệp này, cộng câu hỏi bạn phát hiện thêm, kèm
+  phương án bạn đã tạm vẽ.
 
 ### Bước 3 — Nhận bộ quy ước UI
 
-Kiểm tra đã có `ui-conventions.md` v0.1 và 3 tệp trong `screens/src/`. Ghi phiên bản đang dùng
-vào bảng đầu Screen Spec (dòng "UI conventions version"). Sửa lại cột Type ở mục 3 cho khớp tên
-thành phần chính thức.
+Kiểm tra đã có `ui-conventions.md` và 3 tệp trong `screens/src/` của Linh. Ghi phiên bản đang dùng
+vào dòng đầu tệp ghi chú. Sửa cột Component cho khớp tên thành phần chính thức.
 
 ### Bước 4 — Vẽ wireframe bằng HTML với AI
 
-1. Sao chép `screens/src/_template.html` thành `screens/src/<Screen ID>.html`.
+1. Sao chép `screens/src/_template.html` thành `screens/src/<ID>.html`.
 2. Dùng **Lời nhắc B** ở mục 7. AI phải:
    - chỉ dùng biến trong `tokens.css` và lớp thành phần có sẵn; không tự đặt màu mới;
-   - vẽ **đúng và đủ** các dòng ở mục 3 Element inventory — không thêm, không bớt;
-   - vẽ mỗi trạng thái ở mục 4 trong một khối `<section data-state="...">`;
-   - gắn vòng tròn số `<span class="num">#</span>` vào từng thành phần, số = cột `#` ở mục 3;
+   - vẽ **đúng và đủ** các dòng ở phần Elements của tệp ghi chú — không thêm, không bớt;
+   - vẽ mỗi trạng thái trong một khối `<section data-state="...">`;
+   - gắn vòng tròn số `<span class="num">#</span>` vào từng thành phần, số = cột `#` của Elements;
    - dùng **dữ liệu mẫu chung** ở mục 9 của tệp này và dữ liệu trong mục 3 của các AD;
    - không vẽ trang OPAC cũ, không vẽ logo/tên thư viện thật, không dùng ảnh bìa sách thật
      (dùng khối xám ghi "Cover").
-3. Mở tệp bằng Chrome để xem: `<Screen ID>.html#default`, `#empty`, `#error`… Sửa đến khi đúng.
+3. Mở tệp bằng Chrome để xem: `<ID>.html#default`, `#empty`, `#error`… Sửa đến khi đúng.
 
 ### Bước 5 — Xuất ảnh PNG bằng Chrome
 
-1. Mở `src/<Screen ID>.html#default` trong Chrome, nhấn **F12**, rồi **Ctrl + Shift + M** (thanh
-   giả lập thiết bị).
+1. Mở `src/<ID>.html#default` trong Chrome, nhấn **F12**, rồi **Ctrl + Shift + M** (thanh giả lập
+   thiết bị).
 2. Chọn **Dimensions: Responsive**. Màn hình Reader: rộng **360**, DPR **3**. Màn hình Staff:
    rộng **1280**, DPR **1**. (Không thấy ô DPR: bấm dấu ⋮ trên thanh giả lập → "Add device pixel
    ratio".)
 3. Bấm ⋮ trên thanh giả lập → **Capture full size screenshot**.
-4. Đổi tên tệp tải về thành `<Screen ID>.png`, chép vào `screens/img/`. Kiểm tra ảnh rộng đúng
-   1080px (Reader) hoặc 1280px (Staff).
-5. Lặp lại với `#empty`, `#loading`, `#error`, `#success` → `<Screen ID>-<state>.png`.
+4. Đổi tên tệp tải về thành `<ID>.png`, chép vào `screens/img/`. Kiểm tra ảnh rộng đúng 1080px
+   (Reader) hoặc 1280px (Staff).
+5. Lặp lại với `#empty`, `#loading`, `#error`, `#success` → `<ID>-<state>.png`.
 
 ### Bước 6 — Ảnh đánh số
 
-Mở `#default-numbered`, chụp thành `<Screen ID>-numbered.png`. Mọi dòng ở mục 3 phải có số trên
-ảnh. Thành phần chỉ xuất hiện ở trạng thái khác (ví dụ Message area chỉ có khi lỗi) → chụp thêm
-`#error-numbered` thành `<Screen ID>-error-numbered.png` và ghi chú như mẫu giáo viên.
+Mở `#default-numbered`, chụp thành `<ID>-numbered.png`. Mọi dòng ở phần Elements phải có số trên
+ảnh. Thành phần chỉ xuất hiện ở trạng thái khác (ví dụ thông báo lỗi) → chụp thêm
+`#error-numbered` thành `<ID>-error-numbered.png`.
 
-### Bước 7 — Hoàn thiện Screen Spec
-
-- **Mục 2 Mockup**: ảnh Default, bảng ảnh đánh số, bảng "State | Image" như mẫu giáo viên, câu
-  "All colours, fonts and corners come from the design tokens in ui-conventions.md".
-- **Mục 8 Responsive and accessibility**: khổ nhỏ nhất, cái gì xếp chồng khi màn hình hẹp, thông
-  tin nào không chỉ dùng màu, cỡ chữ.
-- **Checklist cuối Screen Spec**: chỉ đánh dấu [x] khi đã thật sự kiểm tra; ghi ngắn bằng chứng.
-- Đổi Status thành "Reviewed" sau khi qua bước 8.
-
-### Bước 8 — Tự soát, soát chéo, gửi soát nhất quán
+### Bước 7 — Tự soát, soát chéo, gửi Linh soát
 
 1. Dùng **Lời nhắc C** ở mục 7 để AI soát bài của chính bạn. Sửa hết lỗi.
 2. **Soát chéo**: Wireframe 1 (Ha) ↔ Wireframe 3 (Hoa), Wireframe 2 (Nhi) ↔ Wireframe 4 (Trieu). Người soát kiểm tra
    checklist ở mục 8 và ghi nhận xét cho người kia (không sửa hộ).
 3. Báo Linh (UI Conventions) để soát màu/thành phần/thông báo (cổng cuối).
 
-### Bước 9 — Đưa lên Git
+### Bước 8 — Đưa lên Git
 
 Làm như nhóm đang làm: tạo nhánh riêng của bạn, commit các tệp ở mục 4, mở pull request vào
 `main`. **Chỉ commit tệp của bạn.** Thấy cần sửa `screen-list.md`, `screen-transition.md`, AD,
-W1 hay `ui-conventions.md` → không tự sửa; ghi vào mục 9 Open questions và nhắn nhóm/người phụ
-trách.
+W1 hay `ui-conventions.md` → không tự sửa; ghi vào Open questions của tệp ghi chú và nhắn
+nhóm/người phụ trách.
 
 ---
 
@@ -295,10 +302,9 @@ trách.
    phải modal mới.
 5. **Chỉ dùng 5 modal đã có** trong `screen-list.md`. Không tạo modal mới.
 6. **Gọi theo mã, không kể lại.** Viết `FR-02-01`, `S-F01-02`, `L8-07`; không chép lại câu FR.
-7. **Không bịa mã.** Không tạo Screen ID, Modal ID, FR mới. Luật màn hình `SR-nnn` thì đánh số
-   riêng trong từng Screen Spec.
-8. **Thiếu thì hỏi.** Ghi `[NEEDS CLARIFICATION: <câu hỏi>]` ở mục 9, kèm "Blocking? Yes/No" và
-   giá trị mặc định bạn tạm dùng. Không ghi phỏng đoán như thể đã quyết định.
+7. **Không bịa mã.** Không tạo Screen ID, Modal ID, FR mới.
+8. **Thiếu thì hỏi.** Ghi `[NEEDS CLARIFICATION: <câu hỏi>]` trong Open questions của tệp ghi chú,
+   kèm phương án bạn tạm vẽ. Không ghi phỏng đoán như thể đã quyết định.
 9. **Màu, chữ, khoảng cách, góc bo, khổ khung chỉ lấy từ `ui-conventions.md` mục 6** (qua
    `tokens.css`). Tên thành phần chỉ lấy từ mục 3.
 10. **Không sửa ảnh bằng tay** (Paint, Photoshop). Đổi gì thì sửa HTML rồi chụp lại.
@@ -308,81 +314,79 @@ trách.
 
 ## 7. Lời nhắc mẫu để dán cho AI
 
-Thay `<Screen ID>` bằng màn hình đang làm. Làm **từng màn hình một**, không gộp nhiều màn hình
-vào một lần hỏi.
+Thay `<ID>` bằng màn hình / modal đang làm. Làm **từng màn hình một**, không gộp nhiều màn hình vào
+một lần hỏi.
 
-### Lời nhắc A — Viết phần chữ của Screen Spec
+### Lời nhắc A — Lập tệp ghi chú
 
 ```text
 Bạn là chuyên viên phân tích nghiệp vụ cho dự án sinh viên "Group H Library Core System".
-Tôi đính kèm: tệp hướng dẫn này, screen-spec-template.md, Screen Spec mẫu S-F01-02 của giáo viên,
-screen-list.md, screen-transition.md, activity-index.md, các AD: <liệt kê>, và các FR sau: <dán FR>.
+Tôi đính kèm: tệp hướng dẫn này, screen-list.md, screen-transition.md, activity-index.md,
+ui-conventions.md, các AD: <liệt kê>, và các FR sau: <dán FR>.
 
-Hãy viết EXTERNAL DESIGN/screens/screen-spec-<Screen ID>.md bằng tiếng Anh, theo đúng template:
-bảng đầu tệp, mục 1, 3, 4, 5, 6, 7, 9 (mục 2 và 8 để trống, ghi "to be completed after drawing").
-Làm theo bước 1 và bước 2 của tệp hướng dẫn. Trước khi viết, liệt kê cho tôi:
+Hãy viết EXTERNAL DESIGN/screens/notes/<ID>-notes.md bằng tiếng Anh, đúng mẫu ở bước 2 của tệp
+hướng dẫn. Trước khi viết, liệt kê cho tôi:
 (a) mọi hành động của người dùng trên màn hình này (từ bảng "Activity diagram actions mapped to
 screens"), (b) mọi trạng thái/thông báo (từ bảng "What is deliberately not a screen"),
-(c) mọi mũi tên đi ra (từ screen-transition.md). Sau khi viết, chứng minh mỗi mục (a) có một dòng ở
-mục 5, mỗi mục (b) có ở mục 4, mỗi mục (c) có ở cột "Goes to screen".
-Không thêm thành phần nào không phục vụ FR. Chỗ nào chưa rõ, ghi [NEEDS CLARIFICATION] ở mục 9.
+(c) mọi mũi tên đi ra (từ screen-transition.md). Sau khi viết, chứng minh mỗi mục (a) và (c) có một
+dòng ở "Actions and where they go", mỗi mục (b) có ở "States drawn".
+Không thêm thành phần nào không phục vụ FR. Chỗ nào chưa rõ, ghi [NEEDS CLARIFICATION] ở Open
+questions kèm phương án tạm vẽ.
 ```
 
 ### Lời nhắc B — Vẽ wireframe HTML
 
 ```text
 Tôi đính kèm: tệp hướng dẫn này, ui-conventions.md (phiên bản <v>), tokens.css, _template.html,
-components.html và screen-spec-<Screen ID>.md.
+components.html và <ID>-notes.md.
 
-Hãy tạo EXTERNAL DESIGN/screens/src/<Screen ID>.html bằng cách sao chép _template.html, rồi vẽ:
-- đúng và đủ các dòng của mục 3 Element inventory, theo thứ tự trên xuống dưới;
-- mỗi trạng thái ở mục 4 là một <section data-state="...">;
-- vòng tròn số <span class="num">#</span> trên mỗi thành phần, số = cột # của mục 3;
+Hãy tạo EXTERNAL DESIGN/screens/src/<ID>.html bằng cách sao chép _template.html, rồi vẽ:
+- đúng và đủ các dòng của phần Elements, theo thứ tự trên xuống dưới;
+- mỗi dòng của phần "States drawn" (trừ Not applicable) là một <section data-state="...">;
+- vòng tròn số <span class="num">#</span> trên mỗi thành phần, số = cột # của Elements;
 - chỉ dùng biến và lớp trong tokens.css, không viết màu trực tiếp;
 - khổ <360px Reader | 1280px Staff>; dữ liệu mẫu theo mục 9 của tệp hướng dẫn.
-Không thêm bất kỳ thành phần nào không có trong mục 3. Không dùng thư viện JavaScript ngoài.
+Không thêm bất kỳ thành phần nào không có trong phần Elements. Không dùng thư viện JavaScript ngoài.
 Cuối cùng, lập bảng đối chiếu: # | Element | có trên HTML không | ở trạng thái nào.
 ```
 
 ### Lời nhắc C — Tự soát trước khi nộp
 
 ```text
-Đây là bài của tôi cho <Screen ID>: Screen Spec, tệp HTML và danh sách ảnh trong img/.
-Hãy soát theo checklist ở mục 8 của tệp hướng dẫn và checklist cuối template, rồi trả về bảng:
+Đây là bài của tôi cho <ID>: tệp ghi chú, tệp HTML và danh sách ảnh trong img/.
+Hãy soát theo checklist ở mục 8 của tệp hướng dẫn, rồi trả về bảng:
 Mục kiểm tra | Pass/Fail | Bằng chứng hoặc chỗ sai | Cách sửa.
-Kiểm tra thêm: (1) mọi "Goes to screen" có trong screen-list.md; (2) mọi FR ở mục 7 có trong dòng
-của màn hình trong screen-list.md và ngược lại; (3) không có thành phần nào thuộc W0 Table 3;
-(4) mọi màu trong HTML là biến của tokens.css. Không tự sửa tệp, chỉ báo cáo.
+Kiểm tra thêm: (1) mọi "Goes to" có trong screen-list.md; (2) không có thành phần nào thuộc
+W0 Table 3; (3) mọi màu trong HTML là biến của tokens.css; (4) số trên ảnh đánh số khớp cột #.
+Không tự sửa tệp, chỉ báo cáo.
 ```
 
 ---
 
 ## 8. Checklist trước khi nộp (cho mỗi màn hình / modal)
 
-- [ ] Screen Spec theo đúng template; bảng đầu tệp có Frame width và phiên bản UI conventions.
-- [ ] Mọi hành động trong bảng "Activity diagram actions mapped to screens" của màn hình này có ít
-      nhất một dòng ở mục 5.
-- [ ] Mọi thông báo trong bảng "What is deliberately not a screen" của màn hình này có ở mục 4.
+- [ ] Có tệp ghi chú đủ 4 phần; dòng đầu ghi khổ khung và phiên bản UI conventions.
+- [ ] Mọi hành động trong bảng "Activity diagram actions mapped to screens" của màn hình này có nút /
+      ô / liên kết trên hình và có dòng trong "Actions and where they go".
+- [ ] Mọi thông báo trong bảng "What is deliberately not a screen" của màn hình này có trong
+      "States drawn" (vẽ ảnh, hoặc ghi câu chữ nếu chỉ khác chữ).
 - [ ] Đủ 5 trạng thái, hoặc ghi "Not applicable: <lý do>".
-- [ ] Mọi "Goes to screen" là Screen ID / Modal ID có trong `screen-list.md`, "stays", hoặc trang
-      OPAC hiện có; khớp mũi tên trong `screen-transition.md`.
-- [ ] Mọi FR ở dòng của màn hình trong `screen-list.md` có ở mục 7, và mục 7 không có FR lạ.
-- [ ] Mọi thành phần hiển thị dữ liệu ghi rõ trường dữ liệu (mục 9 của tệp này).
-- [ ] Mọi ô nhập có luật kiểm tra hoặc "none".
+- [ ] Mọi "Goes to" là Screen ID / Modal ID có trong `screen-list.md`, "stays", hoặc trang OPAC hiện
+      có; khớp mũi tên trong `screen-transition.md`.
 - [ ] Không có thành phần nào không phục vụ FR, không có gì thuộc W0 Table 3.
 - [ ] Ảnh: `<ID>.png`, `<ID>-numbered.png`, mỗi trạng thái có hình một ảnh; ảnh rộng 1080px
       (Reader) hoặc 1280px (Staff); số trên ảnh khớp cột `#`.
 - [ ] Mọi màu, chữ, góc bo đều từ token; tên thành phần đúng `ui-conventions.md` mục 3.
-- [ ] Câu hỏi còn mở đã ghi ở mục 9 với "Blocking?" và giá trị mặc định.
-- [ ] Đã qua soát chéo và soát nhất quán của bạn UI Conventions.
+- [ ] Câu hỏi còn mở đã ghi kèm phương án tạm vẽ.
+- [ ] Đã qua soát chéo và soát của Linh.
 
 ---
 
 ## 9. Dữ liệu dùng chung giữa 4 người vẽ
 
 Để 15 màn hình nói cùng một "ngôn ngữ dữ liệu", cả 4 bạn dùng **cùng tên trường** (cột "Content /
-data source" của mục 3) và **cùng dữ liệu mẫu**. Tên trường viết dạng `<Nhóm dữ liệu W0 Table 4> ›
-<trường>`.
+data source" của phần Elements) và **cùng dữ liệu mẫu**. Tên trường viết dạng `<Nhóm dữ liệu W0
+Table 4> › <trường>`.
 
 | Nhóm dữ liệu (W0 Table 4) | Trường dùng chung |
 |---|---|
