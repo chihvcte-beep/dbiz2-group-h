@@ -1,0 +1,319 @@
+<!doctype html>
+<!--
+  components.html — every component of ui-conventions.md v0.7 section 3, with its states.
+  Open in Chrome from disk, then screenshot to ../img/ui-components.png.
+  Reader components are drawn inside a 360px reader frame; staff components inside the staff frame.
+  This page writes no colour, size or font of its own: the <style> below only arranges the
+  showcase grid and uses tokens.css variables.
+-->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UI components · Group H Library Core System</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* showcase layout only — tokens only */
+    .page { width: var(--frame-width-staff); margin: 0 auto; padding: var(--space-8); display: flex; flex-direction: column; gap: var(--space-8); }
+    .page > header { display: flex; flex-direction: column; gap: var(--space-2); }
+    .page h1 { font-size: var(--font-size-title-staff); }
+    .comp { display: grid; grid-template-columns: calc(var(--space-12) * 5) 1fr; gap: var(--space-6); padding-top: var(--space-6); border-top: var(--border-width) solid var(--colour-border-light); }
+    .comp-name { display: flex; flex-direction: column; gap: var(--space-1); }
+    .comp-name h2 { font-size: var(--font-size-section-title); }
+    .comp-name code { font-size: var(--font-size-small); color: var(--colour-text-muted); }
+    .states { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: flex-start; }
+    .state { display: flex; flex-direction: column; gap: var(--space-2); }
+    .state > .cap { font-size: var(--font-size-small); color: var(--colour-text-muted); font-weight: var(--font-weight-medium); }
+    .reader-box { width: var(--frame-width-reader); background: var(--colour-background); }
+    .staff-box { background: var(--colour-background); }
+    .stack { display: flex; flex-direction: column; gap: var(--space-3); }
+    .row { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; }
+    .mini-frame { position: relative; width: var(--frame-width-reader); height: calc(var(--space-12) * 7); background: var(--colour-background); border: var(--border-width) solid var(--colour-border-light); overflow: hidden; }
+  </style>
+</head>
+<body data-frame="staff">
+  <!-- icon set: stroke icons, colour comes from the text (currentColor) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></symbol>
+    <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+    <symbol id="i-online" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM4 17a2 2 0 0 1 2-2h12"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+    <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3M21 14v7h-7"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4h11l-2 4 2 4H5"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></symbol>
+  </svg>
+
+  <div class="page">
+    <header>
+      <h1>UI components</h1>
+      <p class="muted">Group H Library Core System · ui-conventions.md v0.7 · sample data: Digital Marketing Basics, Tầng 2 · Phòng R-204 · Kệ S-12, thẻ 0012345, OTP 482913, staff.lan</p>
+    </header>
+
+    <!-- Screen header -->
+    <div class="comp"><div class="comp-name"><h2>Screen header</h2><code>.screen-header</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">default (reader)</span>
+          <div class="reader-box" data-frame="reader"><header class="screen-header"><button class="back" aria-label="Quay lại"><svg class="icon icon-lg"><use href="#i-back"/></svg></button><h1 class="screen-title">Vị trí kệ sách</h1></header></div></div>
+        <div class="state"><span class="cap">focus on Back</span>
+          <div class="reader-box" data-frame="reader"><header class="screen-header"><button class="back is-focus" aria-label="Quay lại"><svg class="icon icon-lg"><use href="#i-back"/></svg></button><h1 class="screen-title">Thông tin và đánh giá sách</h1></header></div></div>
+      </div></div>
+
+    <!-- Primary button -->
+    <div class="comp"><div class="comp-name"><h2>Primary button</h2><code>.primary-button</code><span class="small muted">one per screen · no icon</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><button class="primary-button">Lưu vào danh sách</button></div>
+        <div class="state"><span class="cap">hover</span><button class="primary-button is-hover">Lưu vào danh sách</button></div>
+        <div class="state"><span class="cap">focus</span><button class="primary-button is-focus">Lưu vào danh sách</button></div>
+        <div class="state"><span class="cap">pressed</span><button class="primary-button is-pressed">Lưu vào danh sách</button></div>
+        <div class="state"><span class="cap">disabled</span><button class="primary-button" disabled>Lưu vào danh sách</button></div>
+        <div class="state"><span class="cap">reader 360px, 48px high</span><div class="reader-box" data-frame="reader"><button class="primary-button">Gửi mã</button></div></div>
+      </div></div>
+
+    <!-- Secondary button -->
+    <div class="comp"><div class="comp-name"><h2>Secondary button</h2><code>.secondary-button</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><button class="secondary-button">Để sau</button></div>
+        <div class="state"><span class="cap">hover</span><button class="secondary-button is-hover">Để sau</button></div>
+        <div class="state"><span class="cap">focus</span><button class="secondary-button is-focus">Để sau</button></div>
+        <div class="state"><span class="cap">pressed</span><button class="secondary-button is-pressed">Huỷ</button></div>
+        <div class="state"><span class="cap">disabled</span><button class="secondary-button" disabled>Gửi mã mới</button></div>
+      </div></div>
+
+    <!-- Destructive button -->
+    <div class="comp"><div class="comp-name"><h2>Destructive button</h2><code>.destructive-button</code><span class="small muted">modal only · outline, never solid</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><button class="destructive-button"><svg class="icon"><use href="#i-trash"/></svg>Xoá đánh giá</button></div>
+        <div class="state"><span class="cap">hover</span><button class="destructive-button is-hover"><svg class="icon"><use href="#i-trash"/></svg>Xoá đánh giá</button></div>
+        <div class="state"><span class="cap">focus</span><button class="destructive-button is-focus"><svg class="icon"><use href="#i-trash"/></svg>Gỡ đánh giá</button></div>
+        <div class="state"><span class="cap">pressed</span><button class="destructive-button is-pressed"><svg class="icon"><use href="#i-trash"/></svg>Gỡ đánh giá</button></div>
+      </div></div>
+
+    <!-- Text link -->
+    <div class="comp"><div class="comp-name"><h2>Text link</h2><code>.text-link</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><a class="text-link">Xem sách này trên OPAC</a></div>
+        <div class="state"><span class="cap">focus</span><a class="text-link is-focus">Đặt sở thích đọc của bạn</a></div>
+        <div class="state"><span class="cap">inside info banner</span><div class="banner info"><svg class="icon"><use href="#i-info"/></svg><span>Dùng <a class="text-link">bộ lọc hình thức</a>.</span></div></div>
+      </div></div>
+
+    <!-- Text input -->
+    <div class="comp"><div class="comp-name"><h2>Text input</h2><code>.text-input</code><span class="small muted">label above · 16px text</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><div class="field reader-box" data-frame="reader"><label class="field-label">Số thẻ thư viện</label><input class="text-input" inputmode="numeric" placeholder="" value="0012345"><span class="field-hint">Gồm 7 chữ số.</span></div></div>
+        <div class="state"><span class="cap">focus</span><div class="field reader-box" data-frame="reader"><label class="field-label">Số thẻ thư viện</label><input class="text-input is-focus" value="00123"></div></div>
+        <div class="state"><span class="cap">disabled</span><div class="field reader-box" data-frame="reader"><label class="field-label">Số thẻ thư viện</label><input class="text-input" value="0012345" disabled></div></div>
+        <div class="state"><span class="cap">error</span><div class="field is-error reader-box" data-frame="reader"><label class="field-label">Số thẻ thư viện</label><input class="text-input" value="00123" aria-invalid="true"><div class="inline-error"><span class="bang">!</span><span>Số thẻ thư viện gồm 7 chữ số. Bạn kiểm tra lại nhé.</span></div></div></div>
+        <div class="state"><span class="cap">staff 40px</span><div class="field"><label class="field-label">Tài khoản nhân viên</label><input class="text-input" value="staff.lan"></div></div>
+      </div></div>
+
+    <!-- Code input -->
+    <div class="comp"><div class="comp-name"><h2>Code input</h2><code>.code-input</code><span class="small muted">one field · 6 digits</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><div class="field reader-box" data-frame="reader"><label class="field-label">Mã xác thực</label><input class="code-input" inputmode="numeric" maxlength="6" value="482913"><span class="field-hint">Mã có hiệu lực trong 5 phút.</span></div></div>
+        <div class="state"><span class="cap">focus</span><div class="field reader-box" data-frame="reader"><label class="field-label">Mã xác thực</label><input class="code-input is-focus" value="4829"></div></div>
+        <div class="state"><span class="cap">disabled</span><div class="field reader-box" data-frame="reader"><label class="field-label">Mã xác thực</label><input class="code-input" value="482913" disabled></div></div>
+        <div class="state"><span class="cap">error (attempts left)</span><div class="field is-error reader-box" data-frame="reader"><label class="field-label">Mã xác thực</label><input class="code-input" value="482931" aria-invalid="true"><div class="inline-error"><span class="bang">!</span><span>Mã chưa đúng. Bạn còn 3 lần thử.</span></div></div></div>
+      </div></div>
+
+    <!-- Password input -->
+    <div class="comp"><div class="comp-name"><h2>Password input</h2><code>.password-input</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><div class="field"><label class="field-label">Mật khẩu</label><div class="password-input"><input type="password" value="matkhau123"><button class="text-button">Hiện</button></div></div></div>
+        <div class="state"><span class="cap">focus</span><div class="field"><label class="field-label">Mật khẩu</label><div class="password-input"><input type="password" class="is-focus" value="matkhau123"><button class="text-button">Hiện</button></div></div></div>
+        <div class="state"><span class="cap">disabled</span><div class="field"><label class="field-label">Mật khẩu</label><div class="password-input"><input type="password" value="matkhau123" disabled><button class="text-button" disabled>Hiện</button></div></div></div>
+        <div class="state"><span class="cap">error</span><div class="field is-error"><label class="field-label">Mật khẩu</label><div class="password-input"><input type="password" value="sai" aria-invalid="true"><button class="text-button">Hiện</button></div><div class="inline-error"><span class="bang">!</span><span>Tài khoản hoặc mật khẩu chưa đúng. Bạn thử lại nhé.</span></div></div></div>
+      </div></div>
+
+    <!-- Text area with counter -->
+    <div class="comp"><div class="comp-name"><h2>Text area with counter</h2><code>.text-area-with-counter</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><div class="field text-area-with-counter reader-box" data-frame="reader"><label class="field-label">Đánh giá của bạn</label><textarea>Sách dễ hiểu, nhiều ví dụ thực tế về marketing số.</textarea><span class="counter">51/2.000</span></div></div>
+        <div class="state"><span class="cap">focus</span><div class="field text-area-with-counter reader-box" data-frame="reader"><label class="field-label">Đánh giá của bạn</label><textarea class="is-focus">Sách dễ hiểu</textarea><span class="counter">12/2.000</span></div></div>
+        <div class="state"><span class="cap">error: empty</span><div class="field is-error text-area-with-counter reader-box" data-frame="reader"><label class="field-label">Đánh giá của bạn</label><textarea aria-invalid="true"></textarea><span class="counter">0/2.000</span><div class="inline-error"><span class="bang">!</span><span>Bạn chưa viết nội dung đánh giá. Hãy nhập ít nhất 1 ký tự.</span></div></div></div>
+        <div class="state"><span class="cap">error: over 2.000</span><div class="field is-error text-area-with-counter reader-box" data-frame="reader"><label class="field-label">Đánh giá của bạn</label><textarea aria-invalid="true">…</textarea><span class="counter is-over"><svg class="icon"><use href="#i-alert"/></svg>2.014/2.000</span><div class="inline-error"><span class="bang">!</span><span>Đánh giá dài quá 2.000 ký tự. Bạn rút gọn bớt nhé.</span></div></div></div>
+        <div class="state"><span class="cap">disabled</span><div class="field text-area-with-counter reader-box" data-frame="reader"><label class="field-label">Đánh giá của bạn</label><textarea disabled>Sách dễ hiểu</textarea><span class="counter">12/2.000</span></div></div>
+      </div></div>
+
+    <!-- Segmented control -->
+    <div class="comp"><div class="comp-name"><h2>Segmented control</h2><code>.segmented-control</code><span class="small muted">selected = fill + check icon</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">default + selected</span><div class="reader-box" data-frame="reader"><div class="segmented-control" role="group" aria-label="Hình thức"><button aria-pressed="true"><svg class="icon check"><use href="#i-check"/></svg>Trực tuyến</button><button aria-pressed="false"><svg class="icon check"><use href="#i-check"/></svg>Bản giấy</button><button aria-pressed="false"><svg class="icon check"><use href="#i-check"/></svg>Cả hai</button></div></div></div>
+        <div class="state"><span class="cap">focus</span><div class="reader-box" data-frame="reader"><div class="segmented-control"><button aria-pressed="false"><svg class="icon check"><use href="#i-check"/></svg>Tầng 1</button><button aria-pressed="true"><svg class="icon check"><use href="#i-check"/></svg>Tầng 2</button><button aria-pressed="false" class="is-focus"><svg class="icon check"><use href="#i-check"/></svg>Tầng 3</button></div></div></div>
+        <div class="state"><span class="cap">disabled</span><div class="reader-box" data-frame="reader"><div class="segmented-control"><button disabled>Trực tuyến</button><button disabled>Bản giấy</button><button disabled>Cả hai</button></div></div></div>
+      </div></div>
+
+    <!-- Select -->
+    <div class="comp"><div class="comp-name"><h2>Select</h2><code>.select</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><div class="field reader-box" data-frame="reader"><label class="field-label">Trạng thái đọc</label><select class="select"><option>Đang đọc</option><option>Đã đọc xong</option></select></div></div>
+        <div class="state"><span class="cap">focus</span><div class="field reader-box" data-frame="reader"><label class="field-label">Trạng thái đọc</label><select class="select is-focus"><option>Đã đọc xong</option></select></div></div>
+        <div class="state"><span class="cap">disabled</span><div class="field reader-box" data-frame="reader"><label class="field-label">Trạng thái đọc</label><select class="select" disabled><option>Đang đọc</option></select></div></div>
+        <div class="state"><span class="cap">error</span><div class="field is-error reader-box" data-frame="reader"><label class="field-label">Trạng thái đọc</label><select class="select" aria-invalid="true"><option>Chọn trạng thái</option></select><div class="inline-error"><span class="bang">!</span><span>Bạn chọn Đang đọc hoặc Đã đọc xong nhé.</span></div></div></div>
+      </div></div>
+
+    <!-- Number input -->
+    <div class="comp"><div class="comp-name"><h2>Number input</h2><code>.number-input</code><span class="small muted">0–100, "%" outside</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><div class="field"><label class="field-label">Tiến độ đọc</label><div class="number-input"><input inputmode="numeric" value="45"><span>%</span></div></div></div>
+        <div class="state"><span class="cap">focus</span><div class="field"><label class="field-label">Tiến độ đọc</label><div class="number-input"><input class="is-focus" value="60"><span>%</span></div></div></div>
+        <div class="state"><span class="cap">disabled</span><div class="field"><label class="field-label">Tiến độ đọc</label><div class="number-input"><input value="100" disabled><span>%</span></div></div></div>
+        <div class="state"><span class="cap">error</span><div class="field is-error"><label class="field-label">Tiến độ đọc</label><div class="number-input"><input value="120" aria-invalid="true"><span>%</span></div><div class="inline-error"><span class="bang">!</span><span>Tiến độ từ 0 đến 100%. Bạn nhập lại nhé.</span></div></div></div>
+      </div></div>
+
+    <!-- Checkbox -->
+    <div class="comp"><div class="comp-name"><h2>Checkbox</h2><code>.checkbox</code><span class="small muted">24px box · 44px row</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">unchecked</span><label class="checkbox"><input type="checkbox">Đăng ẩn danh</label></div>
+        <div class="state"><span class="cap">checked</span><label class="checkbox"><input type="checkbox" checked>Đăng ẩn danh</label></div>
+        <div class="state"><span class="cap">focus</span><label class="checkbox"><input type="checkbox" class="is-focus">Digital Marketing Basics</label></div>
+        <div class="state"><span class="cap">disabled</span><label class="checkbox is-disabled"><input type="checkbox" disabled>Digital Marketing Basics (chưa có mã QR)</label></div>
+      </div></div>
+
+    <!-- Format label -->
+    <div class="comp"><div class="comp-name"><h2>Format label</h2><code>.format-label</code><span class="small muted">icon + word, never colour alone</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">online</span><span class="format-label"><svg class="icon"><use href="#i-online"/></svg>Trực tuyến</span></div>
+        <div class="state"><span class="cap">physical</span><span class="format-label"><svg class="icon"><use href="#i-book"/></svg>Bản giấy</span></div>
+      </div></div>
+
+    <!-- Book row -->
+    <div class="comp"><div class="comp-name"><h2>Book row</h2><code>.book-row</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><div class="reader-box" data-frame="reader"><a class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Digital Marketing Basics</span><span class="book-author">Nguyễn Minh Anh</span><span class="format-label"><svg class="icon"><use href="#i-book"/></svg>Bản giấy</span></div></a></div></div>
+        <div class="state"><span class="cap">with shelf line + Remove (S-F03-03)</span><div class="reader-box" data-frame="reader"><div class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Digital Marketing Basics</span><span class="shelf-location-line small"><svg class="icon"><use href="#i-pin"/></svg>Tầng 2 · Phòng R-204 · Kệ S-12</span><button class="text-button" style="align-self:flex-start">Bỏ khỏi danh sách</button></div></div></div></div>
+        <div class="state"><span class="cap">focus</span><div class="reader-box" data-frame="reader"><a class="book-row is-focus"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Digital Marketing Basics</span><span class="format-label"><svg class="icon"><use href="#i-online"/></svg>Trực tuyến</span></div></a></div></div>
+        <div class="state"><span class="cap">staff, with Checkbox (S-F02-03)</span><div class="book-row"><label class="checkbox"><input type="checkbox" checked></label><div class="book-meta"><span class="book-title">Digital Marketing Basics</span><span class="book-author">Tầng 2 · Phòng R-204 · Kệ S-12</span></div></div></div>
+      </div></div>
+
+    <!-- Book card -->
+    <div class="comp"><div class="comp-name"><h2>Book card</h2><code>.book-card</code><span class="small muted">inside a chatbot reply</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><div class="book-card" style="width:calc(var(--frame-width-reader) * .75)"><span class="book-title">Digital Marketing Basics</span><span class="book-author">Nguyễn Minh Anh</span><span class="format-label"><svg class="icon"><use href="#i-book"/></svg>Bản giấy</span><a class="text-link">Xem vị trí kệ sách</a></div></div>
+      </div></div>
+
+    <!-- Shelf location line -->
+    <div class="comp"><div class="comp-name"><h2>Shelf location line</h2><code>.shelf-location-line</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">one copy</span><span class="shelf-location-line"><svg class="icon"><use href="#i-pin"/></svg>Tầng 2 · Phòng R-204 · Kệ S-12</span></div>
+        <div class="state"><span class="cap">unavailable (MSG-06)</span><div class="banner warning"><svg class="icon"><use href="#i-warn"/></svg><span>Chưa có vị trí kệ của sách này. Bạn hỏi quầy thông tin ở tầng trệt nhé.</span></div></div>
+      </div></div>
+
+    <!-- Floor plan + Room tile -->
+    <div class="comp"><div class="comp-name"><h2>Floor plan · Room tile</h2><code>.floor-plan · .room-tile</code><span class="small muted">highlighted = fill + 3px border + label</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">Floor plan, Tầng 2</span>
+          <div class="reader-box" data-frame="reader"><div class="floor-plan">
+            <button class="room-tile">Phòng đọc B<span class="small">R-201</span></button>
+            <button class="room-tile is-highlighted span-2"><span class="tag"><svg class="icon"><use href="#i-star"/></svg>Sách của bạn ở đây</span>Phòng đọc A (R-204)</button>
+            <button class="room-tile is-selected">Phòng tra cứu<span class="small">R-202</span></button>
+            <button class="room-tile is-focus">Phòng đa phương tiện<span class="small">R-203</span></button>
+            <button class="room-tile">Kho mở<span class="small">R-205</span></button>
+          </div></div></div>
+        <div class="state"><span class="cap">default</span><button class="room-tile" style="width:var(--frame-width-reader)">Kho mở<span class="small">R-205</span></button></div>
+        <div class="state"><span class="cap">selected</span><button class="room-tile is-selected" style="width:var(--frame-width-reader)">Phòng đọc A (R-204), Tầng 2</button></div>
+        <div class="state"><span class="cap">highlighted (book's room)</span><button class="room-tile is-highlighted" style="width:var(--frame-width-reader)"><span class="tag"><svg class="icon"><use href="#i-star"/></svg>Sách của bạn ở đây</span>Phòng đọc A (R-204), Tầng 2</button></div>
+      </div></div>
+
+    <!-- Review item -->
+    <div class="comp"><div class="comp-name"><h2>Review item</h2><code>.review-item</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">own review</span><div class="reader-box" data-frame="reader"><div class="review-item"><div class="review-head"><span class="reviewer">Nguyễn Văn An</span><span class="small muted">02/11/2026</span></div><p style="margin:0">Sách dễ hiểu, nhiều ví dụ thực tế về marketing số.</p><div class="review-actions"><button class="text-button">Sửa</button><button class="text-button danger">Xoá đánh giá</button></div></div></div></div>
+        <div class="state"><span class="cap">others' review, anonymous</span><div class="reader-box" data-frame="reader"><div class="review-item"><div class="review-head"><span class="reviewer">Bạn đọc ẩn danh</span><span class="small muted">28/10/2026</span></div><p style="margin:0">Phần SEO hơi ngắn nhưng phần quảng cáo rất hay.</p><div class="review-actions"><button class="text-button"><svg class="icon"><use href="#i-flag"/></svg> Báo cáo đánh giá</button></div></div></div></div>
+        <div class="state"><span class="cap">staff, reported (S-F02-04)</span><div class="review-item" style="width:calc(var(--frame-width-reader) * 1.5)"><div class="review-head"><span class="reviewer">Bạn đọc ẩn danh</span><span class="small muted">Bị báo cáo 3 lần · 30/10/2026</span></div><p style="margin:0">Nội dung bị báo cáo hiển thị ở đây.</p><div class="row"><button class="secondary-button">Bỏ qua báo cáo</button><button class="primary-button">Gỡ đánh giá</button></div></div></div>
+      </div></div>
+
+    <!-- Load more button -->
+    <div class="comp"><div class="comp-name"><h2>Load more button</h2><code>.load-more-button</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><div class="reader-box" data-frame="reader"><button class="load-more-button">Xem thêm đánh giá</button></div></div>
+        <div class="state"><span class="cap">focus</span><div class="reader-box" data-frame="reader"><button class="load-more-button is-focus">Xem thêm đánh giá</button></div></div>
+      </div></div>
+
+    <!-- Chat bubble + Message composer -->
+    <div class="comp"><div class="comp-name"><h2>Chat bubble · Message composer</h2><code>.chat-bubble · .message-composer</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">conversation</span>
+          <div class="reader-box" data-frame="reader"><div class="screen-body chat">
+            <div class="chat-bubble reader">Mình cần sách nhập môn về marketing số.</div>
+            <div class="chat-bubble bot">Mình tìm được 1 cuốn phù hợp:
+              <div class="book-card"><span class="book-title">Digital Marketing Basics</span><span class="format-label"><svg class="icon"><use href="#i-book"/></svg>Bản giấy</span><a class="text-link">Xem vị trí kệ sách</a></div></div>
+          </div>
+          <div class="message-composer"><input class="text-input" placeholder="Nhập câu hỏi của bạn"><button class="primary-button">Gửi</button></div></div></div>
+        <div class="state"><span class="cap">composer disabled (AI unavailable)</span><div class="reader-box" data-frame="reader"><div class="message-composer"><input class="text-input" disabled placeholder="Nhập câu hỏi của bạn"><button class="primary-button" disabled>Gửi</button></div></div></div>
+      </div></div>
+
+    <!-- Menu tile -->
+    <div class="comp"><div class="comp-name"><h2>Menu tile</h2><code>.menu-tile</code><span class="small muted">staff page · 2 tiles</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><a class="menu-tile" style="width:calc(var(--frame-width-reader) * 1.2)"><svg class="icon"><use href="#i-qr"/></svg><div class="stack" style="gap:var(--space-1)"><span class="tile-title">In nhãn mã QR</span><span>Chọn sách bản giấy và in nhãn QR.</span></div></a></div>
+        <div class="state"><span class="cap">hover</span><a class="menu-tile is-hover" style="width:calc(var(--frame-width-reader) * 1.2)"><svg class="icon"><use href="#i-flag"/></svg><div class="stack" style="gap:var(--space-1)"><span class="tile-title">Đánh giá bị báo cáo</span><span>Xem và xử lý các đánh giá bị báo cáo.</span></div></a></div>
+        <div class="state"><span class="cap">focus</span><a class="menu-tile is-focus" style="width:calc(var(--frame-width-reader) * 1.2)"><svg class="icon"><use href="#i-qr"/></svg><div class="stack" style="gap:var(--space-1)"><span class="tile-title">In nhãn mã QR</span><span>Đăng nhập: staff.lan</span></div></a></div>
+      </div></div>
+
+    <!-- Banner -->
+    <div class="comp"><div class="comp-name"><h2>Banner</h2><code>.banner.info|success|warning|error</code><span class="small muted">icon + text + border</span></div>
+      <div class="states" style="flex-direction:column; align-items:stretch">
+        <div class="banner info"><svg class="icon"><use href="#i-info"/></svg><span>Sách này chỉ có bản trực tuyến, không có vị trí trên kệ.</span></div>
+        <div class="banner success"><svg class="icon"><use href="#i-check"/></svg><span>Đã lưu sách vào danh sách của bạn.</span></div>
+        <div class="banner warning"><svg class="icon"><use href="#i-warn"/></svg><span>Bản đồ tạm thời không hiển thị được. Thông tin vị trí kệ vẫn ở phía trên.</span></div>
+        <div class="banner error"><svg class="icon"><use href="#i-alert"/></svg><div class="banner-body"><span>Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.</span><button class="secondary-button">Thử lại</button></div></div>
+      </div></div>
+
+    <!-- Inline error -->
+    <div class="comp"><div class="comp-name"><h2>Inline error</h2><code>.inline-error</code><span class="small muted">light bg · "!" · under the field · field 2px border</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">under a field</span><div class="field is-error reader-box" data-frame="reader"><label class="field-label">Mã xác thực</label><input class="code-input" value="111111" aria-invalid="true"><div class="inline-error"><span class="bang">!</span><span>Bạn đã nhập sai 5 lần. Mã này không còn dùng được, hãy bấm Gửi mã mới.</span></div></div></div>
+        <div class="state"><span class="cap">vs Primary button (never alike)</span><div class="stack reader-box" data-frame="reader"><div class="inline-error"><span class="bang">!</span><span>Hãy chọn ít nhất 1 sách bản giấy.</span></div><button class="primary-button">In nhãn</button></div></div>
+      </div></div>
+
+    <!-- Modal -->
+    <div class="comp"><div class="comp-name"><h2>Modal</h2><code>.modal-backdrop · .modal</code><span class="small muted">one action · never navigates</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">M-F00-01 (reader)</span>
+          <div class="mini-frame" data-frame="reader">
+            <header class="screen-header"><button class="back" aria-label="Quay lại"><svg class="icon icon-lg"><use href="#i-back"/></svg></button><h1 class="screen-title">Vị trí kệ sách</h1></header>
+            <div class="screen-body"><span class="shelf-location-line"><svg class="icon"><use href="#i-pin"/></svg>Tầng 2 · Phòng R-204 · Kệ S-12</span></div>
+            <div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true"><h2 class="modal-title">Đăng nhập để tiếp tục?</h2><p style="margin:0">Bạn cần đăng nhập bằng thẻ thư viện để làm việc này.</p><div class="modal-actions"><button class="primary-button">Đăng nhập</button><button class="secondary-button">Để sau</button></div></div></div>
+          </div></div>
+        <div class="state"><span class="cap">M-F02-04-01 (staff)</span>
+          <div class="modal" role="dialog" style="width:calc(var(--frame-width-reader) * 1.4)"><h2 class="modal-title">Gỡ đánh giá này?</h2><p style="margin:0">Đánh giá sẽ không còn hiển thị công khai.</p><div class="modal-actions"><button class="destructive-button"><svg class="icon"><use href="#i-trash"/></svg>Gỡ đánh giá</button><button class="secondary-button">Huỷ</button></div></div></div>
+      </div></div>
+
+    <!-- Toast -->
+    <div class="comp"><div class="comp-name"><h2>Toast</h2><code>.toast</code><span class="small muted">4 seconds · success only</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">default</span><div class="toast"><svg class="icon"><use href="#i-check"/></svg>Đã đăng đánh giá.</div></div>
+        <div class="state"><span class="cap">default</span><div class="toast"><svg class="icon"><use href="#i-check"/></svg>Đã gửi báo cáo.</div></div>
+      </div></div>
+
+    <!-- Empty state -->
+    <div class="comp"><div class="comp-name"><h2>Empty state</h2><code>.empty-state</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">saved books (FR-03-25)</span><div class="reader-box" data-frame="reader"><div class="empty-state"><svg class="icon"><use href="#i-book"/></svg><p>Bạn chưa lưu sách nào. Bấm Lưu vào danh sách ở trang vị trí kệ sách.</p></div></div></div>
+        <div class="state"><span class="cap">with next action (FR-03-23)</span><div class="reader-box" data-frame="reader"><div class="empty-state"><svg class="icon"><use href="#i-book"/></svg><p>Không tìm thấy sách. Hãy chọn hình thức khác.</p><a class="text-link">Đổi hình thức</a></div></div></div>
+      </div></div>
+
+    <!-- Skeleton -->
+    <div class="comp"><div class="comp-name"><h2>Skeleton</h2><code>.skeleton</code></div>
+      <div class="states">
+        <div class="state"><span class="cap">book row loading</span><div class="reader-box" data-frame="reader"><div class="book-row" aria-busy="true"><div class="skeleton block"></div><div class="book-meta"><div class="skeleton line"></div><div class="skeleton line short"></div></div></div></div></div>
+      </div></div>
+
+    <!-- Label sheet -->
+    <div class="comp"><div class="comp-name"><h2>Label sheet</h2><code>.label-sheet</code><span class="small muted">M-F02-03-01 · paper size open</span></div>
+      <div class="states">
+        <div class="state"><span class="cap">preview</span><div class="label-sheet" style="width:calc(var(--frame-width-reader) * 2)">
+          <div class="label"><span class="qr"></span><div class="stack" style="gap:0"><strong>Digital Marketing Basics</strong><span>Tầng 2 · Phòng R-204 · Kệ S-12</span></div></div>
+          <div class="label"><span class="qr"></span><div class="stack" style="gap:0"><strong>Digital Marketing Basics</strong><span>Tầng 2 · Phòng R-204 · Kệ S-12</span></div></div>
+          <div class="label"><span class="qr"></span><div class="stack" style="gap:0"><strong>Digital Marketing Basics</strong><span>Tầng 2 · Phòng R-204 · Kệ S-12</span></div></div>
+        </div></div>
+      </div></div>
+
+  </div>
+</body>
+</html>
