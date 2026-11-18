@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-F03-06 · Thủ thư AI tìm sách</title>
+  <style>
+    :root {
+      --colour-brand-red: #8B0000;
+      --colour-on-primary: #FFFFFF;
+      --colour-brand-red-soft: #FFEBEE;
+      --colour-link: #1074C3;
+      --colour-text: #1F2937;
+      --colour-text-body: #374151;
+      --colour-text-muted: #6B7280;
+      --colour-border: #7A8492;
+      --colour-border-light: #E5E7EB;
+      --colour-background: #FAFAFA;
+      --colour-surface: #EDF0F2;
+      --colour-card: #FFFFFF;
+      --colour-skeleton: #EDF0F2;
+      --colour-disabled: #C5CBD3;
+      --colour-error-red: #C62828;
+      --colour-error-red-bg: #FDECEA;
+      --colour-success-border: #2F7D46;
+      --colour-success-text: #14532D;
+      --colour-success-bg: #E8F5EC;
+      --colour-warning-border: #B45309;
+      --colour-warning-text: #7A3E06;
+      --colour-warning-bg: #FDF3E3;
+      --colour-info-border: #1074C3;
+      --colour-info-text: #0B4F86;
+      --colour-info-bg: #E8F2FB;
+      --colour-focus: #1074C3;
+      --radius: 8px;
+      --radius-pill: 999px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--colour-background);
+      color: var(--colour-text);
+      font-family: Inter, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    .screen {
+      width: 360px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background: var(--colour-background);
+      padding: 16px 16px 88px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .screen-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex: none;
+    }
+    .back {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--colour-border);
+      border-radius: var(--radius);
+      background: var(--colour-card);
+      color: var(--colour-text);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      flex: none;
+    }
+    .back svg { width: 20px; height: 20px; stroke-width: 2; }
+    .screen-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.3;
+    }
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+    .bubble {
+      max-width: 90%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+      position: relative;
+    }
+    .bubble-assistant {
+      align-self: flex-start;
+      background: var(--colour-card);
+      border: 1px solid var(--colour-border-light);
+      border-bottom-left-radius: 2px;
+      color: var(--colour-text);
+      box-shadow: var(--shadow-sm);
+    }
+    .bubble-user {
+      align-self: flex-end;
+      background: var(--colour-brand-red);
+      color: #FFFFFF;
+      border-bottom-right-radius: 2px;
+    }
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--colour-brand-red);
+      margin-bottom: 4px;
+    }
+    .chip-suggestions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .prompt-chip {
+      padding: 8px 12px;
+      background: var(--colour-surface);
+      border: 1px solid var(--colour-border-light);
+      border-radius: var(--radius);
+      font-size: 12px;
+      color: var(--colour-text);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .prompt-chip:hover {
+      background: var(--colour-brand-red-soft);
+      border-color: var(--colour-brand-red);
+    }
+    .book-card {
+      background: #FFFFFF;
+      border: 1px solid var(--colour-border-light);
+      border-radius: var(--radius);
+      padding: 10px;
+      margin-top: 8px;
+      display: flex;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+    .cover-box {
+      width: 44px;
+      height: 60px;
+      background: var(--colour-surface);
+      border: 1px solid var(--colour-border-light);
+      border-radius: 4px;
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+      color: var(--colour-text-muted);
+      flex: none;
+      font-weight: 500;
+    }
+    .book-meta { flex: 1; min-width: 0; }
+    .book-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin: 0 0 2px;
+      line-height: 1.3;
+      color: var(--colour-text);
+    }
+    .book-card-author {
+      font-size: 11px;
+      color: var(--colour-text-muted);
+      margin: 0 0 4px;
+    }
+    .tag-format {
+      display: inline-block;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--colour-brand-red);
+      color: var(--colour-brand-red);
+      background: var(--colour-brand-red-soft);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .link-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--colour-link);
+      text-decoration: none;
+    }
+    .link-action:hover { text-decoration: underline; }
+    .bubble-error {
+      align-self: stretch;
+      background: var(--colour-error-red-bg);
+      border: 1px solid var(--colour-error-red);
+      border-radius: var(--radius);
+      padding: 12px;
+      font-size: 13px;
+      color: var(--colour-error-red);
+    }
+    .fallback-link {
+      color: var(--colour-link);
+      font-weight: 700;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 4px;
+    }
+    .typing-bubble {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: var(--colour-card);
+      border: 1px solid var(--colour-border-light);
+      border-radius: 12px;
+      border-bottom-left-radius: 2px;
+      align-self: flex-start;
+      box-shadow: var(--shadow-sm);
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--colour-border);
+      animation: pulse 1.4s infinite ease-in-out;
+    }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.1); } }
+    .typing-text { font-size: 11px; color: var(--colour-text-muted); margin-left: 4px; }
+
+    /* Fixed Input Bar */
+    .chat-input-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 360px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--colour-border-light);
+      padding: 10px 16px 14px;
+      display: flex;
+      gap: 8px;
+      box-sizing: border-box;
+      z-index: 50;
+    }
+    .input-box {
+      flex: 1;
+      height: 42px;
+      border: 1px solid var(--colour-border);
+      border-radius: var(--radius-pill);
+      padding: 0 14px;
+      font-size: 13px;
+      outline: none;
+      font-family: inherit;
+    }
+    .input-box:focus { border-color: var(--colour-link); }
+    .btn-send {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: var(--colour-brand-red);
+      color: #FFFFFF;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      flex: none;
+    }
+    .btn-send svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* Numbering badge */
+    .numbered-wrap { position: relative; }
+    .num {
+      display: none;
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--colour-link);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    body.numbered .num { display: flex; }
+
+    /* State toggles */
+    .screen-state { display: none; }
+    body.state-default #default { display: flex; flex-direction: column; }
+    body.state-loading #loading { display: flex; flex-direction: column; }
+    body.state-success #success { display: flex; flex-direction: column; }
+    body.state-empty #empty { display: flex; flex-direction: column; }
+    body.state-no-match #empty { display: flex; flex-direction: column; }
+    body.state-error #error { display: flex; flex-direction: column; }
+  </style>
+</head>
+<body class="state-default">
+  <div class="screen">
+
+    <header class="screen-header">
+      <div class="numbered-wrap">
+        <span class="num">1</span>
+        <button class="back" aria-label="Quay lại">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 19l-7-7 7-7"/></svg>
+        </button>
+      </div>
+      <h1 class="screen-title">Thủ thư AI tìm sách</h1>
+    </header>
+
+    <!-- STATE 1: DEFAULT (WELCOME & SUGGESTIONS) -->
+    <section class="screen-state chat-container" id="default">
+      <div class="numbered-wrap">
+        <span class="num">2</span>
+        <div class="bubble bubble-assistant">
+          <div class="ai-badge">✦ THỦ THƯ AI</div>
+          Xin chào! Tôi có thể giúp bạn tìm sách theo câu hỏi tự nhiên, chủ đề hoặc nội dung cần tra cứu. Bạn muốn tìm sách gì hôm nay?
+        </div>
+      </div>
+
+      <div class="numbered-wrap">
+        <span class="num">3</span>
+        <div class="chip-suggestions">
+          <button class="prompt-chip" type="button">
+            <span>Sách về kinh tế vĩ mô cho người mới</span>
+            <span style="color:var(--colour-border)">→</span>
+          </button>
+          <button class="prompt-chip" type="button">
+            <span>Chuỗi cung ứng & Quản trị logistics</span>
+            <span style="color:var(--colour-border)">→</span>
+          </button>
+          <button class="prompt-chip" type="button">
+            <span>Giáo trình Marketing căn bản</span>
+            <span style="color:var(--colour-border)">→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE 2: LOADING (AI THINKING) -->
+    <section class="screen-state chat-container" id="loading">
+      <div class="bubble bubble-user">
+        Tìm giúp tôi giáo trình quản trị chuỗi cung ứng nhé
+      </div>
+
+      <div class="numbered-wrap">
+        <span class="num">10</span>
+        <div class="typing-bubble">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <span class="typing-text">Thủ thư AI đang tra cứu danh mục sách…</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE 3: SUCCESS (RESULTS RETURNED) -->
+    <section class="screen-state chat-container" id="success">
+      <div class="numbered-wrap">
+        <span class="num">4</span>
+        <div class="bubble bubble-user">
+          Tìm giúp tôi giáo trình quản trị chuỗi cung ứng nhé
+        </div>
+      </div>
+
+      <div class="numbered-wrap">
+        <span class="num">5</span>
+        <div class="bubble bubble-assistant">
+          <div class="ai-badge">✦ THỦ THƯ AI</div>
+          Thư viện hiện có 2 cuốn sách rất phù hợp với yêu cầu của bạn về Chuỗi cung ứng:
+
+          <!-- Result Card 1 -->
+          <div class="numbered-wrap">
+            <span class="num">6</span>
+            <div class="book-card">
+              <div class="cover-box">Cover</div>
+              <div class="book-meta">
+                <h3 class="book-card-title">Quản trị Chuỗi Cung ứng Toàn cầu</h3>
+                <p class="book-card-author">GS. Nguyễn Như Phong</p>
+                <span class="tag-format">Bản giấy</span><br>
+                <div class="numbered-wrap" style="display:inline-block;">
+                  <span class="num">7</span>
+                  <a class="link-action" href="#shelf-location">
+                    <span>Xem vị trí trên kệ</span>
+                    <span>→</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result Card 2 -->
+          <div class="book-card">
+            <div class="cover-box">Cover</div>
+            <div class="book-meta">
+              <h3 class="book-card-title">Logistics & Quản lý Tác nghiệp</h3>
+              <p class="book-card-author">Martin Christopher</p>
+              <span class="tag-format">Bản giấy</span><br>
+              <a class="link-action" href="#shelf-location">
+                <span>Xem vị trí trên kệ</span>
+                <span>→</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE 4: EMPTY / NO-MATCH (FR-03-16) -->
+    <section class="screen-state chat-container" id="empty">
+      <div class="bubble bubble-user">
+        Tìm sách kỹ thuật đan rổ dưới nước
+      </div>
+
+      <div class="numbered-wrap">
+        <span class="num">11</span>
+        <div class="bubble bubble-assistant">
+          <div class="ai-badge">✦ THỦ THƯ AI</div>
+          Rất tiếc, thư viện chưa có cuốn sách nào khớp với từ khóa <em>"đan rổ dưới nước"</em>.
+          <br><br>
+          Bạn có thể thử tìm với các chủ đề liên quan trong danh mục như <strong>Thủ công mỹ nghệ</strong>, <strong>Kỹ năng dã ngoại</strong> hoặc xem theo bộ lọc hình thức nhé!
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE 5: ERROR (FR-03-17) -->
+    <section class="screen-state chat-container" id="error">
+      <div class="bubble bubble-user">
+        Tìm giúp tôi giáo trình quản trị chuỗi cung ứng nhé
+      </div>
+
+      <div class="numbered-wrap">
+        <span class="num">12</span>
+        <div class="bubble-error">
+          <strong>Tính năng tìm kiếm bằng AI tạm thời gián đoạn (FR-03-17).</strong><br>
+          Hệ thống không nhận được phản hồi từ dịch vụ AI trong 10 giây.
+          <br>
+          <div class="numbered-wrap" style="display:inline-block; margin-top:4px;">
+            <span class="num">13</span>
+            <a class="fallback-link" href="#filter">→ Dùng bộ lọc hình thức truy cập (S-F03-01)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fixed Input Field at Bottom -->
+    <div class="chat-input-bar">
+      <div class="numbered-wrap" style="flex:1;">
+        <span class="num">8</span>
+        <input class="input-box" type="text" placeholder="Hỏi thủ thư AI về sách bạn cần tìm…">
+      </div>
+      <div class="numbered-wrap">
+        <span class="num">9</span>
+        <button class="btn-send" type="button" aria-label="Gửi câu hỏi">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const st = (location.hash || '#default').slice(1);
+    document.body.className = 'state-' + (['default','loading','success','empty','no-match','error'].includes(st) ? st : 'default');
+    if (new URLSearchParams(location.search).get('numbered') === '1') {
+      document.body.classList.add('numbered');
+    }
+  </script>
+</body>
+</html>

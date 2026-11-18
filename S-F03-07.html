@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-F03-07 · Gợi ý sách cho bạn</title>
+  <style>
+    :root {
+      --colour-brand-red: #8B0000;
+      --colour-on-primary: #FFFFFF;
+      --colour-brand-red-soft: #FFEBEE;
+      --colour-link: #1074C3;
+      --colour-text: #1F2937;
+      --colour-text-body: #374151;
+      --colour-text-muted: #6B7280;
+      --colour-border: #7A8492;
+      --colour-border-light: #E5E7EB;
+      --colour-background: #FAFAFA;
+      --colour-surface: #EDF0F2;
+      --colour-card: #FFFFFF;
+      --colour-skeleton: #EDF0F2;
+      --colour-disabled: #C5CBD3;
+      --colour-error-red: #C62828;
+      --colour-error-red-bg: #FDECEA;
+      --colour-success-border: #2F7D46;
+      --colour-success-text: #14532D;
+      --colour-success-bg: #E8F5EC;
+      --colour-warning-border: #B45309;
+      --colour-warning-text: #7A3E06;
+      --colour-warning-bg: #FDF3E3;
+      --colour-info-border: #1074C3;
+      --colour-info-text: #0B4F86;
+      --colour-info-bg: #E8F2FB;
+      --colour-focus: #1074C3;
+      --radius: 8px;
+      --radius-pill: 999px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--colour-background);
+      color: var(--colour-text);
+      font-family: Inter, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    .screen {
+      width: 360px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background: var(--colour-background);
+      padding: 16px 16px 28px;
+      position: relative;
+    }
+    .screen-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .back {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--colour-border);
+      border-radius: var(--radius);
+      background: var(--colour-card);
+      color: var(--colour-text);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      flex: none;
+    }
+    .back svg { width: 20px; height: 20px; stroke-width: 2; }
+    .screen-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.3;
+    }
+    .btn-prefs {
+      height: 32px;
+      padding: 0 10px;
+      border: 1px solid var(--colour-border);
+      border-radius: var(--radius);
+      background: var(--colour-card);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--colour-text);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-prefs:hover { background: var(--colour-surface); }
+    .subtitle {
+      font-size: 12px;
+      color: var(--colour-text-muted);
+      margin: 0 0 16px;
+    }
+    .card {
+      background: var(--colour-card);
+      border: 1px solid var(--colour-border-light);
+      border-radius: var(--radius);
+      padding: 12px;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .cover-box {
+      width: 48px;
+      height: 66px;
+      background: var(--colour-surface);
+      border: 1px solid var(--colour-border-light);
+      border-radius: 4px;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      color: var(--colour-text-muted);
+      flex: none;
+      font-weight: 500;
+    }
+    .book-info { flex: 1; min-width: 0; }
+    .book-title {
+      font-weight: 700;
+      font-size: 14px;
+      margin: 0 0 2px;
+      line-height: 1.3;
+      color: var(--colour-text);
+    }
+    .book-author {
+      font-size: 12px;
+      color: var(--colour-text-muted);
+      margin: 0 0 6px;
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-weight: 500;
+    }
+    .tag-format {
+      border: 1px solid var(--colour-brand-red);
+      color: var(--colour-brand-red);
+      background: var(--colour-brand-red-soft);
+    }
+    .tag-reason {
+      border: 1px solid var(--colour-info-border);
+      color: var(--colour-info-text);
+      background: var(--colour-info-bg);
+    }
+    .tag-qr {
+      border: 1px solid var(--colour-warning-border);
+      color: var(--colour-warning-text);
+      background: var(--colour-warning-bg);
+      font-weight: 600;
+    }
+    .tag-trending {
+      border: 1px solid #7C3AED;
+      color: #5B21B6;
+      background: #F5F3FF;
+      font-weight: 600;
+    }
+    .link-location {
+      font-size: 12px;
+      color: var(--colour-link);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .link-location:hover { text-decoration: underline; }
+
+    /* Cold Start Banner */
+    .banner-coldstart {
+      background: var(--colour-info-bg);
+      border: 1px solid var(--colour-info-border);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+    .coldstart-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--colour-info-text);
+      margin: 0 0 4px;
+    }
+    .coldstart-text {
+      font-size: 12px;
+      color: var(--colour-info-text);
+      margin: 0 0 10px;
+      line-height: 1.4;
+    }
+    .btn-coldstart {
+      height: 36px;
+      background: var(--colour-brand-red);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Trending Divider */
+    .trending-divider {
+      margin: 20px 0 12px;
+      padding: 8px 12px;
+      background: #F5F3FF;
+      border-left: 3px solid #7C3AED;
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .trending-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #5B21B6;
+      margin: 0 0 2px;
+    }
+    .trending-desc {
+      font-size: 11px;
+      color: #6D28D9;
+      margin: 0;
+    }
+
+    /* Error & Loading */
+    .banner-error {
+      background: var(--colour-error-red-bg);
+      border: 1px solid var(--colour-error-red);
+      border-radius: var(--radius);
+      padding: 12px;
+      font-size: 13px;
+      color: var(--colour-error-red);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn-retry {
+      align-self: flex-start;
+      height: 32px;
+      padding: 0 12px;
+      background: #FFFFFF;
+      border: 1px solid var(--colour-border);
+      border-radius: var(--radius);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .skeleton-box {
+      background: linear-gradient(90deg, #edeff1 25%, #f7f8f9 50%, #edeff1 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 4px;
+    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    /* Numbering badge */
+    .numbered-wrap { position: relative; }
+    .num {
+      display: none;
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--colour-link);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    body.numbered .num { display: flex; }
+
+    /* State toggles */
+    .screen-state { display: none; }
+    body.state-default #default { display: block; }
+    body.state-cold-start #cold-start { display: block; }
+    body.state-topped-up #topped-up { display: block; }
+    body.state-loading #loading { display: block; }
+    body.state-error #error { display: block; }
+  </style>
+</head>
+<body class="state-default">
+  <div class="screen">
+
+    <header class="screen-header">
+      <div class="header-left">
+        <div class="numbered-wrap">
+          <span class="num">1</span>
+          <button class="back" aria-label="Quay lại">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 19l-7-7 7-7"/></svg>
+          </button>
+        </div>
+        <h1 class="screen-title">Gợi ý cho bạn</h1>
+      </div>
+      <div class="numbered-wrap">
+        <span class="num">2</span>
+        <button class="btn-prefs" type="button">⚙ Sở thích</button>
+      </div>
+    </header>
+
+    <div class="numbered-wrap">
+      <span class="num">3</span>
+      <p class="subtitle">Gợi ý được cá nhân hoá dựa trên lịch sử đọc và sở thích của bạn</p>
+    </div>
+
+    <!-- STATE 1: DEFAULT (PERSONALISED RESULTS) -->
+    <section class="screen-state" id="default">
+      <!-- Book 1 -->
+      <div class="numbered-wrap">
+        <span class="num">4</span>
+        <div class="card">
+          <div class="cover-box">Cover</div>
+          <div class="book-info">
+            <h3 class="book-title">Principles of Economics</h3>
+            <p class="book-author">N. Gregory Mankiw</p>
+            <div class="tag-row">
+              <span class="tag tag-format">Bản giấy</span>
+              <div class="numbered-wrap" style="display:inline-block;">
+                <span class="num">5</span>
+                <span class="tag tag-reason">Khớp sở thích: Kinh tế</span>
+              </div>
+            </div>
+            <div class="numbered-wrap">
+              <span class="num">6</span>
+              <a class="link-location" href="#location">Xem vị trí trên kệ →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Book 2 -->
+      <div class="card">
+        <div class="cover-box">Cover</div>
+        <div class="book-info">
+          <h3 class="book-title">Quản trị Marketing Hiện đại</h3>
+          <p class="book-author">Philip Kotler & Kevin Keller</p>
+          <div class="tag-row">
+            <span class="tag tag-format">Bản giấy</span>
+            <span class="tag tag-reason">Khớp sở thích: Marketing</span>
+          </div>
+          <a class="link-location" href="#location">Xem vị trí trên kệ →</a>
+        </div>
+      </div>
+
+      <!-- Book 3 -->
+      <div class="card">
+        <div class="cover-box">Cover</div>
+        <div class="book-info">
+          <h3 class="book-title">Kinh tế học Vi mô Căn bản</h3>
+          <p class="book-author">Hal R. Varian</p>
+          <div class="tag-row">
+            <span class="tag tag-format">Trực tuyến</span>
+            <span class="tag tag-reason">Dựa trên sách đã đọc</span>
+          </div>
+          <a class="link-location" href="#read-online">Đọc trực tuyến →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE 2: COLD START (FR-03-19) -->
+    <section class="screen-state" id="cold-start">
+      <div class="numbered-wrap">
+        <span class="num">7</span>
+        <div class="banner-coldstart">
+          <h3 class="coldstart-title">Chưa có dữ liệu cá nhân hoá</h3>
+          <p class="coldstart-text">Bạn chưa thiết lập lịch sử đọc hoặc chủ đề yêu thích. Thư viện gợi ý các cuốn sách được bạn đọc quét mã QR quan tâm nhiều nhất.</p>
+          <div class="numbered-wrap">
+            <span class="num">8</span>
+            <button class="btn-coldstart" type="button">Thiết lập sở thích đọc ngay</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Popular by QR scans -->
+      <div class="numbered-wrap">
+        <span class="num">9</span>
+        <div class="card">
+          <div class="cover-box">Cover</div>
+          <div class="book-info">
+            <h3 class="book-title">Đắc Nhân Tâm (Bản chuẩn)</h3>
+            <p class="book-author">Dale Carnegie</p>
+            <div class="tag-row">
+              <span class="tag tag-format">Bản giấy</span>
+              <div class="numbered-wrap" style="display:inline-block;">
+                <span class="num">10</span>
+                <span class="tag tag-qr">★ Quét QR: 142 lượt</span>
+              </div>
+            </div>
+            <a class="link-location" href="#location">Xem vị trí trên kệ →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cover-box">Cover</div>
+        <div class="book-info">
+          <h3 class="book-title">Tư Duy Nhanh và Chậm</h3>
+          <p class="book-author">Daniel Kahneman</p>
+          <div class="tag-row">
+            <span class="tag tag-format">Bản giấy</span>
+            <span class="tag tag-qr">★ Quét QR: 98 lượt</span>
+          </div>
+          <a class="link-location" href="#location">Xem vị trí trên kệ →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE 3: TOPPED-UP (FR-03-20) -->
+    <section class="screen-state" id="topped-up">
+      <!-- 2 Personalised Books -->
+      <div class="card">
+        <div class="cover-box">Cover</div>
+        <div class="book-info">
+          <h3 class="book-title">Kinh tế học Phát triển</h3>
+          <p class="book-author">Michael Todaro</p>
+          <div class="tag-row">
+            <span class="tag tag-format">Bản giấy</span>
+            <span class="tag tag-reason">Khớp sở thích: Kinh tế</span>
+          </div>
+          <a class="link-location" href="#location">Xem vị trí trên kệ →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cover-box">Cover</div>
+        <div class="book-info">
+          <h3 class="book-title">Lý thuyết Tài chính Doanh nghiệp</h3>
+          <p class="book-author">Richard Brealey</p>
+          <div class="tag-row">
+            <span class="tag tag-format">Trực tuyến</span>
+            <span class="tag tag-reason">Khớp sở thích: Kinh tế</span>
+          </div>
+          <a class="link-location" href="#read-online">Đọc trực tuyến →</a>
+        </div>
+      </div>
+
+      <!-- Divider for Supplemented Trending Books -->
+      <div class="numbered-wrap">
+        <span class="num">11</span>
+        <div class="trending-divider">
+          <h4 class="trending-title">Gợi ý bổ sung từ xu hướng (FR-03-20)</h4>
+          <p class="trending-desc">Sách cùng chủ đề Kinh tế được mượn nhiều nhất trong 30 ngày qua</p>
+        </div>
+      </div>
+
+      <!-- Supplemented Trending Book -->
+      <div class="numbered-wrap">
+        <span class="num">12</span>
+        <div class="card">
+          <div class="cover-box">Cover</div>
+          <div class="book-info">
+            <h3 class="book-title">Kinh tế Vĩ mô Hiện đại</h3>
+            <p class="book-author">Olivier Blanchard</p>
+            <div class="tag-row">
+              <span class="tag tag-format">Bản giấy</span>
+              <div class="numbered-wrap" style="display:inline-block;">
+                <span class="num">13</span>
+                <span class="tag tag-trending">Xu hướng mượn nhiều</span>
+              </div>
+            </div>
+            <a class="link-location" href="#location">Xem vị trí trên kệ →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE 4: LOADING -->
+    <section class="screen-state" id="loading">
+      <div class="numbered-wrap">
+        <span class="num">14</span>
+        <div class="card">
+          <div style="width:48px; height:66px;" class="skeleton-box"></div>
+          <div style="flex:1;">
+            <div style="height:16px; width:75%; margin-bottom:8px;" class="skeleton-box"></div>
+            <div style="height:12px; width:50%; margin-bottom:12px;" class="skeleton-box"></div>
+            <div style="height:12px; width:40%;" class="skeleton-box"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="width:48px; height:66px;" class="skeleton-box"></div>
+          <div style="flex:1;">
+            <div style="height:16px; width:65%; margin-bottom:8px;" class="skeleton-box"></div>
+            <div style="height:12px; width:45%; margin-bottom:12px;" class="skeleton-box"></div>
+            <div style="height:12px; width:40%;" class="skeleton-box"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE 5: ERROR -->
+    <section class="screen-state" id="error">
+      <div class="numbered-wrap">
+        <span class="num">15</span>
+        <div class="banner-error">
+          <div><strong>Không tải được danh sách gợi ý (MSG-04).</strong><br>Vui lòng kiểm tra kết nối mạng rồi thử lại.</div>
+          <button class="btn-retry" type="button">Thử lại</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const st = (location.hash || '#default').slice(1);
+    document.body.className = 'state-' + (['default','cold-start','topped-up','loading','error'].includes(st) ? st : 'default');
+    if (new URLSearchParams(location.search).get('numbered') === '1') {
+      document.body.classList.add('numbered');
+    }
+  </script>
+</body>
+</html>
