@@ -161,7 +161,7 @@ màn hình. Vì vậy **modal không có spec riêng**, mà được viết bên
 
 | # | Câu hỏi | Ảnh hưởng | Phương án đang vẽ |
 |---|---|---|---|
-| Q1 | Bạn đọc có được **báo cáo đánh giá của chính mình** không? AD-UC-14 câu hỏi 2 nói **có**, `ui-conventions.md` §3 nói Report chỉ hiện trên đánh giá của **người khác** | S-F02-01, M-F02-01-02, S-F02-02 (Hoa) | Theo ui-conventions: chỉ đánh giá của người khác |
+| Q1 | Bạn đọc có được **báo cáo đánh giá của chính mình** không? | S-F02-01, M-F02-01-02, S-F02-02 (Hoa) | **Đã chốt 19/11/2026: KHÔNG** — Report chỉ trên đánh giá của người khác (AD-UC-14 câu hỏi 2 đã sửa) |
 | Q2 | S-F02-02 có nút xem trang đánh giá tiếp theo không (AD-UC-06 nói theo luật phân trang của UC-05) | S-F02-02 (Hoa) | Không có |
 | Q3 | Nhân viên tìm sách để in nhãn bằng cách nào (FR-02-08) — **Blocking** | S-F02-03 (Ha) | Danh sách sách giấy mới đồng bộ, mới nhất ở trên, có phân trang |
 | Q4 | Nhãn QR ghi gì và bao nhiêu nhãn mỗi trang A4 (ui-conventions §7 câu hỏi 2) | M-F02-03-01 (Ha) | QR + tên sách + vị trí kệ; 2 × 5 = 10 nhãn |

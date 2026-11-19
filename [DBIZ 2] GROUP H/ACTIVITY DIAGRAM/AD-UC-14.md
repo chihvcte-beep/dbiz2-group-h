@@ -14,7 +14,7 @@
 | Failure end state | The reader has already reported this review (FR-02-21), or chose not to sign in. No second report is saved. |
 | FRs covered | FR-02-09, FR-02-21, FR-04-08; FR-04-01 through the call to UC-11 |
 | Business rules applied | One report per reader per review (FR-02-21). Reporting needs a signed-in reader (FR-04-08). A reported review stays public until staff remove it (FR-02-10, UC-13). |
-| Version / status | v1.2 · Draft |
+| Version / status | v1.3 · Draft (2026-11-19: open question 2 changed to "No") |
 | Author | Owner C (F-02) |
 
 ## 1. Diagram
@@ -122,7 +122,7 @@ says otherwise.
 | # | Question | Blocking? | Default applied |
 |---|---|---|---|
 | 1 | must the reader give a reason for the report? | No (decided) | Decided 2026-11-04 (default adopted): No reason field; FR-02-09 asks for none. |
-| 2 | may a reader report their own review? | No (decided) | Decided 2026-11-04 (default adopted): Yes; no rule forbids it. |
+| 2 | may a reader report their own review? | No (decided) | Changed by the team on 2026-11-19: **No.** Report is offered only on other readers' reviews; on their own review the reader has Edit and Delete (ui-conventions §3, Review item). Earlier default (2026-11-04) was "Yes". |
 | 3 | Wrong W1 source trace: FR-02-10 (review and remove reported reviews) names UC-14, but it is done by On-site Staff and is drawn in AD-UC-13. UC-14 ends when the report is saved. | No (resolved) | FR-02-10 is not part of UC-14 and is not drawn or counted here; it is cited only as a business rule (a reported review stays public until staff remove it). W1 corrected on 2026-11-04: its source trace now names UC-13 only. |
 
 ## 7. Verification log

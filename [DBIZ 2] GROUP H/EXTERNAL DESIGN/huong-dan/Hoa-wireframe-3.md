@@ -100,7 +100,8 @@ nghĩa, không dùng Yes/No). Mở từ S-F02-01 và S-F02-02.
 ### 2.3 M-F02-01-02 Report this review?
 
 Gửi báo cáo cho review đã chọn, **không có ô lý do** (AD-UC-14 câu hỏi 1, L8-10). Chỉ mở từ
-S-F02-01. Bạn đọc được báo cáo cả review của mình (AD-UC-14 câu hỏi 2).
+S-F02-01. Bạn đọc **không** báo cáo được review của chính mình — nút Report chỉ có trên review của
+người khác (nhóm chốt 19/11/2026, AD-UC-14 câu hỏi 2).
 
 ### 2.4 S-F02-02 Book information and reviews (QR landing page)
 

@@ -30,8 +30,8 @@ S-F02-01 và S-F02-02, **FR-04-20** nếu có trạng thái lỗi mạng.
 ## 3. Lưu ý riêng từng spec
 
 ### S-F02-01 (kèm M-F02-01-01, M-F02-01-02)
-- Câu hỏi **Q1** của tệp chung (báo cáo đánh giá của chính mình) phải chốt trước — nó quyết định
-  hàng Report ở mục 3, mục 5 và nội dung M-F02-01-02.
+- Câu hỏi **Q1** đã chốt (19/11/2026): đánh giá của chính mình **không** có nút Báo cáo; Report chỉ
+  trên đánh giá của người khác. Ghi thành quy tắc ở mục 6, nguồn `AD-UC-14 Q2`.
 - Khung viết/sửa/xoá đánh giá viết **một lần ở đây**, đặt tên thành phần ổn định; S-F02-02 dùng lại
   đúng tên đó (L8-07).
 - Mục 6: 10 đánh giá mỗi trang (AD-UC-05 mục 3); một người được viết nhiều đánh giá cho một sách;
