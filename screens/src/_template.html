@@ -1,0 +1,122 @@
+<!doctype html>
+<!--
+  Screen ID: S-Fxx-nn            (copy this file to S-Fxx-nn.html or M-xxx.html)
+  Screen name: <name from screen-list.md>
+  Vietnamese title: <title from ui-conventions.md section 1>
+  Frame: reader (360px, export 3x) | staff (1280px, export 1x)  -> set data-frame on <body>
+  ui-conventions version: v0.7
+  Author / date: <name> · <dd/MM/yyyy>
+
+  HOW TO USE
+  - Open in Chrome straight from disk (file://). No build step, no external JavaScript.
+  - Each state is one <section data-state="...">: default, empty, loading, error, success
+    (add error-2, error-3 ... when the screen has several errors).
+  - S-Fxx-nn.html#empty           shows only the "empty" section. No # shows "default".
+  - S-Fxx-nn.html#default-numbered shows "default" AND the numbered circles <span class="num">3</span>.
+    Put a .num inside an element that has class "has-num"; it sits on its top-left corner.
+  - Use only classes from tokens.css (component names of ui-conventions.md section 3).
+    Never write a colour, size or font here.
+  - MODAL (M-xxx.html): keep the parent screen in the section, then add
+    <div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true">...</div></div>
+    as the last child of .frame. The backdrop dims the parent with colour/overlay.
+-->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-Fxx-nn · Tên màn hình</title>
+  <link rel="stylesheet" href="tokens.css">
+</head>
+<body data-frame="reader">
+  <div class="frame">
+
+    <section data-state="default">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span>
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title">Tên màn hình</h1>
+      </header>
+      <main class="screen-body">
+        <p>Nội dung trạng thái mặc định.</p>
+        <button class="primary-button has-num"><span class="num">2</span>Hành động chính</button>
+      </main>
+    </section>
+
+    <section data-state="empty">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Tên màn hình</h1>
+      </header>
+      <main class="screen-body">
+        <div class="empty-state has-num"><span class="num">1</span>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>
+          <p>Vì sao trống + việc tiếp theo.</p>
+        </div>
+      </main>
+    </section>
+
+    <section data-state="loading">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Tên màn hình</h1>
+      </header>
+      <main class="screen-body" aria-busy="true">
+        <div class="group"><div class="skeleton line"></div><div class="skeleton line short"></div></div>
+        <div class="group"><div class="skeleton line"></div><div class="skeleton line short"></div></div>
+      </main>
+    </section>
+
+    <section data-state="error">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Tên màn hình</h1>
+      </header>
+      <main class="screen-body">
+        <div class="banner error has-num" role="alert"><span class="num">1</span>
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+          <div class="banner-body">
+            <span>Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.</span>
+            <button class="secondary-button">Thử lại</button>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <section data-state="success">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Tên màn hình</h1>
+      </header>
+      <main class="screen-body">
+        <p>Nội dung sau khi thành công.</p>
+      </main>
+      <div class="toast is-floating" role="status">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Đã lưu.
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Show the section named after "#", e.g. #empty. "-numbered" at the end turns on the circles.
+    (function () {
+      function apply() {
+        var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+        var numbered = /-numbered$/.test(hash);
+        var state = hash.replace(/-numbered$/, '') || 'default';
+        var sections = document.querySelectorAll('[data-state]');
+        var found = false;
+        sections.forEach(function (s) { if (s.getAttribute('data-state') === state) found = true; });
+        if (!found) state = 'default';
+        sections.forEach(function (s) {
+          s.classList.toggle('is-active', s.getAttribute('data-state') === state);
+        });
+        document.body.classList.toggle('numbered', numbered);
+      }
+      window.addEventListener('hashchange', apply);
+      apply();
+    })();
+  </script>
+</body>
+</html>
