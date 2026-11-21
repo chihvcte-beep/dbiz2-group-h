@@ -45,6 +45,8 @@
 | Error — network failure | `img/S-F00-03-error-2.png`; `img/S-F00-03-error-2-numbered.png` |
 | Success | `S-F04-01` (navigation outcome; no separate success screen) |
 
+**21/11/2026 handoff:** Ha owns the colour-token corrections and separate state exports in `screens/img/`. The existing numbered image was reported as 1693px and must be re-exported at 1280px. Linh will verify the paths and rendered images after Ha uploads; this spec remains Draft.
+
 Use `ui-conventions.md` v0.8 §§3–6 for components, labels, messages, and design tokens. Staff frame: 1280px, exported at 1x. The §7 consistency review flags the existing Draw.io colours as non-token and an existing export as 1693px rather than 1280px; **do not treat the linked images as approved mockups until corrected and verified**.
 
 ## 3. Element inventory
@@ -136,3 +138,13 @@ The wireframe uses `staff.lan` and a non-empty sample password as synthetic prev
 - [x] Every navigation target is a Screen ID that exists in the Screen List, or `stays`.
 - [x] Every element that displays data names its data source.
 - [x] Every linked FR exists in the Screen List / Function List references, and each screen action in the notes and activity diagrams is covered by an interaction row.
+
+
+---
+
+### Review handoff (21/11/2026)
+
+- **Spec owner:** Linh. **Wireframe owner:** Ha. Do not edit another member’s source or images.
+- **Reviewers:** Ha cross-reviews this spec; Linh performs final consolidation on 26/11/2026.
+- **Status:** Draft until the linked state PNGs exist, render on GitHub, and meet the UI conventions v0.8 requirements.
+- **Repository destination:** `EXTERNAL DESIGN/screens/screen-spec-S-F00-03.md` (not the repository root).

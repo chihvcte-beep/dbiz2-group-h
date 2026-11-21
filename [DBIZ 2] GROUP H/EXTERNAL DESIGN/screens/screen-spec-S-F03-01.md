@@ -8,10 +8,10 @@
 | Priority | Should |
 | Feature | `F-03` Discovery, Reading History & Recommendation |
 | Activity diagrams | `AD-UC-03` (v1.2) |
-| Mockup image | `img/S-F03-01-default.png` |
+| Mockup image | `img/S-F03-01.png` |
 | Status | Draft — pending v0.8 mockup review |
 | Frame width | 360px (exported at 3x = 1080px) |
-| Wireframe source | `screens/src/S-F03-01.html` [NEEDS CLARIFICATION: Nhi's notes do not specify the source path; confirm whether this file is present] |
+| Wireframe source | [NEEDS CLARIFICATION: Nhi to commit and confirm the wireframe source in `screens/src/`; do not assume an HTML file exists] |
 | Wireframe author | Nhi |
 | Screen spec author | Linh |
 | UI conventions | v0.8 |
@@ -32,17 +32,19 @@
 
 > **Draft review note:** This is the wireframe owner's existing image, linked from the repository rather than edited or copied. Replace/verify the mockup after the owner updates the export. State-specific image paths below are pending confirmation.
 
-![S-F03-01](img/S-F03-01-default.png)
+![S-F03-01](img/S-F03-01.png)
 
 **Numbered reference (supplied GitHub image):** `img/S-F03-01-numbered.png`.
 
 | State | Image |
 |---|---|
-| Default | `img/S-F03-01-default.png`; `img/S-F03-01-numbered.png` (numbered file supplied; verify default export in repo) |
+| Default | `img/S-F03-01.png`; `img/S-F03-01-numbered.png` (default separate export pending Nhi) |
 | Empty | `img/S-F03-01-empty.png` |
 | Loading | `img/S-F03-01-loading.png` |
-| Error | Not applicable for UC-03 at present: AD-UC-03 defines the no-results branch, not a system/network-error branch. The exported Error image is a placeholder, not a confirmed UC-03 requirement. |
-| Success / results | `img/S-F03-01-success.png` [NEEDS CLARIFICATION: include only if this image is retained in Nhi's final export] |
+| Error | `img/S-F03-01-error.png` — planned export by Nhi; confirm the corresponding state and trigger against the updated notes before approval. |
+| Success / results | `img/S-F03-01-success.png` (listed in the 21/11 export plan; pending Nhi upload) |
+
+**21/11/2026 handoff:** Nhi owns the five separate exports (`S-F03-01.png`, `S-F03-01-empty.png`, `S-F03-01-loading.png`, `S-F03-01-error.png`, `S-F03-01-success.png`) and the source/notes updates. Linh updates this spec after the files are uploaded. Existing numbered image is 1080px wide per the team status report; recheck the final exports.
 
 Use `ui-conventions.md` v0.8 §6 for all design tokens. Reader frame: 360px, exported at 3x (1080px). Titles use SVN-Gilroy; other text uses Inter.
 
@@ -53,7 +55,7 @@ Use `ui-conventions.md` v0.8 §6 for all design tokens. Reader frame: 360px, exp
 | # | Element | Type | Content / data source | Required | Validation |
 |---|---|---|---|---|---|
 | 1 | Back navigation | Screen header | Returns to the existing OPAC catalogue / search results from which the reader opened the filter. | Yes | Navigation only; preserve the originating OPAC destination. |
-| 2 | Screen title | Screen header | `Lọc theo hình thức`. | Yes | Static text; title is confirmed in `ui-conventions.md` v0.7 §1. |
+| 2 | Screen title | Screen header | `Lọc theo hình thức`. | Yes | Static text; title is confirmed in `ui-conventions.md` v0.8 §1. |
 | 3 | Access-format selector | Segmented control | Exactly three choices: `Trực tuyến`, `Bản giấy`, and `Cả hai`. `Cả hai` means books that have both a physical copy and an online version. | Yes | Exactly one option can be selected at a time. Initial selected state is unresolved; do not assume a default until Q5 is confirmed. |
 | 4 | Matching book results | Book row | Book catalogue (W0 Table 4) › book title, author, cover placeholder, and applicable access-format label(s). Each format label uses an icon + Vietnamese word (`Trực tuyến` and/or `Bản giấy`). | No (shown when results exist) | Read-only catalogue data. Only display the format information returned for each book; do not infer availability or stock status. |
 | 5 (empty state) | No-results message | Empty state | `Không tìm thấy sách. Hãy chọn hình thức khác.` (shared example wording in `ui-conventions.md` §4; confirm as final approved copy because Nhi's notes leave exact wording open). | No (shown when no matches exist) | Not an input. Keep the selector available so the reader can choose another format. |
@@ -68,7 +70,7 @@ Use `ui-conventions.md` v0.8 §6 for all design tokens. Reader frame: 360px, exp
 | Default | `Lọc theo hình thức` and the three-option selector. The initially selected option must be taken from Nhi's final Default wireframe after Q5 is resolved; the activity diagram does not define a default. | Reader opens the access-format filter. |
 | Empty (no data) | An empty state tells the reader that no matching books were found and invites them to choose another format. The selector remains available on this screen. Use the shared example wording only after the group confirms it. | No books match the selected format (`AD-UC-03 d1 [No]`, `s3`; FR-03-23). |
 | Loading | Skeleton placeholders while the system retrieves books matching the selected format (`MSG-05`; no loading text by default). | Reader selects an access format and matching books are retrieved. |
-| Error | Not applicable for the current UC-03 scope: AD-UC-03 does not define a system/network-error branch. The `-error.png` in the notes is a design placeholder. If the group confirms that this screen must handle a load failure, use shared `MSG-04` / FR-04-20 and update the wireframe and interaction inventory first. | — |
+| Error | Planned error-state mockup `img/S-F03-01-error.png` (pending Nhi export). If this is a network/load failure, show shared MSG-04 with a `Thử lại` action, subject to confirmation against the updated wireframe notes. | [NEEDS CLARIFICATION: confirm the error trigger and whether FR-04-20 applies.] |
 | Success / confirmation | Matching books appear with their access-format labels. This is the results outcome, not a separate toast or confirmation message. | The selected format has matching books (`AD-UC-03 d1 [Yes]`, `s2`; FR-03-12). |
 
 ## 5. Interactions and navigation
@@ -117,7 +119,7 @@ Use `ui-conventions.md` v0.8 §6 for all design tokens. Reader frame: 360px, exp
 - Access-format labels must use an icon plus the Vietnamese word `Trực tuyến` and/or `Bản giấy`; never communicate format by colour alone.
 - Interactive targets on Reader screens must be at least 44×44px; all controls must have a visible 2px focus ring.
 - Text contrast: at least 4.5:1; control borders: at least 3:1.
-- Body and input text: at least 16px; title: 20px; use SVN-Gilroy for titles and Inter for other text, per `ui-conventions.md` v0.7 §§5–6.
+- Body and input text: at least 16px; title: 20px; use SVN-Gilroy for titles and Inter for other text, per `ui-conventions.md` v0.8 §§5–6.
 - Book title and author follow the catalogue and are truncated after two lines with an ellipsis, per `ui-conventions.md` §2.
 
 ## 9. Open questions
@@ -126,20 +128,30 @@ Use `ui-conventions.md` v0.8 §6 for all design tokens. Reader frame: 360px, exp
 |---|---|---|---|
 | 1 | [NEEDS CLARIFICATION: Q5 — Which option is selected when S-F03-01 first opens? Confirm with Nhi and the group, then record the group decision. Do not infer a default.] | Yes | Open |
 | 2 | [NEEDS CLARIFICATION: What is the final approved Vietnamese wording for the no-results message? `Không tìm thấy sách. Hãy chọn hình thức khác.` is the shared example in `ui-conventions.md` §4, but Nhi's notes leave the exact wording open.] | No | Open |
-| 3 | [NEEDS CLARIFICATION: Is the Error image a retained state? Nhi's notes identify it as a placeholder and AD-UC-03 has no system-error branch. If approved as a network/load state, use `MSG-04` / FR-04-20 and add the corresponding interaction and element to the wireframe first.] | Yes | Open |
+| 3 | [NEEDS CLARIFICATION: Confirm the trigger and content of the planned `S-F03-01-error.png` with Nhi; if a network/load error, align with MSG-04 / FR-04-20 and the latest notes.] | Yes | Open |
 | 4 | [NEEDS CLARIFICATION: Confirm the exact W0 Table 4 field names / group names for book title, author, cover placeholder and access format.] | Yes | Open |
-| 5 | [NEEDS CLARIFICATION: Confirm whether `img/S-F03-01-success.png` is retained in Nhi's final export; the notes mark it as optional.] | No | Open |
-| 6 | [NEEDS CLARIFICATION: Nhi's notes omit Frame, UI conventions version and Author in their metadata row; confirm/add `Reader · 360px · v0.7 · Nhi`.] | No | Open |
-| 7 | [NEEDS CLARIFICATION: Confirm the source path for Nhi's wireframe; `screens/src/S-F03-01.html` is the expected path if the HTML has been committed.] | No | Open |
+| 5 | [NEEDS CLARIFICATION: Confirm Nhi has uploaded `img/S-F03-01-success.png` as listed in the 21/11 export plan.] | No | Open |
+| 6 | [NEEDS CLARIFICATION: Confirm that the latest Nhi notes contain the metadata `Reader · 360px · v0.8 · Nhi`.] | No | Open |
+| 7 | [NEEDS CLARIFICATION: Confirm the source path for Nhi's wireframe; Nhi must confirm the actual committed source under `screens/src/`.] | No | Open |
 
 ---
 
 ## Completion checklist
 
-- [ ] The Default mockup is a separate cropped image file named with the Screen ID and is 1080px wide; the current notes name it `img/S-F03-01-default.png`.
+- [ ] The Default mockup is a separate cropped image file named with the Screen ID and is 1080px wide; the 21/11 export plan names it `img/S-F03-01.png`.
 - [x] Every element in Nhi's notes appears in the element inventory, retaining the original `#`.
 - [x] Every input element has a validation rule or an explicit `none` (there are no text-entry fields).
 - [x] All five states are filled in or marked not applicable with a reason; Error is provisional and explicitly marked not applicable for current UC-03 scope.
 - [x] Every navigation target is an existing Screen ID, `stays`, or an existing OPAC destination marked `(exit)`.
 - [x] Every element that displays data names its data source; exact W0 Table 4 field names remain open.
 - [x] Linked FRs are drawn from the Screen List and Nhi's notes; all listed user/system actions are represented in the interaction table.
+
+
+---
+
+### Review handoff (21/11/2026)
+
+- **Spec owner:** Linh. **Wireframe owner:** Nhi. Do not edit another member’s source or images.
+- **Reviewers:** Nhi cross-reviews this spec; Linh performs final consolidation on 26/11/2026.
+- **Status:** Draft until the linked state PNGs exist, render on GitHub, and meet the UI conventions v0.8 requirements.
+- **Repository destination:** `EXTERNAL DESIGN/screens/screen-spec-S-F03-01.md` (not the repository root).

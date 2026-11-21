@@ -133,3 +133,13 @@ No sign-out action is added: Ha's wireframe explicitly leaves this as an open qu
 - [ ] Group has confirmed whether UC-13 ships and whether sign-out is needed.
 - [ ] Ha's exports have been verified at 1280px and reviewed against v0.8 tokens.
 - [ ] Final cross-review and approval completed.
+
+
+---
+
+### Review handoff (21/11/2026)
+
+- **Spec owner:** Linh. **Wireframe owner:** Ha. Do not edit another member’s source or images.
+- **Reviewers:** Ha cross-reviews this spec; Linh performs final consolidation on 26/11/2026.
+- **Status:** Draft until the linked state PNGs exist, render on GitHub, and meet the UI conventions v0.8 requirements.
+- **Repository destination:** `EXTERNAL DESIGN/screens/screen-spec-S-F04-01.md` (not the repository root).
