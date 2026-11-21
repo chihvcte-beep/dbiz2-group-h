@@ -1,61 +1,48 @@
-# Wireframe notes: S-F03-01 Book Catalogue & Access Format Filter
+# Wireframe notes: S-F03-01 Access-format filter and results
 
-Actor: Reader · Feature: F-03 Discovery, Reading History & Recommendation · Use case: UC-03 · Activity diagram: AD-UC-03 v1.2
+Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Nhi
 
 ## Elements
 
 | # | Element | Component | Content / data source | FR |
 |---|---|---|---|---|
-| 1 | Back navigation | Existing OPAC navigation | Returns to the existing OPAC catalogue / search results from which the reader opened the filter. | — |
-| 2 | Screen title | Screen header | “Lọc theo hình thức” [wireframe label; confirm the final approved Vietnamese title] | — |
-| 3 | Access-format selector | Segmented control | Exactly three choices: “Trực tuyến” (Online), “Bản giấy” (Physical), and “Cả hai” (Both). “Both” means books that have both a physical copy and an online version. | FR-03-12 |
-| 4 | Matching book results | Book result row / list | Retrieve matching books from the whole synced catalogue, not only the current search results. Each result displays its access-format label: “Online”, “Physical”, or the applicable label for the Both filter. | FR-03-12 |
-| 5 | No-results message | Empty state | Tell the reader that no books were found and invite them to choose another access format. Exact approved message wording is not specified in AD-UC-03. | FR-03-23 |
-| 6 | Online-book link | Result-row action / link | Opens the selected online book on the current OPAC. This project does not build an online-book viewer or download function. | FR-03-13 |
-| 7 | Anonymous online-read log | Background system action; not a visible UI element | When an online book is opened, record the book and time without any reader identity. | FR-03-13 |
-| 8 | Signed-in reader history update | Background system action; not a visible UI element | Check whether the reader is signed in with a library card. If yes, add the book to their reading history; if not, do not create a history entry. | FR-03-02 |
+| 1 | Back button | Screen header | Accessible name: “Quay lại”. Return to the existing OPAC catalogue / search results from which the reader opened the filter. | — |
+| 2 | Screen title | Screen header | “Lọc theo hình thức”. | — |
+| 3 | Instruction label | Section title | “Chọn hình thức truy cập”. | FR-03-12 |
+| 4 | Access-format selector | Segmented control | Exactly three choices: “Trực tuyến”, “Bản giấy”, “Cả hai”. “Cả hai” means books that have both a physical copy and an online version. | FR-03-12 |
+| 5 | Matching book results | Book row | Retrieve matching books from the whole synced catalogue, not only the current OPAC search results. Each row opens the corresponding existing OPAC book detail destination. | FR-03-12 |
+| 6 | Access-format label | Format label | Show the format with an icon and word: “Bản giấy” and/or “Trực tuyến”. Never rely on colour alone. | FR-03-12 |
+| 7 | No-results message | Empty state | “Không tìm thấy sách. Hãy chọn hình thức khác.” Keep the selector available so the reader can choose another format. | FR-03-23 |
+| 8 | Load error | Banner | MSG-04: “Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.” Keep data already shown. | FR-04-20 |
+| 9 | Retry action | Secondary button | “Thử lại”. Retry retrieval for the currently selected access format. | FR-04-20 |
 
 ## States drawn
 
 | State | Image | What the user sees | Source / FR |
 |---|---|---|---|
-| Default | img/S-F03-01-default.png, img/S-F03-01-numbered.png | Access-format filter area with the three choices. The initial selected option is not specified in AD-UC-03; confirm whether the control should start with no selection or a default selection before final handoff. | UC-03 · FR-03-12 |
-| Empty | img/S-F03-01-empty.png | No matching books are found. The message invites the reader to choose another format; the filter remains available on this same screen. | AD-UC-03 d1 [No], s3 · FR-03-23 |
-| Loading | img/S-F03-01-loading.png | Loading presentation while the system retrieves books for the selected access format. This is a conventional UI state; AD-UC-03 does not define exact loading copy or a separate loading interaction. | System step s1 · FR-03-12 |
-| Error | img/S-F03-01-error.png | [NOT SPECIFIED IN AD-UC-03] The activity diagram defines the no-matching-books alternative, not a network/system-error message. Do not treat an error banner or MSG-04 as a UC-03 requirement unless confirmed in the approved shared message catalogue / screen spec. | Needs confirmation |
-| Results / Success | img/S-F03-01-success.png, if retained in the export | Matching books are displayed with their access-format labels. The result list stays on S-F03-01 while the reader chooses another format or finishes filtering. “Success” is the matching-results outcome, not a separate confirmation Toast. | AD-UC-03 d1 [Yes], s2 · FR-03-12 |
+| Default | img/S-F03-01-numbered.png | The three access-format choices are visible. No option is selected on first entry in this wireframe; matching results appear after the reader chooses a format. This initial-selection behaviour remains to be confirmed by the team. | UC-03 · FR-03-12 |
+| Empty | img/S-F03-01-states.png | No matching books are found. Show the empty-state sentence once and keep the selector available for another choice. | AD-UC-03 d1 [No], s3 · FR-03-23 |
+| Loading | img/S-F03-01-states.png | Skeleton placeholders while the system retrieves books for the selected access format. No loading text. | System step s1 · FR-03-12; MSG-05 |
+| Error | img/S-F03-01-states.png | Shared MSG-04 banner and “Thử lại” action. Retain the selected format and any data already shown. | FR-04-20 |
+| Results | img/S-F03-01-states.png | Matching books appear on S-F03-01 with format labels. The example shows one physical book and one online book. The result list stays on this screen while the reader changes the format or finishes filtering. | AD-UC-03 d1 [Yes], s2 · FR-03-12 |
 
 ## Actions and where they go
 
 | Element / event | User action / system event | Result / destination |
 |---|---|---|
-| Entry | Reader opens the access-format filter from the existing OPAC catalogue / search results | S-F03-01 |
-| Access-format selector | Reader chooses Online, Physical or Both | System retrieves matching books from the whole synced catalogue; results update on S-F03-01 |
-| No-results state | No matching books are found | Display the no-results message on S-F03-01; reader can choose another format |
-| Choose another format | Reader selects a different format after seeing no results or a result list | Return to the format-selection step on S-F03-01; retrieve and display the new matching results |
-| Online book result | Reader opens an online book | Hand off to that book on the current OPAC (existing destination; no new viewer/download screen is built here) |
-| Online book opened | System records the book and time without reader identity | Background action s4 · FR-03-13 |
-| Library-card sign-in check | System checks whether the reader is signed in with a library card | If Yes, add the book to reading history (s5 · FR-03-02); if No, do not add a history entry |
-| Finish | Reader stops filtering | Activity ends; the current result list remains on S-F03-01 |
+| Back button | Reader taps Back | Existing OPAC catalogue / search results (exit destination). |
+| Access-format selector | Reader chooses “Trực tuyến”, “Bản giấy” or “Cả hai” | System retrieves matching books from the whole synced catalogue; results update on S-F03-01. |
+| Choose another format | Reader changes the selected format after an empty state or results | Stay on S-F03-01; retrieve and display the new matching results. |
+| Physical book row | Reader opens a physical book result | Existing OPAC Book Detail (exit destination); the current project does not create another book-detail screen here. |
+| Online book row | Reader opens an online book result | Current OPAC online-book page (existing destination; no new viewer or download function is built here). |
+| Online book opened | System records the book and time without reader identity | Background action s4 · FR-03-13. |
+| Library-card sign-in check | System checks whether the reader is signed in with a library card | If Yes, add the book to reading history (s5 · FR-03-02); if No, do not add a history entry. These are background actions, not visible UI elements. |
+| Retry | Reader taps “Thử lại” | Retry loading results for the currently selected format; stay on S-F03-01. |
 
 ## Open questions
 
 | # | Question | Current treatment |
 |---|---|---|
-| 1 | What is the initial state of the three-option selector when S-F03-01 first opens? | Not defined in AD-UC-03. The current Default wireframe must be checked with the team; do not infer a default selection from the use case. |
-| 2 | What is the exact Vietnamese wording for the no-results message? | AD-UC-03 only says to display that no books were found and allow another format choice. Use approved shared copy if available; otherwise mark the wireframe text as provisional. |
-| 3 | Is there an approved system/network error message for this screen? | No UC-03 system-error branch is specified in AD-UC-03. The Error state in the visual export is a design placeholder, not a confirmed FR. |
-| 4 | Confirm the final Vietnamese screen title and exact result-row layout. | The activity diagram specifies the behaviour and access-format labels, but does not define detailed visual copy or row anatomy. |
-
-## Scope and implementation notes
-
-- Login is not required to use the access-format filter.
-- The catalogue and each book's access format must already be synced (FR-04-09 precondition in AD-UC-03).
-- The three choices are exactly Online, Physical and Both (FR-03-12).
-- “Both” means a book has both a physical copy and an online version; the filter applies to the whole synced catalogue.
-- The empty-result outcome does not end the activity. The reader can choose another format on the same screen (FR-03-23).
-- Opening an online book hands the reader over to the current OPAC. This platform does not build an online viewer or download function (W0 Table 3; FR-03-14 and FR-03-15 are out of scope).
-- Every online-book opening creates an anonymous read-log record containing the book and time only (FR-03-13).
-- Only a reader signed in with a library card receives a reading-history entry (FR-03-02). This is background processing, not another screen.
-- No modal is specified for UC-03.
-- The Advanced Filter Panel is an area within Search Results, not a separate screen.
+| 1 | What is the initial state of the three-option selector when S-F03-01 first opens? | The wireframe shows no selection on first entry. Confirm this with the team; AD-UC-03 does not specify an initial selection. |
+| 2 | When the reader selects “Cả hai”, how should a book with both formats be labelled? | Provisional treatment: show both “Bản giấy” and “Trực tuyến” Format labels on that result. UI Conventions §2 currently lists the two labels but does not explicitly settle the combined-result presentation. |
+| 3 | Should a long result list use pagination or a “Xem thêm” action? | The wireframe shows the initial matching results only. Confirm the list-loading pattern with the team before implementation. |

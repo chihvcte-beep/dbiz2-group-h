@@ -1,31 +1,32 @@
-# Wireframe notes: S-F01-01 Shelf location (with Save to my list)
+# Wireframe notes: S-F01-01 Shelf location
 
-Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Nhi
+Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Nhi
 
 ## Elements
 
 | # | Element | Component | Content / data source | FR |
 |---|---|---|---|---|
-| 1 | Back and screen title | Screen header | “Vị trí kệ sách” | — |
-| 2 | Book title | [NEEDS CLARIFICATION: no standalone book-title component is listed in UI Conventions section 3] | Book catalogue › title; sample: “Principles of Economics” | FR-01-01 |
-| 3 | Shelf location line | Shelf location line | Book placement & library layout › floor, room code, shelf code; one line per physical copy: “Tầng 2 · Phòng R-204 · Kệ S-12” | FR-01-01 |
+| 1 | Back button and screen title | Screen header | “Vị trí kệ sách”; Back returns to the existing OPAC Book Detail page. | — |
+| 2 | Book title and author | Section title | Book catalogue › title and author. Sample: “Principles of Economics” — “N. Gregory Mankiw”. | FR-01-01 |
+| 3 | Shelf location line | Shelf location line | Book placement & library layout › floor, room code and shelf code. Show one line for each physical copy, e.g. “Tầng 2 · Phòng R-204 · Kệ S-12”. Include the map-pin icon. | FR-01-01 |
 | 4 | Unavailable shelf location | Banner | MSG-06: “Chưa có vị trí kệ của sách này. Bạn hỏi quầy thông tin ở tầng trệt nhé.” | FR-01-07 |
 | 5 | Online-only information | Banner | “Sách này chỉ có bản trực tuyến, không có vị trí trên kệ.” | FR-01-06 |
-| 6 | Save to my list | Primary button | “Lưu vào danh sách”; physical books only | FR-03-06 |
-| 7 | View on map | Secondary button | “Xem trên bản đồ”; show only when a physical copy has a room location | FR-01-03 |
-| 8 | Save confirmation | Toast | “Đã lưu sách vào danh sách của bạn.” [NEEDS CLARIFICATION: exact success wording is not listed in shared messages] | FR-03-06 |
+| 6 | Save to my list | Primary button | “Lưu vào danh sách”. Show only for physical books. One Primary button is visible at a time. | FR-03-06 |
+| 7 | View on map | Secondary button | “Xem trên bản đồ”. Show only when a physical copy has a usable room location. | FR-01-03 |
+| 8 | Save confirmation | Toast | “Đã lưu sách vào danh sách của bạn.” Shown after a successful save. | FR-03-06 |
 
 ## States drawn
 
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/S-F01-01-default.png, img/S-F01-01-numbered.png | Book title, one shelf-location line per physical copy, Save and View on map actions | FR-01-01, FR-03-06, FR-01-03 |
-| Empty | Not applicable: this is a single-book location view, not a list | — | — |
-| Loading | img/S-F01-01-loading.png | Skeleton blocks matching the title, location and action areas; no loading text | FR-01-01 |
-| Error | img/S-F01-01-error.png | MSG-06 banner; the book title remains visible | FR-01-07 |
-| Success — saved | img/S-F01-01-success.png | “Book saved” confirmation shown as a Toast; temporary Vietnamese wording is used pending confirmation | FR-03-06 |
-| Success — already saved | Same layout as Success — saved; wording variant: “Sách này đã có trong danh sách của bạn.” | The book is already in the reader’s saved list | FR-03-24 |
-| Information — online only | img/S-F01-01-online-only.png | Online-only information; no shelf location, Save or View on map actions | FR-01-06 |
+| Default | img/S-F01-01-numbered.png | Book title and author; one shelf-location line per physical copy; Save and View on map actions. The numbered image identifies the elements. | FR-01-01, FR-03-06, FR-01-03 |
+| Empty | Not applicable: this is a single-book location view, not a list. | No empty-list state is shown. | — |
+| Loading | img/S-F01-01-states.png | Skeleton placeholders matching the title, location and action areas; no loading text. | FR-01-01 |
+| Error — shelf location unavailable | img/S-F01-01-states.png | MSG-06 is shown while the book title remains visible. View on map is hidden when no usable room location exists. | FR-01-07 |
+| Error — network/load failure | img/S-F01-01-states.png | MSG-04: “Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.” with “Thử lại”. Keep data already shown. | FR-04-20 |
+| Success — saved | img/S-F01-01-states.png | A Toast confirms: “Đã lưu sách vào danh sách của bạn.” | FR-03-06 |
+| Success — already saved | img/S-F01-01-states.png | Informational Toast: “Sách này đã có trong danh sách của bạn.” | FR-03-24 |
+| Information — online only | img/S-F01-01-states.png | “Sách này chỉ có bản trực tuyến, không có vị trí trên kệ.” No shelf location, Save or View on map actions. | FR-01-06 |
 
 ## Actions and where they go
 
@@ -33,19 +34,15 @@ Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Nhi
 |---|---|---|
 | Back | Tap | Existing OPAC Book Detail (exit) |
 | View on map | Tap | S-F01-02 |
-| Save to my list | Tap while signed in | stays |
+| Save to my list | Tap while signed in | Stays on S-F01-01; show the save confirmation Toast. |
 | Save to my list | Tap while not signed in | M-F00-01 |
+| Save to my list | Tap when the book is already saved | Stays on S-F01-01; show the already-saved informational Toast. |
 
 ## Open questions
 
 | # | Question | Default drawn |
 |---|---|---|
-| 1 | [NEEDS CLARIFICATION: no standalone book-title component is named in UI Conventions section 3.] | Show the title as a heading, without inventing a new control. |
-| 2 | [NEEDS CLARIFICATION: exact success Toast wording for saving is not listed in shared messages.] | Temporary wording is shown; confirm with Linh. |
+| 1 | [NEEDS CLARIFICATION: confirm whether the success Toast wording “Đã lưu sách vào danh sách của bạn.” is approved for FR-03-06.] | Use the wording shown in the wireframe until the shared message catalogue confirms the final copy. |
+| 2 | [NEEDS CLARIFICATION: confirm whether the already-saved message should be displayed as a Toast or another informational treatment.] | Use a short informational Toast for FR-03-24, consistent with the success feedback pattern. |
+| 3 | [NEEDS CLARIFICATION: confirm whether multiple physical copies should be grouped by copy/holding or displayed as separate shelf-location lines.] | Display one shelf-location line per physical copy, as specified in AD-UC-01 question 1. |
 
-Notes:
-- Save is available for physical books only. Do not show a Save action for an online-only book.
-- Do not add a link from this screen to the saved-books list.
-- Do not show shelf availability or a list of borrowable copies; these are outside the release scope.
-- If shelf details are missing or do not match the library layout, show the shared MSG-06 wording.
-- The map action is available only when the physical copy has a usable room location.
