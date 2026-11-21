@@ -1,694 +1,459 @@
 <!doctype html>
+<!--
+  Screen ID: S-F03-02
+  Screen name: Reading history and preferences
+  Vietnamese title: Lịch sử đọc và sở thích
+  Frame: reader (360px, export 3x = 1080px)
+  ui-conventions version: v0.7
+  Author / date: Trieu · 21/11/2026
+-->
 <html lang="vi">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>S-F03-02 · Lịch sử đọc và sở thích</title>
+  <link rel="stylesheet" href="tokens.css">
   <style>
-    :root {
-      --colour-brand-red: #8B0000;
-      --colour-on-primary: #FFFFFF;
-      --colour-brand-red-soft: #FFEBEE;
-      --colour-link: #1074C3;
-      --colour-text: #1F2937;
-      --colour-text-body: #374151;
-      --colour-text-muted: #6B7280;
-      --colour-border: #7A8492;
-      --colour-border-light: #E5E7EB;
-      --colour-background: #FAFAFA;
-      --colour-surface: #EDF0F2;
-      --colour-card: #FFFFFF;
-      --colour-skeleton: #EDF0F2;
-      --colour-disabled: #C5CBD3;
-      --colour-error-red: #C62828;
-      --colour-error-red-bg: #FDECEA;
-      --colour-success-border: #2F7D46;
-      --colour-success-text: #14532D;
-      --colour-success-bg: #E8F5EC;
-      --colour-warning-border: #B45309;
-      --colour-warning-text: #7A3E06;
-      --colour-warning-bg: #FDF3E3;
-      --colour-info-border: #1074C3;
-      --colour-info-text: #0B4F86;
-      --colour-info-bg: #E8F2FB;
-      --colour-focus: #1074C3;
-      --radius: 8px;
-      --radius-pill: 999px;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--colour-background);
-      color: var(--colour-text);
-      font-family: Inter, Arial, sans-serif;
-      font-size: 14px;
-      line-height: 1.5;
-      min-height: 100vh;
-    }
-    .screen {
-      width: 360px;
-      min-height: 100vh;
-      margin: 0 auto;
-      background: var(--colour-background);
-      padding: 16px 16px 28px;
-      position: relative;
-    }
-    .screen-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .back {
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--colour-border);
-      border-radius: var(--radius);
-      background: var(--colour-card);
-      color: var(--colour-text);
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      flex: none;
-    }
-    .back svg { width: 20px; height: 20px; stroke-width: 2; }
-    .screen-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin: 0;
-      line-height: 1.3;
-    }
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin: 20px 0 10px;
-    }
-    .section-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin: 0;
-      color: var(--colour-text);
-    }
-    .section-desc {
-      font-size: 12px;
-      color: var(--colour-text-muted);
-      margin: 2px 0 12px;
-    }
-    .count-badge {
-      font-size: 12px;
-      color: var(--colour-text-muted);
-      font-weight: 500;
-    }
-    .card {
-      background: var(--colour-card);
-      border: 1px solid var(--colour-border-light);
-      border-radius: var(--radius);
-      padding: 12px;
-      margin-bottom: 12px;
-      box-shadow: var(--shadow-sm);
-    }
-    .book-item {
-      display: flex;
-      gap: 12px;
-    }
-    .cover-box {
-      width: 48px;
-      height: 66px;
-      background: var(--colour-surface);
-      border: 1px solid var(--colour-border-light);
-      border-radius: 4px;
-      display: grid;
-      place-items: center;
-      font-size: 11px;
-      color: var(--colour-text-muted);
-      flex: none;
-      font-weight: 500;
-    }
-    .book-info { flex: 1; min-width: 0; }
-    .book-title {
-      font-weight: 700;
-      font-size: 14px;
-      margin: 0 0 2px;
-      line-height: 1.3;
-      color: var(--colour-text);
-    }
-    .book-author {
-      font-size: 12px;
-      color: var(--colour-text-muted);
-      margin: 0 0 6px;
-    }
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: var(--radius-pill);
-      font-weight: 500;
-    }
-    .tag-format {
-      border: 1px solid var(--colour-brand-red);
-      color: var(--colour-brand-red);
-      background: var(--colour-brand-red-soft);
-    }
-    .tag-reading {
-      border: 1px solid var(--colour-info-border);
-      color: var(--colour-info-text);
-      background: var(--colour-info-bg);
-    }
-    .tag-finished {
-      border: 1px solid var(--colour-success-border);
-      color: var(--colour-success-text);
-      background: var(--colour-success-bg);
-    }
-    .progress-wrap { margin-top: 6px; }
+    /* Specialized layouts using design tokens */
     .progress-bar-bg {
-      height: 6px;
+      height: var(--space-1);
       background: var(--colour-surface);
-      border-radius: 3px;
+      border-radius: var(--radius-pill);
       overflow: hidden;
-      margin-bottom: 4px;
+      margin-top: var(--space-1);
     }
     .progress-bar-fill {
       height: 100%;
       background: var(--colour-brand-red);
-      border-radius: 3px;
+      border-radius: var(--radius-pill);
     }
-    .progress-text {
-      font-size: 11px;
-      color: var(--colour-text-muted);
-      display: flex;
-      justify-content: space-between;
-    }
-    .btn-update {
-      margin-top: 8px;
-      height: 32px;
-      background: var(--colour-card);
-      border: 1px solid var(--colour-border);
-      border-radius: var(--radius);
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--colour-text);
-      cursor: pointer;
+    .status-badge {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      padding: 0 10px;
+      padding: 0 var(--space-2);
+      min-height: var(--space-6);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-small);
+      font-weight: var(--font-weight-medium);
+      border: var(--border-width) solid;
     }
-    .btn-update:hover { background: var(--colour-surface); }
-    .edit-box {
-      margin-top: 10px;
-      padding: 10px;
-      background: var(--colour-background);
+    .status-badge.reading {
+      border-color: var(--colour-info-border);
+      background: var(--colour-info-bg);
+      color: var(--colour-info-text);
+    }
+    .status-badge.finished {
+      border-color: var(--colour-success-border);
+      background: var(--colour-success-bg);
+      color: var(--colour-success-text);
+    }
+    .history-card {
+      background: var(--colour-card);
+      border: var(--border-width) solid var(--colour-border-light);
       border-radius: var(--radius);
-      border: 1px solid var(--colour-border-light);
-    }
-    .form-group { margin-bottom: 8px; }
-    .form-label {
-      display: block;
-      font-size: 11px;
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: var(--colour-text-body);
-    }
-    .segmented {
+      padding: var(--space-4);
       display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .history-card-top {
+      display: flex;
+      gap: var(--space-3);
+    }
+    .edit-panel {
       background: var(--colour-surface);
       border-radius: var(--radius);
-      padding: 2px;
-      gap: 2px;
-    }
-    .segmented-opt {
-      flex: 1;
-      height: 28px;
-      border: none;
-      background: transparent;
-      font-size: 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 500;
-      color: var(--colour-text-body);
-    }
-    .segmented-opt.active {
-      background: #FFFFFF;
-      color: var(--colour-brand-red);
-      font-weight: 700;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-    }
-    .input-row { display: flex; align-items: center; gap: 6px; }
-    .input-num {
-      width: 70px;
-      height: 32px;
-      padding: 0 8px;
-      border: 1px solid var(--colour-border);
-      border-radius: var(--radius);
-      font-size: 13px;
-      background: #FFFFFF;
-    }
-    .input-unit { font-size: 13px; color: var(--colour-text-muted); }
-    .edit-actions { display: flex; gap: 8px; margin-top: 10px; }
-    .btn-primary {
-      height: 34px;
-      background: var(--colour-brand-red);
-      color: #FFFFFF;
-      border: none;
-      border-radius: var(--radius);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 0 14px;
-      cursor: pointer;
-    }
-    .btn-ghost {
-      height: 34px;
-      background: transparent;
-      color: var(--colour-text-muted);
-      border: none;
-      font-size: 12px;
-      cursor: pointer;
-      padding: 0 8px;
-    }
-    .chip-cloud {
+      padding: var(--space-3);
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12px;
+      flex-direction: column;
+      gap: var(--space-3);
     }
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 12px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--colour-border);
-      background: var(--colour-card);
-      font-size: 12px;
-      cursor: pointer;
-      color: var(--colour-text);
-      font-weight: 500;
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2);
     }
-    .chip.active {
-      background: var(--colour-brand-red-soft);
-      border-color: var(--colour-brand-red);
-      color: var(--colour-brand-red);
-      font-weight: 600;
-    }
-    .btn-save-prefs {
-      width: 100%;
-      height: 40px;
-      background: var(--colour-brand-red);
-      color: #FFFFFF;
-      border: none;
-      border-radius: var(--radius);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .banner-error {
-      background: var(--colour-error-red-bg);
-      border: 1px solid var(--colour-error-red);
-      border-radius: var(--radius);
-      padding: 10px 12px;
-      font-size: 12px;
-      color: var(--colour-error-red);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-    .banner-error svg { width: 16px; height: 16px; flex: none; margin-top: 1px; }
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--colour-success-bg);
-      border: 1px solid var(--colour-success-border);
-      color: var(--colour-success-text);
-      padding: 10px 18px;
-      border-radius: var(--radius-pill);
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 1000;
-    }
-    .empty-state {
-      padding: 36px 16px;
-      text-align: center;
-      background: var(--colour-card);
-      border: 1px dashed var(--colour-border);
-      border-radius: var(--radius);
-      margin-bottom: 20px;
-    }
-    .empty-icon {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 12px;
-      color: var(--colour-text-muted);
-      stroke-width: 1.5;
-    }
-    .empty-title { font-weight: 700; font-size: 15px; margin: 0 0 6px; }
-    .empty-text { font-size: 12px; color: var(--colour-text-muted); margin: 0; }
-    .skeleton-box {
-      background: linear-gradient(90deg, #edeff1 25%, #f7f8f9 50%, #edeff1 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-      border-radius: 4px;
-    }
-    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-    /* Numbering badge */
-    .numbered-wrap { position: relative; }
-    .num {
-      display: none;
-      position: absolute;
-      top: -8px;
-      left: -8px;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--colour-link);
-      color: #FFFFFF;
-      font-size: 11px;
-      font-weight: 700;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    }
-    body.numbered .num { display: flex; }
-
-    /* State toggles */
-    .screen-state { display: none; }
-    body.state-default #default { display: block; }
-    body.state-empty #empty { display: block; }
-    body.state-loading #loading { display: block; }
-    body.state-error #error { display: block; }
-    body.state-success #success { display: block; }
   </style>
 </head>
-<body class="state-default">
-  <div class="screen">
+<body data-frame="reader">
+  <div class="frame">
 
-    <!-- STATE 1: DEFAULT -->
-    <section class="screen-state" id="default">
+    <!-- ========================================================
+         STATE: DEFAULT
+         ======================================================== -->
+    <section data-state="default">
       <header class="screen-header">
-        <div class="numbered-wrap">
-          <span class="num">1</span>
-          <button class="back" aria-label="Quay lại">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 19l-7-7 7-7"/></svg>
-          </button>
-        </div>
-        <h1 class="screen-title">Lịch sử đọc & sở thích</h1>
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span>
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title has-num"><span class="num">2</span>Lịch sử đọc và sở thích</h1>
       </header>
 
-      <div class="numbered-wrap">
-        <span class="num">2</span>
-        <div class="section-header">
-          <h2 class="section-title">Lịch sử đọc</h2>
-          <span class="count-badge">2 cuốn</span>
+      <main class="screen-body">
+        <div class="group">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <h2 class="section-title has-num"><span class="num">3</span>Lịch sử đọc</h2>
+            <span class="muted small">3 cuốn</span>
+          </div>
+          <span class="muted small">Ghi nhận tự động từ sách mượn tại thư viện hoặc đọc trực tuyến.</span>
         </div>
-      </div>
 
-      <!-- Book 1 (With inline editor expanded) -->
-      <div class="numbered-wrap">
-        <span class="num">3</span>
-        <div class="card">
-          <div class="book-item">
-            <div class="cover-box">Cover</div>
-            <div class="book-info">
-              <h3 class="book-title">Principles of Economics</h3>
-              <p class="book-author">N. Gregory Mankiw</p>
-              <div class="tag-row">
-                <span class="tag tag-format">Bản giấy</span>
-                <div class="numbered-wrap" style="display:inline-block;">
-                  <span class="num">4</span>
-                  <span class="tag tag-reading">Đang đọc</span>
-                </div>
+        <!-- Book 1: Reading, 20% with inline edit active -->
+        <div class="history-card has-num">
+          <span class="num">4</span>
+          <div class="history-card-top">
+            <div class="cover">Cover</div>
+            <div class="book-meta">
+              <span class="book-title">Principles of Economics</span>
+              <span class="book-author">N. Gregory Mankiw</span>
+              <div style="display:flex; gap:var(--space-2); align-items:center; flex-wrap:wrap; margin-top:var(--space-1);">
+                <span class="format-label">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+                </span>
+                <span class="status-badge reading has-num"><span class="num">5</span>Đang đọc</span>
               </div>
-              <div class="numbered-wrap">
-                <span class="num">5</span>
-                <div class="progress-wrap">
-                  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 20%;"></div></div>
-                  <div class="progress-text"><span>Tiến độ: 20%</span><span>0% – 100%</span></div>
+              <div class="has-num" style="margin-top:var(--space-1);">
+                <span class="num">6</span>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 20%;"></div></div>
+                <div style="display:flex; justify-content:space-between; font-size:var(--font-size-small); color:var(--colour-text-muted); margin-top:2px;">
+                  <span>Tiến độ: 20%</span>
+                  <span>Ngày mượn: 12/10/2026</span>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Inline Edit Form -->
-          <div class="edit-box">
-            <div class="form-group">
-              <span class="form-label">Trạng thái</span>
-              <div class="numbered-wrap">
-                <span class="num">7</span>
-                <div class="segmented">
-                  <button class="segmented-opt active" type="button">Đang đọc</button>
-                  <button class="segmented-opt" type="button">Đã đọc xong</button>
-                </div>
+          <div class="edit-panel">
+            <div class="field has-num">
+              <span class="num">7</span>
+              <label class="field-label" for="edit-status-1">Trạng thái đọc</label>
+              <select id="edit-status-1" class="select">
+                <option selected>Đang đọc</option>
+                <option>Đã đọc xong</option>
+              </select>
+            </div>
+
+            <div class="field has-num">
+              <span class="num">8</span>
+              <label class="field-label" for="edit-progress-1">Tiến độ đọc</label>
+              <div class="number-input">
+                <input id="edit-progress-1" inputmode="numeric" value="20">
+                <span>%</span>
               </div>
             </div>
-            <div class="form-group">
-              <span class="form-label">Tiến độ (%)</span>
-              <div class="numbered-wrap">
-                <span class="num">8</span>
-                <div class="input-row">
-                  <input class="input-num" type="number" min="0" max="100" value="20" aria-label="Tiến độ">
-                  <span class="input-unit">%</span>
-                </div>
-              </div>
-            </div>
-            <div class="edit-actions">
-              <div class="numbered-wrap">
-                <span class="num">9</span>
-                <button class="btn-primary" type="button">Lưu tiến độ</button>
-              </div>
-              <div class="numbered-wrap">
-                <span class="num">10</span>
-                <button class="btn-ghost" type="button">Hủy</button>
-              </div>
+
+            <div style="display:flex; gap:var(--space-2);">
+              <button class="primary-button has-num" type="button" style="flex:1;"><span class="num">9</span>Lưu thay đổi</button>
+              <button class="secondary-button has-num" type="button" style="width:auto;"><span class="num">10</span>Huỷ</button>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Book 2 -->
-      <div class="card">
-        <div class="book-item">
-          <div class="cover-box">Cover</div>
-          <div class="book-info">
-            <h3 class="book-title">Digital Marketing Basics</h3>
-            <p class="book-author">Philip Kotler</p>
-            <div class="tag-row">
-              <span class="tag tag-format">Trực tuyến</span>
-              <span class="tag tag-reading">Đang đọc</span>
-            </div>
-            <div class="progress-wrap">
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%;"></div></div>
-              <div class="progress-text"><span>Tiến độ: 0%</span></div>
-            </div>
-            <div class="numbered-wrap" style="display:inline-block;">
-              <span class="num">6</span>
-              <button class="btn-update" type="button">Cập nhật tiến độ</button>
+        <!-- Book 2: Digital Marketing Basics -->
+        <div class="history-card">
+          <div class="history-card-top">
+            <div class="cover">Cover</div>
+            <div class="book-meta">
+              <span class="book-title">Digital Marketing Basics</span>
+              <span class="book-author">Philip Kotler</span>
+              <div style="display:flex; gap:var(--space-2); align-items:center; flex-wrap:wrap; margin-top:var(--space-1);">
+                <span class="format-label">
+                  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Trực tuyến
+                </span>
+                <span class="status-badge reading">Đang đọc</span>
+              </div>
+              <div style="margin-top:var(--space-1);">
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%;"></div></div>
+                <div style="display:flex; justify-content:space-between; font-size:var(--font-size-small); color:var(--colour-text-muted); margin-top:2px;">
+                  <span>Tiến độ: 0%</span>
+                  <span>Đọc ngày: 01/11/2026</span>
+                </div>
+              </div>
             </div>
           </div>
+          <button class="secondary-button has-num" type="button" style="width:100%;"><span class="num">11</span>Cập nhật tiến độ</button>
         </div>
-      </div>
 
-      <!-- Preferences Section -->
-      <div class="numbered-wrap">
-        <span class="num">11</span>
-        <div class="section-header" style="margin-top:28px;">
+        <!-- Book 3: Microeconomics Finished -->
+        <div class="history-card">
+          <div class="history-card-top">
+            <div class="cover">Cover</div>
+            <div class="book-meta">
+              <span class="book-title">Kinh tế học Vi mô</span>
+              <span class="book-author">Hal R. Varian</span>
+              <div style="display:flex; gap:var(--space-2); align-items:center; flex-wrap:wrap; margin-top:var(--space-1);">
+                <span class="format-label">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+                </span>
+                <span class="status-badge finished">Đã đọc xong</span>
+              </div>
+              <div style="margin-top:var(--space-1);">
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%;"></div></div>
+                <div style="display:flex; justify-content:space-between; font-size:var(--font-size-small); color:var(--colour-text-muted); margin-top:2px;">
+                  <span>Tiến độ: 100%</span>
+                  <span>Trả ngày: 15/10/2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="secondary-button" type="button" style="width:100%;">Cập nhật tiến độ</button>
+        </div>
+
+        <!-- Preferences Section -->
+        <div class="card group has-num">
+          <span class="num">12</span>
           <h2 class="section-title">Sở thích đọc sách</h2>
-        </div>
-        <p class="section-desc">Chọn các chủ đề bạn quan tâm để nhận gợi ý sách phù hợp</p>
-      </div>
+          <span class="muted small">Chọn các chủ đề từ danh mục để hệ thống gợi ý sách phù hợp.</span>
 
-      <div class="numbered-wrap">
-        <span class="num">12</span>
-        <div class="chip-cloud">
-          <button class="chip active" type="button">✓ Kinh tế</button>
-          <button class="chip active" type="button">✓ Marketing</button>
-          <button class="chip" type="button">+ Công nghệ thông tin</button>
-          <button class="chip" type="button">+ Kỹ năng mềm</button>
-          <button class="chip" type="button">+ Văn học</button>
-          <button class="chip" type="button">+ Khoa học tự nhiên</button>
-        </div>
-      </div>
+          <div class="checkbox-grid has-num" style="margin:var(--space-2) 0;">
+            <span class="num">13</span>
+            <label class="checkbox"><input type="checkbox" checked><span>Kinh tế</span></label>
+            <label class="checkbox"><input type="checkbox" checked><span>Marketing</span></label>
+            <label class="checkbox"><input type="checkbox"><span>Công nghệ thông tin</span></label>
+            <label class="checkbox"><input type="checkbox"><span>Kỹ năng mềm</span></label>
+            <label class="checkbox"><input type="checkbox"><span>Văn học</span></label>
+            <label class="checkbox"><input type="checkbox"><span>Khoa học</span></label>
+          </div>
 
-      <div class="numbered-wrap">
-        <span class="num">13</span>
-        <button class="btn-save-prefs" type="button">Lưu sở thích</button>
-      </div>
+          <button class="secondary-button has-num" type="button" style="width:100%;"><span class="num">14</span>Lưu sở thích</button>
+        </div>
+      </main>
     </section>
 
-    <!-- STATE 2: EMPTY -->
-    <section class="screen-state" id="empty">
+    <!-- ========================================================
+         STATE: EMPTY
+         ======================================================== -->
+    <section data-state="empty">
       <header class="screen-header">
-        <button class="back" aria-label="Quay lại"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 19l-7-7 7-7"/></svg></button>
-        <h1 class="screen-title">Lịch sử đọc & sở thích</h1>
+        <button class="back" aria-label="Quay lại">
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title">Lịch sử đọc và sở thích</h1>
       </header>
 
-      <div class="section-header">
-        <h2 class="section-title">Lịch sử đọc</h2>
-        <span class="count-badge">0 cuốn</span>
-      </div>
-
-      <div class="numbered-wrap">
-        <span class="num">14</span>
-        <div class="empty-state">
-          <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-          </svg>
-          <h3 class="empty-title">Chưa có lịch sử đọc nào</h3>
-          <p class="empty-text">Sách bạn mượn tại quầy hoặc đọc trực tuyến sẽ tự động xuất hiện tại đây.</p>
+      <main class="screen-body">
+        <div class="empty-state has-num">
+          <span class="num">15</span>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>
+          <h2 class="section-title">Chưa có lịch sử đọc nào</h2>
+          <p class="muted">Sách bạn mượn tại thư viện hoặc đọc trực tuyến trên hệ thống sẽ tự động xuất hiện tại đây.</p>
         </div>
-      </div>
 
-      <div class="section-header" style="margin-top:24px;">
-        <h2 class="section-title">Sở thích đọc sách</h2>
-      </div>
-      <p class="section-desc">Chọn các chủ đề bạn quan tâm để nhận gợi ý sách phù hợp</p>
-      <div class="chip-cloud">
-        <button class="chip" type="button">+ Kinh tế</button>
-        <button class="chip" type="button">+ Marketing</button>
-        <button class="chip" type="button">+ Công nghệ thông tin</button>
-        <button class="chip" type="button">+ Kỹ năng mềm</button>
-      </div>
-      <button class="btn-save-prefs" type="button">Lưu sở thích</button>
+        <div class="card group">
+          <h2 class="section-title">Sở thích đọc sách</h2>
+          <span class="muted small">Bạn có thể chọn trước các chủ đề quan tâm để nhận gợi ý sách:</span>
+          <div class="checkbox-grid" style="margin:var(--space-2) 0;">
+            <label class="checkbox"><input type="checkbox"><span>Kinh tế</span></label>
+            <label class="checkbox"><input type="checkbox"><span>Marketing</span></label>
+            <label class="checkbox"><input type="checkbox"><span>Công nghệ thông tin</span></label>
+            <label class="checkbox"><input type="checkbox"><span>Kỹ năng mềm</span></label>
+          </div>
+          <button class="secondary-button" type="button" style="width:100%;">Lưu sở thích</button>
+        </div>
+      </main>
     </section>
 
-    <!-- STATE 3: LOADING -->
-    <section class="screen-state" id="loading">
+    <!-- ========================================================
+         STATE: LOADING
+         ======================================================== -->
+    <section data-state="loading">
       <header class="screen-header">
-        <button class="back" aria-label="Quay lại"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 19l-7-7 7-7"/></svg></button>
-        <h1 class="screen-title">Lịch sử đọc & sở thích</h1>
+        <button class="back" aria-label="Quay lại">
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title">Lịch sử đọc và sở thích</h1>
       </header>
 
-      <div class="numbered-wrap">
-        <span class="num">17</span>
-        <div style="height:20px; width:120px; margin-bottom:14px;" class="skeleton-box"></div>
-        <div class="card" style="display:flex; gap:12px;">
-          <div style="width:48px; height:66px;" class="skeleton-box"></div>
-          <div style="flex:1;">
-            <div style="height:16px; width:75%; margin-bottom:8px;" class="skeleton-box"></div>
-            <div style="height:12px; width:50%; margin-bottom:12px;" class="skeleton-box"></div>
-            <div style="height:8px; width:100%; margin-bottom:8px;" class="skeleton-box"></div>
+      <main class="screen-body has-num" aria-busy="true">
+        <span class="num">19</span>
+        <div class="group"><div class="skeleton line short"></div></div>
+        
+        <div class="book-row">
+          <div class="skeleton block"></div>
+          <div class="book-meta">
+            <div class="skeleton line"></div>
+            <div class="skeleton line short"></div>
+            <div class="skeleton line" style="height:6px; margin-top:8px;"></div>
           </div>
         </div>
-        <div class="card" style="display:flex; gap:12px;">
-          <div style="width:48px; height:66px;" class="skeleton-box"></div>
-          <div style="flex:1;">
-            <div style="height:16px; width:65%; margin-bottom:8px;" class="skeleton-box"></div>
-            <div style="height:12px; width:45%; margin-bottom:12px;" class="skeleton-box"></div>
-            <div style="height:8px; width:100%; margin-bottom:8px;" class="skeleton-box"></div>
+
+        <div class="book-row">
+          <div class="skeleton block"></div>
+          <div class="book-meta">
+            <div class="skeleton line"></div>
+            <div class="skeleton line short"></div>
+            <div class="skeleton line" style="height:6px; margin-top:8px;"></div>
           </div>
         </div>
-        <div style="height:20px; width:140px; margin:28px 0 14px;" class="skeleton-box"></div>
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <div style="height:32px; width:80px; border-radius:999px;" class="skeleton-box"></div>
-          <div style="height:32px; width:95px; border-radius:999px;" class="skeleton-box"></div>
-          <div style="height:32px; width:110px; border-radius:999px;" class="skeleton-box"></div>
+
+        <div class="card group" style="margin-top:var(--space-4);">
+          <div class="skeleton line short"></div>
+          <div class="skeleton line"></div>
+          <div style="height:48px;" class="skeleton"></div>
         </div>
-      </div>
+      </main>
     </section>
 
-    <!-- STATE 4: ERROR -->
-    <section class="screen-state" id="error">
+    <!-- ========================================================
+         STATE: ERROR (INLINE VALIDATION ERROR ON PROGRESS)
+         ======================================================== -->
+    <section data-state="error">
       <header class="screen-header">
-        <button class="back" aria-label="Quay lại"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 19l-7-7 7-7"/></svg></button>
-        <h1 class="screen-title">Lịch sử đọc & sở thích</h1>
+        <button class="back" aria-label="Quay lại">
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title">Lịch sử đọc và sở thích</h1>
       </header>
 
-      <div class="numbered-wrap">
-        <span class="num">15</span>
-        <div class="banner-error">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <div>
-            <strong>Cập nhật không hợp lệ (FR-03-22):</strong><br>
-            Tiến độ đọc phải từ 0% đến 100%. Dữ liệu đã lưu trước đó (20%) được giữ nguyên.
+      <main class="screen-body">
+        <div class="history-card">
+          <div class="history-card-top">
+            <div class="cover">Cover</div>
+            <div class="book-meta">
+              <span class="book-title">Principles of Economics</span>
+              <span class="book-author">N. Gregory Mankiw</span>
+              <div style="display:flex; gap:var(--space-2); align-items:center;">
+                <span class="format-label">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+                </span>
+                <span class="status-badge reading">Đang đọc</span>
+              </div>
+              <div style="margin-top:var(--space-1);">
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 20%;"></div></div>
+                <div style="font-size:var(--font-size-small); color:var(--colour-text-muted); margin-top:2px;">
+                  <span>Tiến độ đã lưu: 20% (giữ nguyên)</span>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="book-item">
-          <div class="cover-box">Cover</div>
-          <div class="book-info">
-            <h3 class="book-title">Principles of Economics</h3>
-            <p class="book-author">N. Gregory Mankiw</p>
-            <div class="tag-row">
-              <span class="tag tag-format">Bản giấy</span>
-              <span class="tag tag-reading">Đang đọc</span>
+          <!-- Inline Edit Form with Error -->
+          <div class="edit-panel">
+            <div class="field">
+              <label class="field-label" for="edit-status-err">Trạng thái đọc</label>
+              <select id="edit-status-err" class="select">
+                <option selected>Đang đọc</option>
+                <option>Đã đọc xong</option>
+              </select>
             </div>
-            <div class="progress-wrap">
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 20%;"></div></div>
-              <div class="progress-text"><span>Tiến độ: 20% (giữ nguyên)</span></div>
+
+            <div class="field is-error has-num">
+              <span class="num">16</span>
+              <label class="field-label" for="edit-progress-err">Tiến độ đọc</label>
+              <div class="number-input">
+                <input id="edit-progress-err" class="is-error" aria-invalid="true" value="120">
+                <span>%</span>
+              </div>
+              <div class="inline-error">
+                <span class="bang">!</span>
+                <span>Tiến độ đọc phải từ 0% đến 100%. Dữ liệu đã lưu trước đó được giữ nguyên.</span>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:var(--space-2);">
+              <button class="primary-button" type="button" style="flex:1;">Lưu thay đổi</button>
+              <button class="secondary-button" type="button" style="width:auto;">Huỷ</button>
             </div>
           </div>
         </div>
-        <div class="edit-box">
-          <div class="form-group">
-            <span class="form-label">Tiến độ (%)</span>
-            <div class="input-row">
-              <input class="input-num" style="border-color:var(--colour-error-red);" type="number" value="120" aria-label="Tiến độ lỗi">
-              <span class="input-unit">%</span>
-            </div>
-          </div>
-          <div class="edit-actions">
-            <button class="btn-primary" type="button">Lưu lại</button>
-            <button class="btn-ghost" type="button">Hủy</button>
-          </div>
-        </div>
-      </div>
+      </main>
     </section>
 
-    <!-- STATE 5: SUCCESS -->
-    <section class="screen-state" id="success">
+    <!-- ========================================================
+         STATE: ERROR-2 (PAGE LOAD FAILED MSG-04)
+         ======================================================== -->
+    <section data-state="error-2">
       <header class="screen-header">
-        <button class="back" aria-label="Quay lại"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 19l-7-7 7-7"/></svg></button>
-        <h1 class="screen-title">Lịch sử đọc & sở thích</h1>
+        <button class="back" aria-label="Quay lại">
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title">Lịch sử đọc và sở thích</h1>
       </header>
 
-      <div class="card">
-        <div class="book-item">
-          <div class="cover-box">Cover</div>
-          <div class="book-info">
-            <h3 class="book-title">Principles of Economics</h3>
-            <p class="book-author">N. Gregory Mankiw</p>
-            <div class="tag-row">
-              <span class="tag tag-format">Bản giấy</span>
-              <span class="tag tag-reading">Đang đọc</span>
-            </div>
-            <div class="progress-wrap">
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 65%;"></div></div>
-              <div class="progress-text"><strong>Tiến độ mới: 65%</strong><span>0% – 100%</span></div>
-            </div>
-            <button class="btn-update" type="button">Cập nhật tiến độ</button>
+      <main class="screen-body">
+        <div class="banner error has-num" role="alert">
+          <span class="num">17</span>
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+          <div class="banner-body">
+            <span>Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.</span>
+            <button class="secondary-button" type="button">Thử lại</button>
           </div>
         </div>
-      </div>
+      </main>
+    </section>
 
-      <div class="numbered-wrap">
-        <span class="num">16</span>
-        <div class="toast">✓ Đã cập nhật tiến độ đọc thành công!</div>
+    <!-- ========================================================
+         STATE: SUCCESS
+         ======================================================== -->
+    <section data-state="success">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại">
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title">Lịch sử đọc và sở thích</h1>
+      </header>
+
+      <main class="screen-body">
+        <div class="group">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <h2 class="section-title">Lịch sử đọc</h2>
+            <span class="muted small">3 cuốn</span>
+          </div>
+        </div>
+
+        <!-- Book 1 updated to 65% -->
+        <div class="history-card">
+          <div class="history-card-top">
+            <div class="cover">Cover</div>
+            <div class="book-meta">
+              <span class="book-title">Principles of Economics</span>
+              <span class="book-author">N. Gregory Mankiw</span>
+              <div style="display:flex; gap:var(--space-2); align-items:center;">
+                <span class="format-label">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+                </span>
+                <span class="status-badge reading">Đang đọc</span>
+              </div>
+              <div style="margin-top:var(--space-1);">
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 65%;"></div></div>
+                <div style="display:flex; justify-content:space-between; font-size:var(--font-size-small); color:var(--colour-success-text); font-weight:var(--font-weight-medium); margin-top:2px;">
+                  <span>Tiến độ mới: 65%</span>
+                  <span class="muted">Vừa cập nhật</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="secondary-button" type="button" style="width:100%;">Cập nhật tiến độ</button>
+        </div>
+      </main>
+
+      <div class="toast is-floating has-num" role="status">
+        <span class="num">18</span>
+        <svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Đã cập nhật tiến độ đọc.
       </div>
     </section>
 
   </div>
 
   <script>
-    const st = (location.hash || '#default').slice(1);
-    document.body.className = 'state-' + (['default','empty','loading','error','success'].includes(st) ? st : 'default');
-    if (new URLSearchParams(location.search).get('numbered') === '1') {
-      document.body.classList.add('numbered');
-    }
+    (function () {
+      function apply() {
+        var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+        var numbered = /-numbered$/.test(hash);
+        var state = hash.replace(/-numbered$/, '') || 'default';
+        var sections = document.querySelectorAll('[data-state]');
+        var found = false;
+        sections.forEach(function (s) { if (s.getAttribute('data-state') === state) found = true; });
+        if (!found) state = 'default';
+        sections.forEach(function (s) {
+          s.classList.toggle('is-active', s.getAttribute('data-state') === state);
+        });
+        document.body.classList.toggle('numbered', numbered);
+      }
+      window.addEventListener('hashchange', apply);
+      apply();
+    })();
   </script>
 </body>
 </html>
