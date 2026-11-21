@@ -12,7 +12,7 @@ Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Hoa
 ## States drawn
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/M-F02-01-02.png | Confirmation modal over dimmed S-F02-01 parent; no reason input | FR-02-09 |
+| Default | img/M-F02-01-02.png | Confirmation modal over dimmed S-F02-01 parent showing another reader’s review behind; no reason input | FR-02-09 |
 | Empty | Not applicable: confirmation modal has no list | — | — |
 | Loading | Not applicable: no modal-level loading state is specified | — | — |
 | Error | Not applicable: duplicate-report feedback is shown on parent S-F02-01 | FR-02-21 |
@@ -28,4 +28,4 @@ Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Hoa
 | # | Question | Default drawn |
 |---|---|---|
 | 1 | [NEEDS CLARIFICATION: Should the confirmation body quote the selected review, or is a generic confirmation sufficient?] | Generic confirmation only; selected review remains visible behind the overlay. |
-| 2 | [NEEDS CLARIFICATION: AD-UC-14 allows reporting own reviews, but UI conventions v0.7 says Report is for other readers’ reviews. Confirm which governs.] | Modal is available only from a Report action rendered on another reader’s review item. |
+| 2 | Closed 19/11/2026: No — Report only on other readers’ reviews (per group decision on AD-UC-14 Q2 and updated guidance). | Modal is available only from a Report action rendered on another reader’s review item. |

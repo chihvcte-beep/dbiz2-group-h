@@ -7,30 +7,30 @@ Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Hoa
 |---|---|---|---|---|
 | 1 | Back and screen title | Screen header | Back to existing OPAC Book Detail; title “Đánh giá sách” | — |
 | 2 | Book context | Book row | Book catalogue › title, author plus neutral grey “Cover” placeholder: “Principles of Economics” · N. Gregory Mankiw | FR-02-02 |
-| 3 | Review editor | Text area with counter | Book review › review text; plain text, 1–2,000 characters; counter n/2.000 | FR-02-01, FR-02-03, FR-02-11 |
+| 3 | Review editor | Text area with counter | Book review › review text; plain text, 1–2,000 characters; counter n/2.000; in edit mode pre-fills existing review text and shows cancel action | FR-02-01, FR-02-03, FR-02-11 |
 | 4 | Anonymous posting | Checkbox | Reader accounts › full registered name; unchecked by default, checked displays “Bạn đọc ẩn danh” | FR-02-22 |
 | 5 | Review guideline | Text link | Library review guideline; destination URL not supplied | AD-UC-13 Q1 |
 | 6 | Submit review | Primary button | “Đăng đánh giá” / “Lưu thay đổi” when editing | FR-02-01, FR-02-03 |
-| 7 | Own review | Review item | Book review › review text, reviewer, posted date, is own review; actions “Sửa”, “Xoá đánh giá” | FR-02-03, FR-02-04 |
-| 8 | Other readers’ reviews | Review item | Book review › review text, reviewer, posted date; “Báo cáo đánh giá” on S-F02-01 | FR-02-02, FR-02-13, FR-02-09, FR-02-21 |
+| 7 | Own review | Review item | Book review › review text, reviewer, posted date, is own review (no review ID code on UI); text buttons “Sửa”, “Xoá đánh giá” | FR-02-03, FR-02-04 |
+| 8 | Other readers’ reviews | Review item | Book review › review text, reviewer, posted date (no review ID code on UI); text button “Báo cáo đánh giá” on S-F02-01 only | FR-02-02, FR-02-13, FR-02-09, FR-02-21 |
 | 9 | Next page | Load more button | “Xem thêm đánh giá”; 10 per page, newest first; only when more pages exist | FR-02-02 |
-| 10 | Empty list message | Empty state | “Không có đánh giá nào để hiển thị.”; replaces review list | FR-02-15 |
-| 11 | Page-level feedback | Banner | MSG-04 network error; “Bạn đã báo cáo đánh giá này.” for duplicate report | FR-04-20, FR-02-21 |
-| 12 | Field validation feedback | Inline error | Review text empty / over 2,000 characters; invalid ownership action feedback | FR-02-01, FR-02-11 |
-| 13 | Success confirmation | Toast | “Đã đăng đánh giá.” / “Đã cập nhật đánh giá.” / “Đã xoá đánh giá.” | FR-02-12, FR-02-09 |
+| 10 | Empty list message | Empty state | “Không có đánh giá nào để hiển thị. Hãy là người đầu tiên viết đánh giá cho cuốn sách này.” (or book-not-found variant when book does not exist); replaces review list | FR-02-15 |
+| 11 | Page-level feedback | Banner | MSG-04 network error; “Bạn đã báo cáo đánh giá này.” for duplicate report; “Không thể thực hiện thao tác trên đánh giá không thuộc về bạn.” for non-owner edit/delete | FR-04-20, FR-02-21, FR-02-11 |
+| 12 | Field validation feedback | Inline error | Empty review text / over 2,000 characters (inline error message under field) | FR-02-01, FR-02-11 |
+| 13 | Success confirmation | Toast | “Đã đăng đánh giá.” / “Đã cập nhật đánh giá.” / “Đã xoá đánh giá.” / “Đã gửi báo cáo.” | FR-02-12, FR-02-09 |
 | 14 | Loading placeholder | Skeleton | Same shape as book context, form and review list | MSG-05 |
 | 15 | Retry action | Secondary button | “Thử lại” inside MSG-04 Banner | FR-04-20 |
 
 ## States drawn
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/S-F02-01.png | Book context, review editor, own review, other reviews, 10-item page and next-page action | FR-02-01, FR-02-02, FR-02-03, FR-02-04, FR-02-09 |
-| Empty | img/S-F02-01-empty.png | Book exists but has no published reviews; one-line empty message, no review list | FR-02-15 |
+| Default | img/S-F02-01.png | Book context, review editor, own review, other reviews (10 per page, no review IDs), text-button actions, and next-page action | FR-02-01, FR-02-02, FR-02-03, FR-02-04, FR-02-09 |
+| Empty | img/S-F02-01-empty.png | Book exists but has no published reviews; empty state message with prompt to write the first review, no review list | FR-02-15 |
 | Loading | img/S-F02-01-loading.png | Skeleton blocks replace content; no loading text | MSG-05 |
-| Error | img/S-F02-01-error.png | Over-limit review text with Inline error; error-numbered image included | FR-02-01, FR-02-11 |
-| Error-2 | img/S-F02-01-error-2.png | MSG-04 network error with retry action; numbered variant included | FR-04-20 |
-| Error-3 | img/S-F02-01-error-3.png | Duplicate report message “Bạn đã báo cáo đánh giá này.”; numbered variant included | FR-02-21 |
-| Success | img/S-F02-01-success.png | Confirmation toast and refreshed review list | FR-02-12, FR-02-09 |
+| Error | img/S-F02-01-error.png | Page content preserved; empty or over-limit review text with Inline error; error-numbered image included | FR-02-01, FR-02-11 |
+| Error-2 | img/S-F02-01-error-2.png | Page content preserved; MSG-04 network error Banner with “Thử lại” button; numbered variant included | FR-04-20 |
+| Error-3 | img/S-F02-01-error-3.png | Page content preserved; Banner with “Bạn đã báo cáo đánh giá này.” or non-owner action message; numbered variant included | FR-02-21, FR-02-11 |
+| Success | img/S-F02-01-success.png | Confirmation toast (“Đã đăng đánh giá.” / “Đã gửi báo cáo.”) and refreshed review list preserving existing reviews (including own review and #91) | FR-02-12, FR-02-09 |
 
 ## Actions and where they go
 | Element | User action | Goes to |
@@ -49,7 +49,7 @@ Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Hoa
 ## Open questions
 | # | Question | Default drawn |
 |---|---|---|
-| 1 | [NEEDS CLARIFICATION: AD-UC-14 Q2 allows reporting one’s own review, but UI conventions v0.7 section 3 says own reviews show Edit/Delete and other readers’ reviews show Report. Which rule controls the release UI?] | Follow v0.7 component rule in this wireframe: Report appears on other readers’ reviews only; flag for Linh/Owner C. |
+| 1 | Closed 19/11/2026: No — Report only on other readers’ reviews (per group decision on AD-UC-14 Q2 and updated guidance). | Report button is rendered on other readers’ reviews only; own reviews show “Sửa” and “Xoá đánh giá”. |
 | 2 | [NEEDS CLARIFICATION: What is the exact destination URL for the library review guideline?] | Render the Text link label only; destination remains unresolved. |
 | 3 | [NEEDS CLARIFICATION: Does “Xem thêm đánh giá” append or replace the current 10-item page?] | Render as the page-next control; no invented pagination mechanics. |
 | 4 | [NEEDS CLARIFICATION: UI conventions list Book row usage on other screens, not S-F02-01. Is it approved as the book-context block here?] | Reuse the existing Book row style without adding a cover image or access-format content. |

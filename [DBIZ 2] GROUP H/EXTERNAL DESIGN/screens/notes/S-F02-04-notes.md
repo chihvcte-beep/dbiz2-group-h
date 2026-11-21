@@ -6,8 +6,8 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Hoa
 | # | Element | Component | Content / data source | FR |
 |---|---|---|---|---|
 | 1 | Back and screen title | Screen header | “Đánh giá bị báo cáo”; Back to S-F04-01 | — |
-| 2 | Open report queue | Review item | Book review › report, review text, reviewer, posted date; Open report #91 | FR-02-14, FR-02-19 |
-| 3 | Selected review detail | Review item | Selected review #91, text and reviewer; staff judges content manually | FR-02-10, FR-02-20 |
+| 2 | Open report queue | Review item | Book review › report, review text, reviewer, posted date; Open reports #91 and #95 | FR-02-14, FR-02-19 |
+| 3 | Selected review detail | Review item | Selected review (#91 initially, then #95 after handling #91), text and reviewer; staff judges content manually | FR-02-10, FR-02-20 |
 | 4 | Remove selected review | Primary button | “Gỡ đánh giá” opens confirmation modal; confirmation itself uses Destructive button | FR-02-10 |
 | 5 | Dismiss selected report | Secondary button | “Bỏ qua báo cáo”; review stays public and leaves queue | FR-02-20 |
 | 6 | Empty queue message | Empty state | “Không có đánh giá bị báo cáo nào đang chờ xử lý.” | FR-02-19 |
@@ -19,12 +19,12 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Hoa
 ## States drawn
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/S-F02-04.png | Open report #91; selected #91; Remove and Dismiss actions | FR-02-14, FR-02-10, FR-02-20 |
+| Default | img/S-F02-04.png | Open reports #91 and #95 in queue; #91 selected; Remove and Dismiss actions; numbered variant in S-F02-04-numbered.png | FR-02-14, FR-02-10, FR-02-20 |
 | Empty | img/S-F02-04-empty.png | No reported reviews are waiting | FR-02-19 |
 | Loading | img/S-F02-04-loading.png | Skeleton queue and detail | MSG-05 |
-| Error | img/S-F02-04-error.png | MSG-04 with retry action; numbered variant included | FR-04-20 |
-| Success | img/S-F02-04-success.png | Remove outcome: #91 leaves the queue and public display; the queue is empty; toast “Đã gỡ đánh giá.” | FR-02-10, FR-04-12 |
-| Success-2 | img/S-F02-04-success-2.png | Dismiss outcome: #91 leaves the queue but stays public; the queue is empty; toast “Đã bỏ qua báo cáo.” | FR-02-20 |
+| Error | img/S-F02-04-error.png | Single header; MSG-04 Banner with retry action; no Empty or Toast | FR-04-20 |
+| Success | img/S-F02-04-success.png | Remove outcome: #91 leaves queue and public display; #95 remains in queue/detail for next step (d5); toast “Đã gỡ đánh giá.” | FR-02-10, FR-04-12 |
+| Success-2 | img/S-F02-04-success-2.png | Dismiss outcome: #91 leaves queue but stays public; #95 remains in queue/detail for next step (d5); toast “Đã bỏ qua báo cáo.” | FR-02-20 |
 
 ## Actions and where they go
 | Element | User action | Goes to |

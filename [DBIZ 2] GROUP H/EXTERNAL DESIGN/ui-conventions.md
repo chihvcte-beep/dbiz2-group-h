@@ -6,7 +6,7 @@ One page. It keeps screens consistent with each other when different members, or
 tools, draw them. In DBIZ3 the coding agent reads this file before it builds any screen.
 -->
 
-Version v0.7 · 14/11/2026 · Owner: Linh · Applies to the 15 screens and 5 modals in `screen-list.md` (v1.0, 2026-11-08).
+Version v0.8 · 21/11/2026 · Owner: Linh · Applies to the 15 screens and 5 modals in `screen-list.md` (v1.0, 2026-11-08).
 
 Every wireframe, notes file and screen spec follows this file. A value (colour, size, wording pattern) is defined
 once, here; `screens/src/tokens.css` copies section 6 exactly. Sections 1–5 follow `ui-conventions-template.md`;
@@ -56,6 +56,7 @@ Step 2 decisions:
 | Cancel (in a modal) | Huỷ | modals |
 | Try again | Thử lại | MSG-04 |
 | Back | Quay lại | Screen header |
+| Close print preview | Đóng | M-F02-03-01 |
 
 - One action, one name, on every screen: "Lưu vào danh sách" is never also "Thêm" or "Đánh dấu"; "Bỏ khỏi danh sách"
   (saved book) is never "Xoá"; "Xoá đánh giá" (reader, own review) and "Gỡ đánh giá" (staff, FR-02-10) stay different
@@ -72,6 +73,16 @@ Step 2 decisions:
 | S-F02-01 | Đánh giá sách | S-F03-07 | Sách gợi ý cho bạn |
 | S-F02-02 | Thông tin và đánh giá sách | S-F04-01 | Trang nhân viên |
 | S-F02-03 | In nhãn mã QR | | |
+
+Modal titles and actions (use the screen/modal notes as the source of truth; do not invent new flows):
+
+| Modal | Title | Actions / labels | Status |
+|---|---|---|---|
+| M-F00-01 | Đăng nhập để tiếp tục? | Đăng nhập · Để sau | MSG-01; confirmed |
+| M-F02-01-01 | [NEEDS CLARIFICATION: confirm exact title in modal notes] | Xoá đánh giá · Huỷ | Confirm against notes before export |
+| M-F02-01-02 | [NEEDS CLARIFICATION: confirm exact title in modal notes] | Báo cáo đánh giá · Huỷ | Confirm against notes before export |
+| M-F02-03-01 | [NEEDS CLARIFICATION: confirm exact title in modal notes] | In · Đóng | Close label from 19/11 review; confirm exact title |
+| M-F02-04-01 | Gỡ đánh giá? | Gỡ đánh giá · Huỷ | Modal notes cited in 19/11 review; use this title, not “Gỡ đánh giá này?” |
 
 - Sentence case: only the first word and proper names are capitalised ("Sách đã lưu", not "Sách Đã Lưu").
   Codes keep their case (OPAC, QR, R-204).
@@ -111,37 +122,42 @@ The template's generic "List item" is split into the product's own list items: B
 
 | Component | When to use | Used on | Notes (limits · style · states) |
 |---|---|---|---|
-| Screen header | top of every screen: Back button + screen title | all screens | Back is a 44×44px icon button with the word "Back" as its accessible name; title one line (section 1 shortening rule). States: default, focus |
-| Primary button | the one main action of the screen | all screens | One visible per screen at a time. Solid `colour/brand-red` fill, white text, no icon; full width at 360px; height 48px (Reader) / 40px (Staff). States: default, hover, focus, pressed, disabled |
+| Screen header | top of every screen: Back button + screen title | all screens | Back is a 44×44px icon button with "Quay lại" as its accessible name; title one line (section 1 shortening rule). States: default, focus |
+| Primary button | the one main action when a screen has one | at most one per screen; not required on S-F04-01 | One visible per screen at a time. Solid `colour/brand-red` fill, white text, no icon; full width at 360px; height 48px (Reader) / 40px (Staff). States: default, hover, focus, pressed, disabled |
 | Secondary button | other actions, Cancel, Not now | many screens, every modal | Outline `colour/border`, text `colour/text`; same height as Primary. States: default, hover, focus, pressed, disabled |
 | Destructive button | the confirm action of a delete or remove modal | M-F02-01-01, M-F02-04-01 | Outline 2px `colour/error-red`, text `colour/error-red`, trash icon before the label — so it never looks like the red Primary button. Only inside a modal. States: default, hover, focus, pressed |
 | Text link | go to another page (e.g. "View this book on the OPAC", "use the format filter", "Set your reading preferences") | S-F02-02, S-F03-06, S-F03-07 | `colour/link` (OPAC blue), underlined. Never used for an action that changes data |
 | Text input | one-line entry | S-F00-01 (card number, 7 digits, numeric keyboard), S-F00-03 (staff account) | Label above the field; 16px text; height 48px (Reader) / 40px (Staff). States: default, focus, disabled, error (2px `colour/error-red` border + Inline error) |
 | Code input | enter the email code | S-F00-02 | One field, 6 digits, numeric keyboard on phones; not split into boxes. States as Text input |
-| Password input | staff password | S-F00-03 | Text input with a "Show" text button. States as Text input |
+| Password input | staff password | S-F00-03 | Text input with a "Hiện" / "Ẩn" text button. States as Text input |
 | Text area with counter | write or edit a review | S-F02-01, S-F02-02 | Counter `<n>/2.000` under the right edge; counter turns `colour/error-red` with icon above 2.000 (FR-02-01). States as Text input |
 | Segmented control | choose ONE of a few fixed options | S-F03-01 (Trực tuyến / Bản giấy / Cả hai), S-F01-02 (floor) | Selected segment: `colour/brand-red` fill + white text + check icon. States: default, selected, focus, disabled |
-| Select | choose reading status | S-F03-02 | Options Reading, Finished (FR-03-04). States as Text input |
+| Select | choose reading status | S-F03-02 | Options "Đang đọc", "Đã đọc xong" (FR-03-04). States as Text input |
 | Number input | reading progress | S-F03-02 | 0–100, "%" suffix outside the field (FR-03-04). States as Text input |
 | Checkbox | select several books; post a review anonymously | S-F02-03; S-F02-01, S-F02-02 ("Đăng ẩn danh") | 24×24px box, 44px row height for the hit area. States: unchecked, checked, focus, disabled |
-| Book row | one book in a list: cover placeholder, title, author, Format label | S-F03-01, S-F03-03, S-F03-07, S-F02-03 | Grey "Cover" block, no real cover images (Q6). Whole row tappable when it opens a page |
+| Book row | one book in a list: cover placeholder, title, author, Format label | S-F03-01, S-F03-03, S-F03-07, S-F02-03 | Grey "Cover" block, no real cover images (Q6). Whole row tappable when it opens a page; disabled state only if an unavailable action is explicitly required, otherwise N/A |
 | Book card | compact book inside a chatbot reply | S-F03-06 | Title, author, Format label, Text link to the book |
-| Format label | Trực tuyến / Bản giấy tag | S-F03-01, S-F03-06, S-F03-07 | Icon + word, outline style, never colour alone (section 5) |
-| Shelf location line | one line "Floor · Room · Shelf" for one copy | S-F01-01, S-F01-02, S-F03-03 | Format in section 2; map-pin icon before it |
+| Format label | Trực tuyến / Bản giấy tag | S-F03-01, S-F03-03, S-F03-06, S-F03-07, S-F02-03 | Icon + word, outline style, never colour alone (section 5) |
+| Shelf location line | one line "Floor · Room · Shelf" for one copy | S-F01-01, S-F01-02, S-F03-03, M-F02-03-01 | Format in section 2; map-pin icon before it |
 | Floor plan | block plan of one floor, one tile per room | S-F01-02 | Neutral surface; no real library drawing (Q4) |
-| Room tile | one room on the Floor plan | S-F01-02 | States: default (white, `colour/border`), selected (`colour/brand-red` fill, white text), highlighted = book's room (`colour/highlight` fill + 3px `colour/highlight-border` + "Your book is here" label) |
+| Room tile | one room on the Floor plan | S-F01-02 | States: default (white, `colour/border`), selected (`colour/brand-red` fill, white text), highlighted = book's room (`colour/highlight` fill + 3px `colour/highlight-border` + "Sách của bạn ở đây" label) |
 | Review item | one review: reviewer name or "Bạn đọc ẩn danh", date, text, actions | S-F02-01, S-F02-02, S-F02-04 | Own review: Edit, Delete review. Others' review: Report review (S-F02-01 only). Text buttons |
-| Load more button | next page of reviews | S-F02-01 | Secondary button style, full width, "Xem thêm đánh giá" (FR-02-02) |
+| Load more button | next page of reviews | S-F02-01 | Secondary button style, full width, "Xem thêm đánh giá" (FR-02-02); states: default, hover, focus, disabled while loading |
 | Chat bubble | reader message / chatbot reply | S-F03-06 | Reader: right, `colour/info-bg`; chatbot: left, `colour/surface`. Text always `colour/text` |
-| Message composer | type and send a chatbot message | S-F03-06 | Text input + Primary button "Send", fixed at the bottom |
+| Message composer | type and send a chatbot message | S-F03-06 | Text input + Primary button "Gửi", fixed at the bottom |
 | Menu tile | big task choice on the staff page | S-F04-01 | Icon + title + one-line description; whole tile clickable; 2 tiles |
 | Banner | non-blocking message that stays on the screen | many screens | 4 kinds: info, success, warning, error. Each = icon + text + left border colour (section 6). Top of the content |
 | Inline error | validation error of one field | forms | Directly under the field in error: light `colour/error-red-bg` background, 1px `colour/error-red` border, `colour/error-red` text, always a "!" icon. The field itself gets a 2px `colour/error-red` border; the message text is required, never the border colour alone |
 | Modal | confirm or cancel ONE action | the 5 modals in `screen-list.md` | Never for navigation; no new modals. Parent screen dimmed by `colour/overlay`. Buttons: Primary/Destructive right, Secondary left (Staff); stacked, primary on top (Reader) |
-| Toast | short confirmation after success | e.g. "Đã đăng đánh giá.", "Đã gửi báo cáo." | Bottom centre, `colour/text` background, white text, disappears after 4 seconds; never the only place an error is shown |
+| Toast | short confirmation after success | e.g. "Đã đăng đánh giá.", "Đã gửi báo cáo." | Bottom centre, `colour/text` background, white text, disappears after 4 seconds; states: success and informational (not two identical default examples); never the only place an error is shown |
 | Empty state | why the list is empty + next step | many screens | Icon + one sentence + optional Text link or Secondary button |
 | Skeleton | grey blocks while loading | Loading state of every screen | `colour/skeleton`; same shape as the content it replaces |
-| Label sheet | printable sheet of QR labels | M-F02-03-01 | Grid of labels: QR placeholder + title + shelf location line; A4 [NEEDS CLARIFICATION: label paper size] |
+| Label sheet | printable sheet of QR labels | M-F02-03-01 | Grid of labels: QR placeholder + title + shelf location line; [NEEDS CLARIFICATION: paper size and grid; notes provisionally show A4 portrait, 2 columns × 5 rows; component example uses 3 columns] |
+| Multi-select chips | choose multiple reading interests (FR-03-05) | S-F03-02 | Each chip toggles independently; states: unselected, selected (fill + check icon), focus, disabled; do not use Segmented control for multi-select |
+| Section title | heading for a group of content, including book sections | S-F01-01, S-F03-02, S-F03-06, S-F03-07, as needed | Heading text follows section 1; uses `font/size` section title; no action or focus state. Use this name instead of Section header |
+| Text button | in-place text action (e.g. review Edit/Delete) | S-F02-01, S-F02-02, S-F02-04, S-F00-03 | Does not navigate; states: default, hover, focus, disabled; `.danger` variant uses `colour/error-red` with a clear text label for destructive actions |
+| Status badge | displays a reading status, not an action | S-F03-02, S-F03-07 where specified by notes | Text labels "Đang đọc" / "Đã đọc xong"; icon + text where status relies on colour; passive display; no focus/disabled state |
+| Progress bar & label | display reading progress | S-F03-02 | 0–100% with a visible numeric percentage; track and fill must be distinguishable without colour alone; passive display, not an editable slider |
 
 Rules:
 
@@ -195,7 +211,7 @@ Where messages go:
 - Borders of inputs, room tiles and other controls at least 3:1 against their background (WCAG 2.2, 1.4.11).
 - Never colour alone (WCAG 2.2, 1.4.1):
   - Format label: icon + word "Trực tuyến" / "Bản giấy".
-  - Highlighted room on the map: fill + thick border + text label "Your book is here".
+  - Highlighted room on the map: fill + thick border + text label "Sách của bạn ở đây".
   - Errors: colour + error icon + text, never only a red border.
   - Selected segment: fill + check icon.
 - Target size: at least 24×24 CSS px everywhere (WCAG 2.2, 2.5.8); on Reader screens at least 44×44 px (handbook section 5).
@@ -232,7 +248,7 @@ reason is written in the "From OPAC" column.
 | colour/card | #FFFFFF | `--white-color` | cards, inputs, modal panel |
 | colour/skeleton | #EDF0F2 | `--secondary-color` | loading placeholders |
 | colour/disabled | #C5CBD3 | — | disabled button fill |
-| colour/error-red | #C62828 | — | errors only: Inline error text, border and "!" icon, 2px border of a field in error, error Banner border, Destructive button. Never used as a solid fill |
+| colour/error-red | #C62828 | — | errors and destructive actions: Inline error text, border and "!" icon, 2px border of a field in error, error Banner border, Destructive button and `.text-button.danger` (e.g. "Xoá đánh giá"). Never used as a solid fill |
 | colour/error-red-bg | #FDECEA | — | background of Inline error and error Banner |
 | colour/success-border | #2F7D46 | — | success Banner border and icon |
 | colour/success-text | #14532D | — | success text |
@@ -246,14 +262,16 @@ reason is written in the "From OPAC" column.
 | colour/highlight | #FDE9A8 | — | fill of the room that holds the book |
 | colour/highlight-border | #8A5A00 | — | 3px border of that room |
 | colour/focus | #1074C3 | `--secondary-blue-color` | 2px focus ring (blue, so it shows on red buttons too) |
-| colour/overlay | rgba(0, 0, 0, 0.5) | — | dimmed screen behind a modal |
+| colour/overlay | rgba(0, 0, 0, 0.5) | — | dimmed screen behind a modal; translucent hover treatment on Primary button when specified by `tokens.css` |
 | font/heading | SVN-Gilroy, fallback Inter, Arial, sans-serif | OPAC font | screen titles, modal titles, section titles, Menu tile title |
 | font/body | Inter, fallback Arial, sans-serif | — | all other text: body, labels, buttons, inputs, messages |
-| font/size | title 20px (Reader) / 24px (Staff), section title 18px, body 16px, label and button 16px (Reader) / 14px (Staff), small 12px | |
+| font/size | title 20px (Reader) / 24px (Staff), section title 18px, body 16px, label and button 16px (Reader) / 14px (Staff), small 12px; book author 16px (Reader) / 14px (Staff) | |
 | font/weight | heading 700; body regular 400, medium 500 (labels, buttons), semibold 600 | |
 | font/line-height | body 1.5, titles 1.3 | |
 | space/unit | 4px; all spacing is a multiple of 4. Screen padding 16px (Reader) / 32px (Staff); gap inside a group 8–16px; between groups 24px | |
-| size/control | height 48px (Reader), 40px (Staff); icon 20px / 24px | buttons, inputs |
+| size/control | height 48px (Reader), 40px (Staff); icon 20px / 24px; Reader minimum target 44×44px | buttons, inputs, interactive targets |
+| size/border | 1px default hairline, 2px focus and error, 3px highlighted room | strokes in components |
+| space/scale | 4px unit; scale `space-1` through `space-12` means 4px through 48px in increments of 4px | CSS spacing variables; check against `tokens.css` |
 | radius | 8px for buttons, inputs, cards, banners, room tiles, modals; 999px for Format label | one radius level |
 | frame/width | 360px (Reader, export 3x = 1080px); 1280px (Staff, export 1x) | every mockup |
 | shadow/modal | 0 16px 24px -3px rgba(0, 0, 0, 0.1) | OPAC `--shadow-lg` | modal panel |
@@ -323,36 +341,38 @@ readers, not part of the product, so they are not a token.
 | v0.6 | 14/11/2026 | Show OTP attempts left (FR-04-19). New FRs proposed: FR-02-22 anonymous review, FR-04-19 attempts left, FR-04-20 network/loading error (MSG-04). Open questions renumbered | — (no wireframe yet) |
 | v0.7 | 14/11/2026 | Q1–Q6 confirmed. Tokens split: `colour/primary` → `colour/brand-red`; `colour/error` #B42318 → `colour/error-red` #C62828, error background #FDECEA. Inline error: light background, "!" icon, under the field; field in error has 2px red border. Primary button has no icon. OTP 6 digits now in FR-04-04. MSG-06 desk wording confirmed | — (no wireframe yet) |
 
+| v0.8 | 21/11/2026 | Applied 19/11 Linh review: missing components and Vietnamese labels, modal naming, token/size notes, scope corrections, and preliminary consistency findings. FR acceptance and review-reporting rule recorded. No unverified wireframe marked Pass. | All affected wireframes require review; Ha's 7, Nhi's 4, Trieu's 3 require re-export after fixes; separate state images required across all 20 |
+
 ### Consistency review
 
-Filled in as each wireframe arrives (after 17/11/2026).
+Preliminary audit populated from `huong-dan/Linh-nhan-xet-ui-conventions.md` (19/11/2026), **not a fresh inspection of all 20 rendered screens**. "Not verified" is not Pass. Every screen/modal also requires separate exported state PNGs (not only a combined `-states.png`). The reviewer must recheck HTML, images, messages and keyboard access after owners make fixes. Do not mark v1.0 until all checks are verified.
 
 | Screen / modal | Colours only from tokens | Component names as section 3 | Messages follow section 4 | Accessibility (section 5) | Image size correct | Result | Reviewer / date |
 |---|---|---|---|---|---|---|---|
-| S-F00-01 | | | | | | | |
-| S-F00-02 | | | | | | | |
-| S-F00-03 | | | | | | | |
-| S-F01-01 | | | | | | | |
-| S-F01-02 | | | | | | | |
-| S-F02-01 | | | | | | | |
-| S-F02-02 | | | | | | | |
-| S-F02-03 | | | | | | | |
-| S-F02-04 | | | | | | | |
-| S-F03-01 | | | | | | | |
-| S-F03-02 | | | | | | | |
-| S-F03-03 | | | | | | | |
-| S-F03-06 | | | | | | | |
-| S-F03-07 | | | | | | | |
-| S-F04-01 | | | | | | | |
-| M-F00-01 | | | | | | | |
-| M-F02-01-01 | | | | | | | |
-| M-F02-01-02 | | | | | | | |
-| M-F02-03-01 | | | | | | | |
-| M-F02-04-01 | | | | | | | |
+| S-F00-01 | Fail: draw.io uses non-token colours | Not verified | Not verified | Not verified | Fail: 773px (expected 1080px) | Needs correction: separate state PNGs required; replace dark primary and grey error styling with tokens | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F00-02 | Fail: draw.io uses non-token colours | Not verified | Not verified | Not verified | Fail: 773px (expected 1080px) | Needs correction: separate state PNGs required; replace dark primary and grey error styling with tokens | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F00-03 | Fail: draw.io uses non-token colours | Not verified | Not verified | Not verified | Fail: 1693px (expected 1280px) | Needs correction: separate state PNGs required; replace dark primary and grey error styling with tokens | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F01-01 | Not verified: source missing | Fail: names outside §3 | Not verified | Not verified | Fail: 1740px (expected 1080px) | Needs correction: separate state PNGs required; source HTML/draw.io missing at review | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F01-02 | Not verified: source missing | Fail: names outside §3 | Not verified | Not verified | Pass (reported) | Needs correction: separate state PNGs required; source HTML/draw.io missing at review; notes Author missing | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F02-01 | Not verified: source missing | Not verified | Not verified | Not verified | Pass (reported) | Needs correction: separate state PNGs required; source HTML/draw.io missing at review | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F02-02 | Not verified: source missing | Not verified | Not verified | Not verified | Pass (reported) | Needs correction: separate state PNGs required; source HTML/draw.io missing at review | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F02-03 | Fail: draw.io uses non-token colours | Not verified | Not verified | Not verified | Fail: 1693px (expected 1280px) | Needs correction: separate state PNGs required; replace dark primary and grey error styling with tokens | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F02-04 | Not verified: source missing | Not verified | Not verified | Not verified | Pass (reported) | Needs correction: separate state PNGs required; source HTML/draw.io missing at review | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F03-01 | Not verified: source missing | Fail: names outside §3 | Not verified | Not verified | Fail: 1740px (expected 1080px) | Needs correction: separate state PNGs required; source HTML/draw.io missing at review; notes Frame/version/Author missing | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F03-02 | Fail: HTML has off-token colours | Fail: names outside §3 | Not verified | Not verified | Fail: 1740px (expected 1080px) | Needs correction: separate state PNGs required; use shared tokens.css/state template and approved titles | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F03-03 | Not verified: source missing | Fail: names outside §3 | Not verified | Not verified | Fail: 1740px (expected 1080px) | Needs correction: separate state PNGs required; source HTML/draw.io missing at review | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F03-06 | Fail: HTML has off-token colours | Fail: names outside §3 | Not verified | Not verified | Fail: 1740px (expected 1080px) | Needs correction: separate state PNGs required; use shared tokens.css/state template and approved titles | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F03-07 | Fail: HTML has off-token colours | Fail: names outside §3 | Not verified | Not verified | Fail: 1740px (expected 1080px) | Needs correction: separate state PNGs required; use shared tokens.css/state template and approved titles | Linh / 21/11/2026 (based on 19/11 review) |
+| S-F04-01 | Fail: draw.io uses non-token colours | Not verified | Not verified | Not verified | Fail: 1693px (expected 1280px) | Needs correction: separate state PNGs required; replace dark primary and grey error styling with tokens | Linh / 21/11/2026 (based on 19/11 review) |
+| M-F00-01 | Fail: draw.io uses non-token colours | Not verified | Not verified | Not verified | Fail: 773px (expected 1080px) | Needs correction: separate state PNGs required; replace dark primary and grey error styling with tokens | Linh / 21/11/2026 (based on 19/11 review) |
+| M-F02-01-01 | Not verified: source missing | Not verified | Not verified | Not verified | Pass (reported) | Needs correction: separate state PNGs required; source HTML/draw.io missing at review | Linh / 21/11/2026 (based on 19/11 review) |
+| M-F02-01-02 | Not verified: source missing | Not verified | Not verified | Not verified | Pass (reported) | Needs correction: separate state PNGs required; source HTML/draw.io missing at review | Linh / 21/11/2026 (based on 19/11 review) |
+| M-F02-03-01 | Fail: draw.io uses non-token colours | Not verified | Not verified | Not verified | Fail: 1693px (expected 1280px) | Needs correction: separate state PNGs required; replace dark primary and grey error styling with tokens | Linh / 21/11/2026 (based on 19/11 review) |
+| M-F02-04-01 | Not verified: source missing | Not verified | Not verified | Not verified | Pass (reported) | Needs correction: separate state PNGs required; source HTML/draw.io missing at review | Linh / 21/11/2026 (based on 19/11 review) |
 
 ### New FRs proposed by this document
 
-Added to `GROUP-H_UC_FR_COST.xlsx`, sheet W1_FunctionList, rows 132–137 (FE + BE L3 rows each) on 14/11/2026.
+Accepted by the team on 19/11/2026 and reported as present in `GROUP-H_UC_FR_COST.xlsx`, sheet W1_FunctionList, rows 132–137 (FE + BE L3 rows each), per the 19/11 review. Verify the latest workbook before release.
 IDs are the next free numbers in W1 (FR-02-21 and FR-04-18 were the last ones on 14/11/2026).
 
 | FR | Feature | Name | Actor | EARS acceptance criterion | Used in |
@@ -363,8 +383,12 @@ IDs are the next free numbers in W1 (FR-02-21 and FR-04-18 were the last ones on
 
 ### Open questions
 
-1. Cost FR-02-22, FR-04-19, FR-04-20 in the external W2_Costing file, and widen W4_Prioritization (it lists only L2 index 1–75; there are now 77 L2 functions). Left for later (14/11/2026).
-2. Label paper size for M-F02-03-01. Left for later (14/11/2026).
+1. Cost FR-02-22, FR-04-19, FR-04-20 in W2_Costing. W4_Prioritization was reportedly widened to 77 L2 entries on 19/11/2026; confirm the new initial priorities (FR-02-22 Should, FR-04-19 Should, FR-04-20 Must) with the group.
+2. Label paper size and labels-per-sheet for M-F02-03-01: notes provisionally say A4 portrait, 2 × 5; component demo shows 3 columns. Group decision required.
 3. SVN-Gilroy font file and licence from the library, before DBIZ3.
 
 Closed on 14/11/2026: Vietnamese interface and labels; fonts; Q2, Q3, Q6 defaults; brand-red vs error-red; OTP is 6 digits (FR-04-04); MSG-06 uses the ground-floor information desk.
+
+Closed on 19/11/2026: the team accepted FR-02-22, FR-04-19 and FR-04-20; reviews may be reported only on other readers’ reviews (AD-UC-14 v1.3, question 2 = No); `screen-list.md` reportedly updated for the three FRs.
+
+[NEEDS CLARIFICATION: Recheck modal titles against all five modal notes and verify the final W1/W4 workbook and all exported PNGs before claiming full compliance.]

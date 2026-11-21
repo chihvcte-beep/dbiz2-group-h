@@ -12,7 +12,7 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Hoa
 ## States drawn
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/M-F02-04-01.png | Confirmation modal over dimmed S-F02-04 parent | FR-02-10 |
+| Default | img/M-F02-04-01.png | Confirmation modal over dimmed S-F02-04 parent showing selected review #91 behind | FR-02-10 |
 | Empty | Not applicable: confirmation modal has no list | — | — |
 | Loading | Not applicable: no modal-level loading state is specified | — | — |
 | Error | Not applicable: no modal-level error state is specified | — | — |
