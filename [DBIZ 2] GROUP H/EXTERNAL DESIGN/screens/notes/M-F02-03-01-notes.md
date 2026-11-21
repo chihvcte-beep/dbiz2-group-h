@@ -1,6 +1,6 @@
 # Wireframe notes: M-F02-03-01 QR label sheet preview
 
-Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Ha
+Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 
 ## Elements
 
@@ -26,7 +26,7 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Ha
 
 | Element | User action | Goes to |
 | --- | --- | --- |
-| Print | Open the browser print dialog (AD-UC-10 a5). | stays |
+| Print | Open the browser print dialog (AD-UC-10 a5). | Browser print dialog (exit) |
 | Close | Dismiss the preview and return to book selection (AD-UC-10 a4). | S-F02-03 |
 
 ## Open questions
@@ -35,5 +35,7 @@ Review status: self-checked against the assignment and the two shared UI/UX hand
 
 | # | Question | Default drawn |
 | --- | --- | --- |
-| 1 | [NEEDS CLARIFICATION: Which fields besides QR should go on the label?] | QR placeholder, book title and shelf location as suggested in v0.7 §3. |
-| 2 | [NEEDS CLARIFICATION: How many labels per A4 page?] | A4 portrait, provisional 2 columns × 5 rows (10 per sheet). The sample only fills two or three cells. |
+| 1 | Q4: Which fields besides QR should go on the label? | QR graphic (illustrative square in the wireframe), book title and shelf location as suggested in v0.8 §3. |
+| 2 | Q4: How many labels per A4 page? | A4 portrait, provisional 2 columns × 5 rows (10 per sheet). The sample only fills two or three cells. |
+
+Decision update, 21/11/2026. Ha confirmed the selected proposals. Q3 is the newly synced physical-book list, newest first, with pagination. Q4 is QR + title + shelf location, 2 columns × 5 rows on A4 portrait. Q3 and Q4 are closed by Ha’s confirmation on 21/11/2026. Cross-review and final review remain pending.

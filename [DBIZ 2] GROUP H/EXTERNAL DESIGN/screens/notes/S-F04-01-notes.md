@@ -1,6 +1,6 @@
 # Wireframe notes: S-F04-01 Staff page
 
-Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Ha
+Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 
 ## Elements
 
@@ -40,4 +40,3 @@ Review status: self-checked against the assignment and the two shared UI/UX hand
 | --- | --- | --- |
 | 1 | [NEEDS CLARIFICATION: Should staff be offered an explicit sign-out action?] | The two task tiles are the only actions. |
 
-Navigation check, 17/11/2026: validated in Chromium using synthetic fixture data. The HTML demonstrates transitions. Production identity and session checks remain backend integration work.

@@ -1,6 +1,6 @@
 # Wireframe notes: M-F00-01 Sign in to continue?
 
-Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Ha
+Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Ha
 
 ## Elements
 

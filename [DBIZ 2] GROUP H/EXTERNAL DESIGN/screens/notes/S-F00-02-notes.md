@@ -1,6 +1,6 @@
 # Wireframe notes: S-F00-02 Verify email OTP
 
-Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Ha
+Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Ha
 
 ## Elements
 
@@ -10,7 +10,7 @@ Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Ha
 | 2 | Title | Screen header | Nhập mã xác thực | FR-04-01 |
 | 3 | Validity | Code input | MSG-09 | FR-04-04 |
 | 4 | Email code | Code input | Six digits sent to Reader accounts › declared email | FR-04-04 |
-| 5 | Sign in | Primary button | Đăng nhập (disabled secondary during recovery) | FR-04-01 |
+| 5 | Sign in | Primary button | Đăng nhập (disabled during recovery) | FR-04-01 |
 | 6 | Send a new code | Secondary button | Gửi mã mới (primary during recovery) | FR-04-04, FR-04-16 |
 | 7 | Cancel | Secondary button | Huỷ | L8-01 |
 | 8 | Incorrect code | Inline error | Attempts left (4 to 1) | FR-04-17, FR-04-19 |
@@ -51,7 +51,6 @@ Review status: self-checked against the assignment and the two shared UI/UX hand
 
 | # | Question | Default drawn |
 | --- | --- | --- |
-| 1 | [NEEDS CLARIFICATION: Should the form display a masked email address?] | Email address is omitted. The remaining-attempt count follows v0.7 §2. |
+| 1 | [NEEDS CLARIFICATION: Should the form display a masked email address?] | Email address is omitted. The remaining-attempt count follows v0.8 §2. |
 | 2 | [NEEDS CLARIFICATION: On Cancel, how should the origin restore a protected action without a valid session?] | Return to the origin. The protected action stays gated by FR-04-08. |
 
-Navigation check, 17/11/2026: validated in Chromium using synthetic fixture data. The HTML demonstrates transitions. Production identity and session checks remain backend integration work.

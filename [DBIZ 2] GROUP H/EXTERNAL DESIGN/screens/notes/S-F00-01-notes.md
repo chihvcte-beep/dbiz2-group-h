@@ -1,6 +1,6 @@
 # Wireframe notes: S-F00-01 Sign in: library card number
 
-Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Ha
+Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Ha
 
 ## Elements
 
@@ -32,7 +32,7 @@ Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Ha
 | Element | User action | Goes to |
 | --- | --- | --- |
 | Library card number | Enter or correct seven digits. | stays |
-| Send code | Submit with Send code, element 3 (AD-UC-11 r1). The preview uses 0012345 to open S-F00-02 and preserves returnTo. Rejections stay here. | S-F00-02 / stays |
+| Send code | Submit with Send code, element 3 (AD-UC-11 r1). Card 0012345 illustrates the valid-lookup path to S-F00-02. Rejections stay here. | S-F00-02 / stays |
 | Cancel | Return to the origin (L8-01). | S-F01-01 / S-F02-01 / S-F02-02 / S-F03-02 / S-F03-03 / S-F03-06 / S-F03-07 / Existing OPAC entry page (exit) |
 | Try again | Retry after a network failure. | stays |
 
@@ -42,6 +42,5 @@ Review status: self-checked against the assignment and the two shared UI/UX hand
 
 | # | Question | Default drawn |
 | --- | --- | --- |
-| — | — | The seven-digit format is settled in v0.7 §2. |
+| — | — | The seven-digit format is settled in v0.8 §2. |
 
-Navigation check, 17/11/2026: validated in Chromium using synthetic fixture data. The HTML demonstrates transitions. Production identity and session checks remain backend integration work.

@@ -1,6 +1,6 @@
 # Wireframe notes: S-F00-03 Staff sign in
 
-Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Ha
+Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 
 ## Elements
 
@@ -43,4 +43,3 @@ Review status: self-checked against the assignment and the two shared UI/UX hand
 | --- | --- | --- |
 | — | — | Both rejection causes use the same message. |
 
-Navigation check, 17/11/2026: validated in Chromium using synthetic fixture data. The HTML demonstrates transitions. Production identity and session checks remain backend integration work.

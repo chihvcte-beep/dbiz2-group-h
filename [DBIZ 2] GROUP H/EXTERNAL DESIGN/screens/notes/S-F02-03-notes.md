@@ -1,6 +1,6 @@
 # Wireframe notes: S-F02-03 QR code label printing
 
-Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Ha
+Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 
 ## Elements
 
@@ -10,7 +10,7 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Ha
 | 2 | Title | Screen header | In nhãn mã QR | FR-02-08 |
 | 3 | Select physical books | Checkbox | Selection for each physical book | FR-02-08 |
 | 4 | Physical book | Book row | Book catalogue › title, author, access format | FR-02-08 |
-| 5 | Pagination | Secondary button | Trang trước / Trang sau (provisional) | FR-02-08 |
+| 5 | Pagination | Secondary button | Trang trước / Trang sau | FR-02-08 |
 | 6 | Print labels | Primary button | In nhãn | FR-02-08, FR-02-17, FR-02-18 |
 | 8 | Validation / load error | Banner | No selection or MSG-04 | FR-02-17, FR-04-20 |
 | 9 | Books without QR codes | Banner | Book catalogue › title for each omitted book | FR-02-18 |
@@ -30,7 +30,7 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Ha
 | Error — network | img/S-F02-03-error-3.png, img/S-F02-03-error-3-numbered.png | MSG-04, existing selections retained. | FR-04-20 |
 | Warning — some lack QR | img/S-F02-03-warning.png, img/S-F02-03-warning-numbered.png | Modern Business Ethics is listed as omitted. | FR-02-18 |
 | Success | img/S-F02-03-success.png | Two QR labels from three selected books. M-F02-03-01 overlays the list. | FR-02-08, FR-02-18 |
-| Next page | img/S-F02-03-page-2.png | Provisional second page of synced books. | FR-02-08 |
+| Next page | img/S-F02-03-page-2.png | Second page of synced books. | FR-02-08 |
 
 ## Actions and where they go
 
@@ -38,8 +38,8 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Ha
 | --- | --- | --- |
 | Back | Return to the staff page. | S-F04-01 |
 | Select physical books | Check or uncheck books (AD-UC-10 a1). | stays |
-| Pagination | Move between pages of physical books (provisional). | stays |
-| Print labels | Build a sheet with Print labels, element 6 (AD-UC-10 a2). The HTML preview reads the checked rows, includes only eligible books and lists omitted book titles. | M-F02-03-01 / stays |
+| Pagination | Move between pages of physical books. | stays |
+| Print labels | Build a sheet with Print labels, element 6 (AD-UC-10 a2). Include only eligible checked books and list omitted titles. | M-F02-03-01 / stays |
 | Print labels | Recheck staff session before creating a sheet (FR-04-08). | S-F00-03 |
 | Try again | Retry after a network failure. | stays |
 
@@ -49,9 +49,10 @@ Review status: self-checked against the assignment and the two shared UI/UX hand
 
 | # | Question | Default drawn |
 | --- | --- | --- |
-| 1 | [NEEDS CLARIFICATION: Blocking — how should staff find physical books to select?] | Provisional list of newly synced physical books, newest first, with pagination. |
+| 1 | Q3: How should staff find physical books to select? | Selected 21/11/2026 confirmed by Ha: newly synced physical books, newest first, with pagination. Confirmed 21/11/2026. |
 | 2 | [NEEDS CLARIFICATION: Should checked books carry over when staff change pages?] | The preview uses the selections on the illustrated page. |
 
 Sample-only catalogue additions: Introduction to Public Policy — Hoa Tran; Modern Business Ethics — An Nguyen; Essentials of Library Science — Linh Do; Foundations of Statistics — Ha Le. Principles of Economics uses placeholder author Minh Anh Pham. These names are fictional wireframe data.
 
-Navigation check, 17/11/2026: validated in Chromium using synthetic fixture data. The HTML demonstrates transitions. Production identity and session checks remain backend integration work.
+
+Decision update, 21/11/2026. Ha confirmed the selected proposals. Q3 is the newly synced physical-book list, newest first, with pagination. Q4 is QR + title + shelf location, 2 columns × 5 rows on A4 portrait. Q3 and Q4 are closed by Ha’s confirmation on 21/11/2026. Cross-review and final review remain pending.
