@@ -1,4 +1,4 @@
-# Wireframe notes: S-F01-01 Shelf location (with Save to my list)
+# Wireframe notes: S-F01-01 Shelf location 
 
 Actor: Reader · Frame: 360px (exported at 3x / 1080px) · UI conventions: v0.8 · Author: Nhi
 
