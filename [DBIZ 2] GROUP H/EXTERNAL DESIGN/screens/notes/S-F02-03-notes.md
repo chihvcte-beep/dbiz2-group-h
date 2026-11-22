@@ -9,14 +9,16 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 | 1 | Back | Screen header | Quay lại | FR-02-08 |
 | 2 | Title | Screen header | In nhãn mã QR | FR-02-08 |
 | 3 | Select physical books | Checkbox | Selection for each physical book | FR-02-08 |
-| 4 | Physical book | Book row | Book catalogue › title, author, access format | FR-02-08 |
+| 4 | Physical book | Book row | Book catalogue › title, author, access format; ordered by the book's primary shelf location returned by the sync (floor → room → shelf; D13) | FR-02-08, FR-02-23 |
 | 5 | Pagination | Secondary button | Trang trước / Trang sau | FR-02-08 |
 | 6 | Print labels | Primary button | In nhãn | FR-02-08, FR-02-17, FR-02-18 |
 | 8 | Validation / load error | Banner | No selection or MSG-04 | FR-02-17, FR-04-20 |
 | 9 | Books without QR codes | Banner | Book catalogue › title for each omitted book | FR-02-18 |
 | 10 | Catalogue loading | Skeleton | MSG-05 | FR-02-08 |
-| 11 | No physical books | Empty state | No physical books available | FR-02-08 |
+| 11 | No books awaiting a label | Empty state | “Tất cả sách bản giấy đã được in nhãn. Sách mới sẽ hiện ở đây sau lần đồng bộ danh mục tiếp theo.” (D3, D15) | FR-02-23 |
 | 12 | Try again | Secondary button | Thử lại | FR-04-20 |
+| 13 | Selected count | Selection counter | Đã chọn <n> sách, next to In nhãn; counts ticks on all pages (D3b, D16) | FR-02-08 |
+| 14 | Sign out | Secondary button | Đăng xuất, in the Screen header → S-F00-03 (D7) | FR-04-21 |
 
 ## States drawn
 
@@ -29,7 +31,7 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 | Error — all lack QR | img/S-F02-03-error-2.png, img/S-F02-03-error-2-numbered.png | Modern Business Ethics and Essentials of Library Science are listed. No sheet is produced. | FR-02-18 |
 | Error — network | img/S-F02-03-error-3.png, img/S-F02-03-error-3-numbered.png | MSG-04, existing selections retained. | FR-04-20 |
 | Warning — some lack QR | img/S-F02-03-warning.png, img/S-F02-03-warning-numbered.png | Modern Business Ethics is listed as omitted. | FR-02-18 |
-| Success | img/S-F02-03-success.png | Two QR labels from three selected books. M-F02-03-01 overlays the list. | FR-02-08, FR-02-18 |
+| Success | img/S-F02-03-success.png | Two QR labels from three selected books. M-F02-03-01 overlays the list. The books leave the list only after «Đã in xong»; after «Đóng» they stay listed (D12). | FR-02-08, FR-02-18 |
 | Next page | img/S-F02-03-page-2.png | Second page of synced books. | FR-02-08 |
 
 ## Actions and where they go
@@ -42,17 +44,10 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 | Print labels | Build a sheet with Print labels, element 6 (AD-UC-10 a2). Include only eligible checked books and list omitted titles. | M-F02-03-01 / stays |
 | Print labels | Recheck staff session before creating a sheet (FR-04-08). | S-F00-03 |
 | Try again | Retry after a network failure. | stays |
+| Sign out | End the staff session (FR-04-21). | S-F00-03 |
 
 ## Open questions
 
-Review status: self-checked against the assignment and the two shared UI/UX handbooks. Cross-review by Hoa and final consistency review by Linh are pending.
-
-| # | Question | Default drawn |
-| --- | --- | --- |
-| 1 | Q3: How should staff find physical books to select? | Selected 21/11/2026 confirmed by Ha: newly synced physical books, newest first, with pagination. Confirmed 21/11/2026. |
-| 2 | [NEEDS CLARIFICATION: Should checked books carry over when staff change pages?] | The preview uses the selections on the illustrated page. |
+None. Decisions: see [decision-index.md](../../decision-index.md#s-f02-03).
 
 Sample-only catalogue additions: Introduction to Public Policy — Hoa Tran; Modern Business Ethics — An Nguyen; Essentials of Library Science — Linh Do; Foundations of Statistics — Ha Le. Principles of Economics uses placeholder author Minh Anh Pham. These names are fictional wireframe data.
-
-
-Decision update, 21/11/2026. Ha confirmed the selected proposals. Q3 is the newly synced physical-book list, newest first, with pagination. Q4 is QR + title + shelf location, 2 columns × 5 rows on A4 portrait. Q3 and Q4 are closed by Ha’s confirmation on 21/11/2026. Cross-review and final review remain pending.

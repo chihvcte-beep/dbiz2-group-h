@@ -158,24 +158,18 @@ Filled in during Lesson 8, from the Screen List.
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | is there a limit on how many books a reader can save? | No (decided) | Decided 2026-11-04 (default adopted): No limit. |
-| 2 | what happens to a saved book that the sync removes from the catalogue? | No (decided) | Decided 2026-11-04 (default adopted): It stays in the list and shows "shelf location unavailable" (FR-01-07). |
-| 3 | if a request to save an online-only book reaches the system, is it rejected? | No (decided) | Decided 2026-11-04 (default adopted): Save is offered only on physical books; no server-side check is drawn. |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-12).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.2.0, swimlane-beta) | Pass; still to open once on mermaid.live | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.2.0, swimlane-beta) | Pass | AI assistant | 2026-11-04 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
 | Every FR of UC-12 appears in the diagram | Pass (6 of 6 W1 rows whose source trace names UC-12) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

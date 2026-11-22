@@ -21,7 +21,7 @@
 
 **Shown when:**
 - A signed-in reader selects "Lịch sử đọc" (Reading history) from the existing OPAC Personal Area (`AD-UC-07` action `r1`).
-- Or a reader clicks the "Thiết lập sở thích đọc ngay" prompt link on `S-F03-07` (Book recommendations) when no reading data is available yet.
+- Or a reader taps the «Sở thích» button in the `S-F03-07` (Book recommendations) header, at any time (D10b), or the "Thiết lập sở thích đọc ngay" prompt link on `S-F03-07` when no reading data is available yet.
 - Or returns directly from `S-F00-02` after completing reader sign-in (if the screen was initially opened without an active session).
 
 **The user leaves this screen when:**
@@ -37,7 +37,7 @@
 
 | State | Image file | Description |
 |---|---|---|
-| Default | `img/S-F03-02.png` | Standard view displaying reading history list with status badges, progress bars, update triggers, and subject preferences checkboxes. |
+| Default | `img/S-F03-02.png` | Standard view displaying reading history list with status badges, progress bars, update triggers, and subject preference chips. |
 | Numbered | `img/S-F03-02-numbered.png` | Default view with numbered callouts matching Section 3 Element Inventory. |
 | Empty | `img/S-F03-02-empty.png` | Empty history state when the reader has zero loan and zero online reading records; preferences section remains visible and editable. |
 | Loading | `img/S-F03-02-loading.png` | Skeleton cards and lines displayed during data retrieval (`MSG-05`). |
@@ -66,13 +66,13 @@
 | 10 | Save progress button | Primary button | Static text: “Lưu thay đổi”; single primary button on screen; submits updated status & progress | Yes | none |
 | 11 | Cancel edit button | Secondary button | Static text: “Huỷ”; collapses inline edit panel without saving changes | Yes | none |
 | 12 | Preferences section title | Headings | Static text: “Sở thích đọc sách” with subtext “Chọn các chủ đề từ danh mục để hệ thống gợi ý sách phù hợp.” | Yes | none |
-| 13 | Subject selector | Checkbox | Checkbox grid of active catalogue subjects: “Kinh tế”, “Marketing”, “Công nghệ thông tin”, “Kỹ năng mềm”, “Văn học”, “Khoa học” | No | Must be valid active subjects in synced catalogue (`FR-03-05`) |
+| 13 | Subject selector | Multi-select chips | One chip per active catalogue subject: “Kinh tế”, “Marketing”, “Công nghệ thông tin”, “Kỹ năng mềm”, “Văn học”, “Khoa học”; each chip toggles on its own (selected = fill + check icon) (S-F03-02 Q5) | No | Must be valid active subjects in synced catalogue (`FR-03-05`) |
 | 14 | Save preferences button | Secondary button | Static text: “Lưu sở thích”; validates and saves selected subjects | Yes | none |
-| 15 | Empty history message | Empty state | Static text: “Chưa có lịch sử đọc nào. Sách bạn mượn hoặc đọc trực tuyến sẽ tự động xuất hiện tại đây.” with book icon | Yes | none |
+| 15 | Empty history message | Empty state | `MSG-13`: “Chưa có lịch sử đọc nào. Sách bạn mượn hoặc đọc trực tuyến sẽ tự động xuất hiện tại đây.” with book icon (`ui-conventions.md` §4; D24) | Yes | none |
 | 16 | Invalid progress error | Inline error | Red 2px border, “!” icon, and static text: “Tiến độ đọc phải từ 0% đến 100%. Dữ liệu đã lưu trước đó được giữ nguyên.” | Yes | none |
 | 17 | Page-level load error | Banner | Static text: “Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.” (`MSG-04`) with secondary button “Thử lại” | Yes | none |
 | 18 | Success confirmation | Toast | Floating toast with text: “Đã cập nhật tiến độ đọc.” or “Đã lưu sở thích đọc.” | Yes | none |
-| 19 | Loading placeholder | Skeleton | Skeleton cards and lines for reading history entries and subject checkboxes | Yes | none |
+| 19 | Loading placeholder | Skeleton | Skeleton cards and lines for reading history entries and subject chips | Yes | none |
 
 ---
 
@@ -80,8 +80,8 @@
 
 | State | What the user sees | Trigger |
 |---|---|---|
-| Default | Reading history list showing 3 books with format labels, status badges, progress bars, and update triggers. Below is the subject preferences section with checkboxes. | Reader navigates to S-F03-02 with an active session and existing history data. |
-| Empty (no data) | Empty state with book icon and message “Chưa có lịch sử đọc nào. Sách bạn mượn hoặc đọc trực tuyến sẽ tự động xuất hiện tại đây.”; preferences section remains visible and editable. | Active reader session has zero loan transactions and zero online reading records (`FR-03-01*`). |
+| Default | Reading history list showing 3 books with format labels, status badges, progress bars, and update triggers. Below is the subject preferences section with subject chips. | Reader navigates to S-F03-02 with an active session and existing history data. |
+| Empty (no data) | Empty state with book icon and `MSG-13` “Chưa có lịch sử đọc nào. Sách bạn mượn hoặc đọc trực tuyến sẽ tự động xuất hiện tại đây.” (D24); preferences section remains visible and editable. | Active reader session has zero loan transactions and zero online reading records (`FR-03-01*`). |
 | Loading | Skeleton cards and lines across history and preferences sections (`aria-busy="true"`). | Screen initial load or network retrieval in progress (`MSG-05`). |
 | Error (Inline) | 2px red border around progress input (#9), inline error with “!” (#16) appears directly under input; previous saved progress (e.g. 20%) is retained without data loss. Also handles invalid subject preferences (`AD-UC-07 d4 [No]`). | Reader submits a progress value outside 0–100% (e.g. 120%) or invalid subject choices (`FR-03-22`). |
 | Error (Page load) | Page-level banner (`banner.error`) with text `MSG-04` and secondary button “Thử lại”. | Network failure or Library Core System unresponsive during initial page load (`FR-04-20`). |
@@ -99,7 +99,7 @@
 | 4 | Lưu thay đổi (#10) [valid] | Tap “Lưu thay đổi” with progress in 0–100% | Validates input; saves status and progress to Library Core System; collapses edit panel; updates card view; displays floating toast (#18) | `stays` |
 | 5 | Lưu thay đổi (#10) [invalid] | Tap “Lưu thay đổi” with progress < 0% or > 100% | Rejects update; retains existing saved progress in database; applies 2px red border to input and displays inline error (#16) | `stays` (`FR-03-22`) |
 | 6 | Huỷ (#11) | Tap “Huỷ” button | Discards unsaved form input; collapses inline edit panel; reverts to previous values | `stays` |
-| 7 | Subject checkboxes (#13) | Tap checkbox | Toggles checked state for the selected subject | `stays` |
+| 7 | Subject chips (#13) | Tap a chip | Toggles the selected state of that subject | `stays` |
 | 8 | Lưu sở thích (#14) | Tap “Lưu sở thích” button | Validates subjects against synced catalogue; persists preferences; displays floating toast (#18) | `stays` (`FR-03-05`) |
 | 9 | Thử lại (#17) | Tap “Thử lại” button on error banner | Retries fetching reading history and preferences from backend | `stays` |
 
@@ -112,8 +112,8 @@
 | SR-F03-02-001 | Unauthenticated access strictly opens modal `M-F00-01` with message `MSG-01` (“Bạn cần đăng nhập bằng thẻ thư viện để xem và quản lý lịch sử đọc.”). Successful login via `S-F00-01` → `S-F00-02` returns directly to `S-F03-02`. | `FR-04-08`, `AD-UC-07 d1, c1`, `ui-conventions.md §4` |
 | SR-F03-02-002 | Reading progress must be an integer constrained strictly between 0 and 100 inclusive. | `FR-03-04`, `AD-UC-07 r2` |
 | SR-F03-02-003 | If validation of reading progress or reading preferences fails, the system must retain previously saved data without data loss or corruption. | `FR-03-22`, `AD-UC-07 d3 [No]` |
-| SR-F03-02-004 | Reading status and reading progress are decoupled inputs: a reader can mark a book as "Đã đọc xong" (Finished) even if progress is recorded at less than 100%. | `AD-UC-07 Q4 (04/11/2026)` |
-| SR-F03-02-005 | Reading history entries are populated automatically via daily loan sync (`FR-03-03`) or online book access (`FR-03-02`). There is no manual "Add book to history" button. Each borrow transaction creates a discrete history row. | `W0 Table 3`, `AD-UC-07 Q2 (04/11/2026)` |
+| SR-F03-02-004 | Reading status and reading progress are decoupled inputs: a reader can mark a book as "Đã đọc xong" (Finished) even if progress is recorded at less than 100%. | `AD-UC-07 Q4` |
+| SR-F03-02-005 | Reading history entries are populated automatically via daily loan sync (`FR-03-03`) or online book access (`FR-03-02`). There is no manual "Add book to history" button. Each borrow transaction creates a discrete history row. | `W0 Table 3`, `AD-UC-07 Q2` |
 | SR-F03-02-006 | Reading preferences subjects must only be selected from active subjects synced from the library catalogue. | `FR-03-05`, `AD-UC-07 Q3` |
 | SR-F03-02-007 | Only one Primary button is permitted on the screen at any time: “Lưu thay đổi” (#10) is Primary; “Lưu sở thích” (#14) is Secondary. | `ui-conventions.md §3` |
 | SR-F03-02-008 | Information must never be conveyed by colour alone: format labels include distinct SVG icons and text; reading status badges include borders and text; inline error includes warning icon `!`. | `ui-conventions.md §5` |
@@ -138,13 +138,13 @@
 ## 8. Responsive and accessibility notes
 
 - **Smallest supported width:** 360px (Reader mobile frame width; exported at 3x DPR = 1080px).
-- **Collapses or stacks on narrow screen:** Inline edit form stacks controls vertically (Select dropdown, then Number input, followed by button row with Primary "Lưu thay đổi" and Secondary "Huỷ"). Subject checkboxes arranged in a 2-column touch-friendly grid.
+- **Collapses or stacks on narrow screen:** Inline edit form stacks controls vertically (Select dropdown, then Number input, followed by button row with Primary "Lưu thay đổi" and Secondary "Huỷ"). Subject chips wrap onto as many lines as needed; each chip keeps the 44px minimum target.
 - **Information never carried by colour alone:**
   - Access format uses both icon (open book for physical, globe for online) and explicit Vietnamese text ("Bản giấy", "Trực tuyến").
   - Reading status badge uses distinct border styling and text ("Đang đọc", "Đã đọc xong").
   - Inline error uses exclamation mark icon `!` and 2px border alongside red text.
 - **Text contrast and minimum size:**
-  - Header font: SVN-Gilroy 20px (`--font-heading`).
+  - Header font: Plus Jakarta Sans 20px (`--font-heading`).
   - Body text: Inter 16px (`--font-size-body`), line height 1.5.
   - Interactive touch targets: minimum 48px height (`--size-control`) with minimum 44px hit area.
   - Form inputs provide clear `:focus-visible` outline (3px focus ring).
@@ -153,13 +153,7 @@
 
 ## 9. Open questions
 
-| # | Question | Blocking? | Status |
-|---|---|---|---|
-| 1 | What is the initial status of automatically added history entries? | No | Closed 04/11/2026: Defaults to "Reading" (Đang đọc) with 0% progress until edited by reader (`AD-UC-07 Q1`). |
-| 2 | If a reader borrows the same physical book twice, are there duplicate history rows? | No | Closed 04/11/2026: Yes, each borrow transaction generates a discrete history entry (`FR-03-03`, `AD-UC-07 Q2`). |
-| 3 | Can a book be marked "Finished" if progress is under 100%? | No | Closed 04/11/2026: Yes, status and progress are decoupled inputs; saved as entered by reader (`AD-UC-07 Q4`). |
-| 4 | Confirm exact Vietnamese copy for empty reading history state. | No | Closed 19/11/2026: Approved provisional text “Chưa có lịch sử đọc nào. Sách bạn mượn hoặc đọc trực tuyến sẽ tự động xuất hiện tại đây.” |
-| 5 | Selection component for subject preferences in ui-conventions §3. | No | Open: Currently using Checkbox grid. Awaiting Linh's confirmation whether Checkbox or a dedicated filter chip component is preferred for multi-subject selection. |
+None. Decisions: see [decision-index.md](../decision-index.md#s-f03-02).
 
 ---
 

@@ -13,8 +13,8 @@
 | Success end state | The review is saved, replaced or removed from public display, and the reader sees a confirmation and the updated review list of the book (FR-02-12). |
 | Failure end state | Nothing is saved: the text failed the check or the review is not the reader's own (error message, FR-02-11); or the reader cancelled the deletion; or the reader chose not to sign in. |
 | FRs covered | FR-02-01, FR-02-03, FR-02-04, FR-02-11, FR-02-12, FR-04-08; FR-04-01 through the call to UC-11 |
-| Business rules applied | Review text is not empty, at most 2,000 characters, plain text (FR-02-01, FR-02-03). A reader edits or deletes only their own review (FR-02-03, FR-02-04, FR-02-11). Deletion needs a confirmation (FR-02-04). Review actions need a signed-in reader (FR-04-08). |
-| Version / status | v1.1 · Draft |
+| Business rules applied | Review text is not empty, at most 2,000 characters, plain text (FR-02-01, FR-02-03). A reader edits or deletes only their own review (FR-02-03, FR-02-04, FR-02-11). Deletion needs a confirmation (FR-02-04). Review actions need a signed-in reader (FR-04-08). A review action asked for before sign-in is kept: after sign-in it continues by itself; if the reader cancels sign-in it is still waiting, with the text kept on screen (D1). |
+| Version / status | v1.2 · Draft |
 | Author | Owner C (F-02) |
 
 ## 1. Diagram
@@ -97,6 +97,12 @@ Reading notes:
 - `c1` is a call to another use case (the rake symbol): sign-in is drawn once in AD-UC-11, not
   copied here. After sign-in the flow re-enters through the merge `m0` and the session is checked
   again.
+- The pending action is kept (D1). After the code is accepted the reader is back on the screen
+  where sign-in started and the action asked for in `r1` continues by itself: `d2` takes that
+  action, the reader does not choose or type again. If the reader cancels sign-in («Huỷ»), `c1`
+  ends without a session and the reader is back on the starting screen with nothing lost (the
+  review text stays); the request is denied (`s1`) until the reader repeats the action, and then
+  `d1` is asked again.
 - `me` gathers every rejection so one action (`s7`) shows the error; `m2` gathers every success so
   one action (`s8`) shows the confirmation.
 - "Delete" removes the review from public display (state `Removed`); it is not erased from storage.
@@ -135,6 +141,8 @@ Reading notes:
 |---|---|---|---|
 | d0 [No] → d1 [No] | the reader is not signed in | they choose Write review and then decline to sign in | the request is denied and nothing is saved |
 | d0 [No] → d1 [Yes] | the reader is not signed in | they choose Write review and sign in with card 0012345 | the session is checked again and the review form opens |
+| d0 [No] → d1 [Yes] (pending action) | the reader is not signed in and has typed a 350-character review | they choose «Đăng đánh giá» and sign in with card 0012345 | they are back on the same screen and the review is posted without typing it again; a confirmation and the updated list are shown |
+| d1 [Yes] → sign-in cancelled | the reader is not signed in and has typed a review | they choose «Đăng đánh giá», then «Huỷ» on the sign-in screen | they are back on the same screen with the text kept; nothing is saved until they choose «Đăng đánh giá» again, which asks them to sign in again |
 | d0 [Yes] → d2 [Write] → d3 [Yes] | a signed-in reader | they submit a 350-character plain-text review | the review is saved for that book and reader; a confirmation and the updated list are shown |
 | d3 [No] | a signed-in reader | they submit a review of 2,001 characters | nothing is saved and an error message says the text is too long |
 | d2 [Edit] → d4 [Yes] → d5 [Yes] | the reader owns review #88 on the book | they submit a new 500-character text | review #88 shows the new text, still on the same book; a confirmation is shown |
@@ -158,7 +166,7 @@ Filled in during Lesson 8, from the Screen List.
 |---|---|
 | Request a review action on a book (r1), Which action? (d2) | S-F02-01 (or S-F02-02 when reached by QR, UC-06) |
 | Sign in now? (d1) | S-F02-01 / S-F02-02 (modal M-F00-01 "Sign in to continue?") |
-| Sign in (UC-11) (c1) | S-F00-01 → S-F00-02, then back to S-F02-01 / S-F02-02 |
+| Sign in (UC-11) (c1) | S-F00-01 → S-F00-02, then back to S-F02-01 / S-F02-02, where the pending action continues; «Huỷ» on S-F00-01 / S-F00-02 also goes back, with the action still waiting |
 | Submit a new review text (r2), Submit an edited text of own review (r3), Choose own review to delete (r4) | S-F02-01 / S-F02-02 (review panel) |
 | Confirm the deletion? (d6), Cancel the deletion (r5) | S-F02-01 / S-F02-02 (modal M-F02-01-01 "Delete your review?") |
 | See the error message (s7) | S-F02-01 / S-F02-02 (error state) |
@@ -166,25 +174,19 @@ Filled in during Lesson 8, from the Screen List.
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | may a reader write more than one review for the same book? | No (decided) | Decided 2026-11-04 (default adopted): Yes; FR-02-01 sets no limit. |
-| 2 | is an edited review marked "edited" with a date? | No (decided) | Decided 2026-11-04 (default adopted): No marker in release 1. |
-| 3 | how long is a removed review kept in storage? | No (decided) | Decided 2026-11-04 (default adopted): Kept with state Removed; no automatic purge in release 1. |
-| 4 | FR-02-03 and FR-02-04 are Could. If they are cut, the Edit and Delete branches of `d2` are removed. | No (decided) | Decided 2026-11-04 (default adopted): Keep both branches until the release scope is fixed. |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-04).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.2.0, swimlane-beta) | Pass; still to open once on mermaid.live | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.2.0, swimlane-beta) | Pass | AI assistant | 2026-11-04 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
 | Every FR of UC-04 appears in the diagram | Pass (5 of 5 W1 rows whose source trace names UC-04) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
+| v1.2 pending-action rule (D1): business rules, reading notes and tests updated; diagram and node trace unchanged | Pass (checked by reading) | AI assistant | 2026-11-22 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

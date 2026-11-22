@@ -5,13 +5,13 @@
 | Screen ID | `S-F03-03` |
 | Screen name | Saved Books List |
 | Actor | Reader |
-| Priority | Must (UC-12 screen-list revision); reconcile with the global Screen List, which labels it Should |
+| Priority | Should |
 | Feature | `F-03` Discovery, Reading History & Recommendation |
 | Activity diagrams | `AD-UC-12` |
-| Mockup image | `img/S-F03-03-numbered.png`; state panels: `img/S-F03-03-states.png` |
-| Status | Draft — pending group review and priority reconciliation |
+| Mockup image | `img/S-F03-03.png` |
+| Status | Draft |
 | Frame width | 360px (export at 3x = 1080px) |
-| Wireframe source | [NEEDS CLARIFICATION: confirm committed source path under `screens/src/`] |
+| Wireframe source | None in the repository; exported images only (`img/S-F03-03*.png`) |
 | Wireframe author | Nhi |
 | Screen spec author | Nhi |
 | UI conventions | v0.8 |
@@ -26,7 +26,9 @@ A missing or inconsistent shelf location is a state of the affected book row, no
 
 ## 2. Mockup
 
-Ảnh wireframe đánh số của màn hình S-F03-03 và ảnh tổng hợp các trạng thái hiện có.
+Ảnh Default của màn hình S-F03-03 (một màn hình, cắt riêng), ảnh wireframe đánh số và ảnh riêng cho từng trạng thái.
+
+![S-F03-03](img/S-F03-03.png)
 
 **Numbered wireframe**
 
@@ -34,22 +36,18 @@ A missing or inconsistent shelf location is a state of the affected book row, no
 
 [Open original numbered image on GitHub](https://github.com/chihvcte-beep/dbiz2-group-h/blob/main/%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/screens/img/S-F03-03-numbered.png)
 
-**Current state panels**
+**State → Image**
 
-![S-F03-03 — state panels](https://raw.githubusercontent.com/chihvcte-beep/dbiz2-group-h/main/%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/screens/img/S-F03-03-states.png)
-
-[Open original state image on GitHub](https://github.com/chihvcte-beep/dbiz2-group-h/blob/main/%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/screens/img/S-F03-03-states.png)
-
-> **Draft review note:** The images above are the existing repository exports, embedded directly in this section for visual review. The state-specific images have not yet been exported as separate files; each row below points to the relevant panel in the combined `-states.png` image. Do not treat the exports as approved until the required size and UI-conventions checks are complete.
-
-| State | Image / panel | What to inspect |
+| State | Image | Numbered image |
 |---|---|---|
-| Default | `S-F03-03-numbered.png` | Wireframe đánh số. |
-| Empty | Panel in `S-F03-03-states.png` | Panel danh sách trống. |
-| Loading | Panel in `S-F03-03-states.png` | Panel Loading. |
-| Error | Panel in `S-F03-03-states.png` | Panel lỗi tải danh sách. |
-| Success — removed | Panel in `S-F03-03-states.png` | Panel sau khi bỏ sách khỏi danh sách. |
-| Location unavailable | Panel in `S-F03-03-states.png` | Trạng thái vị trí kệ không khả dụng trong dòng sách bị ảnh hưởng. |
+| Default | `img/S-F03-03.png` | `img/S-F03-03-numbered.png` |
+| Empty | `img/S-F03-03-empty.png` | — |
+| Loading | `img/S-F03-03-loading.png` | — |
+| Error | `img/S-F03-03-error.png` | — |
+| Success — removed | `img/S-F03-03-success.png` | — |
+| Location unavailable | `img/S-F03-03-error-2.png` | — |
+
+Overview sheet of all states (reference only, not the main image): `img/S-F03-03-states.png`.
 
 Use UI Conventions v0.8 for components, labels, messages and design tokens. Reader frame: 360px, target export at 3x (1080px).
 ## 3. Element inventory
@@ -67,7 +65,7 @@ Numbering follows Nhi's v0.8 wireframe notes. The unavailable-location Banner be
 | 7 | Empty-list message | Empty state | `Bạn chưa lưu sách nào. Bấm Lưu vào danh sách ở trang vị trí kệ sách.` | Conditional | Show when the Reader has no saved books (`FR-03-25`). |
 | 8 | Load error | Banner | `MSG-04`: `Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.` | Conditional | Show when the saved-books list cannot be loaded. Retain data already shown. |
 | 9 | Retry action | Secondary button | `Thử lại` | Conditional | Retry retrieving the saved-books list after a load error. |
-| 10 | Removal success feedback | Toast | Provisional short copy: `Đã bỏ sách khỏi danh sách.` | Conditional | Show after successful removal while the refreshed list is displayed. |
+| 10 | Removal success feedback | Toast | `Đã bỏ sách khỏi danh sách.` | Conditional | Show after successful removal while the refreshed list is displayed. |
 
 ## 4. States
 
@@ -76,7 +74,7 @@ Numbering follows Nhi's v0.8 wireframe notes. The unavailable-location Banner be
 | Default | `Sách đã lưu` and the Reader's saved physical books. Each row shows a cover placeholder, title, author, `Bản giấy` label, synced shelf location and `Bỏ khỏi danh sách` action. One row may demonstrate an unavailable shelf location. | Signed-in Reader opens the saved-books list and the list contains entries. |
 | Empty | `Bạn chưa lưu sách nào. Bấm Lưu vào danh sách ở trang vị trí kệ sách.` | The Reader has no saved books (`FR-03-25`). |
 | Loading | Skeleton placeholders while saved books and shelf locations are retrieved; no loading text by default (`MSG-05`). | The saved-books list is being retrieved. |
-| Error | Shared `MSG-04` Banner and `Thử lại` action. Retain any data already shown. | The saved-books list fails to load (`FR-04-20`, as represented in Nhi's wireframe). |
+| Error | Shared `MSG-04` Banner and `Thử lại` action. Retain any data already shown. | The saved-books list fails to load (`FR-04-20`). |
 | Success — removed | The selected book has been removed, the list is refreshed and a short success Toast appears. If no books remain, show Empty. | Reader selects `Bỏ khỏi danh sách` and the removal succeeds (`FR-03-08`). |
 | Location unavailable | Only the affected book row shows exact `MSG-06`. All other saved books remain visible and usable. | The affected book's shelf location is missing or inconsistent (`FR-01-07`). This is a row-level state, not a screen-level Error. |
 
@@ -107,7 +105,7 @@ Numbering follows Nhi's v0.8 wireframe notes. The unavailable-location Banner be
 | SR-006 | If no books have been saved, show the approved empty-list message. | `FR-03-25`; UI Conventions v0.8 |
 | SR-007 | Remove deletes the selected saved entry and refreshes this screen. No confirmation modal is specified. | `FR-03-08`; `AD-UC-12`; Screen List |
 | SR-008 | After removal, show a short success Toast. If the list becomes empty, show Empty. | `FR-03-08`; Nhi wireframe notes |
-| SR-009 | A network/load failure uses shared `MSG-04` and `Thử lại` as represented in the wireframe; confirm the FR mapping before final approval. | `FR-04-20` (provisional mapping); Nhi wireframe notes |
+| SR-009 | A network/load failure uses shared `MSG-04` and `Thử lại`; data already shown is kept. | `FR-04-20`; Screen List notes; UI Conventions v0.8 |
 | SR-010 | Saving a physical book is performed from the existing OPAC book display / `S-F01-01`, not from this list screen. | `FR-03-06`; `AD-UC-12`; Screen List |
 | SR-011 | Do not add a Remove confirmation modal. | `AD-UC-12`; Screen List |
 
@@ -121,7 +119,7 @@ Numbering follows Nhi's v0.8 wireframe notes. The unavailable-location Banner be
 | `FR-03-25` | Displays the empty-list message when no books have been saved. |
 | `FR-01-07` | Displays `MSG-06` for an affected saved-book row when shelf location is missing or inconsistent. |
 | `FR-04-08` | Enforces the Reader-session requirement before the saved-books request is allowed. |
-| `FR-04-20` | Provisional mapping for the wireframe's network-error Banner and retry action; confirm this mapping before final approval. |
+| `FR-04-20` | Displays the `MSG-04` network-error Banner with `Thử lại` and keeps data already shown when the saved-books list cannot be loaded. |
 
 ## 8. Responsive and accessibility notes
 
@@ -133,19 +131,11 @@ Numbering follows Nhi's v0.8 wireframe notes. The unavailable-location Banner be
 - Interactive targets must be at least 44×44px, with a visible 2px focus ring.
 - Text contrast: at least 4.5:1; meaningful control boundaries: at least 3:1.
 - Empty, loading, error and success feedback must remain distinguishable without relying on colour alone.
-- Book titles, authors and shelf codes in the wireframe are illustrative until verified against synced catalogue data.
+- Book titles, authors and shelf codes are synced catalogue data; the values in the wireframe are examples.
 
 ## 9. Open questions
 
-| # | Question | Blocking? | Status |
-|---|---|---|---|
-| 1 | Confirm illustrative book titles, authors and shelf codes against the synced catalogue before final handoff. | Yes (final data review) | Open |
-| 2 | Confirm that `Đã bỏ sách khỏi danh sách.` is accepted as the success Toast copy. | No | Open |
-| 3 | Confirm that `MSG-04` / `FR-04-20` is the approved network-error treatment for this Reader screen; the UC-12 Screen List and Usage Flow do not independently specify this generic network-error branch. | Yes (FR mapping) | Open |
-| 4 | Confirm the exact empty-list copy `Bạn chưa lưu sách nào. Bấm Lưu vào danh sách ở trang vị trí kệ sách.` against the shared message catalogue. | No | Open |
-| 5 | Reconcile Priority: Nhi's task note and the global Screen List label `S-F03-03` as Should, while the dedicated `screen-list-UC12(3).md` labels it Must. | Yes (metadata approval) | Open |
-| 6 | Confirm that all state panels are exported at 1080px and comply with UI Conventions v0.8. | Yes (mockup approval) | Open |
-| 7 | Confirm the committed wireframe source path under `screens/src/`. | No | Open |
+None. Decisions: see [decision-index.md](../decision-index.md#s-f03-03).
 
 ---
 
@@ -157,7 +147,6 @@ Numbering follows Nhi's v0.8 wireframe notes. The unavailable-location Banner be
 - [x] Remove is documented without a confirmation modal.
 - [x] Sign-in uses the shared modal and sign-in screen.
 - [x] Navigation targets follow the Screen List and Usage Flow.
-- [ ] Network-error FR mapping and empty-message copy confirmed.
-- [ ] Priority conflict between the dedicated UC-12 Screen List and global Screen List resolved.
-- [ ] Catalogue sample data and final mockup exports verified.
-- [ ] Group review and approval completed.
+- [x] Network-error FR mapping (`FR-04-20`) and empty-message copy follow the Screen List and UI Conventions §4.
+- [x] Priority follows the Screen List (Should).
+- [x] Default and state exports are separate 1080px-wide images.

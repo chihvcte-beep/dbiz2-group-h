@@ -1,11 +1,11 @@
 # Wireframe notes: M-F02-01-02 Report this review?
 
-Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Hoa
+Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Hoa
 
 ## Elements
 | # | Element | Component | Content / data source | FR |
 |---|---|---|---|---|
-| 1 | Report confirmation dialog | Modal | “Báo cáo đánh giá?” · No reason field | FR-02-09 |
+| 1 | Report confirmation dialog | Modal | “Báo cáo đánh giá?” · Short confirmation, no reason field; the review text is not quoted, it stays visible behind the dimmed overlay (D22) | FR-02-09 |
 | 2 | Submit report | Primary button | “Báo cáo đánh giá” | FR-02-09, FR-02-21 |
 | 3 | Cancel report | Secondary button | “Huỷ”; closes modal without saving report | FR-02-09 |
 
@@ -25,7 +25,5 @@ Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Hoa
 | Huỷ | cancel | stays on S-F02-01; no report saved |
 
 ## Open questions
-| # | Question | Default drawn |
-|---|---|---|
-| 1 | [NEEDS CLARIFICATION: Should the confirmation body quote the selected review, or is a generic confirmation sufficient?] | Generic confirmation only; selected review remains visible behind the overlay. |
-| 2 | Closed 19/11/2026: No — Report only on other readers’ reviews (per group decision on AD-UC-14 Q2 and updated guidance). | Modal is available only from a Report action rendered on another reader’s review item. |
+
+None. Decisions: see [decision-index.md](../../decision-index.md#m-f02-01-02).

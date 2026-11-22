@@ -20,11 +20,11 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Nhi
 
 | State | Image | What the user sees | Source / FR |
 |---|---|---|---|
-| Default | img/S-F03-01-numbered.png | The three access-format choices are visible. No option is selected on first entry in this wireframe; matching results appear after the reader chooses a format. This initial-selection behaviour remains to be confirmed by the team. | UC-03 · FR-03-12 |
-| Empty | img/S-F03-01-states.png | No matching books are found. Show the empty-state sentence once and keep the selector available for another choice. | AD-UC-03 d1 [No], s3 · FR-03-23 |
-| Loading | img/S-F03-01-states.png | Skeleton placeholders while the system retrieves books for the selected access format. No loading text. | System step s1 · FR-03-12; MSG-05 |
-| Error | img/S-F03-01-states.png | Shared MSG-04 banner and “Thử lại” action. Retain the selected format and any data already shown. | FR-04-20 |
-| Results | img/S-F03-01-states.png | Matching books appear on S-F03-01 with format labels. The example shows one physical book and one online book. The result list stays on this screen while the reader changes the format or finishes filtering. | AD-UC-03 d1 [Yes], s2 · FR-03-12 |
+| Default | img/S-F03-01.png | The three access-format choices are visible. No option is selected on first entry; matching results appear after the reader chooses a format. | UC-03 · FR-03-12; D19 |
+| Empty | img/S-F03-01-empty.png | No matching books are found. Show the empty-state sentence once and keep the selector available for another choice. | AD-UC-03 d1 [No], s3 · FR-03-23 |
+| Loading | img/S-F03-01-loading.png | Skeleton placeholders while the system retrieves books for the selected access format. No loading text. | System step s1 · FR-03-12; MSG-05 |
+| Error | img/S-F03-01-error.png | Shared MSG-04 banner and “Thử lại” action. Retain the selected format and any data already shown. | FR-04-20 |
+| Results | img/S-F03-01-success.png | Matching books appear on S-F03-01 with format labels. The example shows one physical book and one online book. The result list stays on this screen while the reader changes the format or finishes filtering. | AD-UC-03 d1 [Yes], s2 · FR-03-12 |
 
 ## Actions and where they go
 
@@ -32,7 +32,7 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Nhi
 |---|---|---|
 | Back button | Reader taps Back | Existing OPAC catalogue / search results (exit destination). |
 | Access-format selector | Reader chooses “Trực tuyến”, “Bản giấy” or “Cả hai” | System retrieves matching books from the whole synced catalogue; results update on S-F03-01. |
-| Choose another format | Reader changes the selected format after an empty state or results | Stay on S-F03-01; retrieve and display the new matching results. |
+| Choose another format | Reader changes the selected format after an empty state or results | Stay on S-F03-01; retrieve and display the new matching results from page 1 (D14). |
 | Physical book row | Reader opens a physical book result | Existing OPAC Book Detail (exit destination); the current project does not create another book-detail screen here. |
 | Online book row | Reader opens an online book result | Current OPAC online-book page (existing destination; no new viewer or download function is built here). |
 | Online book opened | System records the book and time without reader identity | Background action s4 · FR-03-13. |
@@ -41,8 +41,4 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Nhi
 
 ## Open questions
 
-| # | Question | Current treatment |
-|---|---|---|
-| 1 | What is the initial state of the three-option selector when S-F03-01 first opens? | The wireframe shows no selection on first entry. Confirm this with the team; AD-UC-03 does not specify an initial selection. |
-| 2 | When the reader selects “Cả hai”, how should a book with both formats be labelled? | Provisional treatment: show both “Bản giấy” and “Trực tuyến” Format labels on that result. UI Conventions §2 currently lists the two labels but does not explicitly settle the combined-result presentation. |
-| 3 | Should a long result list use pagination or a “Xem thêm” action? | The wireframe shows the initial matching results only. Confirm the list-loading pattern with the team before implementation. |
+None. Decisions: see [decision-index.md](../../decision-index.md#s-f03-01).

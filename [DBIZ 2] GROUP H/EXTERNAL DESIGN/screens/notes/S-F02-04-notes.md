@@ -1,6 +1,6 @@
 # Wireframe notes: S-F02-04 Reported reviews
 
-Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Hoa
+Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Hoa
 
 ## Elements
 | # | Element | Component | Content / data source | FR |
@@ -15,21 +15,23 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Hoa
 | 8 | Loading placeholder | Skeleton | Queue and selected review detail placeholders | MSG-05 |
 | 9 | Success confirmation | Toast | “Đã gỡ đánh giá.” / “Đã bỏ qua báo cáo.” with refreshed queue | FR-02-10, FR-02-20 |
 | 10 | Retry action | Secondary button | “Thử lại” inside MSG-04 Banner | FR-04-20 |
+| 11 | Sign out | Secondary button | «Đăng xuất» at the right of the screen header, every state and behind M-F02-04-01; staff stay signed in until they sign out (D7) | FR-04-21 |
 
 ## States drawn
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/S-F02-04.png | Open reports #91 and #95 in queue; #91 selected; Remove and Dismiss actions; numbered variant in S-F02-04-numbered.png | FR-02-14, FR-02-10, FR-02-20 |
-| Empty | img/S-F02-04-empty.png | No reported reviews are waiting | FR-02-19 |
-| Loading | img/S-F02-04-loading.png | Skeleton queue and detail | MSG-05 |
-| Error | img/S-F02-04-error.png | Single header; MSG-04 Banner with retry action; no Empty or Toast | FR-04-20 |
-| Success | img/S-F02-04-success.png | Remove outcome: #91 leaves queue and public display; #95 remains in queue/detail for next step (d5); toast “Đã gỡ đánh giá.” | FR-02-10, FR-04-12 |
-| Success-2 | img/S-F02-04-success-2.png | Dismiss outcome: #91 leaves queue but stays public; #95 remains in queue/detail for next step (d5); toast “Đã bỏ qua báo cáo.” | FR-02-20 |
+| Default | img/S-F02-04.png | Header with «Đăng xuất» at the right; open reports #91 and #95 in queue; #91 selected; Remove and Dismiss actions; numbered variant in S-F02-04-numbered.png (#1–#5, #11; re-exported 22/11/2026) | FR-02-14, FR-02-10, FR-02-20 |
+| Empty | img/S-F02-04-empty.png | Header with «Đăng xuất»; no reported reviews are waiting | FR-02-19 |
+| Loading | img/S-F02-04-loading.png | Header with «Đăng xuất»; skeleton queue and detail | MSG-05 |
+| Error | img/S-F02-04-error.png | Single header with «Đăng xuất»; MSG-04 Banner with retry action; no Empty or Toast | FR-04-20 |
+| Success | img/S-F02-04-success.png | Header with «Đăng xuất»; remove outcome: #91 leaves queue and public display; #95 remains in queue/detail for next step (d5); toast “Đã gỡ đánh giá.” | FR-02-10, FR-04-12 |
+| Success-2 | img/S-F02-04-success-2.png | Header with «Đăng xuất»; dismiss outcome: #91 leaves queue but stays public; #95 remains in queue/detail for next step (d5); toast “Đã bỏ qua báo cáo.” | FR-02-20 |
 
 ## Actions and where they go
 | Element | User action | Goes to |
 |---|---|---|
 | Back | tap | S-F04-01 |
+| Đăng xuất | click | S-F00-03 (staff session ends; FR-04-21) |
 | Queue item | select a reported review | stays (detail updates on S-F02-04) |
 | Gỡ đánh giá | select Remove | M-F02-04-01 |
 | Bỏ qua báo cáo | dismiss the report | stays (review remains public; report leaves queue) |
@@ -38,8 +40,4 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Hoa
 | Cancel modal | cancel removal | stays (review remains public and in queue) |
 
 ## Open questions
-| # | Question | Default drawn |
-|---|---|---|
-| 1 | [NEEDS CLARIFICATION: The source docs specify selecting a report and reading its review, but do not prescribe the queue/detail layout. Is a two-column queue plus detail view acceptable?] | Use two columns at 1280px as a provisional layout; only show source-backed data and actions. |
-| 2 | [NEEDS CLARIFICATION: Does success wording need a separate message for Dismiss versus Remove?] | Use action-specific toast copy; no new status/dashboard. |
-| 3 | [NEEDS CLARIFICATION: Is there a staff-approved display field for report reason?] | No report-reason field is shown because no reason data is specified by the AD/FR excerpts. |
+None. Decisions: see [decision-index.md](../../decision-index.md#s-f02-04).

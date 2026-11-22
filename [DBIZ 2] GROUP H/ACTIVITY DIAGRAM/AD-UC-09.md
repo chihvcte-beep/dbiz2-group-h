@@ -149,24 +149,18 @@ Filled in during Lesson 8, from the Screen List.
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | FR-03-19 ranks popular books by QR scan count, but counting scans (FR-02-06) was moved to Could. If it is cut, what decides "popular"? | No (decided) | Decided 2026-11-04 (default adopted): The number of loans in the synced loan records (FR-04-10). |
-| 2 | what counts as "trending" in FR-03-20? | No (decided) | Decided 2026-11-04 (default adopted): The most borrowed books of the same subject in the last 30 days. |
-| 3 | how many books does the list show? | No (decided) | Decided 2026-11-04 (default adopted): 10. |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-09).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.3.0, swimlane-beta) | Pass (re-checked after the new calls); still to open once on mermaid.live | AI assistant | 2026-11-08 |
+| Renders (Mermaid 12.3.0, swimlane-beta) | Pass (re-checked after the new calls) | AI assistant | 2026-11-08 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
 | Every FR of UC-09 appears in the diagram | Pass (4 of 4 W1 rows whose source trace names UC-09) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass (AI Service step moved into the system lane) | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

@@ -1,6 +1,6 @@
 # Screen Transition Diagram: Group H Library Core System
 
-Product: Group H Library Core System · Version v1.0 · Date 2026-11-08 · Screen IDs from [screen-list.md](screen-list.md)
+Product: Group H Library Core System · Version v1.1 · Date 2026-11-22 (v1.0 2026-11-08) · Screen IDs from [screen-list.md](screen-list.md)
 
 One diagram per actor. The Reader sees 11 product screens (fewer than 15), so the Reader has one
 diagram; On-site Staff see 4 screens and have their own diagram.
@@ -75,7 +75,7 @@ flowchart LR
 
   eMenu -->|"chooses Recommended for you"| S03_07
   S03_07 -->|"opened without a session, chooses Sign in in dialog"| S00_01
-  S03_07 -->|"[no reading data yet] chooses Set your preferences"| S03_02
+  S03_07 -->|"chooses Sở thích (any time), or Set your preferences [no reading data yet]"| S03_02
   S03_07 -->|"opens a recommended book"| eBD
   S03_07 -->|"back"| eMenu
 
@@ -99,11 +99,19 @@ Main task "find where a physical book is": OPAC Book Detail → S-F01-01 (floor,
 → S-F01-02 (room on the map): 2 screens. The longest signed-out task, writing a review, is
 S-F02-01 → S-F00-01 → S-F00-02 → back to S-F02-01: 3 screens.
 
-Sign-in return rule (open question L8-01 in `ACTIVITY DIAGRAM/activity-index.md`), drawn once per origin screen: the eight "[OTP accepted]" arrows are one rule.
+Sign-in return rule (L8-01, D1), drawn once per origin screen: the eight "[OTP accepted]" arrows are one rule.
 The reader returns to the screen where sign-in started (from the OPAC main menu: back to the menu), and
-the action they asked for continues there (Save, review, report, message). **Cancel** on S-F00-01 or
-S-F00-02 follows the same rule and is not drawn, to keep the diagram readable. **Not now** in the
-dialog closes it and the reader stays on the same screen.
+the action they asked for continues there by itself (Save, review, report, message): the reader
+does not choose or type it again. **Cancel** («Huỷ») on S-F00-01 or S-F00-02 follows the same return
+rule and is not drawn, to keep the diagram readable: the reader is back on the starting screen with
+nothing lost and the action still waiting; repeating it opens the sign-in dialog again. **Not now** in
+the dialog closes it and the reader stays on the same screen. S-F00-01 has no Back; S-F00-02 keeps
+its back arrow to S-F00-01.
+
+S-F02-02 (QR landing page) has **no Back** and no back arrow: the page opens only by scanning the QR
+label (also when the reader returns after sign-in), and its only way out is "View this book on the
+OPAC" (D5). "Sở thích" on S-F03-07 is shown in every signed-in state, so S-F03-07 → S-F03-02 is
+possible at any time, not only before there is reading data (D10b).
 
 Sign in (AD-UC-11), moves and states: card number found → S-F00-02 (move). Card number not found →
 error state of S-F00-01. Wrong OTP with fewer than 5 attempts → "code incorrect" state of S-F00-02,
@@ -131,6 +139,9 @@ flowchart LR
   S04_01 -->|"chooses Reported reviews"| S02_04
   S02_04 -->|"selects a reported review, then Remove (confirms in dialog) or Dismiss the report"| S02_04
   S02_04 -->|"back"| S04_01
+  S04_01 -->|"chooses Đăng xuất"| S00_03
+  S02_03 -->|"chooses Đăng xuất"| S00_03
+  S02_04 -->|"chooses Đăng xuất"| S00_03
 ```
 
 Main task "print QR labels": S-F04-01 → S-F02-03, preview dialog, print: 2 screens. Without a staff
@@ -141,6 +152,12 @@ S-F00-03 opens first, and after sign-in staff land on S-F04-01 (FR-04-07; `s10` 
 AD-UC-13). A wrong account or an account without the staff role is an error state of S-F00-03
 (FR-04-18). "No book selected", "no selected book has a QR code", books left out and "no
 reported reviews waiting" are states of the screen staff are on.
+
+Sign out (FR-04-21; D7): "Đăng xuất" in the header of S-F04-01, S-F02-03 and
+S-F02-04 ends the staff session and opens S-F00-03 (`s14` in AD-UC-10, `s11` in AD-UC-13). The staff
+session has no time-out: it stays valid until staff sign out, so there is no "session expired" arrow.
+Moving between pages of the S-F02-03 list (20 books per page, ticks kept) stays on S-F02-03 and is
+part of the "selects books" loop.
 
 Conventions:
 
@@ -166,21 +183,23 @@ Conventions:
       S-F03-02, S-F03-03; QR scan → S-F02-02; S-F00-01 → S-F00-02; staff page link → S-F00-03 or
       S-F04-01 → S-F02-03, S-F02-04.
 - [x] No dead end: every screen has a way out. S-F02-02 (QR landing page) has "View this book on the
-      OPAC" to the existing OPAC Book Detail (team decision 2026-11-08). Screens whose only way out, apart
+      OPAC" to the existing OPAC Book Detail (L8-08); it has no Back (D5). Every staff screen also has "Đăng xuất" to S-F00-03 (D7). Screens whose only way out, apart
       from sign-in and same-screen actions, is a back arrow: S-F01-02, S-F02-01, S-F03-02, S-F03-03,
       S-F02-03, S-F02-04 (the task is finished on the screen itself).
 - [x] The main task of each actor reaches its result in three screens or fewer: Reader "find where a
       physical book is" 2 screens; On-site Staff "print QR labels" 2 screens (3 with sign-in).
-- [x] Every arrow label is a user action or a system event, never a screen name (56 Reader and 10 staff
-      labels checked; the entry arrow from the QR scan carries no label).
+- [x] Every arrow label is a user action or a system event, never a screen name (56 Reader and 13 staff
+      labels checked; the entry arrow from the QR scan carries no label). Re-checked 2026-11-22 after
+      the three "chooses Đăng xuất" arrows and the new S-F03-07 → S-F03-02 label.
 - [x] Usage-flow paths: all 20 Reader arrows between use cases in usage-flow.md (3 of them dashed
-      "not signed in") and the 2 staff arrows have a path (table below; flows joined on 2026-11-09).
+      "not signed in") and the 2 staff arrows have a path (table below; flows joined, L8-22).
       UC-03, UC-08 and UC-09 → UC-01 pass through the existing OPAC Book Detail, and UC-07 → UC-09
       from the personal area passes through the OPAC main menu (the reader leaves the product in
       between).
 - [x] The diagram renders: both diagrams pass the Mermaid 11.4.1 parser without error (scripted check,
       2026-11-08); every label quoted, `<br>` for line breaks, no node named `end`, no `-` in node IDs.
-      The Reader layout (56 arrows) is dense: look at it once on mermaid.live before the review.
+      Re-run on 2026-11-22 after the edits (one changed Reader label, three new staff arrows): both
+      diagrams still pass the Mermaid 11.4.1 parser without error.
 
 ## Usage-flow paths
 
@@ -192,7 +211,7 @@ Conventions:
 | Reader | UC-11 to UC-12 | S-F01-01 → S-F00-01 ("Save without a session, chooses Sign in in dialog") → S-F00-02 → S-F01-01 ("[OTP accepted]"), or S-F03-03 → S-F00-01 → S-F00-02 → S-F03-03 |
 | Reader | UC-08 to UC-03 | S-F03-06 → S-F03-01 ("[AI search unavailable] chooses Use the format filter") |
 | Reader | UC-08 to UC-01 | S-F03-06 → entry point "OPAC Book Detail" ("opens a book card") → S-F01-01 ("requests the shelf location") |
-| Reader | UC-09 to UC-07 | S-F03-07 → S-F03-02 ("[no reading data yet] chooses Set your preferences") |
+| Reader | UC-09 to UC-07 | S-F03-07 → S-F03-02 ("chooses Sở thích (any time), or Set your preferences [no reading data yet]") |
 | Reader | UC-07 to UC-09 | S-F03-02 → S-F03-07 ("back, when opened from recommendations"); when opened from the personal area: S-F03-02 → entry point "OPAC personal area" ("back") → OPAC main menu → S-F03-07 ("chooses Recommended for you") |
 | Reader | UC-09 to UC-01 | S-F03-07 → entry point "OPAC Book Detail" ("opens a recommended book") → S-F01-01 ("requests the shelf location") |
 | Reader | UC-11 to UC-08 | S-F03-06 → S-F00-01 ("sends a message without a session, chooses Sign in in dialog") → S-F00-02 → S-F03-06 ("[OTP accepted]") |

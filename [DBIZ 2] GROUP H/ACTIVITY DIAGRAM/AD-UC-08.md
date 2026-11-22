@@ -153,24 +153,18 @@ Filled in during Lesson 8, from the Screen List.
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | what is "in time" for an AI reply (FR-03-17)? | No (decided) | Decided 2026-11-04 (default adopted): 10 seconds. |
-| 2 | is the "temporarily unavailable" notice saved in the conversation history? | No (decided) | Decided 2026-11-04 (default adopted): No; only the reader message is saved. |
-| 3 | how long are chatbot conversations kept, and can a reader delete them? | No (decided) | Decided 2026-11-04 (default adopted): Kept for the whole release; no delete function in release 1. |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-08).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.3.0, swimlane-beta) | Pass (re-checked after the new calls); still to open once on mermaid.live | AI assistant | 2026-11-08 |
+| Renders (Mermaid 12.3.0, swimlane-beta) | Pass (re-checked after the new calls) | AI assistant | 2026-11-08 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
 | Every FR of UC-08 appears in the diagram | Pass (5 of 5 W1 rows whose source trace names UC-08) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass (AI Service step moved into the system lane) | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

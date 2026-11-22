@@ -131,23 +131,18 @@ Filled in during Lesson 8, from the Screen List.
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | how many reviews are on one page, and in what order? | No (decided) | Decided 2026-11-04 (default adopted): 10 per page, newest first. |
-| 2 | FR-02-15 says the request ends "without displaying a review list". Does the reader still see a short message such as "No reviews yet"? | No (decided) | Decided 2026-11-04 (default adopted): Yes, a one-line message that there are no reviews to show; FR-02-15 wording updated in W1 and `s4` updated here. |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-05).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.2.0, swimlane-beta) | Pass; still to open once on mermaid.live | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.2.0, swimlane-beta) | Pass | AI assistant | 2026-11-04 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
 | Every FR of UC-05 appears in the diagram | Pass (3 of 3 W1 rows whose source trace names UC-05) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

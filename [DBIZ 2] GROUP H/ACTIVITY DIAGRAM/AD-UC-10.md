@@ -7,14 +7,14 @@
 | Feature | F-02 Reviews & QR |
 | Primary actor | On-site Staff; the automatic QR generation is started by time (daily sync finished) |
 | Lanes | On-site Staff · Library Core System |
-| Inputs (L3-L5) | Context Diagram (On-site Staff flows "Print QR request", "QR code labels", "Staff sign-in"; Library Internal System flows "Book catalog & availability", "Staff accounts") · Use Case Diagram (UC-10) · Sequence: QR Code Label Printing · W0 Table 1 (staff login), Table 3 (no QR codes for online-only books), Table 4 (Book QR codes, ILF) · W1 rows FR-02-07, FR-02-08, FR-02-17, FR-02-18, FR-04-07, FR-04-08, FR-04-12, FR-04-18 |
+| Inputs (L3-L5) | Context Diagram (On-site Staff flows "Print QR request", "QR code labels", "Staff sign-in"; Library Internal System flows "Book catalog & availability", "Staff accounts") · Use Case Diagram (UC-10) · Sequence: QR Code Label Printing · W0 Table 1 (staff login), Table 3 (no QR codes for online-only books), Table 4 (Book QR codes, ILF) · W1 rows FR-02-07, FR-02-08, FR-02-17, FR-02-18, FR-04-07, FR-04-08, FR-04-12, FR-04-18; new FR-02-23 (D3) and FR-04-21 (D7) and the FR-02-08 change (D3, D12), as written in `EXTERNAL DESIGN/huong-dan/FR-bo-sung-22-11.md` |
 | Trigger | (a) On-site Staff open the staff page to print QR labels. (b) Time event: the daily catalogue sync has finished. |
 | Preconditions | Staff have an internal library account (FR-04-07). The catalogue is synced daily (FR-04-09). |
-| Success end state | (a) Staff hold a printed QR label sheet for the selected books that have a QR code, and an audit entry is written. (b) Every new physical book from the sync has a unique QR code. |
+| Success end state | (a) Staff hold a printed QR label sheet for the selected books that have a QR code and an audit entry is written; after staff confirm «Đã in xong» those books are recorded as label-printed and leave the list; staff may then sign out. (b) Every new physical book from the sync has a unique QR code. |
 | Failure end state | Staff cannot sign in (wrong account or no staff role) and stop trying; or no book is selected (staff are asked to select one); or none of the selected books has a QR code (no sheet is produced). |
-| FRs covered | FR-02-07, FR-02-08, FR-02-17, FR-02-18, FR-04-07, FR-04-08, FR-04-12, FR-04-18 |
-| Business rules applied | Only physical books get QR codes (W0 Table 3, FR-02-07). A label sheet needs at least one selected book that has a QR code (FR-02-17, FR-02-18). Every label print writes an audit entry (FR-04-12). The staff page opens only with a staff session and role: staff sign in before the page opens (FR-04-08, FR-04-07). A wrong account or an account without the staff role is rejected with an error message, and staff may try again (FR-04-18). |
-| Version / status | v1.2 · Draft |
+| FRs covered | FR-02-07, FR-02-08, FR-02-17, FR-02-18, FR-02-23, FR-04-07, FR-04-08, FR-04-12, FR-04-18, FR-04-21 |
+| Business rules applied | Only physical books get QR codes (W0 Table 3, FR-02-07). A label sheet needs at least one selected book that has a QR code (FR-02-17, FR-02-18). Every label print writes an audit entry (FR-04-12). The staff page opens only with a staff session and role: staff sign in before the page opens (FR-04-08, FR-04-07). A wrong account or an account without the staff role is rejected with an error message, and staff may try again (FR-04-18). The list shows only physical books from the synced catalogue that have never had a QR label printed, 20 per page, ordered by floor, room and shelf; ticks are kept across pages (FR-02-23; D3). One label per book title; the sheet is A4 portrait decal, 3 × 8 = 24 labels of 70×37 mm (`ui-conventions.md` section 3; D4). The books on the sheet are recorded as label-printed only when staff confirm that the sheet was printed («Đã in xong»); closing the preview («Đóng») or a failed print records nothing and the books stay in the list (FR-02-08; D12). The label and the order of the list use the book's primary shelf location returned by the sync — the same location shown on S-F01-01 — also for a title whose copies sit on several shelves (FR-02-23; D13). The staff session does not end by time: it ends only when staff choose Sign out (FR-04-21; D7). |
+| Version / status | v1.4 · Draft |
 | Author | Owner C (F-02) |
 
 ## 1. Diagram
@@ -41,10 +41,18 @@ swimlane-beta TB
     a3("Sign in with the internal library account (FR-04-07)")
     d1{"Try again?"}
     mA{" "}
-    a1("Select physical books on the staff page (FR-02-08)")
+    mB{" "}
+    a1("Select physical books in the list (FR-02-08)")
+    d7{"Select books on another page?"}
+    a6("Open another page of the list (FR-02-23)")
     a2("Choose Print labels (FR-02-08)")
     a4("Receive the printable QR label sheet (FR-02-08)")
     a5("Print the QR code labels (FR-02-08)")
+    d9{"Did the labels print correctly?"}
+    a8("Confirm that the sheet was printed («Đã in xong») (FR-02-08)")
+    a9("Close the preview without confirming («Đóng») (FR-02-08)")
+    d8{"Sign out?"}
+    a7("Choose Sign out (FR-04-21)")
     stop1@{ shape: fr-circ }
     stop3@{ shape: fr-circ }
   end
@@ -56,6 +64,8 @@ swimlane-beta TB
     d6{"Valid account with the staff role?"}
     s9("Reject the sign-in and show an error message (FR-04-18)")
     s10("Start a staff session and open the staff page (FR-04-07)")
+    s11("List the physical books that have never had a QR label<br/>printed, 20 per page, by floor, room and shelf (FR-02-23)")
+    s12("Show that page of the list, keeping the ticks (FR-02-23)")
     d2{"Is at least one book selected?"}
     s2("Ask the staff to select at least one physical book (FR-02-17)")
     d3{"Do all selected books have a QR code?"}
@@ -63,8 +73,11 @@ swimlane-beta TB
     d4{"Is any selected book left?"}
     m1{" "}
     s4("Produce the printable QR label sheet<br/>for the selected books (FR-02-08)")
+    s13("Record that a label has been printed<br/>for each book on the sheet (FR-02-08)")
     s5("Write an audit entry for the label print (FR-04-12)")
+    s14("End the staff session and show the staff sign-in (FR-04-21)")
     stop2@{ shape: fr-circ }
+    stop5@{ shape: fr-circ }
     t1@{ shape: hourglass }
     s6("Find the books added by the sync (FR-02-07)")
     mg{" "}
@@ -80,14 +93,20 @@ swimlane-beta TB
   d1 -->|"[No]"| stop1
   d6 -->|"[Yes]"| s10 --> mA
   d0 -->|"[Yes]"| mA
-  mA --> a1 --> a2 --> d2
-  d2 -->|"[No]"| s2 --> mA
+  mA --> s11 --> mB --> a1 --> d7
+  d7 -->|"[Yes]"| a6 --> s12 --> mB
+  d7 -->|"[No]"| a2 --> d2
+  d2 -->|"[No]"| s2 --> mB
   d2 -->|"[Yes]"| d3
   d3 -->|"[Yes]"| m1
   d3 -->|"[No]"| s3 --> d4
   d4 -->|"[Yes]"| m1
   d4 -->|"[No]"| stop2
-  m1 --> s4 --> s5 --> a4 --> a5 --> stop3
+  m1 --> s4 --> s5 --> a4 --> a5 --> d9
+  d9 -->|"[Yes]"| a8 --> s13 --> d8
+  d9 -->|"[No]"| a9 --> mB
+  d8 -->|"[Yes]"| a7 --> s14 --> stop5
+  d8 -->|"[No]"| stop3
 
   t1 -->|"Daily catalogue sync finished"| s6 --> mg --> d5
   d5 -->|"[Yes]"| s7 --> mg
@@ -103,13 +122,28 @@ Reading notes:
   merge `mg`.
 - Staff sign in with their own action "Sign in with the internal library account" (FR-04-07), not
   with UC-11, because UC-11 is the reader sign-in.
-- v1.2 moves the session check to the start: the staff page opens only for a signed-in staff member
-  (FR-04-08), so staff sign in before they select books. `m0` is the merge staff come back through
-  after a rejected sign-in; `mA` gathers the signed-in paths (already signed in, just signed in, or
-  asked to select a book) before the book selection `a1`.
-- `d6 [No]` covers a wrong account and an account without the staff role (FR-04-18, edge-case FR added to
-  W1 on 2026-11-08). An expired session at Print labels is caught by the same check (FR-04-08)
-  and is not drawn again.
+- The session is checked at the start: the staff page opens only for a signed-in staff member
+  (FR-04-08, L8-02), so staff sign in before they select books. `m0` is the merge staff come back
+  through after a rejected sign-in; `mA` gathers the signed-in paths (already signed in, just signed
+  in) before the list `s11`.
+- `d6 [No]` covers a wrong account and an account without the staff role (FR-04-18, L8-03). The
+  staff session does not end by time (FR-04-21, D7); it ends only when staff choose Sign out.
+- `s11` lists the physical books that have never had a QR label printed (new books since the last
+  sync appear here and stay until their label is printed), 20 per page, by floor, room and shelf, so
+  the sheet follows the walking order along the shelves (D3, D3c, D3d). Staff move between pages
+  with `d7` / `a6` / `s12`; ticks are kept across pages and the screen shows how many books are
+  selected (D3b). `mB` gathers the list, another page, the request to select a book (`s2` keeps the
+  list and the ticks) and the return from «Đóng» (`a9`). Books left out by `s3` stay in the list.
+  Sign out (`d8`, `a7`, `s14`) is drawn once, after printing; «Đăng xuất» is on every staff screen,
+  so staff can sign out at any time (D7).
+- Producing the sheet (`s4`) records nothing (D12). After printing, staff decide `d9` "Did the
+  labels print correctly?". `[Yes]`: they confirm with «Đã in xong» (`a8`) and only then `s13`
+  records each book on the sheet as label-printed, so those books leave the list. `[No]` (a failed
+  print, or staff simply close the preview): «Đóng» (`a9`) records nothing and returns through `mB`
+  to the list, where the books are still listed with their ticks, so staff can print again (D18).
+  The audit entry `s5` is written when the sheet is produced. `s11` orders the list by each book's
+  primary shelf location returned by the sync (the location shown on S-F01-01), and the label shows
+  that same location (D13).
 
 ## 2. Node trace
 
@@ -125,7 +159,11 @@ Reading notes:
 | s9 | Action | Reject the sign-in and show an error message | FR-04-18 |
 | d1 | Decision (Staff) | Try again? | FR-04-18 |
 | s10 | Action | Start a staff session and open the staff page | FR-04-07 |
-| a1 | Action (Staff) | Select physical books on the staff page | FR-02-08 |
+| s11 | Action | List the physical books that have never had a QR label printed, 20 per page, by floor, room and shelf | FR-02-23 |
+| a1 | Action (Staff) | Select physical books in the list | FR-02-08 |
+| d7 | Decision (Staff) | Select books on another page? | FR-02-23 |
+| a6 | Action (Staff) | Open another page of the list | FR-02-23 |
+| s12 | Action | Show that page of the list, keeping the ticks | FR-02-23 |
 | a2 | Action (Staff) | Choose Print labels | FR-02-08 |
 | d2 | Decision | Is at least one book selected? | FR-02-17 |
 | s2 | Action | Ask the staff to select at least one physical book | FR-02-17 |
@@ -136,6 +174,13 @@ Reading notes:
 | s5 | Action | Write an audit entry for the label print | FR-04-12 |
 | a4 | Action (Staff) | Receive the printable QR label sheet | FR-02-08 |
 | a5 | Action (Staff) | Print the QR code labels | FR-02-08 |
+| d9 | Decision (Staff) | Did the labels print correctly? | FR-02-08 |
+| a8 | Action (Staff) | Confirm that the sheet was printed («Đã in xong») | FR-02-08 |
+| s13 | Action | Record that a label has been printed for each book on the sheet | FR-02-08 |
+| a9 | Action (Staff) | Close the preview without confirming («Đóng») | FR-02-08 |
+| d8 | Decision (Staff) | Sign out? | FR-04-21 |
+| a7 | Action (Staff) | Choose Sign out | FR-04-21 |
+| s14 | Action | End the staff session and show the staff sign-in | FR-04-21 |
 | t1 | Time event | Daily catalogue sync finished | FR-02-07 |
 | s6 | Action | Find the books added by the sync | FR-02-07 |
 | d5 | Decision | Is there a new physical book without a QR code? | FR-02-07 |
@@ -150,9 +195,16 @@ Reading notes:
 | d6 [No] → d1 [No] | internal account "lib.reader" exists but has no staff role | they sign in with it and then give up | the sign-in is rejected with an error message; the staff page does not open |
 | d0 [Yes] | the staff member already has a valid staff session | they open the staff page | the page opens without asking to sign in |
 | d0 [Yes] → d2 [No] | a signed-in staff member has selected no book | they choose Print labels | no sheet is produced and they are asked to select at least one physical book |
-| d2 [Yes] → d3 [Yes] | 3 selected books all have QR codes | staff choose Print labels | a sheet with 3 labels is produced, an audit entry is written, and staff print it |
+| s11 | the 02:00 sync added 25 physical books and none has had a label printed | signed-in staff open QR label printing | the 25 books are listed, 20 on page 1 and 5 on page 2, ordered by floor, room and shelf |
+| s11 (primary shelf location) | "Digital Marketing Basics" has copies on Tầng 2 · Phòng R-204 · Kệ S-12 and on Tầng 3 · Phòng R-301 · Kệ S-02; the sync returns Tầng 2 · Phòng R-204 · Kệ S-12 as its primary shelf location | signed-in staff open QR label printing and print its label | the book is sorted among the floor 2 books, and its label shows «Tầng 2 · Phòng R-204 · Kệ S-12», the same location as on S-F01-01 |
+| d7 [Yes] | staff ticked 2 books on page 1 | they open page 2, tick 1 book and come back to page 1 | the 2 ticks on page 1 are still there and the screen shows that 3 books are selected |
+| d2 [Yes] → d3 [Yes] | 3 selected books all have QR codes | staff choose Print labels | a sheet with 3 labels is produced, an audit entry is written, and staff print it; the 3 books are not yet recorded as label-printed |
+| d9 [Yes] | staff printed a sheet with 3 labels and the labels came out correctly | they choose «Đã in xong» | the 3 books are recorded as label-printed and leave the list; their ticks are cleared |
+| d9 [No] | staff printed a sheet with 3 labels and the printer jammed | they choose «Đóng» | nothing is recorded; the 3 books are still in the list with their ticks, and staff can choose Print labels again |
 | d3 [No] → d4 [Yes] | 3 books are selected and 1 has no QR code yet | staff choose Print labels | the sheet holds 2 labels and the third book is listed as having no QR code |
 | d4 [No] | 2 books are selected and neither has a QR code | staff choose Print labels | both books are listed; no sheet is produced |
+| d8 [Yes] | staff have printed a label sheet and chosen «Đã in xong» | they choose «Đăng xuất» | the staff session ends and the staff sign-in opens |
+| d8 [No] | staff have printed a label sheet | they leave the staff page open | the activity ends; the staff session stays valid with no time-out |
 | d5 [Yes] | the 02:00 sync added 5 physical books and 2 online-only books | the sync finishes | 5 unique QR codes are generated, one per physical book |
 | d5 [No] | the sync added only online-only books | the sync finishes | no QR code is generated |
 
@@ -160,7 +212,8 @@ Reading notes:
 
 | Object | States in this diagram |
 |---|---|
-| QR code | Generated (written by `s7`, read by `d3`) |
+| QR code | Generated (written by `s7`, read by `d3`); Label printed (written by `s13`, only after `a8` «Đã in xong»; books in this state are left out of the list of `s11`) |
+| Staff session | Signed-in (written by `s10`), Ended (written by `s14`) |
 | QR label sheet | produced by `s4`; not stored |
 | Audit entry | written by `s5` |
 
@@ -174,32 +227,30 @@ Filled in during Lesson 8, from the Screen List.
 | Sign in with the internal library account (a3), Try again? (d1) | S-F00-03 |
 | See that the sign-in was rejected (s9) | S-F00-03 (error state) |
 | Staff page opens after sign-in (s10) | S-F00-03 → S-F04-01 |
-| Select physical books on the staff page (a1), Choose Print labels (a2) | S-F02-03 (opened from "Print QR labels" on S-F04-01) |
+| See the list of books awaiting a QR label (s11) | S-F02-03 (opened from "Print QR labels" on S-F04-01) |
+| Select physical books in the list (a1), Select books on another page? (d7), Open another page of the list (a6), Choose Print labels (a2) | S-F02-03 (Checkbox, Pagination, «Đã chọn `<n>` sách», «In nhãn») |
 | See the request to select at least one physical book (s2) | S-F02-03 (error state) |
 | See the books left out because they have no QR code (s3) | S-F02-03 (warning state) |
-| Receive the printable QR label sheet (a4), Print the QR code labels (a5) | S-F02-03 (modal M-F02-03-01 "QR label sheet preview"; its Print button opens the browser print dialog) |
+| Receive the printable QR label sheet (a4), Print the QR code labels (a5) | S-F02-03 (modal M-F02-03-01 "QR label sheet preview"; its «In» Primary button opens the browser print dialog, D17) |
+| Did the labels print correctly? (d9), Confirm that the sheet was printed (a8), Close the preview without confirming (a9) | M-F02-03-01 («Đã in xong» Secondary button, D17; «Đóng» Secondary button → back to S-F02-03 with the ticks kept, D18) |
+| Sign out? (d8), Choose Sign out (a7), staff sign-in shown (s14) | «Đăng xuất» in the header of S-F04-01, S-F02-03 or S-F02-04 → S-F00-03 |
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | the QR generation is started by time, not by staff. The workshop guide asks for a separate use case for a process nobody starts by hand. Keep it in UC-10, as its name says, or move it to a sync use case? | No (decided) | Decided 2026-11-04 (default adopted): Kept in UC-10, as its name says. |
-| 2 | what happens if a QR code cannot be generated for a book? | No (decided) | Decided 2026-11-04 (default adopted): It is tried again at the next sync; until then the book shows up in the "no QR code" list of `s3`. |
-| 3 | label size and number of labels per sheet? | No (decided) | Decided 2026-11-04 (default adopted): A4 sheet; the layout is set in Lesson 8. |
-| 4 | Staff must be signed in before the staff page opens (team decision 2026-11-08, FR-04-08). A rejected staff sign-in had no FR. | No (decided) | Decided 2026-11-08: session checked on opening the staff page; new edge-case FR-04-18 "Reject invalid staff sign-in" added to W1 on 2026-11-08 (UC-10, UC-13; Must; NC). |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-10).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.3.0, swimlane-beta) | Pass (re-checked after the v1.2 sign-in change); still to open once on mermaid.live | AI assistant | 2026-11-08 |
+| Renders (Mermaid 12.3.0, swimlane-beta) | Pass (re-checked after the v1.2 sign-in change) | AI assistant | 2026-11-08 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
-| Every FR of UC-10 appears in the diagram | Pass (5 of 5 W1 rows whose source trace names UC-10, plus proposed FR-04-18) | AI assistant | 2026-11-08 |
+| Every FR of UC-10 appears in the diagram | Pass (5 of 5 W1 rows whose source trace names UC-10, plus FR-04-18) | AI assistant | 2026-11-08 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
+| v1.3 (D3, D7): guards on `d7` and `d8`, merge `mB` before `a1`, each new action cites one FR | Pass (checked by reading) | AI assistant | 2026-11-22 |
+| v1.4 (D12, D13): guards on `d9`, `a9` returns through merge `mB`, each new action cites one FR | Pass (checked by reading) | AI assistant | 2026-11-22 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

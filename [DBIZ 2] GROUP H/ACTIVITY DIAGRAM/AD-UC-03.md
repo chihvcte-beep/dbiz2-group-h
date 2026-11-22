@@ -75,8 +75,8 @@ Reading notes:
   several online books one after another.
 - `r3` hands the reader over to the online book on the current OPAC (W0 Table 3). The platform only
   records that the book was opened: `s4` for everyone, without identity (FR-03-13), and `s5` for a
-  signed-in reader's history (FR-03-02). The team confirmed on 2026-11-04 that the current OPAC
-  opens and downloads online books (open question 1).
+  signed-in reader's history (FR-03-02). The current OPAC opens and downloads online books
+  (AD-UC-03 Q1).
 - `s5` is the same step as `s13` in AD-UC-07, where it is drawn from the reading history side as an
   accept event. It runs once per opening; it is not a second entry.
 - v1.1 adds `r3`, `s4`, `d3` and `s5`, so the diagram now covers all four FRs whose W1 source trace
@@ -120,7 +120,7 @@ Reading notes:
 |---|---|---|
 | Book catalogue (EIF) | none written | Access formats are read only (W0 Table 4) |
 | Online book read log entry | Recorded (written by `s4`) | Holds book and time only, no reader identity |
-| Reading history entry | added by `s5` | Starts as Reading, 0 percent (AD-UC-07 question 1) |
+| Reading history entry | added by `s5` | Starts as Reading, 0 percent (AD-UC-07 Q1) |
 
 ## 5. Screens touched
 
@@ -136,25 +136,18 @@ Filled in during Lesson 8, from the Screen List.
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | Resolved 2026-11-04: this platform builds no viewer or download (W0 Table 3, FR-03-14 and FR-03-15 Won't), but the current OPAC opens and downloads online books. Each online book in the results links to the book on the current OPAC, and the platform records that click as "opened" for FR-03-13 and FR-03-02. | No (resolved) | Confirmed by the team; FR-03-02 and FR-03-13 stay in scope. |
-| 2 | does "Both" mean books that have both formats, or every book in either format? | No (decided) | Decided 2026-11-04 (default adopted): Books that have both a physical copy and an online version. |
-| 3 | does the filter apply to the whole catalogue or to the current OPAC search result? | No (decided) | Decided 2026-11-04 (default adopted): The whole synced catalogue. |
-| 4 | if a signed-in reader opens the same online book again, is a second history entry added? | No (decided) | Decided 2026-11-04 (default adopted): Yes, one entry per opening, as FR-03-02 is written; merging repeats would need a new FR. |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-03).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.3.0, swimlane-beta) | Pass (re-checked after the new calls); still to open once on mermaid.live | AI assistant | 2026-11-08 |
+| Renders (Mermaid 12.3.0, swimlane-beta) | Pass (re-checked after the new calls) | AI assistant | 2026-11-08 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
 | Every FR of UC-03 appears in the diagram | Pass (4 of 4 non-Won't W1 rows whose source trace names UC-03; FR-03-14, FR-03-15 are Won't) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

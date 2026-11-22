@@ -1,18 +1,18 @@
 # Wireframe notes: M-F02-04-01 Remove this review?
 
-Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Hoa
+Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Hoa
 
 ## Elements
 | # | Element | Component | Content / data source | FR |
 |---|---|---|---|---|
-| 1 | Removal confirmation dialog | Modal | “Gỡ đánh giá?” · Explains the selected review will no longer be publicly displayed | FR-02-10 |
+| 1 | Removal confirmation dialog | Modal | “Gỡ đánh giá?” · Short text explaining the selected review will no longer be publicly displayed; the review text is not quoted, it stays visible behind the dimmed overlay (D22) | FR-02-10 |
 | 2 | Confirm removal | Destructive button | “Gỡ đánh giá”; trash icon before label | FR-02-10, FR-04-12 |
 | 3 | Cancel removal | Secondary button | “Huỷ”; leaves review public and report Open | FR-02-10 |
 
 ## States drawn
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/M-F02-04-01.png | Confirmation modal over dimmed S-F02-04 parent showing selected review #91 behind | FR-02-10 |
+| Default | img/M-F02-04-01.png | Confirmation modal over dimmed S-F02-04 parent showing selected review #91 and the header «Đăng xuất» button behind (D7); numbered variant in M-F02-04-01-numbered.png (#1–#3, re-exported 22/11/2026) | FR-02-10 |
 | Empty | Not applicable: confirmation modal has no list | — | — |
 | Loading | Not applicable: no modal-level loading state is specified | — | — |
 | Error | Not applicable: no modal-level error state is specified | — | — |
@@ -25,6 +25,5 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.7 · Author: Hoa
 | Huỷ | cancel | stays on S-F02-04; review stays public and remains in the open queue |
 
 ## Open questions
-| # | Question | Default drawn |
-|---|---|---|
-| 1 | [NEEDS CLARIFICATION: Should the modal include the selected review text or only the action consequence?] | Generic consequence text; selected review remains visible behind the overlay. |
+
+None. Decisions: see [decision-index.md](../../decision-index.md#m-f02-04-01).

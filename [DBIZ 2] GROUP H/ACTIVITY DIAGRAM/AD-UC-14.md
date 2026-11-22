@@ -7,14 +7,14 @@
 | Feature | F-02 Reviews & QR |
 | Primary actor | Reader |
 | Lanes | Reader · Library Core System |
-| Inputs (L3-L5) | Context Diagram (Reader flow "Report reviews") · Use Case Diagram (UC-14, from View book reviews UC-05; includes Sign in UC-11) · Sequence: User Review Reporting Flow (UC-14 with UC-13) · W0 Table 1 (login required), Table 4 (Book review, ILF) · W1 rows FR-02-09, FR-02-21, FR-04-08 (FR-02-10 was traced to UC-14 by mistake; W1 corrected, see open question 3) |
+| Inputs (L3-L5) | Context Diagram (Reader flow "Report reviews") · Use Case Diagram (UC-14, from View book reviews UC-05; includes Sign in UC-11) · Sequence: User Review Reporting Flow (UC-14 with UC-13) · W0 Table 1 (login required), Table 4 (Book review, ILF) · W1 rows FR-02-09, FR-02-21, FR-04-08 (FR-02-10 is not part of UC-14: AD-UC-14 Q3) |
 | Trigger | The reader selects Report on a review (usually from UC-05) |
 | Preconditions | The review is on public display. The reader may not be signed in yet: the flow checks the session (FR-04-08) and calls Sign in (UC-11). |
 | Success end state | A report is saved against the selected review and the reader sees a confirmation. The review waits for staff in UC-13. |
 | Failure end state | The reader has already reported this review (FR-02-21), or chose not to sign in. No second report is saved. |
 | FRs covered | FR-02-09, FR-02-21, FR-04-08; FR-04-01 through the call to UC-11 |
 | Business rules applied | One report per reader per review (FR-02-21). Reporting needs a signed-in reader (FR-04-08). A reported review stays public until staff remove it (FR-02-10, UC-13). |
-| Version / status | v1.3 · Draft (2026-11-19: open question 2 changed to "No") |
+| Version / status | v1.3 · Draft |
 | Author | Owner C (F-02) |
 
 ## 1. Diagram
@@ -116,24 +116,18 @@ Filled in during Lesson 8, from the Screen List.
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | must the reader give a reason for the report? | No (decided) | Decided 2026-11-04 (default adopted): No reason field; FR-02-09 asks for none. |
-| 2 | may a reader report their own review? | No (decided) | Changed by the team on 2026-11-19: **No.** Report is offered only on other readers' reviews; on their own review the reader has Edit and Delete (ui-conventions §3, Review item). Earlier default (2026-11-04) was "Yes". |
-| 3 | Wrong W1 source trace: FR-02-10 (review and remove reported reviews) names UC-14, but it is done by On-site Staff and is drawn in AD-UC-13. UC-14 ends when the report is saved. | No (resolved) | FR-02-10 is not part of UC-14 and is not drawn or counted here; it is cited only as a business rule (a reported review stays public until staff remove it). W1 corrected on 2026-11-04: its source trace now names UC-13 only. |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-14).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.2.0, swimlane-beta) | Pass; still to open once on mermaid.live | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.2.0, swimlane-beta) | Pass | AI assistant | 2026-11-04 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
 | Every FR of UC-14 appears in the diagram | Pass (2 of 2 W1 rows whose source trace names UC-14, after the W1 trace correction) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

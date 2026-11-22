@@ -13,22 +13,11 @@ goes back to; they are situations or exits in the flows below, never boxes.
 
 ## Note
 
-- [x] Every row of the Inputs check table in `ACTIVITY DIAGRAM/activity-index.md` is "Done" or logged
-      as an open question. Rows 1, 2, 6 and 8 are Done. These rows are still Open and are logged as
-      open questions (Inputs check of `ACTIVITY DIAGRAM/activity-index.md`):
-  - Row 3 (Use Case Diagram): add a use case "Sync data from the library internal system" (started
-    by time) for FR-04-09, FR-04-10, FR-04-11 and FR-01-05, and draw its activity diagram. Owner:
-    Integrator. Logged as an open question (also open question L8-20 in `ACTIVITY DIAGRAM/activity-index.md`).
-  - Row 4 (Sequence Diagrams): split the sequences that tell two use cases (User Interface Flow
-    UC-01 + UC-02, User Review Interaction Flow UC-05 + UC-04, Book Review API Interaction UC-06 +
-    UC-04, Reader Interaction Flow UC-07 + UC-09, User Review Reporting Flow UC-14 + UC-13) into one
-    sequence per use case. Owners: A, C, D. Logged as an open question.
-  - Row 5 (Sequence Diagrams): the reader's choices (map link, edit or delete own review, view
-    history or set preferences) are now decisions in AD-UC-02, AD-UC-04 and AD-UC-07; in the
-    sequences keep `alt` only for interaction conditions such as an API error. Owners: A, C, D.
-    Logged as an open question.
-  - Row 7 (Sequence Diagrams): in User Review Reporting Flow, change the step that opens the
-    reported-reviews list from FR-02-10 to FR-02-14. Owner: C. Logged as an open question.
+- [x] Every row of the Inputs check table in `ACTIVITY DIAGRAM/activity-index.md` is "Done" or is
+      a task in its source document. Rows 1, 2, 6 and 8 are Done. Rows 3 (Use Case Diagram: sync
+      use case, Integrator; L8-20), 4, 5 and 7 (Sequence Diagrams, Owners A, C, D) are fixed in their
+      source documents and do not change the flows below; they are listed as tasks in
+      [decision-index.md](decision-index.md#pending-tasks).
 
 Sign-in convention used in every flow: UC-11 is drawn as a box reached by a dashed arrow
 `"not signed in"`, then the flow goes on to the use case that needed it. A reader who is already
@@ -67,15 +56,15 @@ from the access-format results, where a physical book leads back to its Book Det
 "Saved books" in the existing OPAC personal area (UC-12), or from "Library map" in the OPAC main menu
 when they look for a room, not a book (AD-UC-02 trigger "from the menu").
 
-This flow joins three earlier flows that had only one use case on each path (2026-11-09; open
-question L8-22 in `ACTIVITY DIAGRAM/activity-index.md`): "find a book on the shelf", "find a reading
-room in the library" and the saved-books half of "keep my reading history and reading list".
+This flow joins three earlier flows that had only one use case on each path (L8-22): "find a book
+on the shelf", "find a reading room in the library" and the saved-books half of "keep my reading
+history and reading list".
 
 Sign-in is asked by UC-12, both for Save on S-F01-01 and for opening S-F03-03 (AD-UC-12 call `c1`);
 UC-01, UC-02 and UC-03 need no sign-in. No arrow from UC-12 to UC-01: the saved books list already
 shows the shelf location of each book (AD-UC-12, FR-03-07). Showing the book's room on the map is
 drawn in AD-UC-01; the arrow UC-01 to UC-02 stands for browsing the map further (other floor, other
-room); see open question L8-18 in `ACTIVITY DIAGRAM/activity-index.md`.
+room) (L8-18).
 
 ## Reader: choose what to read
 
@@ -111,7 +100,7 @@ flowchart LR
 
 The reader opens the chatbot and the suggestions from the OPAC main menu, and the reading history
 and preferences from the OPAC personal area. UC-07 joined this flow from the earlier flow "keep my
-reading history and reading list" (2026-11-09; open question L8-22): the history and preferences are
+reading history and reading list" (L8-22): the history and preferences are
 what the suggestions are built on (FR-03-19), so the reader either updates them first and then sees
 suggestions, or stops when the history is up to date. UC-07 is also reached from UC-09 when there is
 no reading data yet and the reader is asked to set preferences (FR-03-19).
@@ -151,8 +140,7 @@ flowchart LR
 
 The reader opens the reviews from the existing OPAC Book Detail page (UC-05) or by scanning the QR
 label on the book with a phone camera (UC-06). Report is only offered from UC-05: AD-UC-06 has no
-Report call. The arrow UC-05 to UC-04 is kept because S-F02-01 offers both, but AD-UC-05 has no
-branch to UC-04 yet (open question L8-17 in `ACTIVITY DIAGRAM/activity-index.md`).
+Report call. The arrow UC-05 to UC-04 is kept because S-F02-01 offers both use cases (L8-17).
 
 
 UC-11 has no flow of its own: the reader signs in only when a use case needs it (flows above).
@@ -176,7 +164,7 @@ flowchart LR
 | 1 or 2 | UC-13 Remove reviews that violate rules | `AD-UC-13.md` | S-F00-03, S-F04-01, S-F02-04 (modal "Remove this review?") |
 
 This flow joins the earlier flows "label new physical books" and "moderate reported reviews", which
-had one use case each (2026-11-09; open question L8-22 in `ACTIVITY DIAGRAM/activity-index.md`). Both
+had one use case each (L8-22). Both
 jobs start from the same staff page S-F04-01 and are often done in the same visit. On-site Staff
 start only these two use cases, so two boxes is the most this flow can have.
 
@@ -191,8 +179,8 @@ that readers send in UC-14 (flow "Reader: read and review a book"; AD-UC-13 prec
 |---|---|---|
 | UC-10 (part) Automatic QR code generation for new physical books (FR-02-07) | Time (daily catalogue sync finished) | `AD-UC-10.md` time event `t1`; no screen |
 | UC-07 (part) Reading-history entries from borrowed books (FR-03-03) | Time (daily loan records sync finished, FR-04-10) | `AD-UC-07.md` time event `t1`; no screen |
-| UC-07 (part) Reading-history entry when a signed-in reader opens an online book (FR-03-02) | Accept event from UC-03 (online book opened) | `AD-UC-07.md` accept event `e1`; `AD-UC-03.md` `s5` (open question L8-19 in `ACTIVITY DIAGRAM/activity-index.md`) |
-| Sync data from the library internal system (planned; FR-04-09, FR-04-10, FR-04-11, FR-01-05) | Time (daily) / Library Internal System | Not drawn yet: activity-index Inputs check row 3, Open (Integrator); open question 5 |
+| UC-07 (part) Reading-history entry when a signed-in reader opens an online book (FR-03-02) | Accept event from UC-03 (online book opened) | `AD-UC-07.md` accept event `e1`; `AD-UC-03.md` `s5` (L8-19) |
+| Sync data from the library internal system (planned; FR-04-09, FR-04-10, FR-04-11, FR-01-05) | Time (daily) / Library Internal System | Planned use case without an ID or activity diagram yet (activity-index Inputs check row 3; L8-20) |
 
 ## Checks before you save
 
@@ -201,7 +189,7 @@ that readers send in UC-14 (flow "Reader: read and review a book"; AD-UC-13 prec
 - [x] An actor with clearly different goals has one flow per goal; no flow has more than about
       9 boxes. Boxes per flow: find my way 5, choose what to read 6, read and review 5, staff 2.
       Largest flow: 6 boxes. No flow is a single use case: the flows that had one use case on each
-      path were joined on 2026-11-09 (open question L8-22 in `ACTIVITY DIAGRAM/activity-index.md`).
+      path were joined (L8-22).
 - [x] Every actor name matches the Use Case Diagram and the Context Diagram. "Reader" and "On-site
       Staff", as on the Context Diagram (READER, ON-SITE STAFF) and in the "Primary actor" row of
       every activity diagram.
@@ -215,8 +203,8 @@ that readers send in UC-14 (flow "Reader: read and review a book"; AD-UC-13 prec
 - [x] No box is a click or a screen; no box tells two use cases. Every box is one `UC-xx` with its
       W0 name; the only diamonds are the reader's or the staff's choice between use cases.
 - [x] Every flow renders on mermaid.live. All 4 diagrams were parsed without error by Mermaid
-      11.4.1 (the engine behind mermaid.live); every label is in double quotes and no node is named
-      `end`.
+      11.4.1 (the engine behind mermaid.live; re-run 2026-11-22); every label is in double quotes and
+      no node is named `end`.
 - [x] After Block 2: every step has at least one screen, and every screen in the screen list
       appears in some step. All 15 screens appear: S-F00-01 and S-F00-02 (UC-11), S-F00-03 (UC-10,
       UC-13), S-F01-01 (UC-01, UC-12), S-F01-02 (UC-01, UC-02), S-F02-01 (UC-05, UC-04, UC-14),

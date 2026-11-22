@@ -1,11 +1,11 @@
 # Wireframe notes: M-F02-01-01 Delete your review?
 
-Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Hoa
+Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Hoa
 
 ## Elements
 | # | Element | Component | Content / data source | FR |
 |---|---|---|---|---|
-| 1 | Confirmation dialog | Modal | “Xoá đánh giá?” · Confirms removal of the reader’s own review from public display | FR-02-04 |
+| 1 | Confirmation dialog | Modal | “Xoá đánh giá?” · Short confirmation of the removal of the reader’s own review from public display; the review text is not quoted, it stays visible behind the dimmed overlay (D22) | FR-02-04 |
 | 2 | Confirm deletion | Destructive button | “Xoá đánh giá”; trash icon before label | FR-02-04 |
 | 3 | Cancel deletion | Secondary button | “Huỷ”; closes modal without changing review | FR-02-04 |
 
@@ -25,7 +25,5 @@ Actor: Reader · Frame: 360px · UI conventions: v0.7 · Author: Hoa
 | Huỷ | cancel | stays on S-F02-01 or S-F02-02; review remains visible |
 
 ## Open questions
-| # | Question | Default drawn |
-|---|---|---|
-| 1 | [NEEDS CLARIFICATION: Does the modal need to identify the selected review text before confirmation?] | Show a concise action confirmation only; the selected review is visible behind the overlay. |
-| 2 | [NEEDS CLARIFICATION: Confirm cancel button label “Huỷ” (per UI conventions) vs. “Keep review” (per guidance).] | Use “Huỷ” consistent with UI conventions until team confirms. |
+
+None. Decisions: see [decision-index.md](../../decision-index.md#m-f02-01-01).

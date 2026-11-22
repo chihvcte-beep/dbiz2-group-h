@@ -10,7 +10,7 @@
 | Activity diagrams | `AD-UC-13` |
 | Mockup image | `img/S-F02-04.png` |
 | Frame width | 1280px (exported 1x = 1280px) |
-| Wireframe source | `src/S-F02-04.html` [NEEDS CLARIFICATION: wireframe source file is not yet placed in `screens/src/`] |
+| Wireframe source | `src/S-F02-04.html` |
 | Author | Hoa |
 | Status | Draft |
 
@@ -18,13 +18,13 @@
 
 **Shown when:** Signed-in On-site Staff select the “Reported reviews” task tile on `S-F04-01` (`AD-UC-13` a1)[cite: 3, 14, 21].
 
-**The user leaves this screen when:** Staff click the Back icon button (“Quay lại”) in the screen header to return to `S-F04-01`[cite: 13, 14, 18].
+**The user leaves this screen when:** Staff click the Back icon button (“Quay lại”) in the screen header to return to `S-F04-01`[cite: 13, 14, 18], or click «Đăng xuất» (`#11`) at the right of the header to end the staff session and go to `S-F00-03` (`FR-04-21`, D7).
 
 ## 2. Mockup
 
 ![S-F02-04](img/S-F02-04.png)
 
-Numbered reference image: `img/S-F02-04-numbered.png` (element numbers `#1`–`#5` match Section 3; feedback elements `#6`–`#10` appear in non-default states)[cite: 17, 18].
+Numbered reference image: `img/S-F02-04-numbered.png` (element numbers `#1`–`#5` and `#11` match Section 3; feedback elements `#6`–`#10` appear in non-default states; re-exported 22/11/2026 with «Đăng xuất» `#11`)[cite: 17, 18].
 
 Visual styling, spacing, typography, and colour tokens follow `EXTERNAL DESIGN/ui-conventions.md#6-design-tokens`.
 
@@ -43,7 +43,7 @@ Visual styling, spacing, typography, and colour tokens follow `EXTERNAL DESIGN/u
 
 ![M-F02-04-01](img/M-F02-04-01.png)
 
-Numbered reference image: `img/M-F02-04-01-numbered.png` (element numbers `#1`–`#3` match Section 3.1)[cite: 20]. Rendered centred over `S-F02-04` dimmed by `colour/overlay`[cite: 13, 19, 20].
+Numbered reference image: `img/M-F02-04-01-numbered.png` (element numbers `#1`–`#3` match Section 3.1)[cite: 20]. Rendered centred over `S-F02-04` (header with «Đăng xuất» still visible behind the overlay) dimmed by `colour/overlay`[cite: 13, 19, 20].
 
 ## 3. Element inventory
 
@@ -59,12 +59,13 @@ Numbered reference image: `img/M-F02-04-01-numbered.png` (element numbers `#1`�
 | 8 | Loading placeholder | Skeleton | Placeholder blocks matching `#2` queue list and `#3` selected review detail (`MSG-05`)[cite: 13, 18] | No | none |
 | 9 | Success confirmation | Toast | “Đã gỡ đánh giá.” (when review removed, `FR-02-10`) or “Đã bỏ qua báo cáo.” (when report dismissed, `FR-02-20`)[cite: 13, 18] | No | none |
 | 10 | Retry action | Secondary button | “Thử lại” inside the `MSG-04` error Banner (`FR-04-20`)[cite: 13, 18] | No | none |
+| 11 | Sign out | Secondary button | «Đăng xuất» at the right end of the screen header, shown in every state and behind `M-F02-04-01` (`FR-04-21`, D7) | Yes | none |
 
 ### 3.1 Modal M-F02-04-01 Remove this review?
 
 | # | Element | Type | Content / data source | Required | Validation |
 |---|---|---|---|---|---|
-| 1 | Removal confirmation dialog | Modal | Title “Gỡ đánh giá?”; body “Đánh giá này sẽ không còn hiển thị công khai. Thao tác này sẽ được ghi nhận.” (`FR-02-10`, `FR-04-12`)[cite: 13, 19, 20] | Yes | none |
+| 1 | Removal confirmation dialog | Modal | Title “Gỡ đánh giá?”; body “Đánh giá này sẽ không còn hiển thị công khai. Thao tác này sẽ được ghi nhận.”; short confirmation only: the review text is not quoted, it stays visible behind the dimmed overlay (D22) (`FR-02-10`, `FR-04-12`)[cite: 13, 19, 20] | Yes | none |
 | 2 | Confirm removal | Destructive button | “Gỡ đánh giá” with trash icon before label (`FR-02-10`, `FR-04-12`)[cite: 13, 19, 20] | Yes | none |
 | 3 | Cancel removal | Secondary button | “Huỷ” (`FR-02-10`)[cite: 13, 19, 20] | Yes | none |
 
@@ -72,10 +73,10 @@ Numbered reference image: `img/M-F02-04-01-numbered.png` (element numbers `#1`�
 
 | State | What the user sees | Trigger |
 |---|---|---|
-| Default | `#1` Screen header, `#2` left-column queue of `Open` reported reviews (e.g., `#91` selected with active border, `#95` unselected), `#3` right-column full review and report metadata for the selected review, and `#4` “Gỡ đánh giá” + `#5` “Bỏ qua báo cáo” action buttons (`FR-02-14`, `FR-02-10`, `FR-02-20`)[cite: 17, 18]. | Signed-in On-site Staff open `S-F02-04` when at least one `Open` review report exists (`AD-UC-13` d2 [Yes]). |
-| Empty (no data) | `#1` Screen header and `#6` Empty state message (“Không có đánh giá bị báo cáo nào đang chờ xử lý.”); queue, detail panel, and action buttons are hidden (`FR-02-19`)[cite: 18]. | No review reports are in `Open` status upon initial load (`AD-UC-13` d2 [No]), or after the last open report is removed/dismissed[cite: 18, 21]. |
-| Loading | `#1` Screen header and `#8` Skeleton blocks replacing the queue and detail panels; no loading text (`MSG-05`)[cite: 13, 18]. | Initial load of reported reviews, or reloading the queue after removing a review or dismissing a report (`AD-UC-13` m1). |
-| Error | `#1` Screen header and `#7` error Banner displaying `MSG-04` (“Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.”) with `#10` Secondary button “Thử lại”; no Empty or Toast shown (`FR-04-20`)[cite: 13, 18]. | Network or server error occurs while retrieving reported reviews or submitting a remove/dismiss action (`FR-04-20`)[cite: 13, 18]. |
+| Default | `#1` Screen header with `#11` «Đăng xuất» at the right, `#2` left-column queue of `Open` reported reviews (e.g., `#91` selected with active border, `#95` unselected), `#3` right-column full review and report metadata for the selected review, and `#4` “Gỡ đánh giá” + `#5` “Bỏ qua báo cáo” action buttons (`FR-02-14`, `FR-02-10`, `FR-02-20`)[cite: 17, 18]. | Signed-in On-site Staff open `S-F02-04` when at least one `Open` review report exists (`AD-UC-13` d2 [Yes]). |
+| Empty (no data) | `#1` Screen header with `#11` «Đăng xuất» and `#6` Empty state message (“Không có đánh giá bị báo cáo nào đang chờ xử lý.”); queue, detail panel, and action buttons are hidden (`FR-02-19`)[cite: 18]. | No review reports are in `Open` status upon initial load (`AD-UC-13` d2 [No]), or after the last open report is removed/dismissed[cite: 18, 21]. |
+| Loading | `#1` Screen header with `#11` «Đăng xuất» and `#8` Skeleton blocks replacing the queue and detail panels; no loading text (`MSG-05`)[cite: 13, 18]. | Initial load of reported reviews, or reloading the queue after removing a review or dismissing a report (`AD-UC-13` m1). |
+| Error | `#1` Screen header with `#11` «Đăng xuất» and `#7` error Banner displaying `MSG-04` (“Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.”) with `#10` Secondary button “Thử lại”; no Empty or Toast shown (`FR-04-20`)[cite: 13, 18]. | Network or server error occurs while retrieving reported reviews or submitting a remove/dismiss action (`FR-04-20`)[cite: 13, 18]. |
 | Success / confirmation | **Success (review removed):** `#9` Toast displays “Đã gỡ đánh giá.” for 4 seconds; handled review (e.g., `#91`) is removed from public display (`Removed`) and leaves `#2` queue; next open report (e.g., `#95`) becomes selected in `#3` detail panel (`FR-02-10`, `FR-04-12`)[cite: 13, 18, 21].<br>**Success-2 (report dismissed):** `#9` Toast displays “Đã bỏ qua báo cáo.” for 4 seconds; handled review (e.g., `#91`) remains `Published` publicly but leaves `#2` queue; next open report (e.g., `#95`) becomes selected in `#3` detail panel (`FR-02-20`)[cite: 13, 18, 21]. | Staff confirm removal in `M-F02-04-01` (`AD-UC-13` s5, s6) or click `#5` “Bỏ qua báo cáo” (`AD-UC-13` s7). |
 | M-F02-04-01 › Default | Confirmation modal “Gỡ đánh giá?” over dimmed `S-F02-04` with body text explaining public removal and audit logging, Secondary button “Huỷ” (left), and Destructive button “Gỡ đánh giá” (right) (`FR-02-10`, `FR-04-12`)[cite: 13, 19, 20]. | Staff click `#4` “Gỡ đánh giá” on `S-F02-04` (`AD-UC-13` a4)[cite: 18, 21]. |
 | M-F02-04-01 › Empty / Loading / Error / Success | Not applicable: `M-F02-04-01` is a confirmation modal with no list; loading, error, and success states appear on parent `S-F02-04` after confirmation. | — |
@@ -91,6 +92,7 @@ Numbered reference image: `img/M-F02-04-01-numbered.png` (element numbers `#1`�
 | 5 | `#10` Retry action (`Thử lại`) | click | Retries the failed load or moderation request and clears the `MSG-04` Banner on success (`FR-04-20`)[cite: 13, 18]. | stays |
 | 6 | `M-F02-04-01` › `#2` `Gỡ đánh giá` | click | Sets `Book review › status` to `Removed` (hidden from public display, `FR-02-10`), sets `Review report › status` to `Upheld`, writes an audit log entry (`FR-04-12`), closes modal, reloads `#2` queue (`AD-UC-13` s5, s6, m1), and shows `#9` Toast “Đã gỡ đánh giá.”[cite: 13, 18, 21]. | stays |
 | 7 | `M-F02-04-01` › `#3` `Huỷ` | click | Closes `M-F02-04-01` without changing the review or report; review stays `Published` and remains in `#2` queue (`AD-UC-13` d4 [No])[cite: 18, 19, 21]. | stays |
+| 8 | `#11` Sign out (`Đăng xuất`) | click | Ends the staff session and opens the staff sign-in screen; works in every state of `S-F02-04` (`FR-04-21`, D7). | `S-F00-03` |
 
 ## 6. Screen-level rules
 
@@ -102,6 +104,7 @@ Numbered reference image: `img/M-F02-04-01-numbered.png` (element numbers `#1`�
 | SR-004 | **Dismissal preserves public review:** Dismissing a report (`#5` “Bỏ qua báo cáo”) requires no confirmation modal, sets the report status to `Dismissed`, removes the report from `#2` open queue, and leaves the review `Published` publicly (`FR-02-20`). | `FR-02-20`, `AD-UC-13` a5/s7[cite: 18, 21] |
 | SR-005 | **Distinct action feedback:** Removing a review displays Toast “Đã gỡ đánh giá.” (`Success`), whereas dismissing a report displays Toast “Đã bỏ qua báo cáo.” (`Success-2`), reloading the open queue after each action (`AD-UC-13` m1). | `FR-02-10`, `FR-02-20`, `AD-UC-13` m1[cite: 1, 18, 21] |
 | SR-006 | **Queue reload for concurrent moderation:** After each remove or dismiss action, the open report queue reloads from the server so reports already handled by another staff member are no longer listed (`AD-UC-13` m1). | `AD-UC-13` reading notes (`m1`) |
+| SR-007 | **Staff session until sign-out:** The staff session does not expire by time; staff stay signed in until they click «Đăng xuất» (`#11`), which ends the session and opens `S-F00-03`. | `FR-04-21`, D7 |
 
 ## 7. Linked requirements
 
@@ -113,30 +116,27 @@ Numbered reference image: `img/M-F02-04-01-numbered.png` (element numbers `#1`�
 | `FR-02-20` | Provides “Bỏ qua báo cáo” (`#5`) to dismiss the report, keep the review publicly visible, remove it from `#2` queue, and show “Đã bỏ qua báo cáo.” (`#9`). |
 | `FR-04-12` | Triggers backend audit entry logging when staff confirm review removal in `M-F02-04-01` (`AD-UC-13` s6). |
 | `FR-04-20` | Displays `MSG-04` error Banner (`#7`) with “Thử lại” (`#10`) when loading or updating reported reviews fails due to a network/server error. |
+| `FR-04-21` | Provides «Đăng xuất» (`#11`) in the screen header; signing out ends the staff session and opens `S-F00-03`. The staff session stays valid until sign-out (no time-out) (D7). |
 
 ## 8. Responsive and accessibility notes
 
 - **Smallest supported width:** 1280px (On-site Staff desktop viewport, exported at 1x = 1280px)[cite: 13, 18].
 - **What collapses or stacks on a narrow screen:** At 1280px, `#2` Open report queue (left column) and `#3` Selected review detail (right column) sit side-by-side with 32px screen padding (`space/unit`). Inside `M-F02-04-01`, buttons sit horizontally with Secondary button (“Huỷ”) on the left and Destructive button (“Gỡ đánh giá”) on the right (`ui-conventions.md` §3)[cite: 13, 17, 20].
 - **Information never carried by colour alone:** Selected queue card in `#2` pairs a `colour/brand-red` border with subtle highlight fill and updates `#3` “Đánh giá đang chọn” heading; `#4` Primary button (“Gỡ đánh giá”) uses solid `colour/brand-red` fill while `M-F02-04-01` `#2` Destructive button uses a 2px `colour/error-red` outline + trash icon + text label; `#7` error Banner pairs left border colour with an icon and text (`ui-conventions.md` §5)[cite: 13, 17, 20].
-- **Text contrast and minimum size:** All text and control borders meet WCAG 2.2 AA (`≥ 4.5:1` for body/labels, `≥ 3:1` for borders and 24px `SVN-Gilroy` Staff title) using tokens in `ui-conventions.md` §6. Interactive targets (`#1` Back button 44×44px, `#4` Primary button 40px height, `#5` Secondary button 40px height, queue cards) exceed the 24×24 CSS px desktop minimum (`ui-conventions.md` §5). All interactive elements display a 2px `colour/focus` (`#1074C3`) focus ring with 2px offset for keyboard navigation[cite: 13].
+- **Text contrast and minimum size:** All text and control borders meet WCAG 2.2 AA (`≥ 4.5:1` for body/labels, `≥ 3:1` for borders and 24px `Plus Jakarta Sans` Staff title) using tokens in `ui-conventions.md` §6. Interactive targets (`#1` Back button 44×44px, `#4` Primary button 40px height, `#5` Secondary button 40px height, `#11` «Đăng xuất» Secondary button 40px height, queue cards) exceed the 24×24 CSS px desktop minimum (`ui-conventions.md` §5). All interactive elements display a 2px `colour/focus` (`#1074C3`) focus ring with 2px offset for keyboard navigation[cite: 13].
 
 ## 9. Open questions
 
-| # | Question | Blocking? | Status |
-|---|---|---|---|
-| 1 | `[NEEDS CLARIFICATION: Is the provisional two-column layout (left open-report queue + right selected review detail at 1280px) approved for S-F02-04?]` | No | Open — provisional two-column layout drawn at 1280px using only source-backed data and actions[cite: 1, 18]. |
-| 2 | `[NEEDS CLARIFICATION: Should S-F02-04 display a report-reason field from the reporter?]` | No | Open — omitted because `M-F02-01-02` collects no reason (`L8-10`) and no reason data field exists in W1/ADs[cite: 1, 8, 18]. |
-| 3 | `[NEEDS CLARIFICATION: Confirm separate Toast messages (“Đã gỡ đánh giá.” vs. “Đã bỏ qua báo cáo.”) and whether M-F02-04-01 should quote the selected review text inside the modal body.]` | No | Open — distinct action toasts drawn (`Success` and `Success-2`); concise consequence text used in `M-F02-04-01` while selected review remains visible behind the overlay[cite: 18, 19, 20]. |
+None. Decisions: see [decision-index.md](../decision-index.md#s-f02-04).
 
 ---
 
 ## Completion checklist
 
 - [x] The mockup is a separate cropped image file, named with the Screen ID (`img/S-F02-04.png`, plus `img/M-F02-04-01.png`)[cite: 18, 19].
-- [x] Every visible element in the mockup appears in the element inventory (`#1`–`#5` in Default, `#6`–`#10` in non-default states; `#1`–`#3` in `M-F02-04-01`)[cite: 17, 18, 19, 20].
+- [x] Every visible element in the mockup appears in the element inventory (`#1`–`#5` and `#11` in Default, `#6`–`#10` in non-default states; `#1`–`#3` in `M-F02-04-01`)[cite: 17, 18, 19, 20].
 - [x] Every input element has a validation rule or an explicit "none" (no text inputs on `S-F02-04` or `M-F02-04-01`; all elements marked `none`)[cite: 17, 18, 19, 20].
 - [x] All five states are filled in, or marked "not applicable" with a reason (`Default`, `Empty`, `Loading`, `Error`, `Success` / `Success-2`, plus modal states)[cite: 18, 19].
-- [x] Every navigation target is a Screen ID that exists in the Screen List (`S-F04-01`, `M-F02-04-01`) or `stays`.
+- [x] Every navigation target is a Screen ID that exists in the Screen List (`S-F04-01`, `S-F00-03`, `M-F02-04-01`) or `stays`.
 - [x] Every element that displays data names the field it displays (`Book review › review ID/review text/reviewer/posted date`, `Book catalogue › title`, `Review report › status`)[cite: 17, 18].
 - [x] Every linked FR exists in the Function List, and every action of this screen in an activity diagram is covered by an interaction row (`AD-UC-13`)[cite: 3, 21].

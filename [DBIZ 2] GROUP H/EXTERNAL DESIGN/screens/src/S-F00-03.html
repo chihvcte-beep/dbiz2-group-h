@@ -1,0 +1,153 @@
+<!doctype html>
+<!--
+  Screen ID: S-F00-03
+  Screen name: Staff sign in
+  Vietnamese title: Đăng nhập nhân viên
+  Frame: staff (1280px, export 1x)
+  ui-conventions version: v0.9
+  Author / date: Ha (wireframe) · HTML redraw with centred Sign-in card 22/11/2026 (Chi)
+
+  Layout: the whole form sits in one Sign-in card, centred horizontally and vertically in the
+  1280px frame; the title is inside the card (ui-conventions section 3, Sign-in card). Replaces the
+  left-aligned S-F00-03 page of Ha-wireframe-1.drawio.
+  Numbers: #1-#8 = notes/S-F00-03-notes.md.
+  Open from disk: S-F00-03.html#loading, #error, #error-2; add "-numbered" for the circles.
+  Colours, sizes and fonts come only from tokens.css.
+-->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-F00-03 · Đăng nhập nhân viên</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* numbered images only: field circles sit on the top-right corner so they do not cover the label */
+    .sign-in-card .field > .num { left: auto; right: calc(var(--space-2) * -1); }
+  </style>
+</head>
+<body data-frame="staff">
+  <div class="frame">
+
+    <!-- ===================== DEFAULT ===================== -->
+    <section data-state="default">
+      <main class="sign-in-page">
+        <form class="sign-in-card" onsubmit="return false">
+          <h1 class="screen-title has-num"><span class="num">1</span>Đăng nhập nhân viên</h1>
+          <div class="field has-num"><span class="num">2</span>
+            <label class="field-label" for="d-acc">Tài khoản thư viện</label>
+            <input class="text-input" id="d-acc" type="text" autocomplete="username">
+          </div>
+          <div class="field has-num"><span class="num">3</span>
+            <label class="field-label" for="d-pw">Mật khẩu</label>
+            <div class="password-input">
+              <input id="d-pw" type="password" autocomplete="current-password">
+              <button class="text-button has-num" type="button"><span class="num">4</span>Hiện</button>
+            </div>
+          </div>
+          <button class="primary-button has-num" type="submit"><span class="num">5</span>Đăng nhập</button>
+        </form>
+      </main>
+    </section>
+
+    <!-- ===================== LOADING (MSG-05: skeleton, no text) ===================== -->
+    <section data-state="loading">
+      <main class="sign-in-page">
+        <form class="sign-in-card" onsubmit="return false" aria-busy="true">
+          <h1 class="screen-title has-num"><span class="num">1</span>Đăng nhập nhân viên</h1>
+          <div class="field has-num"><span class="num">2</span>
+            <label class="field-label" for="l-acc">Tài khoản thư viện</label>
+            <input class="text-input" id="l-acc" type="text" value="staff.lan" disabled>
+          </div>
+          <div class="field has-num"><span class="num">3</span>
+            <label class="field-label" for="l-pw">Mật khẩu</label>
+            <div class="password-input is-disabled">
+              <input id="l-pw" type="password" value="matkhau123" disabled>
+              <button class="text-button has-num" type="button" disabled><span class="num">4</span>Hiện</button>
+            </div>
+          </div>
+          <div class="group has-num"><span class="num">7</span>
+            <div class="skeleton line"></div>
+            <div class="skeleton line short"></div>
+          </div>
+          <button class="primary-button is-disabled has-num" type="submit" disabled><span class="num">5</span>Đăng nhập</button>
+        </form>
+      </main>
+    </section>
+
+    <!-- ===================== ERROR: rejected credentials / missing staff role ===================== -->
+    <section data-state="error">
+      <main class="sign-in-page">
+        <form class="sign-in-card" onsubmit="return false">
+          <h1 class="screen-title has-num"><span class="num">1</span>Đăng nhập nhân viên</h1>
+          <div class="banner error has-num" role="alert"><span class="num">6</span>
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+            <div class="banner-body"><span>Không thể đăng nhập. Bạn kiểm tra thông tin tài khoản rồi thử lại.</span></div>
+          </div>
+          <div class="field has-num"><span class="num">2</span>
+            <label class="field-label" for="e-acc">Tài khoản thư viện</label>
+            <input class="text-input" id="e-acc" type="text" value="lib.reader">
+          </div>
+          <div class="field has-num"><span class="num">3</span>
+            <label class="field-label" for="e-pw">Mật khẩu</label>
+            <div class="password-input">
+              <input id="e-pw" type="password">
+              <button class="text-button has-num" type="button"><span class="num">4</span>Hiện</button>
+            </div>
+          </div>
+          <button class="primary-button has-num" type="submit"><span class="num">5</span>Đăng nhập</button>
+        </form>
+      </main>
+    </section>
+
+    <!-- ===================== ERROR 2: network failure (MSG-04), account name kept ===================== -->
+    <section data-state="error-2">
+      <main class="sign-in-page">
+        <form class="sign-in-card" onsubmit="return false">
+          <h1 class="screen-title has-num"><span class="num">1</span>Đăng nhập nhân viên</h1>
+          <div class="banner error has-num" role="alert"><span class="num">6</span>
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+            <div class="banner-body">
+              <span>Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.</span>
+              <button class="secondary-button has-num" type="button"><span class="num">8</span>Thử lại</button>
+            </div>
+          </div>
+          <div class="field has-num"><span class="num">2</span>
+            <label class="field-label" for="n-acc">Tài khoản thư viện</label>
+            <input class="text-input" id="n-acc" type="text" value="staff.lan">
+          </div>
+          <div class="field has-num"><span class="num">3</span>
+            <label class="field-label" for="n-pw">Mật khẩu</label>
+            <div class="password-input">
+              <input id="n-pw" type="password">
+              <button class="text-button has-num" type="button"><span class="num">4</span>Hiện</button>
+            </div>
+          </div>
+          <button class="primary-button has-num" type="submit"><span class="num">5</span>Đăng nhập</button>
+        </form>
+      </main>
+    </section>
+
+  </div>
+
+  <script>
+    // Show the section named after "#", e.g. #error. "-numbered" at the end turns on the circles.
+    (function () {
+      function apply() {
+        var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+        var numbered = /-numbered$/.test(hash);
+        var state = hash.replace(/-numbered$/, '') || 'default';
+        var sections = document.querySelectorAll('[data-state]');
+        var found = false;
+        sections.forEach(function (s) { if (s.getAttribute('data-state') === state) found = true; });
+        if (!found) state = 'default';
+        sections.forEach(function (s) {
+          s.classList.toggle('is-active', s.getAttribute('data-state') === state);
+        });
+        document.body.classList.toggle('numbered', numbered);
+      }
+      window.addEventListener('hashchange', apply);
+      apply();
+    })();
+  </script>
+</body>
+</html>

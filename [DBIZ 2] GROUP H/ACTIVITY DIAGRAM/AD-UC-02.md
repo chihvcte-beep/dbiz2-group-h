@@ -138,24 +138,18 @@ Filled in during Lesson 8, from the Screen List.
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | which floor is shown first when the map is opened from the menu? | No (decided) | Decided 2026-11-04 (default adopted): The ground floor (lowest floor number). |
-| 2 | when the selected floor's plan cannot be read (`d5 [No]`), does the previous floor's map stay on screen? | No (decided) | Decided 2026-11-04 (default adopted): Yes; the message is shown above the previous floor's map. |
-| 3 | FR-01-03 is Could after W4. If it is cut, `d2`, `d3`, `s3` and `s4` are removed and the map always opens plain. | No (decided) | Decided 2026-11-04 (default adopted): Keep the branch until the release scope is fixed. |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-02).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.2.0, swimlane-beta) | Pass; still to open once on mermaid.live | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.2.0, swimlane-beta) | Pass | AI assistant | 2026-11-04 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
 | Every FR of UC-02 appears in the diagram | Pass (5 of 5 W1 rows whose source trace names UC-02) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

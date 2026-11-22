@@ -1,12 +1,12 @@
 # Wireframe notes: S-F00-03 Staff sign in
 
-Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
+Actor: On-site Staff · Frame: 1280px · UI conventions: v0.9 · Author: Ha · Source: `../src/S-F00-03.html` (centred Sign-in card, D29)
 
 ## Elements
 
 | # | Element | Component | Content / data source | FR |
 | --- | --- | --- | --- | --- |
-| 1 | Title | Screen header | Đăng nhập nhân viên | FR-04-07 |
+| 1 | Title | Sign-in card (title) | Đăng nhập nhân viên | FR-04-07 |
 | 2 | Staff account | Text input | Staff accounts › staff account name | FR-04-07 |
 | 3 | Password | Password input | Internal library account password (masked) | FR-04-07 |
 | 4 | Show password | Password input | Hiện / Ẩn | FR-04-07 |
@@ -19,7 +19,7 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 
 | State | Image | What the user sees | FR |
 | --- | --- | --- | --- |
-| Default | img/S-F00-03.png, img/S-F00-03-numbered.png | Account and password fields. | FR-04-07 |
+| Default | img/S-F00-03.png, img/S-F00-03-numbered.png | Sign-in card centred in the frame: title, account and password fields, full-width «Đăng nhập». | FR-04-07 |
 | Empty | Not applicable: this is a form. | — | — |
 | Loading | img/S-F00-03-loading.png, img/S-F00-03-loading-numbered.png | Credential and role check. | FR-04-07 |
 | Error | img/S-F00-03-error.png, img/S-F00-03-error-numbered.png | Không thể đăng nhập. Bạn kiểm tra thông tin tài khoản rồi thử lại. The same text covers invalid credentials and a missing staff role. | FR-04-18 |
@@ -37,9 +37,4 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 
 ## Open questions
 
-Review status: self-checked against the assignment and the two shared UI/UX handbooks. Cross-review by Hoa and final consistency review by Linh are pending.
-
-| # | Question | Default drawn |
-| --- | --- | --- |
-| — | — | Both rejection causes use the same message. |
-
+None. Decisions: see [decision-index.md](../../decision-index.md#s-f00-03).

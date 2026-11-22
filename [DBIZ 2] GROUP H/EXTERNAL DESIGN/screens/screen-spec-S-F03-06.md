@@ -59,7 +59,7 @@
 | 3 | Reader message bubble | Chat bubble | Natural-language inquiry entered by reader; right-aligned, styled with `colour/info-bg` | Yes | none |
 | 4 | Chatbot reply bubble | Chat bubble | Conversational assistant response; left-aligned, styled with `colour/surface` | Yes | none |
 | 5 | Book result card | Book card | Embedded in assistant reply: book title, author, format label (“Bản giấy” / “Trực tuyến”) with icon, and action text link | Yes | none |
-| 6 | Book detail action link | Text link | Static text: “Xem chi tiết sách”; opens book on OPAC Book Detail | Yes | none |
+| 6 | Book detail action link | Text link | Static text: “Xem chi tiết sách” (D25); opens book on OPAC Book Detail | Yes | none |
 | 7 | Chat input field | Text input | Multi-line text input in fixed composer; placeholder “Nhập câu hỏi tìm sách…” | Yes | Non-empty string upon submission |
 | 8 | Send inquiry button | Primary button | Primary button labeled “Gửi”; submits query to AI Service; disabled when input is empty or loading | Yes | none |
 | 9 | Typing / loading indicator | Chat bubble | Assistant bubble displaying “Đang tải…” (`MSG-05`) while querying AI service (up to 10s timeout) | Yes | none |
@@ -99,9 +99,9 @@
 | Rule ID | Rule | Source |
 |---|---|---|
 | SR-F03-06-001 | Sign-in authentication is requested ONLY after submitting the first inquiry message (`L8-05`, `FR-03-18`), never upon opening the screen. Unauthenticated visitors may freely read and type inquiries. Submitting without a session prompts modal `M-F00-01` with message `MSG-02` (“Bạn cần đăng nhập bằng thẻ thư viện để trò chuyện với trợ lý tìm sách.”). | `FR-03-18`, `L8-05`, `AD-UC-08 d1, c1`, `ui-conventions.md §4` |
-| SR-F03-06-002 | The maximum AI Service response timeout is strictly 10 seconds. If no reply is received within 10s, the system transitions to the Error state (`FR-03-17`). | `AD-UC-08 Q1 (04/11/2026)` |
-| SR-F03-06-003 | AI service interruption notices are transient session events and must NOT be saved into the reader's persistent conversation history. | `AD-UC-08 Q2 (04/11/2026)` |
-| SR-F03-06-004 | In release 1, readers cannot delete or clear their conversation history; inquiries and answers are permanently retained per reader account. | `AD-UC-08 Q3 (04/11/2026)` |
+| SR-F03-06-002 | The maximum AI Service response timeout is strictly 10 seconds. If no reply is received within 10s, the system transitions to the Error state (`FR-03-17`). | `AD-UC-08 Q1` |
+| SR-F03-06-003 | AI service interruption notices are transient session events and must NOT be saved into the reader's persistent conversation history. | `AD-UC-08 Q2` |
+| SR-F03-06-004 | In release 1, readers cannot delete or clear their conversation history; inquiries and answers are permanently retained per reader account. | `AD-UC-08 Q3` |
 | SR-F03-06-005 | Every reader inquiry and assistant answer is persisted in the Library Core System linked to the reader's library card. | `FR-03-10` |
 | SR-F03-06-006 | When no books match, the assistant presents a conversational suggestion reply, never a system error banner. System error banners are strictly reserved for service/network failures. | `FR-03-16`, `ui-conventions.md §4` |
 | SR-F03-06-007 | Book result cards embedded in assistant replies must display access format labels with SVG icons and provide a text link to the OPAC Book Detail. | `FR-03-09`, `ui-conventions.md §3` |
@@ -133,7 +133,7 @@
   - Book format labels combine text ("Bản giấy", "Trực tuyến") with distinctive icons.
   - Error banner uses alert circle icon in addition to error color styling.
 - **Text contrast and minimum size:**
-  - Header font: SVN-Gilroy 20px (`--font-heading`).
+  - Header font: Plus Jakarta Sans 20px (`--font-heading`).
   - Chat text & body: Inter 16px (`--font-size-body`), line height 1.5.
   - Message input: font size 16px (prevents unwanted mobile browser auto-zoom).
   - Primary button "Gửi": minimum 48px height (`--size-control`).
@@ -142,12 +142,7 @@
 
 ## 9. Open questions
 
-| # | Question | Blocking? | Status |
-|---|---|---|---|
-| 1 | What is the maximum response timeout before triggering the AI fallback notice? | No | Closed 04/11/2026: 10 seconds timeout (`AD-UC-08 Q1`). |
-| 2 | Is the temporary unavailable notice saved into reader conversation history? | No | Closed 04/11/2026: No; system error notices are transient and excluded from history (`AD-UC-08 Q2`). |
-| 3 | Can readers clear or delete their chatbot conversation history? | No | Closed 04/11/2026: No deletion mechanism in release 1; conversations are retained across sessions (`AD-UC-08 Q3`). |
-| 4 | Confirm exact action link text on book card. | No | Open: Currently using “Xem chi tiết sách”. Awaiting Linh/team confirmation if shorter label “Xem sách” is preferred. |
+None. Decisions: see [decision-index.md](../decision-index.md#s-f03-06).
 
 ---
 

@@ -7,14 +7,14 @@
 | Feature | F-02 Reviews & QR |
 | Primary actor | On-site Staff |
 | Lanes | On-site Staff · Library Core System |
-| Inputs (L3-L5) | Context Diagram (On-site Staff flows "Reported reviews", "Remove review", "Staff sign-in"; Library Internal System flow "Staff accounts") · Use Case Diagram (UC-13) · Sequence: User Review Reporting Flow (UC-14 with UC-13) · W0 Table 1 (staff login), Table 4 (Book review, ILF) · W1 rows FR-02-10, FR-02-14, FR-02-19, FR-02-20, FR-04-07, FR-04-08, FR-04-12, FR-04-18 (FR-04-05 and FR-04-06 were traced to UC-13 by mistake; W1 corrected, see open question 3) |
+| Inputs (L3-L5) | Context Diagram (On-site Staff flows "Reported reviews", "Remove review", "Staff sign-in"; Library Internal System flow "Staff accounts") · Use Case Diagram (UC-13) · Sequence: User Review Reporting Flow (UC-14 with UC-13) · W0 Table 1 (staff login), Table 4 (Book review, ILF) · W1 rows FR-02-10, FR-02-14, FR-02-19, FR-02-20, FR-04-07, FR-04-08, FR-04-12, FR-04-18 (FR-04-05 and FR-04-06 are not part of UC-13: AD-UC-13 Q3); new FR-04-21 (D7), as written in `EXTERNAL DESIGN/huong-dan/FR-bo-sung-22-11.md` |
 | Trigger | On-site Staff open the staff page to handle the reported reviews |
 | Preconditions | Staff have an internal library account (FR-04-07). Readers have reported reviews through UC-14. |
 | Success end state | Every reported review the staff handled is either removed from public display (with an audit entry) or kept public with its report dismissed; staff stop when they choose. |
 | Failure end state | No reported reviews are waiting (FR-02-19), or staff cannot sign in (wrong account or no staff role) and stop trying. |
-| FRs covered | FR-02-10, FR-02-14, FR-02-19, FR-02-20, FR-04-07, FR-04-08, FR-04-12, FR-04-18 |
-| Business rules applied | Removal needs a confirmation (FR-02-10). Every removal writes an audit entry (FR-04-12). A dismissed review stays public and leaves the reported list (FR-02-20). Staff judge whether a review breaks the rules; the system does not judge content. The staff page opens only with a staff session and role: staff sign in before the page opens (FR-04-08, FR-04-07). A wrong account or an account without the staff role is rejected with an error message, and staff may try again (FR-04-18). |
-| Version / status | v1.3 · Draft |
+| FRs covered | FR-02-10, FR-02-14, FR-02-19, FR-02-20, FR-04-07, FR-04-08, FR-04-12, FR-04-18, FR-04-21 |
+| Business rules applied | Removal needs a confirmation (FR-02-10). Every removal writes an audit entry (FR-04-12). A dismissed review stays public and leaves the reported list (FR-02-20). Staff judge whether a review breaks the rules (`d3`) against exactly the three criteria shown to readers in the hint under the review field on S-F02-01 and S-F02-02 (MSG-14): no offensive language, no advertising, no personal information (D20); the system does not judge content. The staff page opens only with a staff session and role: staff sign in before the page opens (FR-04-08, FR-04-07). A wrong account or an account without the staff role is rejected with an error message, and staff may try again (FR-04-18). The staff session does not end by time: it ends only when staff choose Sign out (FR-04-21, D7). |
+| Version / status | v1.4 · Draft |
 | Author | Owner C (F-02) |
 
 ## 1. Diagram
@@ -48,6 +48,8 @@ swimlane-beta TB
     d4{"Confirm the removal?"}
     a5("Dismiss the report (FR-02-20)")
     d5{"Handle another reported review?"}
+    d7{"Sign out?"}
+    a6("Choose Sign out (FR-04-21)")
     stop1@{ shape: fr-circ }
     stop3@{ shape: fr-circ }
   end
@@ -68,7 +70,9 @@ swimlane-beta TB
     s6("Write an audit entry for the review removal (FR-04-12)")
     s7("Keep the review public and remove it<br/>from the reported-reviews list (FR-02-20)")
     m2{" "}
+    s11("End the staff session and show the staff sign-in (FR-04-21)")
     stop2@{ shape: fr-circ }
+    stop4@{ shape: fr-circ }
   end
 
   start --> a0 --> s0 --> d0
@@ -87,7 +91,9 @@ swimlane-beta TB
   d3 -->|"[No]"| a5 --> s7 --> m2
   m2 --> d5
   d5 -->|"[Yes]"| m1
-  d5 -->|"[No]"| stop3
+  d5 -->|"[No]"| d7
+  d7 -->|"[Yes]"| a6 --> s11 --> stop4
+  d7 -->|"[No]"| stop3
 ```
 
 Reading notes:
@@ -96,11 +102,14 @@ Reading notes:
 - `d4 [No]` (removal not confirmed) changes nothing; the review stays in the reported list.
 - `m1` is the merge the staff come back through to handle the next reported review; the list is
   loaded again each time, so a review handled by a colleague in the meantime is gone.
-- v1.3 moves the session check to the start: the staff page opens only for a signed-in staff member
-  (FR-04-08), so staff sign in before they open the reported reviews. `m0` is the merge staff come
-  back through after a rejected sign-in; `mA` gathers the two signed-in paths before `a1`.
-- `d6 [No]` covers a wrong account and an account without the staff role (FR-04-18, edge-case FR added to
-  W1 on 2026-11-08). Staff sign in with their own action, not with UC-11 (the reader sign-in).
+- The session is checked at the start: the staff page opens only for a signed-in staff member
+  (FR-04-08, L8-02), so staff sign in before they open the reported reviews. `m0` is the merge
+  staff come back through after a rejected sign-in; `mA` gathers the two signed-in paths before `a1`.
+- `d6 [No]` covers a wrong account and an account without the staff role (FR-04-18, L8-03). Staff
+  sign in with their own action, not with UC-11 (the reader sign-in).
+- The staff session does not end by time (D7). Sign out (`d7`, `a6`, `s11`) is drawn once, when
+  staff stop handling reviews; «Đăng xuất» is on every staff screen, so staff can sign out at any
+  time (FR-04-21).
 
 ## 2. Node trace
 
@@ -130,6 +139,9 @@ Reading notes:
 | a5 | Action (Staff) | Dismiss the report | FR-02-20 |
 | s7 | Action | Keep the review public and remove it from the reported-reviews list | FR-02-20 |
 | d5 | Decision (Staff) | Handle another reported review? | FR-02-14 |
+| d7 | Decision (Staff) | Sign out? | FR-04-21 |
+| a6 | Action (Staff) | Choose Sign out | FR-04-21 |
+| s11 | Action | End the staff session and show the staff sign-in | FR-04-21 |
 
 ## 3. Branches and acceptance tests
 
@@ -144,15 +156,17 @@ Reading notes:
 | d4 [No] | review #91 is selected | staff choose Remove and then cancel | #91 stays public and stays in the list |
 | d3 [No] | review #95 follows the rules | staff dismiss the report | #95 stays public and leaves the reported list |
 | d5 [Yes] | #91 has been handled | staff choose to handle another review | the list reloads with #95 only |
-| d5 [No] | a review has been handled | staff stop | the activity ends |
+| d5 [No] → d7 [No] | a review has been handled | staff stop and leave the page open | the activity ends; the staff session stays valid with no time-out |
+| d5 [No] → d7 [Yes] | a review has been handled | staff stop and choose «Đăng xuất» | the staff session ends and the staff sign-in opens |
 
 ## 4. Object states used
 
 | Object | States in this diagram |
 |---|---|
 | Review | Published (kept by `s7`), Removed (written by `s5`) |
-| Review report | Open (read by `s2`), Dismissed (written by `s7`), Upheld (when `s5` removes the review); names confirmed 2026-11-04 (question 5) |
+| Review report | Open (read by `s2`), Dismissed (written by `s7`), Upheld (when `s5` removes the review) (AD-UC-13 Q5) |
 | Audit entry | written by `s6` |
+| Staff session | Signed-in (written by `s10`), Ended (written by `s11`) |
 
 ## 5. Screens touched
 
@@ -169,30 +183,24 @@ Filled in during Lesson 8, from the Screen List.
 | Confirm the removal? (d4) | S-F02-04 (modal M-F02-04-01 "Remove this review?") |
 | See the list without the handled review (s5, s7) | S-F02-04 (list reloaded) |
 | See that no reported reviews are waiting (s3) | S-F02-04 (empty state) |
+| Sign out? (d7), Choose Sign out (a6), staff sign-in shown (s11) | «Đăng xuất» in the header of S-F02-04 or S-F04-01 → S-F00-03 |
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | where are "the rules" written that staff judge reviews against? | No (decided) | Decided 2026-11-04 (default adopted): The library's review guideline, linked from the review form. |
-| 2 | is the author told when their review is removed? | No (decided) | Decided 2026-11-04 (default adopted): No notice in release 1. |
-| 3 | Wrong W1 source trace: FR-04-05 (link an online account to a library card) and FR-04-06 (reject linking when both profiles hold data) name UC-13, but they belong to an older use case for account linking, are Won't, and have nothing to do with removing reviews. | No (resolved) | They are not part of UC-13 and are not drawn or counted here. W1 corrected on 2026-11-04: their source trace now names UC-11 (online part, cut in W4). |
-| 4 | The sequence User Review Reporting Flow uses FR-02-10 for opening the reported-reviews list; this diagram uses FR-02-14, as W1 does. | No (open work item) | Owner C changes the sequence step to FR-02-14 (index, Inputs check finding 7). |
-| 5 | confirm the state names of a review report: Open, Dismissed, Upheld. | No (decided) | Decided 2026-11-04 (default adopted): These three names are used until the data model is set in DBIZ3. |
-| 6 | Staff must be signed in before the staff page opens (team decision 2026-11-08, FR-04-08). A rejected staff sign-in had no FR. | No (decided) | Decided 2026-11-08: session checked on opening the staff page; new edge-case FR-04-18 "Reject invalid staff sign-in" added to W1 on 2026-11-08 (UC-10, UC-13; Must; NC). |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-13).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.3.0, swimlane-beta) | Pass (re-checked after the v1.3 sign-in change); still to open once on mermaid.live | AI assistant | 2026-11-08 |
+| Renders (Mermaid 12.3.0, swimlane-beta) | Pass (re-checked after the v1.3 sign-in change) | AI assistant | 2026-11-08 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
-| Every FR of UC-13 appears in the diagram | Pass (5 of 5 non-Won't W1 rows whose source trace names UC-13, after the W1 trace correction, plus proposed FR-04-18) | AI assistant | 2026-11-08 |
+| Every FR of UC-13 appears in the diagram | Pass (5 of 5 non-Won't W1 rows whose source trace names UC-13, after the W1 trace correction, plus FR-04-18) | AI assistant | 2026-11-08 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
+| v1.4 sign out (D7): guards on `d7`, each new action cites one FR | Pass (checked by reading) | AI assistant | 2026-11-22 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
+| Review criteria (D20): business rule for `d3` updated; diagram and node trace unchanged | Pass (checked by reading) | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

@@ -30,12 +30,8 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Ha
 | Sign in | Open reader sign-in. After OTP acceptance resume the requested action at the origin (L8-01). | S-F00-01 |
 | Not now | Close and end the pending request. | S-F01-01, S-F02-01, S-F02-02, S-F03-02, S-F03-03, S-F03-06, S-F03-07 |
 
+The modal is the same on all seven entry screens listed above. The dimmed background in img/M-F00-01.png illustrates S-F01-01 only.
+
 ## Open questions
 
-Review status: self-checked against the assignment and the two shared UI/UX handbooks. Cross-review by Hoa and final consistency review by Linh are pending.
-
-| # | Question | Default drawn |
-| --- | --- | --- |
-| — | — | All seven entry screens use the same modal. |
-
-Shared handoff for Nhi, Hoa and Trieu: use img/M-F00-01.png, its HTML source, and MSG-01 / MSG-02 / MSG-03 above. The blurred/dimmed context illustrates S-F01-01 only. The modal is shared by all seven listed entry screens. No group notification has been sent.
+None. Decisions: see [decision-index.md](../../decision-index.md#m-f00-01).

@@ -4,7 +4,7 @@
 |---|---|
 | Cập nhật | 21/11/2026 |
 | Đọc kèm | `huong-dan/screen-spec-chung.md` (luật chung), tệp `<Tên>-screen-spec.md` của bạn |
-| Hạn | Ảnh tách: **càng sớm càng tốt** (hạn cũ 21/11) · Spec nháp: **24/11** · Soát chéo: **25/11** · Linh soát cuối, gộp: **26/11** |
+
 
 ## 1. Đã làm ngày 21/11
 
@@ -48,7 +48,7 @@ như dưới đây (spec đã trỏ sẵn tới các tên này).
 
 ### Ha
 
-1. **Sửa màu theo token** (Linh soát: draw.io đang dùng màu ngoài `tokens.css`, nút chính màu tối, lỗi
+1. **Sửa màu theo token** (draw.io đang dùng màu ngoài `tokens.css`, nút chính màu tối, lỗi
    màu xám) trong `screens/src/Ha-wireframe-1.drawio`.
 2. **Xuất lại ảnh đánh số đúng khổ** cho cả 7 wireframe: S-F00-01, S-F00-02, M-F00-01 rộng 1080px;
    S-F00-03, S-F02-03, S-F04-01, M-F02-03-01 rộng 1280px. Xuất từ draw.io (File › Export as › PNG,
@@ -109,7 +109,7 @@ như dưới đây (spec đã trỏ sẵn tới các tên này).
 
 ### Trieu
 
-1. **Chuyển 3 tệp HTML sang dùng `screens/src/tokens.css`** (Linh soát: đang tự khai báo màu, tên
+1. **Chuyển 3 tệp HTML sang dùng `screens/src/tokens.css`** (đang tự khai báo màu, tên
    thành phần ngoài `ui-conventions.md` §3), rồi xuất lại ảnh.
 2. **Xuất lại ảnh đánh số rộng 1080px** (Chrome, khung 360, DPR 3: bước 5–6 trong
    `huong-dan/Trieu-wireframe-4.md`) cho S-F03-02, S-F03-06, S-F03-07. Tải lên với cùng tên cũ.

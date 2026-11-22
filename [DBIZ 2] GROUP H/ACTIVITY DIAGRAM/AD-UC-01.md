@@ -139,24 +139,18 @@ Filled in during Lesson 8, from the Screen List.
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | a book with several physical copies on different shelves: which shelf location is shown? | No (decided) | Decided 2026-11-04 (default adopted): Every copy's floor, room and shelf code is shown, one line per copy. |
-| 2 | does "direct the reader to library staff" name a place, such as the information desk on each floor? | No (decided) | Decided 2026-11-04 (default adopted): A fixed message names the information desk on the ground floor. |
-| 3 | FR-01-03 is Could after W4. If the release cuts it, is UC-01 still accepted with the shelf code only? | No (decided) | Decided 2026-11-04 (default adopted): Yes; if FR-01-03 is cut, the map branch is removed and `s4` ends the flow. The branch stays until the release scope is fixed. |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-01).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.2.0, swimlane-beta) | Pass; still to open once on mermaid.live | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.2.0, swimlane-beta) | Pass | AI assistant | 2026-11-04 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
 | Every FR of UC-01 appears in the diagram | Pass (6 of 6 W1 rows whose source trace names UC-01) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

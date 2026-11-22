@@ -12,6 +12,7 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 | 4 | Staff page loading | Skeleton | MSG-05 | FR-04-08 |
 | 5 | Network error | Banner | MSG-04 | FR-04-20 |
 | 6 | Try again | Secondary button | Thử lại | FR-04-20 |
+| 7 | Sign out | Secondary button | Đăng xuất, in the Screen header → S-F00-03 (D7) | FR-04-21 |
 
 ## States drawn
 
@@ -31,12 +32,8 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 | Print QR labels | Open QR label printing. | S-F02-03 |
 | Reported reviews | Open the reported reviews list if UC-13 ships. | S-F02-04 |
 | Try again | Retry after a network failure. | stays |
+| Sign out | End the staff session (FR-04-21). | S-F00-03 |
 
 ## Open questions
 
-Review status: self-checked against the assignment and the two shared UI/UX handbooks. Cross-review by Hoa and final consistency review by Linh are pending.
-
-| # | Question | Default drawn |
-| --- | --- | --- |
-| 1 | [NEEDS CLARIFICATION: Should staff be offered an explicit sign-out action?] | The two task tiles are the only actions. |
-
+None. Decisions: see [decision-index.md](../../decision-index.md#s-f04-01).

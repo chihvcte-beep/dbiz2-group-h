@@ -38,9 +38,4 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Ha
 
 ## Open questions
 
-Review status: self-checked against the assignment and the two shared UI/UX handbooks. Cross-review by Hoa and final consistency review by Linh are pending.
-
-| # | Question | Default drawn |
-| --- | --- | --- |
-| — | — | The seven-digit format is settled in v0.8 §2. |
-
+None. Decisions: see [decision-index.md](../../decision-index.md#s-f00-01).

@@ -164,7 +164,7 @@ Reading notes:
 
 | Object | States in this diagram |
 |---|---|
-| Reading history entry | Reading, Finished (written by `s5`); entries added by `s12` and `s13` start as Reading, 0 percent (question 1) |
+| Reading history entry | Reading, Finished (written by `s5`); entries added by `s12` and `s13` start as Reading, 0 percent (AD-UC-07 Q1) |
 | Reading preferences | no state values; saved by `s8` |
 | Reader loan records (EIF) | none written; read by `s11` |
 
@@ -184,26 +184,18 @@ screen.
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | what reading status does an automatic entry (`s12`, `s13`) get? FR-03-02 and FR-03-03 do not say. | No (decided) | Decided 2026-11-04 (default adopted): Reading, 0 percent, until the reader changes it. |
-| 2 | if a reader borrows the same book again, is a second history entry added? | No (decided) | Decided 2026-11-04 (default adopted): Yes, one entry per borrow record, as FR-03-03 is written; merging repeats would need a new FR. |
-| 3 | what does "validate the reading preferences" check (FR-03-05)? | No (decided) | Decided 2026-11-04 (default adopted): Every chosen subject must exist in the synced catalogue subject list. |
-| 4 | may a book be Finished with progress below 100 percent? | No (decided) | Decided 2026-11-04 (default adopted): Yes; it is saved as entered. |
-| 5 | Resolved 2026-11-04: the `e1` part depends on online books opening on the current OPAC through a link from this platform (AD-UC-03 open question 1). | No (resolved) | Confirmed by the team. |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-07).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.2.0, swimlane-beta) | Pass; still to open once on mermaid.live | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.2.0, swimlane-beta) | Pass | AI assistant | 2026-11-04 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
 | Every FR of UC-07 appears in the diagram | Pass (6 of 6 W1 rows whose source trace names UC-07) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

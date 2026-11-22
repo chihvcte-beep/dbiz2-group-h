@@ -8,33 +8,25 @@
 | Priority | Must |
 | Feature | `F-00` (shared sign-in; no separate feature name is specified in `screen-list.md`) |
 | Activity diagrams | `AD-UC-10`, `AD-UC-13` |
-| Mockup image | `img/S-F00-03.png` (existing reference; re-export pending v0.8 compliance review) |
-| Status | Draft — pending v0.8 mockup correction and review |
+| Mockup image | `img/S-F00-03.png` |
+| Status | Draft |
 | Frame width | 1280px |
-| Wireframe source | `screens/src/Ha-wireframe-1.drawio` (shared Ha wireframe source) |
+| Wireframe source | `screens/src/S-F00-03.html` (centred Sign-in card, D29; replaces the S-F00-03 page of `screens/src/Ha-wireframe-1.drawio`) |
 | Wireframe author | Ha |
 | Screen spec author | Linh |
-| UI conventions | v0.8 · 21/11/2026 |
+| UI conventions | v0.9 · 22/11/2026 |
 
 ## 1. Purpose
 
-**Shown when:** On-site Staff open the staff-page address without a valid staff session and need to sign in with their internal library account.
+**Shown when:** On-site Staff open the staff-page address without a valid staff session and need to sign in with their internal library account, or after they choose `Đăng xuất` on a staff screen (`S-F04-01`, `S-F02-03`, `S-F02-04`; FR-04-21).
 
 **The user leaves this screen when:** The internal library account is accepted and the staff role is verified; a valid staff session starts and `S-F04-01` opens. If credentials are rejected or the request fails, the staff member remains on this screen and can retry.
 
 ## 2. Mockup
 
-**Current numbered wireframe (for group review; not yet approved against UI Conventions v0.8):**
-
-![S-F00-03 — existing numbered wireframe](https://raw.githubusercontent.com/chihvcte-beep/dbiz2-group-h/main/%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/screens/img/S-F00-03-numbered.png)
-
-[Open original numbered image on GitHub](https://github.com/chihvcte-beep/dbiz2-group-h/blob/main/%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/screens/img/S-F00-03-numbered.png)
-
-> **Draft review note:** This is the wireframe owner's existing image, linked from the repository rather than edited or copied. Replace/verify the mockup after the owner updates the export. State-specific image paths below are pending confirmation.
-
 ![S-F00-03](img/S-F00-03.png)
 
-**Numbered reference:** `img/S-F00-03-numbered.png` (original Ha wireframe; image must be re-exported and checked against v0.8).
+![S-F00-03 numbered](img/S-F00-03-numbered.png)
 
 | State | Image |
 |---|---|
@@ -45,9 +37,7 @@
 | Error — network failure | `img/S-F00-03-error-2.png`; `img/S-F00-03-error-2-numbered.png` |
 | Success | `S-F04-01` (navigation outcome; no separate success screen) |
 
-**21/11/2026 handoff:** Ha owns the colour-token corrections and separate state exports in `screens/img/`. The existing numbered image was reported as 1693px and must be re-exported at 1280px. Linh will verify the paths and rendered images after Ha uploads; this spec remains Draft.
-
-Use `ui-conventions.md` v0.8 §§3–6 for components, labels, messages, and design tokens. Staff frame: 1280px, exported at 1x. The §7 consistency review flags the existing Draw.io colours as non-token and an existing export as 1693px rather than 1280px; **do not treat the linked images as approved mockups until corrected and verified**.
+Use `ui-conventions.md` v0.8 §§3–6 for components, labels, messages, and design tokens. Staff frame: 1280px, exported at 1x.
 
 ## 3. Element inventory
 
@@ -55,7 +45,7 @@ Use `ui-conventions.md` v0.8 §§3–6 for components, labels, messages, and des
 
 | # | Element | Type | Content / data source | Required | Validation |
 |---|---|---|---|---|---|
-| 1 | Title | Screen header | `Đăng nhập nhân viên` | Yes | Static text. |
+| 1 | Title | Sign-in card (title) | `Đăng nhập nhân viên` | Yes | Static text, centred at the top of the Sign-in card; no Screen header bar on this screen (D29). |
 | 2 | Staff account | Text input | `Staff accounts` › staff account name; sample account shown in the wireframe: `staff.lan`. | Yes | Required. Authenticate against the internal library staff accounts; no additional client-side format rule is specified. |
 | 3 | Password | Password input | Internal library account password (masked). | Yes | Required. Verify against the internal library account; no additional client-side format rule is specified. |
 | 4 | Show password | Text button | Toggle text: `Hiện` / `Ẩn`. | No | Toggles password visibility only; must not alter the entered value. |
@@ -68,7 +58,7 @@ Use `ui-conventions.md` v0.8 §§3–6 for components, labels, messages, and des
 
 | State | What the user sees | Trigger |
 |---|---|---|
-| Default | `Đăng nhập nhân viên`, the staff-account field, masked password field, `Hiện` / `Ẩn` Text button, and `Đăng nhập`. | Staff open the staff-page address without a valid staff session and the sign-in screen loads. |
+| Default | One Sign-in card centred horizontally and vertically in the frame (D29): `Đăng nhập nhân viên`, the staff-account field, masked password field, `Hiện` / `Ẩn` Text button, and `Đăng nhập`. | Staff open the staff-page address without a valid staff session and the sign-in screen loads. |
 | Empty (no data) | Not applicable: this is a credential-entry form, not a data list. Blank fields belong to the Default state. | — |
 | Loading | Skeleton placeholders while the internal account and staff role are checked (`MSG-05`; no text by default). | Staff submit `Đăng nhập`. |
 | Error | Rejected credentials or missing staff role use the same generic message: `Không thể đăng nhập. Bạn kiểm tra thông tin tài khoản rồi thử lại.` Network failure uses `MSG-04` and `Thử lại`; the account name is retained. | Credential/role verification is rejected, or the request fails to load. |
@@ -96,6 +86,7 @@ The wireframe uses `staff.lan` and a non-empty sample password as synthetic prev
 | SR-005 | A network/load failure uses the shared `MSG-04` wording and `Thử lại` action; retain the account name. | FR-04-20; `ui-conventions.md` §4; S-F00-03 wireframe notes |
 | SR-006 | While credentials and role are being checked, show the shared `MSG-05` skeleton without loading text. | FR-04-07; `ui-conventions.md` §4 |
 | SR-007 | Do not add Forgot password, Remember me, registration, or other unrequested controls. | Linh-screen-spec.md §1; Ha-wireframe-1.md §2.4 |
+| SR-008 | After sign-in the staff session does not time out: staff stay signed in until they choose `Đăng xuất` on a staff screen, which ends the session and opens this screen. | FR-04-21; D7 |
 
 ## 7. Linked requirements
 
@@ -105,11 +96,12 @@ The wireframe uses `staff.lan` and a non-empty sample password as synthetic prev
 | FR-04-08 | Supports the staff-session access gate: staff without a valid session are sent to this screen. |
 | FR-04-18 | Rejects invalid credentials or a missing staff role with one generic message and allows retry. |
 | FR-04-20 | Handles a network/load failure with `MSG-04` and the `Thử lại` action. |
+| FR-04-21 | Destination of `Đăng xuất` on staff screens; the staff session started here stays valid until then (new FR, D7). |
 
 ## 8. Responsive and accessibility notes
 
-- Design/export frame: 1280px for Staff (1x). The system-wide accessibility baseline is 360px; behaviour of the staff layout below 1280px is not specified in the source and needs clarification rather than an invented breakpoint.
-- Staff frame: 1280px, exported at 1x.
+- Design/export frame: 1280px for Staff (1x). Supported from 1024px; between 1024 and 1279px the layout shrinks proportionally, and below 1024px any two-column layout stacks. Staff screens are not supported on phones (`ui-conventions.md`, Responsive section; D8).
+- Staff frame: 1280px, exported at 1x. The Sign-in card (max 400px) stays centred horizontally and vertically at every supported width (D29).
 - Keep visible labels above both input fields; placeholder text must not replace a label.
 - Password visibility must be communicated through the `Hiện` / `Ẩn` text control, not colour alone.
 - Provide a visible 2px focus ring on every interactive element; staff must be able to use the keyboard.
@@ -118,12 +110,7 @@ The wireframe uses `staff.lan` and a non-empty sample password as synthetic prev
 
 ## 9. Open questions
 
-| # | Question | Blocking? | Status |
-|---|---|---|---|
-| 1 | Confirm whether a separate HTML export is also required; the supplied source is `screens/src/Ha-wireframe-1.drawio`. | No | Open |
-| 2 | [NEEDS CLARIFICATION: Confirm which Default/Loading/Error PNG exports exist; re-export 1280px files for each required state, including the network-error state.] | Yes (mockup approval) | Open |
-| 3 | Correct the existing Draw.io colours to v0.8 §6 tokens and verify 1280px export width; §7 review currently flags a 1693px image. | Yes (mockup approval) | Open |
-| 4 | [NEEDS CLARIFICATION: Confirm staff-layout behaviour at widths below the 1280px design frame, without adding unapproved controls.] | No | Open |
+None. Decisions: see [decision-index.md](../decision-index.md#s-f00-03).
 
 ---
 
@@ -138,13 +125,3 @@ The wireframe uses `staff.lan` and a non-empty sample password as synthetic prev
 - [x] Every navigation target is a Screen ID that exists in the Screen List, or `stays`.
 - [x] Every element that displays data names its data source.
 - [x] Every linked FR exists in the Screen List / Function List references, and each screen action in the notes and activity diagrams is covered by an interaction row.
-
-
----
-
-### Review handoff (21/11/2026)
-
-- **Spec owner:** Linh. **Wireframe owner:** Ha. Do not edit another member’s source or images.
-- **Reviewers:** Ha cross-reviews this spec; Linh performs final consolidation on 26/11/2026.
-- **Status:** Draft until the linked state PNGs exist, render on GitHub, and meet the UI conventions v0.8 requirements.
-- **Repository destination:** `EXTERNAL DESIGN/screens/screen-spec-S-F00-03.md` (not the repository root).

@@ -93,7 +93,7 @@ Reading notes:
   may ask for a new OTP.
 - "Register" stays in the use case name, but no registration step is left: online accounts
   (FR-04-02, FR-04-03) are Won't, and library card accounts already exist in the Library Internal
-  System. See open question 1.
+  System (AD-UC-11 Q1).
 
 ## 2. Node trace
 
@@ -156,25 +156,18 @@ Filled in during Lesson 8, from the Screen List.
 
 ## 6. Open questions
 
-On 2026-11-04 the team adopted the default answer for every question below, unless the row
-says otherwise.
-
-| # | Question | Blocking? | Default applied |
-|---|---|---|---|
-| 1 | "Register" is in the use case name, but online registration and account linking (FR-04-02, FR-04-03, FR-04-05, FR-04-06) are Won't. Rename UC-11 to "Sign in with library card and email OTP"? | No (decided) | Decided 2026-11-04 (default adopted): The name "Register and sign in (library card with email OTP)" is kept. |
-| 2 | who sends the OTP email? The Context Diagram shows "Email OTP" going straight to the Reader and has no email service. | No (decided) | Decided 2026-11-04 (default adopted): No outside email service and no separate lane; the Context Diagram stays as it is. |
-| 3 | is there a limit on how many new OTPs a reader may request? | No (decided) | Decided 2026-11-04 (default adopted): No limit in release 1; the 5-attempt rule applies to each OTP. |
-| 4 | should the "card not found" message avoid saying whether a card number exists? | No (decided) | Decided 2026-11-04 (default adopted): Yes, one general message for every rejection. |
+None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#ad-uc-11).
 
 ## 7. Verification log
 
 | Check | Result | By | Date |
 |---|---|---|---|
-| Renders (Mermaid 12.2.0, swimlane-beta) | Pass; still to open once on mermaid.live | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.2.0, swimlane-beta) | Pass | AI assistant | 2026-11-04 |
 | Every decision has guards on all outgoing flows | Pass | AI assistant | 2026-11-04 |
 | No action or decision has two incoming flows without a merge | Pass | AI assistant | 2026-11-04 |
 | Every fork has a matching join | Not applicable (no fork) | AI assistant | 2026-11-04 |
 | Every action cites one FR | Pass | AI assistant | 2026-11-04 |
 | Every FR of UC-11 appears in the diagram | Pass (4 of 4 non-Won't W1 rows whose source trace names UC-11; FR-04-02, FR-04-03, FR-04-05, FR-04-06 are Won't online-account rows) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
+| Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

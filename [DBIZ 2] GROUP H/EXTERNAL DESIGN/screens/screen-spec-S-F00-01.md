@@ -75,7 +75,7 @@ Shared by S-F01-01, S-F02-01, S-F02-02, S-F03-02, S-F03-03, S-F03-06 and S-F03-0
 | Chatbot | Bạn cần đăng nhập bằng thẻ thư viện để trò chuyện với trợ lý tìm sách. | MSG-02; FR-03-18 |
 | Recommendations | Gợi ý riêng cho bạn cần tài khoản thẻ thư viện. Hãy đăng nhập để xem. | MSG-03; FR-03-21 |
 
-Title and actions are shared by all variants. Sign in opens S-F00-01. Not now closes the overlay and ends the request. After code acceptance or Cancel, return to the saved origin (L8-01). Code acceptance resumes the requested action. Cancellation details remain Q-Cancel.
+Title and actions are shared by all variants. Sign in opens S-F00-01. Not now closes the overlay and ends the request. After code acceptance or Cancel, return to the saved origin (L8-01). Code acceptance returns the reader to the origin and the pending action (e.g. save book, post review, report review) continues automatically. Cancel (Huỷ) on S-F00-01 or S-F00-02 returns to the origin with the pending action kept waiting and nothing on screen lost; the action is not carried out, and M-F00-01 asks again when the reader repeats it (D1).
 
 ## 4. States
 
@@ -106,9 +106,9 @@ Title and actions are shared by all variants. Sign in opens S-F00-01. Not now cl
 | --- | --- | --- | --- | --- |
 | 1 | S-F00-01 › Library card number | Enter or correct seven digits. | Keep the number as text, including its leading zero. | stays |
 | 2 | S-F00-01 › Send code | Submit with Send code, element 3 (AD-UC-11 r1). Card 0012345 illustrates the valid-lookup path to S-F00-02. Rejections stay here. | Validate seven digits, request card lookup. On match request OTP and open S-F00-02. On rejection use the same generic message and stay. Failed email delivery is shown on S-F00-02. | S-F00-02 / stays |
-| 3 | S-F00-01 › Cancel | Return to the origin (L8-01). | Return to the origin in L8-01. Preserve the pending context; the protected action remains gated if no valid session exists. See Q-Cancel. | S-F01-01 / S-F02-01 / S-F02-02 / S-F03-02 / S-F03-03 / S-F03-06 / S-F03-07 / Existing OPAC entry page (exit) |
+| 3 | S-F00-01 › Cancel | Return to the origin (L8-01). | Return to the origin screen with the pending action kept waiting: nothing entered or shown on the origin is lost (e.g. a typed review). The action is not carried out without a session; when the reader repeats it, M-F00-01 asks again (D1). | S-F01-01 / S-F02-01 / S-F02-02 / S-F03-02 / S-F03-03 / S-F03-06 / S-F03-07 / Existing OPAC entry page (exit) |
 | 4 | S-F00-01 › Try again | Retry after a network failure. | Retry the failed request while retaining displayed data and entered values (FR-04-20). | stays |
-| 5 | M-F00-01 › Sign in | Open reader sign-in. After OTP acceptance resume the requested action at the origin (L8-01). | Save the origin Screen ID and requested action, close the shared prompt and open the library-card form. No code is verified by this modal. | S-F00-01 |
+| 5 | M-F00-01 › Sign in | Open reader sign-in. After OTP acceptance return to the origin and continue the requested action (L8-01). | Save the origin Screen ID and the pending action, close the shared prompt and open the library-card form. No code is verified by this modal. When S-F00-02 accepts the code, the reader returns to the origin and the pending action continues automatically (D1). | S-F00-01 |
 | 6 | M-F00-01 › Not now | Close and end the pending request. | Dismiss M-F00-01 and end the pending request, leaving the origin visible. | stays |
 
 ## 6. Screen-level rules
@@ -118,7 +118,7 @@ Title and actions are shared by all variants. Sign in opens S-F00-01. Not now cl
 | SR-001 | A card number is a seven-digit string. Keep a leading zero. | ui-conventions §2; FR-04-01 |
 | SR-002 | Use one generic rejection for every unsuccessful card lookup. Never reveal card existence in the rejection text. | AD-UC-11 question 4; FR-04-01 |
 | SR-003 | A valid card lookup advances to S-F00-02. Success has no separate page. | AD-UC-11 d1; screen-transition.md |
-| SR-004 | Preserve the sign-in origin and requested action through OTP and Cancel. Any protected action still needs a valid session. | L8-01; FR-04-08 |
+| SR-004 | Keep the sign-in origin and the pending action through OTP and Cancel. After the OTP is accepted, return to the origin and continue the pending action automatically. On Cancel, return to the origin with the pending action still waiting and nothing on screen lost; it runs only after a valid sign-in, so repeating it re-opens M-F00-01. | L8-01; FR-04-08; D1 |
 | SR-005 | M-F00-01 uses MSG-01, MSG-02 or MSG-03 verbatim. Not now ends the request at the origin. | ui-conventions §4; FR-04-08, FR-03-18, FR-03-21 |
 | SR-006 | Keep entered data on a failed request and offer retry. | FR-04-20 |
 
@@ -142,9 +142,7 @@ Title and actions are shared by all variants. Sign in opens S-F00-01. Not now cl
 
 ## 9. Open questions
 
-| # | Question | Blocking? | Status |
-| --- | --- | --- | --- |
-| Q-Cancel | [NEEDS CLARIFICATION: On Cancel, should the origin retain or discard the pending action?] | No | Open. Return is fixed by L8-01; execution remains protected by FR-04-08. |
+None. Decisions: see [decision-index.md](../decision-index.md#s-f00-01).
 
 ---
 

@@ -8,27 +8,28 @@ Screens shared by every feature (sign in) use `S-F00-<nn>`.
 | Screen ID | Screen name | Actor | Feature | Shown when (purpose) | Entry points | Use cases / FRs served | Priority | Screen spec |
 |---|---|---|---|---|---|---|---|---|
 | S-F00-01 | Sign in: library card number | Reader | F-00 | A reader without a session wants a signed-in action, or chooses to sign in, and enters the library card number. | "Sign in" in modal M-F00-01 on any reader screen; "Sign in" link added to the existing OPAC pages | UC-11 · FR-04-01, FR-04-08 | Must | `screens/screen-spec-S-F00-01.md` |
-| S-F00-02 | Verify email OTP | Reader | F-00 | The card number was found; the reader enters the code sent by email or asks for a new one. After the code is accepted the reader goes back to the screen where sign-in started. | S-F00-01 [card number found] | UC-11 · FR-04-01, FR-04-04, FR-04-16, FR-04-17, FR-04-19 | Must | `screens/screen-spec-S-F00-02.md` |
-| S-F00-03 | Staff sign in | On-site Staff | F-00 | Staff open the staff page without a valid staff session and sign in with their internal library account; after sign-in the staff page S-F04-01 opens. A wrong account or an account without the staff role is rejected and staff may try again. | The staff page address, when staff have no valid staff session | UC-10, UC-13 · FR-04-07, FR-04-08, FR-04-18 | Must | `screens/screen-spec-S-F00-03.md` |
+| S-F00-02 | Verify email OTP | Reader | F-00 | The card number was found; the reader enters the code sent by email or asks for a new one. After the code is accepted the reader goes back to the screen where sign-in started and the pending action continues by itself; «Huỷ» also goes back there, with the action still waiting and nothing lost (D1). | S-F00-01 [card number found] | UC-11 · FR-04-01, FR-04-04, FR-04-16, FR-04-17, FR-04-19 | Must | `screens/screen-spec-S-F00-02.md` |
+| S-F00-03 | Staff sign in | On-site Staff | F-00 | Staff open the staff page without a valid staff session and sign in with their internal library account; after sign-in the staff page S-F04-01 opens. A wrong account or an account without the staff role is rejected and staff may try again. Staff who choose «Đăng xuất» land here. | The staff page address, when staff have no valid staff session; «Đăng xuất» on S-F04-01, S-F02-03, S-F02-04 | UC-10, UC-13 · FR-04-07, FR-04-08, FR-04-18, FR-04-21 | Must | `screens/screen-spec-S-F00-03.md` |
 | S-F01-01 | Shelf location (with Save to my list) | Reader | F-01 | The reader asks where a book is: floor, room and shelf code, one line per physical copy. For a physical book the reader can also save it to the personal list or open its room on the map. | "Shelf location" on the existing OPAC Book Detail page; back from S-F01-02; back from S-F00-02 after sign-in (Save) | UC-01 · FR-01-01, FR-01-06, FR-01-07, FR-01-03; UC-12 · FR-03-06, FR-03-24 | Must | `screens/screen-spec-S-F01-01.md` |
 | S-F01-02 | Interactive digital library map | Reader | F-01 | The reader browses floors and reading rooms and selects a room, or sees the book's room highlighted with the shelf details kept visible. | "Library map" link on the existing OPAC main menu; "View on map" on S-F01-01 | UC-01, UC-02 · FR-01-02, FR-01-03, FR-01-09, FR-01-10, FR-01-11 | Must | `screens/screen-spec-S-F01-02.md` |
 | S-F02-01 | Book reviews | Reader | F-02 | The reader reads a book's reviews page by page, writes, edits or deletes own review, or reports a review. | "Reviews" on the existing OPAC Book Detail page; back from S-F00-02 after sign-in | UC-05 · FR-02-02, FR-02-13, FR-02-15; UC-04 · FR-02-01, FR-02-03, FR-02-04, FR-02-11, FR-02-12, FR-02-22; UC-14 · FR-02-09, FR-02-21 | Must | `screens/screen-spec-S-F02-01.md` |
-| S-F02-02 | Book information and reviews (QR landing page) | Reader | F-02 | The reader scanned the QR label of a physical book and sees its information and reviews on a phone, with the same write, edit and delete panel as S-F02-01. A "View this book on the OPAC" link opens the book's existing OPAC Book Detail page. | Phone camera opens the QR link; back from S-F00-02 after sign-in | UC-06 · FR-02-05, FR-02-16; UC-04 (called) · FR-02-01, FR-02-03, FR-02-04, FR-02-11, FR-02-12, FR-02-22; UC-05 rule · FR-02-13 | Must | `screens/screen-spec-S-F02-02.md` |
-| S-F02-03 | QR code label printing | On-site Staff | F-02 | Staff select physical books, choose Print labels, preview the label sheet and print it. | "Print QR labels" on S-F04-01 | UC-10 · FR-02-08, FR-02-17, FR-02-18 | Must | `screens/screen-spec-S-F02-03.md` |
-| S-F02-04 | Reported reviews | On-site Staff | F-02 | Staff go through reported reviews one by one: read the review, then remove it or dismiss the report. | "Reported reviews" on S-F04-01 | UC-13 · FR-02-14, FR-02-10, FR-02-19, FR-02-20 | Could | `screens/screen-spec-S-F02-04.md` |
-| S-F03-01 | Access-format filter and results | Reader | F-03 | The reader chooses Online, Physical or Both and sees matching books from the whole synced catalogue with their format labels; an online book opens on the current OPAC. | "Filter by access format" link on the existing OPAC catalogue / search results; "use the format filter" link in S-F03-06 when AI search is unavailable | UC-03 · FR-03-12, FR-03-23, FR-03-13 | Should | `screens/screen-spec-S-F03-01.md` |
-| S-F03-02 | Reading history and preferences | Reader | F-03 | A signed-in reader checks the reading history with status, updates a book's status and progress, or updates reading preferences. | "Reading history" link on the existing OPAC personal area; "Set your preferences" prompt on S-F03-07; back from S-F00-02 after sign-in | UC-07 · FR-03-01, FR-03-04, FR-03-05, FR-03-22 | Should | `screens/screen-spec-S-F03-02.md` |
+| S-F02-02 | Book information and reviews (QR landing page) | Reader | F-02 | The reader scanned the QR label of a physical book and sees its information and reviews on a phone, with the same write, edit and delete panel as S-F02-01, and reviews 10 per page with "Load more reviews". A "View this book on the OPAC" link opens the book's existing OPAC Book Detail page; it is the only way out: there is no Back, because the page opens only by scanning the QR label (D5). | Phone camera opens the QR link (the only entry); back from S-F00-02 after sign-in (the same page) | UC-06 · FR-02-05, FR-02-16; UC-05 rule · FR-02-02, FR-02-15; UC-04 (called) · FR-02-01, FR-02-03, FR-02-04, FR-02-11, FR-02-12, FR-02-22; UC-05 rule · FR-02-13 | Must | `screens/screen-spec-S-F02-02.md` |
+| S-F02-03 | QR code label printing | On-site Staff | F-02 | Staff see the physical books of the synced catalogue that have never had a QR label printed (20 per page, ordered floor → room → shelf of each book's primary shelf location returned by the sync, the same as on S-F01-01), tick books on any page (ticks kept, "Đã chọn <n> sách"), choose Print labels, preview the label sheet (A4 portrait decal, 3 × 8 labels of 70×37 mm, one label per book title) and print it; only when staff then choose "Đã in xong" are the books on the sheet recorded as label-printed and leave the list — after "Đóng" or a failed print they stay listed with their ticks kept, so staff can print again straight away (D3, D4, D12, D13, D18). | "Print QR labels" on S-F04-01 | UC-10 · FR-02-23, FR-02-08, FR-02-17, FR-02-18, FR-04-21 | Must | `screens/screen-spec-S-F02-03.md` |
+| S-F02-04 | Reported reviews | On-site Staff | F-02 | Staff go through reported reviews one by one: read the review, then remove it or dismiss the report. | "Reported reviews" on S-F04-01 | UC-13 · FR-02-14, FR-02-10, FR-02-19, FR-02-20, FR-04-21 | Could | `screens/screen-spec-S-F02-04.md` |
+| S-F03-01 | Access-format filter and results | Reader | F-03 | The reader chooses Online, Physical or Both and sees matching books from the whole synced catalogue with their format labels (a book with both formats shows both labels), 20 per page with page buttons; choosing another format returns to page 1 (D9, D14); an online book opens on the current OPAC. | "Filter by access format" link on the existing OPAC catalogue / search results; "use the format filter" link in S-F03-06 when AI search is unavailable | UC-03 · FR-03-12, FR-03-23, FR-03-13 | Should | `screens/screen-spec-S-F03-01.md` |
+| S-F03-02 | Reading history and preferences | Reader | F-03 | A signed-in reader checks the reading history with status, updates a book's status and progress, or updates reading preferences. | "Reading history" link on the existing OPAC personal area; "Sở thích" (any time) or the "Set your preferences" prompt on S-F03-07; back from S-F00-02 after sign-in | UC-07 · FR-03-01, FR-03-04, FR-03-05, FR-03-22 | Should | `screens/screen-spec-S-F03-02.md` |
 | S-F03-03 | Saved books list | Reader | F-03 | A signed-in reader sees the saved physical books with the shelf location of each, and removes books from the list. | "Saved books" link on the existing OPAC personal area; back from S-F00-02 after sign-in | UC-12 · FR-03-07, FR-03-08, FR-03-25, FR-01-07 | Should | `screens/screen-spec-S-F03-03.md` |
 | S-F03-06 | AI chatbot book search | Reader | F-03 | A signed-in reader asks the chatbot for books in their own words and gets replies with book result cards. | "Ask the library chatbot" link on the existing OPAC main menu | UC-08 · FR-03-09, FR-03-16, FR-03-17, FR-03-18 | Could | `screens/screen-spec-S-F03-06.md` |
-| S-F03-07 | Book recommendations | Reader | F-03 | A signed-in reader sees a list of recommended books: personalised, topped up with trending books, or popular books when there is no reader data yet. | "Recommended for you" link on the existing OPAC main menu | UC-09 · FR-03-11, FR-03-19, FR-03-20, FR-03-21 | Could | `screens/screen-spec-S-F03-07.md` |
-| S-F04-01 | Staff page | On-site Staff | F-04 | The minimal staff page: staff choose a task, "Print QR labels" or "Reported reviews". | Staff page address on library staff computers (with a valid staff session); S-F00-03 after staff sign-in; back from S-F02-03 and S-F02-04 | UC-10, UC-13 · FR-04-07, FR-04-08 | Must | `screens/screen-spec-S-F04-01.md` |
+| S-F03-07 | Book recommendations | Reader | F-03 | A signed-in reader sees a list of recommended books: personalised, topped up with trending books, or popular books when there is no reader data yet. Books added from trending titles carry the Trend tag "Xu hướng"; "Sở thích" in the header is always available and opens S-F03-02 (D10a, D10b). | "Recommended for you" link on the existing OPAC main menu | UC-09 · FR-03-11, FR-03-19, FR-03-20, FR-03-21 | Could | `screens/screen-spec-S-F03-07.md` |
+| S-F04-01 | Staff page | On-site Staff | F-04 | The minimal staff page: staff choose a task, "Print QR labels" or "Reported reviews". "Đăng xuất" in the header ends the staff session and opens S-F00-03; the session has no time-out (D7). | Staff page address on library staff computers (with a valid staff session); S-F00-03 after staff sign-in; back from S-F02-03 and S-F02-04 | UC-10, UC-13 · FR-04-07, FR-04-08, FR-04-21 | Must | `screens/screen-spec-S-F04-01.md` |
 
 Notes on the table:
 
-- Priority is the highest W4 priority among the FRs of the screen's own use cases. Rules borrowed from another use case (FR-04-08 sign-in check, FR-01-07 on S-F03-03) do not raise it.
+- Priority is the highest W4 priority among the FRs of the screen's own use cases. Rules borrowed from another use case (FR-04-08 sign-in check, FR-01-07 on S-F03-03) do not raise it (L8-14).
 - FR-04-08 (sign-in and staff access control) applies to every screen that needs a session. It is cited only on the sign-in screens, the staff page and the reader sign-in modal. The staff page opens only with a staff session, so staff sign in before any staff task (AD-UC-10, AD-UC-13).
 - FR-04-20 (handle a network or loading error, message MSG-04 in `ui-conventions.md`) applies to every screen that loads or saves data: S-F00-01, S-F00-02, S-F00-03, S-F01-01, S-F01-02, S-F02-01, S-F02-02, S-F02-03, S-F02-04, S-F03-01, S-F03-02, S-F03-03, S-F03-06, S-F03-07, S-F04-01. Like FR-04-08 it is a borrowed rule: it is listed in each Screen Spec but not repeated in the table above, and it does not raise a screen's priority.
-- FR-02-22 (post a review anonymously), FR-04-19 (OTP attempts left) and FR-04-20 were proposed in `ui-conventions.md` during Lesson 8 and accepted by the team on 2026-11-19; they are rows 132–137 of W1.
+- FR-02-22 (post a review anonymously), FR-04-19 (OTP attempts left) and FR-04-20 come from `ui-conventions.md`; they are rows 132–137 of W1 (UI Q13).
+- FR-02-23 (list physical books awaiting a QR label) and FR-04-21 (sign out of the staff page; no staff time-out) are new FRs (D3, D7), together with a change to FR-02-08 (record the labels as printed when staff confirm "Đã in xong", D12; FR-02-23 orders by the primary shelf location, D13). FR-04-21 (Should) does not raise the priority of S-F00-03, S-F02-03, S-F02-04 or S-F04-01.
 - Could parts inside Must or Should screens, which disappear without removing the screen if they are cut: "View on map" on S-F01-01 (FR-01-03); Edit and Delete own review on S-F02-01 and S-F02-02 (FR-02-03, FR-02-04); Report on S-F02-01 (FR-02-09, FR-02-21); preferences part of S-F03-02 (FR-03-05); Remove on S-F03-03 (FR-03-08); "Reported reviews" on S-F04-01 (UC-13).
 
 ## Modals and overlays
@@ -37,10 +38,10 @@ Modal IDs: `M-F00-<nn>` when the modal is shared by several screens, `M-<screen>
 
 | Modal | Opened from screen | Purpose |
 |---|---|---|
-| M-F00-01 Sign in to continue? | S-F01-01 (Save), S-F02-01, S-F02-02, S-F03-02, S-F03-03, S-F03-06, S-F03-07 | A reader without a valid session asked for a signed-in action. "Sign in" opens S-F00-01 and, after the OTP is accepted, returns to the screen that asked; "Not now" closes the modal and the request ends. Covers "Sign in now?" (d1) in AD-UC-04, 07, 08, 09, 12, 14 (FR-04-08; wording for the chatbot from FR-03-18, for recommendations from FR-03-21). |
+| M-F00-01 Sign in to continue? | S-F01-01 (Save), S-F02-01, S-F02-02, S-F03-02, S-F03-03, S-F03-06, S-F03-07 | A reader without a valid session asked for a signed-in action. "Sign in" opens S-F00-01 and, after the OTP is accepted, returns to the screen that asked, where the pending action continues by itself (L8-01, D1); "Not now" closes the modal and the request ends. This is the only modal that opens a screen (`ui-conventions.md` section 3). Covers "Sign in now?" (d1) in AD-UC-04, 07, 08, 09, 12, 14 (FR-04-08; wording for the chatbot from FR-03-18, for recommendations from FR-03-21). |
 | M-F02-01-01 Delete your review? | S-F02-01, S-F02-02 | Reader confirms or cancels deleting own review (AD-UC-04 d6, r5; AD-UC-06 c3; FR-02-04). |
 | M-F02-01-02 Report this review? | S-F02-01 | Reader submits the report on the selected review; no reason field (AD-UC-14 r2; FR-02-09). |
-| M-F02-03-01 QR label sheet preview | S-F02-03 | Staff see the printable QR label sheet for the selected books and press Print, which opens the browser's print dialog (AD-UC-10 a4, a5; FR-02-08). |
+| M-F02-03-01 QR label sheet preview | S-F02-03 | Staff see the printable QR label sheet for the selected books (A4 portrait decal, 3 × 8 = 24 labels of 70×37 mm, one label per book title; shelf location = the book's primary shelf location from the sync; D4, D13) and press Print (Primary), which opens the browser's print dialog (AD-UC-10 a4, a5; FR-02-08). "Đã in xong" (Secondary) records the books on the sheet as label-printed; "Đóng" (Secondary) records nothing: the books stay in the S-F02-03 list with their ticks kept (AD-UC-10 d9, a8, a9; D12, D17, D18). |
 | M-F02-04-01 Remove this review? | S-F02-04 | Staff confirm or cancel removing a reported review from public display (AD-UC-13 d4; FR-02-10). |
 
 ## What is deliberately not a screen
@@ -49,19 +50,20 @@ Messages the system shows (errors, empty lists, no results, confirmations, denie
 
 | Candidate | Why it is not a screen |
 |---|---|
-| "Card number not found" (one general rejection message) | Error state of S-F00-01 (FR-04-01; AD-UC-11 s2, open question 4) |
+| "Card number not found" (one general rejection message) | Error state of S-F00-01 (FR-04-01; AD-UC-11 s2; AD-UC-11 Q4) |
 | "Code could not be sent, request a new OTP" | Error state of S-F00-02 (FR-04-16; AD-UC-11 s5) |
 | "Incorrect code, enter it again" | Error state of S-F00-02 (FR-04-17; AD-UC-11 s9) |
 | "5 incorrect attempts, code no longer valid" | Error state of S-F00-02 (FR-04-17; AD-UC-11 s10) |
 | "Code expired or already used" | Error state of S-F00-02 (FR-04-01; AD-UC-11 s11) |
 | Number of OTP attempts left, shown with "Incorrect code" | Part of the error state of S-F00-02 (FR-04-19) |
 | "Page could not load, check the connection and try again" (MSG-04) | Error state of every screen that loads or saves data; data already shown is kept and the user can try again (FR-04-20) |
-| Signed in successfully | Not a page: the reader goes back to the screen where sign-in started (FR-04-01; AD-UC-11 s7) |
+| Signed in successfully | Not a page: the reader goes back to the screen where sign-in started and the pending action continues (FR-04-01; AD-UC-11 s7; D1) |
+| Staff signed out | Not a page: the staff sign-in S-F00-03 opens (FR-04-21; AD-UC-10 s14, AD-UC-13 s11) |
 | Wrong staff account or no staff role | Error state of S-F00-03 (FR-04-18; AD-UC-10 s9, AD-UC-13 s9); staff may try again (d1) |
 | Request denied because there is no session (reader) | Shown as modal M-F00-01 on the screen where the reader asked (FR-04-08, FR-03-18, FR-03-21; s1 in AD-UC-04, 07, 08, 09, 12, 14) |
 | Request denied because there is no staff session | Not a message: the staff sign-in S-F00-03 opens instead of the staff page (FR-04-08; AD-UC-10 s1, AD-UC-13 s1) |
 | "Available electronically, no shelf location" | Information state of S-F01-01 (FR-01-06; AD-UC-01 s2) |
-| "Shelf location unavailable, ask at the ground-floor information desk" | Error state of S-F01-01 (FR-01-07; AD-UC-01 s3, open question 2) |
+| "Shelf location unavailable, ask at the ground-floor information desk" | Error state of S-F01-01 (FR-01-07; AD-UC-01 s3; AD-UC-01 Q2) |
 | "Book saved" | Success state of S-F01-01 (FR-03-06; AD-UC-12 s3) |
 | "Book already saved" | Message state of S-F01-01 (FR-03-24; AD-UC-12 s2) |
 | "Map unavailable" (shelf details kept), including for another floor | Error state of S-F01-02 (FR-01-10; AD-UC-01 s6, AD-UC-02 s2, s7) |
@@ -89,9 +91,10 @@ Messages the system shows (errors, empty lists, no results, confirmations, denie
 | Popular books with "Set your reading preferences" prompt | State of S-F03-07 with a link to S-F03-02 (FR-03-19; AD-UC-09 s3) |
 | Trending books added to a short list | Content rule of S-F03-07 (FR-03-20; AD-UC-09 s4) |
 | Existing OPAC catalogue / search results, Book Detail, main menu, personal area | Existing OPAC pages outside the product: entry points only. The product adds links to them (S-F01-01, S-F01-02, S-F02-01, S-F03-01, S-F03-02, S-F03-03, S-F03-06, S-F03-07, S-F00-01) |
-| Online book page and PDF download | Existing current-OPAC page: an exit from S-F03-01 (AD-UC-03 r3, open question 1) |
+| Online book page and PDF download | Existing current-OPAC page: an exit from S-F03-01 (AD-UC-03 r3; AD-UC-03 Q1) |
 | Phone camera and the browser print dialog | Belong to the phone and the browser, not to the product (AD-UC-06 r1, AD-UC-10 a5) |
 | Generate QR codes after the daily catalogue sync | Time-triggered, no user interface (FR-02-07; AD-UC-10 t1, s6, s7) |
+| Record that a book's QR label was printed | Background step after staff choose "Đã in xong" in M-F02-03-01 (not when the sheet is produced), no user interface of its own; the book then leaves the S-F02-03 list (FR-02-08; AD-UC-10 s13; D12) |
 | Count QR scans | Background step when the QR page opens, no user interface (FR-02-06; AD-UC-06 s3) |
 | History entries from synced loans | Time-triggered after the daily loan sync, no user interface (FR-03-03, FR-04-10; AD-UC-07 t1, s11, s12) |
 | Anonymous online-book read log and history entry when an online book is opened | Background steps when the reader opens an online book from S-F03-01 (FR-03-13, FR-03-02; AD-UC-03 s4, s5, AD-UC-07 e1, s13) |
@@ -99,10 +102,10 @@ Messages the system shows (errors, empty lists, no results, confirmations, denie
 | AI search and recommendation scoring | Background inside the system, no user interface (FR-03-09, FR-03-11; AD-UC-08 a1, AD-UC-09 a1) |
 | Generating and emailing the OTP, invalidating an old OTP | Background, no user interface (FR-04-04; AD-UC-11 s3, s4, s12) |
 | Audit entries for sign-in, label printing and review removal | Background, no user interface (FR-04-12; AD-UC-11 s8, AD-UC-10 s5, AD-UC-13 s6) |
-| Planned use case "Sync data from the library internal system" | Time-triggered, no user interface (FR-04-09, FR-04-10, FR-04-11, FR-01-05; activity-index Inputs check row 3, still open) |
+| Planned use case "Sync data from the library internal system" | Time-triggered, no user interface (FR-04-09, FR-04-10, FR-04-11, FR-01-05; activity-index Inputs check row 3; L8-20) |
 | Digital floor plan preparation, deployment, automated tests | Work of the project team, no screen (FR-01-04, FR-04-13, FR-04-14) |
 | S-F03-04, S-F03-05 | Retired IDs from an old draft (Saved books list, Advanced filter panel). Never reused |
-| M-F03-06-01, M-F03-07-01, M-F00-Err, S-F00-01S, S-F00-04, M-F00-02 | Old draft IDs, replaced by M-F00-01, an error state of S-F00-03, S-F00-03 and S-F04-01. M-F00-02 "Staff sign-in required" was dropped on 2026-11-08: staff now sign in before the staff page opens |
+| M-F03-06-01, M-F03-07-01, M-F00-Err, S-F00-01S, S-F00-04, M-F00-02 | Old draft IDs, replaced by M-F00-01, an error state of S-F00-03, S-F00-03 and S-F04-01. M-F00-02 "Staff sign-in required" is dropped: staff sign in before the staff page opens (L8-02) |
 | Floating chatbot widget, "Reader Dashboard" | In no FR or activity diagram; entry points are plain links on OPAC pages |
 | Online book viewer and PDF download on this platform | Won't (W0 Table 3; FR-03-15) |
 | Access formats shown on the book detail page | Won't (W0 Table 3; FR-03-14) |
@@ -147,7 +150,8 @@ Every node in the Reader and On-site Staff lanes of AD-UC-01 to AD-UC-14: action
 | AD-UC-05 | r2 | Ask for the next page of reviews | S-F02-01 |
 | AD-UC-05 | c1 | Report a review (UC-14) | S-F02-01 |
 | AD-UC-06 | r1 | Scan the QR code on a physical book | Entry: phone camera → S-F02-02 |
-| AD-UC-06 | d2 | Act on a review? | S-F02-02 |
+| AD-UC-06 | d2 | What does the reader do next? | S-F02-02 |
+| AD-UC-06 | r2 | Ask for the next page of reviews | S-F02-02 ("Xem thêm đánh giá") |
 | AD-UC-06 | c1 | Write a review (UC-04) | S-F02-02 (review form) |
 | AD-UC-06 | c2 | Edit own review (UC-04) | S-F02-02 |
 | AD-UC-06 | c3 | Delete own review (UC-04) | S-F02-02 → M-F02-01-01 |
@@ -173,10 +177,17 @@ Every node in the Reader and On-site Staff lanes of AD-UC-01 to AD-UC-14: action
 | AD-UC-10 | a0 | Open the staff page | S-F04-01 (signed in) or S-F00-03 (no staff session) |
 | AD-UC-10 | a3 | Sign in with the internal library account | S-F00-03 → S-F04-01 |
 | AD-UC-10 | d1 | Try again? | S-F00-03 (error state) |
-| AD-UC-10 | a1 | Select physical books on the staff page | S-F02-03 (opened from S-F04-01) |
+| AD-UC-10 | a1 | Select physical books in the list | S-F02-03 (opened from S-F04-01) |
+| AD-UC-10 | d7 | Select books on another page? | S-F02-03 (Pagination) |
+| AD-UC-10 | a6 | Open another page of the list | S-F02-03 (Pagination) |
 | AD-UC-10 | a2 | Choose Print labels | S-F02-03 |
 | AD-UC-10 | a4 | Receive the printable QR label sheet | M-F02-03-01 |
 | AD-UC-10 | a5 | Print the QR code labels | M-F02-03-01 (Print button; browser print dialog) |
+| AD-UC-10 | d9 | Did the labels print correctly? | M-F02-03-01 |
+| AD-UC-10 | a8 | Confirm that the sheet was printed | M-F02-03-01 ("Đã in xong" button) |
+| AD-UC-10 | a9 | Close the preview without confirming | M-F02-03-01 ("Đóng" button) → S-F02-03 |
+| AD-UC-10 | d8 | Sign out? | S-F04-01, S-F02-03, S-F02-04 (header "Đăng xuất") |
+| AD-UC-10 | a7 | Choose Sign out | S-F04-01, S-F02-03, S-F02-04 → S-F00-03 |
 | AD-UC-11 | r1 | Submit the library card number | S-F00-01 |
 | AD-UC-11 | r2 | Submit the OTP received by email | S-F00-02 |
 | AD-UC-11 | d5 | Request a new OTP? | S-F00-02 |
@@ -199,12 +210,14 @@ Every node in the Reader and On-site Staff lanes of AD-UC-01 to AD-UC-14: action
 | AD-UC-13 | d4 | Confirm the removal? | M-F02-04-01 |
 | AD-UC-13 | a5 | Dismiss the report | S-F02-04 |
 | AD-UC-13 | d5 | Handle another reported review? | S-F02-04 |
+| AD-UC-13 | d7 | Sign out? | S-F02-04, S-F04-01 (header "Đăng xuất") |
+| AD-UC-13 | a6 | Choose Sign out | S-F02-04, S-F04-01 → S-F00-03 |
 | AD-UC-14 | r1 | Select Report on a review | S-F02-01 |
 | AD-UC-14 | d1 | Sign in now? | M-F00-01 |
 | AD-UC-14 | c1 | Sign in (UC-11) | S-F00-01 → S-F00-02 → back to S-F02-01 |
 | AD-UC-14 | r2 | Submit the report for the selected review | M-F02-01-02 |
 
-Total: 82 actor-lane nodes in 14 activity diagrams, all on a listed screen or modal.
+Total: 89 actor-lane nodes in 14 activity diagrams, all on a listed screen or modal (82 on 2026-11-08; 7 added on 2026-11-22: AD-UC-06 r2, AD-UC-10 d7, a6, d8, a7, AD-UC-13 d7, a6).
 
 ## Checks before you save
 
@@ -216,7 +229,7 @@ Total: 82 actor-lane nodes in 14 activity diagrams, all on a listed screen or mo
       (for example a time-triggered activity).
       Must UCs UC-01 (S-F01-01, S-F01-02), UC-02 (S-F01-02), UC-04 (S-F02-01, S-F02-02), UC-05 (S-F02-01), UC-06 (S-F02-02), UC-10 (S-F04-01, S-F02-03, S-F00-03) and UC-11 (S-F00-01, S-F00-02) all have screens. The time-triggered QR generation of UC-10 has a no-UI note.
 - [x] Every actor action in the activity diagrams maps to a screen in this list.
-      82 of 82 Reader and On-site Staff lane nodes of AD-UC-01 to AD-UC-14 are mapped to a listed screen or modal (section above).
+      89 of 89 Reader and On-site Staff lane nodes of AD-UC-01 to AD-UC-14 are mapped to a listed screen or modal (section above).
 - [x] Every screen serves at least one FR. A screen that serves none is out of scope or a missing FR.
       Every row cites at least one W1 FR of its own use case; the smallest is S-F04-01 (FR-04-07 "start a staff session and open the staff page", FR-04-08).
 

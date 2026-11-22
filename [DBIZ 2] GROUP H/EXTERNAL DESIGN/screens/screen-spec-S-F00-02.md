@@ -19,7 +19,7 @@
 
 **Shown when:** The card lookup succeeded and the reader must verify the emailed code, or recover from failed delivery.
 
-**The user leaves this screen when:** A correct, unexpired, unused code signs the reader in and returns to the origin. Back returns to S-F00-01; Cancel returns to the origin.
+**The user leaves this screen when:** A correct, unexpired, unused code signs the reader in, returns to the origin and the pending action continues automatically. Back returns to S-F00-01; Cancel returns to the origin with the pending action still waiting (D1).
 
 ## 2. Mockup
 
@@ -58,12 +58,13 @@ Styles follow [UI conventions v0.8](../ui-conventions.md#6-design-tokens). Each 
 | 10 | Verification pending | Skeleton | MSG-05 | No | none |
 | 11 | New code sent | Toast | Đã gửi mã mới. | No | none |
 | 12 | Try again | Secondary button | Thử lại | Yes | none |
+| 13 | Email address | Code input | Helper line above the code field showing Reader accounts › registered email in full, not masked; wording “Mã đã được gửi tới <email>.” (ui-conventions §4; D2, D15). | Yes | none |
 
 ## 4. States
 
 | State | What the user sees | Trigger |
 | --- | --- | --- |
-| Default | MSG-09 and a six-digit input. | The card was found and the initial code was sent (AD-UC-11 d2 [Yes]). |
+| Default | MSG-09, the registered email address in full (#13) and a six-digit input. | The card was found and the initial code was sent (AD-UC-11 d2 [Yes]). |
 | Empty | Not applicable: this is a form with no list. | Not applicable: this screen has an input form, not a data list. |
 | Loading | Verification in progress. | A code-verification request is pending (FR-04-04). |
 | Error | Mã chưa đúng. Bạn còn 3 lần thử. | A six-digit code is incorrect and fewer than five incorrect attempts have occurred (FR-04-17, FR-04-19). |
@@ -72,7 +73,7 @@ Styles follow [UI conventions v0.8](../ui-conventions.md#6-design-tokens). Each 
 | Error-4 | Không gửi được mã. Hãy bấm Gửi mã mới để thử lại. | The initial or replacement code cannot be emailed (FR-04-16). |
 | Error — network | MSG-04, entered code retained. | A network/server failure prevents verification or resending (FR-04-20). |
 | Success — new code | Đã gửi mã mới. A fresh code replaces the old one. | The replacement code is emailed successfully (FR-04-04). |
-| Success — accepted | Resume the requested action at its origin. | The submitted code is correct, unexpired and unused (FR-04-01); start the session and audit entry, then return. |
+| Success — accepted | The origin screen, where the pending action continues automatically. | The submitted code is correct, unexpired and unused (FR-04-01); start the session and audit entry, then return and continue the pending action (D1). |
 
 
 ## 5. Interactions and navigation
@@ -81,9 +82,9 @@ Styles follow [UI conventions v0.8](../ui-conventions.md#6-design-tokens). Each 
 | --- | --- | --- | --- | --- |
 | 1 | S-F00-02 › Back | Return to card entry. | Return to the linked preceding screen. | S-F00-01 |
 | 2 | S-F00-02 › Email code | Enter the six-digit code received by email. | Accept numeric entry; do not verify before explicit submission. | stays |
-| 3 | S-F00-02 › Sign in | Submit the code (AD-UC-11 r2). Return on acceptance. On rejection stay and show the matching branch. | Verify the submitted OTP. Correct, unexpired, unused code starts a reader session and writes actor/action/time to the audit log. Otherwise show the applicable error state. | S-F01-01 / S-F02-01 / S-F02-02 / S-F03-02 / S-F03-03 / S-F03-06 / S-F03-07 / Existing OPAC entry page (exit) |
+| 3 | S-F00-02 › Sign in | Submit the code (AD-UC-11 r2). Return on acceptance. On rejection stay and show the matching branch. | Verify the submitted OTP. Correct, unexpired, unused code starts a reader session, writes actor/action/time to the audit log, returns to the origin and continues the pending action automatically (D1). Otherwise show the applicable error state. | S-F01-01 / S-F02-01 / S-F02-02 / S-F03-02 / S-F03-03 / S-F03-06 / S-F03-07 / Existing OPAC entry page (exit) |
 | 4 | S-F00-02 › Send a new code | Request a new email code (AD-UC-11 d5, r3). The old one is invalidated. | Invalidate the old code and generate/email a new six-digit, five-minute, single-use code. Confirm success or show delivery failure. | stays |
-| 5 | S-F00-02 › Cancel | Return to the sign-in origin (L8-01). | Return to the origin in L8-01. Preserve the pending context; the protected action remains gated if no valid session exists. See Q-Cancel. | S-F01-01 / S-F02-01 / S-F02-02 / S-F03-02 / S-F03-03 / S-F03-06 / S-F03-07 / Existing OPAC entry page (exit) |
+| 5 | S-F00-02 › Cancel | Return to the sign-in origin (L8-01). | Return to the origin screen with the pending action kept waiting: nothing entered or shown on the origin is lost. The action is not carried out without a session; when the reader repeats it, M-F00-01 asks again (D1). | S-F01-01 / S-F02-01 / S-F02-02 / S-F03-02 / S-F03-03 / S-F03-06 / S-F03-07 / Existing OPAC entry page (exit) |
 | 6 | S-F00-02 › Try again | Retry after a network failure. | Retry the failed request while retaining displayed data and entered values (FR-04-20). | stays |
 
 ## 6. Screen-level rules
@@ -94,8 +95,8 @@ Styles follow [UI conventions v0.8](../ui-conventions.md#6-design-tokens). Each 
 | SR-002 | Allow retry while fewer than five incorrect attempts have occurred. Show remaining attempts 4 to 1. | FR-04-17, FR-04-19 |
 | SR-003 | The fifth incorrect attempt invalidates the code. Use Send a new code for recovery. | FR-04-17 |
 | SR-004 | A new code invalidates the previous one. Keep the reader here after a successful resend. | FR-04-04 |
-| SR-005 | A correct, unused, unexpired code starts a session, records actor/action/time and returns to the origin; no new success page. | FR-04-01, FR-04-12; L8-01 |
-| SR-006 | Do not show an unconfirmed masked email address. Back goes to S-F00-01; Cancel follows L8-01. | Ha-screen-spec §3; L8-01 |
+| SR-005 | A correct, unused, unexpired code starts a session, records actor/action/time, returns to the origin and continues the pending action automatically; no new success page. | FR-04-01, FR-04-12; L8-01; D1 |
+| SR-006 | Show the email address the code was sent to exactly as registered, not masked. Back goes to S-F00-01; Cancel returns to the origin with the pending action still waiting (re-asked by M-F00-01 when repeated). | L8-01; D1, D2 |
 | SR-007 | For email delivery failure and network failure, offer the appropriate recovery while retaining input. | FR-04-16, FR-04-20 |
 
 ## 7. Linked requirements
@@ -119,10 +120,7 @@ Styles follow [UI conventions v0.8](../ui-conventions.md#6-design-tokens). Each 
 
 ## 9. Open questions
 
-| # | Question | Blocking? | Status |
-| --- | --- | --- | --- |
-| Q-Email | [NEEDS CLARIFICATION: Show a masked email address?] | No | Open. Omitted in the wireframe. |
-| Q-Cancel | [NEEDS CLARIFICATION: On Cancel, how should the pending action be restored without a valid session?] | No | Open. Return follows L8-01; protected execution remains gated. |
+None. Decisions: see [decision-index.md](../decision-index.md#s-f00-02).
 
 ---
 

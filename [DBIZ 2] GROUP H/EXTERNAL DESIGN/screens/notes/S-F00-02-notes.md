@@ -18,6 +18,7 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Ha
 | 10 | Verification pending | Skeleton | MSG-05 | FR-04-04 |
 | 11 | New code sent | Toast | Đã gửi mã mới. | FR-04-04 |
 | 12 | Try again | Secondary button | Thử lại | FR-04-20 |
+| 13 | Email address | Code input | Reader accounts › registered email in full, not masked: “Mã đã được gửi tới <email>.” (D2, D15). | FR-04-01 |
 
 ## States drawn
 
@@ -47,10 +48,4 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Ha
 
 ## Open questions
 
-Review status: self-checked against the assignment and the two shared UI/UX handbooks. Cross-review by Hoa and final consistency review by Linh are pending.
-
-| # | Question | Default drawn |
-| --- | --- | --- |
-| 1 | [NEEDS CLARIFICATION: Should the form display a masked email address?] | Email address is omitted. The remaining-attempt count follows v0.8 §2. |
-| 2 | [NEEDS CLARIFICATION: On Cancel, how should the origin restore a protected action without a valid session?] | Return to the origin. The protected action stays gated by FR-04-08. |
-
+None. Decisions: see [decision-index.md](../../decision-index.md#s-f00-02).

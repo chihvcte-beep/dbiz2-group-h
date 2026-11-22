@@ -8,10 +8,10 @@
 | Priority | Must |
 | Feature | `F-01` |
 | Activity diagrams | `AD-UC-01`, `AD-UC-02` |
-| Mockup image | `img/S-F01-02-numbered.png`; state panels: `img/S-F01-02-states.png` |
-| Status | Draft — pending group review and wireframe/export verification |
+| Mockup image | `img/S-F01-02.png` |
+| Status | Draft |
 | Frame width | 360px (export at 3x = 1080px) |
-| Wireframe source | [NEEDS CLARIFICATION: confirm committed source path under `screens/src/`] |
+| Wireframe source | None in the repository; exported images only (`img/S-F01-02*.png`) |
 | Wireframe author | Nhi |
 | Screen spec author | Nhi |
 | UI conventions | v0.8 |
@@ -27,7 +27,9 @@
 
 ## 2. Mockup
 
-Ảnh wireframe đánh số của màn hình S-F01-02 và ảnh tổng hợp các trạng thái hiện có.
+Ảnh Default của màn hình S-F01-02 (một màn hình, cắt riêng), ảnh wireframe đánh số và ảnh riêng cho từng trạng thái.
+
+![S-F01-02](img/S-F01-02.png)
 
 **Numbered wireframe**
 
@@ -35,38 +37,36 @@
 
 [Open original numbered image on GitHub](https://github.com/chihvcte-beep/dbiz2-group-h/blob/main/%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/screens/img/S-F01-02-numbered.png)
 
-**Current state panels**
+**State → Image**
 
-![S-F01-02 — state panels](https://raw.githubusercontent.com/chihvcte-beep/dbiz2-group-h/main/%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/screens/img/S-F01-02-states.png)
-
-[Open original state image on GitHub](https://github.com/chihvcte-beep/dbiz2-group-h/blob/main/%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/screens/img/S-F01-02-states.png)
-
-> **Draft review note:** The images above are the existing repository exports, embedded directly in this section for visual review. The state-specific images have not yet been exported as separate files; each row below points to the relevant panel in the combined `-states.png` image. Do not treat the exports as approved until the required size and UI-conventions checks are complete.
-
-| State | Image / panel | What to inspect |
+| State | Image | Numbered image |
 |---|---|---|
-| Default | `S-F01-02-numbered.png` | Wireframe đánh số. |
-| Loading | Panel in `S-F01-02-states.png` | Panel Loading trong ảnh trạng thái tổng hợp. |
-| Error — map unavailable | Panel in `S-F01-02-states.png` | Panel bản đồ tạm thời không hiển thị được. |
-| Error — room cannot be identified | Panel in `S-F01-02-states.png` | Panel không tìm thấy phòng trên bản đồ. |
-| Error — selected floor unavailable | Panel in `S-F01-02-states.png` | Panel lỗi khi chuyển sang tầng không có sơ đồ đọc được. |
-| Success — book room highlighted | Panel in `S-F01-02-states.png` | Panel phòng chứa sách được tô sáng. |
-| Success — selected room | Panel in `S-F01-02-states.png` | Panel phòng được chọn và hiển thị tên, mã phòng, tầng. |
+| Default — opened from OPAC menu | `img/S-F01-02.png` | `img/S-F01-02-numbered.png` |
+| Default — opened from a book | No separate image drawn; the from-book view with the room highlighted is `img/S-F01-02-success.png`. | — |
+| Empty | Not applicable: map view, not a list. | — |
+| Loading | `img/S-F01-02-loading.png` | — |
+| Error — map unavailable | `img/S-F01-02-error.png` | — |
+| Error — room cannot be identified | `img/S-F01-02-error-2.png` | `img/S-F01-02-error-2-numbered.png` |
+| Error — selected floor unavailable | `img/S-F01-02-error-3.png` | `img/S-F01-02-error-3-numbered.png` |
+| Success — book room highlighted | `img/S-F01-02-success.png` | `img/S-F01-02-success-numbered.png` |
+| Success — selected room | `img/S-F01-02-selected-room.png` | `img/S-F01-02-selected-room-numbered.png` |
+
+Overview sheet of all states (reference only, not the main image): `img/S-F01-02-states.png`.
 
 Use UI Conventions v0.8 for components, labels, messages and design tokens. Reader frame: 360px, target export at 3x (1080px).
 ## 3. Element inventory
 
-Numbering follows Nhi's wireframe notes. The screen title is documented as part of element 1; it is not a separately numbered control in the supplied numbered image.
+Numbering follows Nhi's wireframe notes and `img/S-F01-02-numbered.png` (marker 1 = Back button, marker 2 = screen title).
 
 | # | Element | Type | Content / data source | Required | Validation / visibility |
 |---|---|---|---|---|---|
-| 1 | Back button and screen title | Screen header | Title: `Bản đồ thư viện`; Back accessible name: `Quay lại`. | Yes | Back destination depends on the entry point: `S-F01-01` when opened from a book; existing OPAC main menu when opened from the menu. |
-| 2 | Screen title | Screen header | `Bản đồ thư viện` | Yes | Numbering check: title is already part of element 1 / Screen header in the supplied numbered image. Do not count it as a separate visible control unless the image is updated. |
+| 1 | Back button | Screen header | Back accessible name: `Quay lại`. | Yes | Back destination depends on the entry point: `S-F01-01` when opened from a book; existing OPAC main menu when opened from the menu. |
+| 2 | Screen title | Screen header | `Bản đồ thư viện` | Yes | Always shown. |
 | 3 | Floor selector | Segmented control | Available floors, e.g. `Tầng 1`, `Tầng 2`, `Tầng 3`. | Yes | When opened from the OPAC menu, select the lowest floor number by default. When opened from a book, select the book's floor. |
 | 4 | Floor plan | Floor plan | Simple block plan for one floor, with one tile per room. Data comes from synced floor and room data. | Yes | Do not draw or imply a verified real-library floor plan when geometry is not supplied. |
-| 5 | Reading room | Room tile | Room code on each tile. Default: white with border. Selected: brand-red fill and white text. Book room: highlight fill, 3px highlight border and `Your book is here` label. | Yes | Room state must not be communicated by colour alone. |
+| 5 | Reading room | Room tile | Room code on each tile. Default: white with border. Selected: brand-red fill and white text. Book room: highlight fill, 3px highlight border and `Sách của bạn ở đây` label. | Yes | Room state must not be communicated by colour alone. |
 | 6 | Shelf location details | Shelf location line | `Tầng <n> · Phòng <code> · Kệ <code>` | Conditional | Shown only when opened from `S-F01-01`; retain the book's shelf details above the map. |
-| 7 | Map unavailable message | Banner | `MSG-07`: `Bản đồ tạm thời không hiển thị được. Thông tin vị trí kệ vẫn ở phía trên.` | Conditional | Show when the required floor plan cannot be read. If opened from a book, keep shelf details visible. |
+| 7 | Map unavailable message | Banner | Opened from a book: `MSG-07`: `Bản đồ tạm thời không hiển thị được. Thông tin vị trí kệ vẫn ở phía trên.` Opened from the OPAC menu: `MSG-12`: `Bản đồ tạm thời không hiển thị được. Bạn thử lại sau nhé.` (D23). | Conditional | Show when the required floor plan cannot be read. If opened from a book, show `MSG-07` and keep shelf details visible; if opened from the OPAC menu, show `MSG-12`. |
 | 8 | Room not found message | Banner | `MSG-08`: `Không tìm thấy phòng này trên bản đồ. Thông tin vị trí kệ vẫn ở phía trên.` | Conditional | Show when the book's room code is not found on the retrieved floor plan. |
 | 9 | Selected-room details | Banner / room details area | `<room name> (<room code>), Tầng <n>`. Example: `Phòng đọc A (R-204), Tầng 2`. | Conditional | Show after the Reader selects a room tile. |
 
@@ -78,10 +78,10 @@ Numbering follows Nhi's wireframe notes. The screen title is documented as part 
 | Default — opened from a book | The book's floor is selected, the book's shelf-location details remain visible above the map, and its room is highlighted if its room code exists on the plan. | Reader selects `Xem trên bản đồ` on `S-F01-01` (`UC-01`). |
 | Empty | Not applicable: this is a map view, not a list. A missing or unreadable floor plan is an Error state, never an empty map. | — |
 | Loading | Skeleton placeholders while synced floor/room data and the floor plan are retrieved. | Reader opens the map or switches floors and the required data is being retrieved. |
-| Error — map unavailable | Show `MSG-07`. If opened from a book, keep the shelf-location details visible. Do not render an empty map when the floor plan cannot be read. | The requested floor plan is missing or cannot be read (`FR-01-10`). |
+| Error — map unavailable | Opened from a book: show `MSG-07` and keep the shelf-location details visible. Opened from the OPAC menu: show `MSG-12` (D23). Do not render an empty map when the floor plan cannot be read. | The requested floor plan is missing or cannot be read (`FR-01-10`). |
 | Error — room cannot be identified | Show `MSG-08`, then display the plain map with available floors and rooms. Keep shelf-location details visible. Example missing room code: `R-299`. | The book's room code is not found on the retrieved floor plan (`FR-01-09`). |
-| Error — selected floor unavailable | Show the map-unavailable message above the previous floor's map. Keep the previous map visible so the Reader can choose again. | Reader switches to a floor whose plan cannot be read (`FR-01-10`). |
-| Success — book room highlighted | Display the book's floor plan with its room highlighted. Keep shelf-location details visible. Use highlight fill, a 3px border and `Your book is here` label. | Map opened from `S-F01-01` and the room code exists on the plan (`FR-01-03`). |
+| Error — selected floor unavailable | Show the map-unavailable message (`MSG-07` when opened from a book, `MSG-12` when opened from the OPAC menu) above the previous floor's map. Keep the previous map visible so the Reader can choose again. | Reader switches to a floor whose plan cannot be read (`FR-01-10`). |
+| Success — book room highlighted | Display the book's floor plan with its room highlighted. Keep shelf-location details visible. Use highlight fill, a 3px border and `Sách của bạn ở đây` label. | Map opened from `S-F01-01` and the room code exists on the plan (`FR-01-03`). |
 | Success — selected room | Highlight the selected room and display its room name, room code and floor, e.g. `Phòng đọc A (R-204), Tầng 2`. | Reader selects a room tile (`FR-01-11`). |
 
 ## 5. Interactions and navigation
@@ -91,7 +91,7 @@ Numbering follows Nhi's wireframe notes. The screen title is documented as part 
 | 1 | Entry from OPAC main menu | Reader chooses `Library map`. | Open the map and select the lowest floor number by default; do not highlight a room. | `S-F01-02` |
 | 2 | Entry from `S-F01-01` | Reader chooses `Xem trên bản đồ`. | Open the book's floor, retain shelf details and highlight its room if the room code exists on the plan. | `S-F01-02` |
 | 3 | Floor selector | Reader chooses another floor. | Retrieve and display that floor's plan and reading rooms if available. | Stays on `S-F01-02` |
-| 4 | Floor selector — selected floor unavailable | System cannot read the selected floor's plan. | Show the map-unavailable message above the previous floor's map; keep the previous map visible. | Stays on `S-F01-02` |
+| 4 | Floor selector — selected floor unavailable | System cannot read the selected floor's plan. | Show the map-unavailable message (`MSG-07` from a book, `MSG-12` from the OPAC menu) above the previous floor's map; keep the previous map visible. | Stays on `S-F01-02` |
 | 5 | Room tile | Reader selects a reading room. | Highlight the selected room and show its name, room code and floor. | Stays on `S-F01-02` |
 | 6 | Back — opened from a book | Reader selects Back. | Return to the shelf-location screen. | `S-F01-01` |
 | 7 | Back — opened from OPAC menu | Reader selects Back. | Return to the existing OPAC main menu. | Existing OPAC main menu (exit) |
@@ -106,9 +106,9 @@ Numbering follows Nhi's wireframe notes. The screen title is documented as part 
 | SR-003 | When opened from `S-F01-01`, select the book's floor, keep shelf-location details visible and highlight the book's room if its room code exists on the plan. | `FR-01-03`; `AD-UC-01` |
 | SR-004 | Floor switching and room selection remain on `S-F01-02`; they do not open another screen. | `AD-UC-02` |
 | SR-005 | If the room code is not found, show exact `MSG-08` and retain shelf-location details. | `FR-01-09`; UI Conventions v0.8 |
-| SR-006 | If a floor plan cannot be read, show exact `MSG-07`; never show an empty map. | `FR-01-10`; UI Conventions v0.8 |
+| SR-006 | If a floor plan cannot be read, show exact `MSG-07` when the map was opened from a book, or exact `MSG-12` when it was opened from the OPAC menu; never show an empty map. | `FR-01-10`; UI Conventions §4; D23 |
 | SR-007 | If a floor switch fails, retain the previous floor's map and show the map-unavailable message above it. | `FR-01-10`; `AD-UC-02` |
-| SR-008 | The book's room highlight uses fill, a 3px border and the text label `Your book is here`; do not rely on colour alone. | `FR-01-03`; Nhi wireframe notes |
+| SR-008 | The book's room highlight uses fill, a 3px border and the text label `Sách của bạn ở đây`; do not rely on colour alone. | `FR-01-03`; Nhi wireframe notes |
 | SR-009 | A selected room displays its room name, room code and floor. | `FR-01-11`; `AD-UC-02` |
 | SR-010 | Do not invent a real floor-plan geometry, complete floor inventory or complete room-code inventory when these data are not supplied. | Nhi wireframe notes |
 | SR-011 | Do not add a list of books in a room or staff controls for editing floor plans. | W0 scope; Nhi wireframe notes |
@@ -120,7 +120,7 @@ Numbering follows Nhi's wireframe notes. The screen title is documented as part 
 | `FR-01-02` | Displays the interactive floor selector and floor plan with room tiles. |
 | `FR-01-03` | Highlights the book's room when the map is opened from `S-F01-01`, retaining shelf details. |
 | `FR-01-09` | Displays `MSG-08` when the book's room code cannot be identified on the map. |
-| `FR-01-10` | Displays `MSG-07` when a floor plan is unavailable; retains shelf details and the previous map when a floor switch fails. |
+| `FR-01-10` | Displays `MSG-07` (opened from a book) or `MSG-12` (opened from the OPAC menu) when a floor plan is unavailable; retains shelf details and the previous map when a floor switch fails. |
 | `FR-01-11` | Displays the selected room's name, room code and floor. |
 
 ## 8. Responsive and accessibility notes
@@ -132,29 +132,22 @@ Numbering follows Nhi's wireframe notes. The screen title is documented as part 
 - Room states must be distinguishable by more than colour: use borders, labels and selected-state indicators.
 - Text contrast: at least 4.5:1; meaningful control boundaries: at least 3:1.
 - The selected floor and selected room must be programmatically and visually identifiable.
-- Use a simple block plan with one tile per room. The actual floor-plan geometry, complete floor inventory and room-code inventory have not been supplied; placeholders must not be presented as verified library data.
+- Use a simple block plan with one tile per room (UI Conventions §3 Floor plan: no real library drawing). Floors, rooms and room codes come from the synced floor and room data (`FR-01-02`); the values in the wireframe (`Tầng 1`–`Tầng 3`, `R-201`–`R-204`) are examples.
 
 ## 9. Open questions
 
-| # | Question | Blocking? | Status |
-|---|---|---|---|
-| 1 | The supplied numbered image shows markers 1, 3, 4 and 5; the title has no separate marker 2. Should the image be updated to add marker 2, or should the notes retain the title within element 1? | No | Open; current spec treats title as part of element 1 |
-| 2 | Confirm the exact floor inventory and complete room-code inventory from synced data. | Yes (final data review) | Open; use generic placeholders until supplied |
-| 3 | Confirm the floor-plan geometry/data source. | Yes (map implementation) | Open; use a simple block plan, not an invented real layout |
-| 4 | Confirm that all state images are exported separately at 1080px and comply with v0.8. | Yes (mockup approval) | Open |
-| 5 | Confirm the committed wireframe source path under `screens/src/`. | No | Open |
+None. Decisions: see [decision-index.md](../decision-index.md#s-f01-02).
 
 ---
 
 ## Completion checklist
 
-- [x] All numbered elements and the title-numbering issue are documented.
+- [x] All numbered elements are documented and match the numbered image.
 - [x] The two entry paths and their different initial states are separated.
 - [x] Empty is marked not applicable with a reason.
 - [x] Loading, all three error outcomes and both success outcomes are described.
 - [x] Back destinations follow the entry path.
 - [x] Floor switching and room selection remain on this screen.
 - [x] Linked requirements are listed.
-- [ ] Floor/room inventory and map geometry confirmed against synced data.
-- [ ] Final mockup exports verified at 1080px and reviewed against UI Conventions v0.8.
-- [ ] Group review and approval completed.
+- [x] Floors, rooms and room codes come from synced data; the floor plan is a block plan (no real library drawing).
+- [x] Default, state and numbered exports are separate 1080px-wide images.
