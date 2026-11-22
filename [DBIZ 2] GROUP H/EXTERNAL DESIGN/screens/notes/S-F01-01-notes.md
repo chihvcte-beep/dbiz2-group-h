@@ -1,48 +1,52 @@
-# Wireframe notes: S-F01-01 Shelf location
+# Wireframe notes: S-F01-01 Shelf location (with Save to my list)
 
-Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Nhi
+Actor: Reader · Frame: 360px (exported at 3x / 1080px) · UI conventions: v0.8 · Author: Nhi
 
 ## Elements
 
 | # | Element | Component | Content / data source | FR |
 |---|---|---|---|---|
-| 1 | Back button and screen title | Screen header | “Vị trí kệ sách”; Back returns to the existing OPAC Book Detail page. | — |
-| 2 | Book title and author | Section title | Book catalogue › title and author. Sample: “Principles of Economics” — “N. Gregory Mankiw”. | FR-01-01 |
-| 3 | Shelf location line | Shelf location line | Book placement & library layout › floor, room code and shelf code. Show one line for each physical copy, e.g. “Tầng 2 · Phòng R-204 · Kệ S-12”. Include the map-pin icon. | FR-01-01 |
-| 4 | Unavailable shelf location | Banner | MSG-06: “Chưa có vị trí kệ của sách này. Bạn hỏi quầy thông tin ở tầng trệt nhé.” | FR-01-07 |
-| 5 | Online-only information | Banner | “Sách này chỉ có bản trực tuyến, không có vị trí trên kệ.” | FR-01-06 |
-| 6 | Save to my list | Primary button | “Lưu vào danh sách”. Show only for physical books. One Primary button is visible at a time. | FR-03-06 |
-| 7 | View on map | Secondary button | “Xem trên bản đồ”. Show only when a physical copy has a usable room location. | FR-01-03 |
-| 8 | Save confirmation | Toast | “Đã lưu sách vào danh sách của bạn.” Shown after a successful save. | FR-03-06 |
+| 1 | Back and screen title | Screen header | “Vị trí kệ sách”. Back returns to the existing OPAC Book Detail page. | — |
+| 2 | Book title | Heading / text | Book catalogue › title; sample: “Principles of Economics”. | FR-01-01 |
+| 3 | Author | Text | Book catalogue › author; sample: “N. Gregory Mankiw”. | FR-01-01 |
+| 4 | Shelf location line — copy 1 | Shelf location line | Book placement & library layout › floor, room code and shelf code; sample: “Tầng 2 · Phòng R-204 · Kệ S-12”. Show one line per physical copy. | FR-01-01 |
+| 5 | Shelf location line — copy 2 | Shelf location line | Same source; sample: “Tầng 1 · Phòng R-102 · Kệ S-08”. Illustrative second copy; replace with synced catalogue data. | FR-01-01 |
+| 6 | Save to my list | Primary button | “Lưu vào danh sách”; available for physical books only. | FR-03-06 |
+| 7 | View on map | Secondary button | “Xem trên bản đồ”; show only when a physical copy has a usable room location. | FR-01-03 |
+| 8 | Unavailable shelf location | Banner | MSG-06: “Chưa có vị trí kệ của sách này. Bạn hỏi quầy thông tin ở tầng trệt nhé.” Keep the book title visible. | FR-01-07 |
+| 9 | Online-only information | Banner | “Sách này chỉ có bản trực tuyến, không có vị trí trên kệ.” Do not show shelf locations, Save or View on map. | FR-01-06 |
+| 10 | Save confirmation | Toast | “Đã lưu sách vào danh sách của bạn.” Temporary Vietnamese wording; confirm exact success wording with Linh. | FR-03-06 |
+| 11 | Already-saved confirmation | Toast | “Sách này đã có trong danh sách của bạn.” | FR-03-24 |
+| 12 | Network/load error | Banner and secondary button | MSG-04: “Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.” Show “Thử lại” to retry loading. | FR-04-20* |
 
 ## States drawn
 
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/S-F01-01-numbered.png | Book title and author; one shelf-location line per physical copy; Save and View on map actions. The numbered image identifies the elements. | FR-01-01, FR-03-06, FR-01-03 |
-| Empty | Not applicable: this is a single-book location view, not a list. | No empty-list state is shown. | — |
-| Loading | img/S-F01-01-states.png | Skeleton placeholders matching the title, location and action areas; no loading text. | FR-01-01 |
-| Error — shelf location unavailable | img/S-F01-01-states.png | MSG-06 is shown while the book title remains visible. View on map is hidden when no usable room location exists. | FR-01-07 |
-| Error — network/load failure | img/S-F01-01-states.png | MSG-04: “Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.” with “Thử lại”. Keep data already shown. | FR-04-20 |
-| Success — saved | img/S-F01-01-states.png | A Toast confirms: “Đã lưu sách vào danh sách của bạn.” | FR-03-06 |
-| Success — already saved | img/S-F01-01-states.png | Informational Toast: “Sách này đã có trong danh sách của bạn.” | FR-03-24 |
-| Information — online only | img/S-F01-01-states.png | “Sách này chỉ có bản trực tuyến, không có vị trí trên kệ.” No shelf location, Save or View on map actions. | FR-01-06 |
+| Default | `img/S-F01-01.png` | Book title and author; one shelf-location line for each physical copy; Save and View on map actions. | FR-01-01, FR-03-06, FR-01-03 |
+| Empty | Not applicable | This is a single-book location view, not a list; no separate Empty state is defined. | — |
+| Loading | `img/S-F01-01-loading.png` | Skeleton placeholders replace the title, author, location lines and action areas while data loads. | FR-01-01 |
+| Error — shelf location unavailable | `img/S-F01-01-error.png` | Book title remains visible; show the exact MSG-06 banner instead of shelf details. | FR-01-07 |
+| Error — network/load failure | `img/S-F01-01-error-2.png` | Show MSG-04 and the “Thử lại” action when the page cannot load. | FR-04-20* |
+| Success — saved | `img/S-F01-01-success.png` | Keep the Default layout and show the save-confirmation Toast. | FR-03-06 |
+| Success — already saved | `img/S-F01-01-success-2.png` | Keep the Default layout and show the already-saved Toast. | FR-03-24 |
+| Information — online only | `img/S-F01-01-online-only.png` | Show online-only information; omit shelf locations, Save and View on map. | FR-01-06 |
 
 ## Actions and where they go
 
-| Element | User action | Goes to |
+| Element / event | User action | Result / destination |
 |---|---|---|
-| Back | Tap | Existing OPAC Book Detail (exit) |
-| View on map | Tap | S-F01-02 |
-| Save to my list | Tap while signed in | Stays on S-F01-01; show the save confirmation Toast. |
-| Save to my list | Tap while not signed in | M-F00-01 |
-| Save to my list | Tap when the book is already saved | Stays on S-F01-01; show the already-saved informational Toast. |
+| Back | Tap | Existing OPAC Book Detail page (exit). |
+| View on map | Tap | S-F01-02; show the relevant floor and room when the room code is available on the floor plan. |
+| Save to my list — signed in | Tap | Save the physical book; remain on S-F01-01 and show the success Toast. If already saved, show the already-saved Toast. |
+| Save to my list — not signed in | Tap | Open shared modal M-F00-01. If the Reader signs in, continue the shared sign-in flow and return to the original action. |
+| Try again | Tap | Retry loading the screen after MSG-04. |
 
 ## Open questions
 
-| # | Question | Default drawn |
+| # | Question | Current treatment |
 |---|---|---|
-| 1 | [NEEDS CLARIFICATION: confirm whether the success Toast wording “Đã lưu sách vào danh sách của bạn.” is approved for FR-03-06.] | Use the wording shown in the wireframe until the shared message catalogue confirms the final copy. |
-| 2 | [NEEDS CLARIFICATION: confirm whether the already-saved message should be displayed as a Toast or another informational treatment.] | Use a short informational Toast for FR-03-24, consistent with the success feedback pattern. |
-| 3 | [NEEDS CLARIFICATION: confirm whether multiple physical copies should be grouped by copy/holding or displayed as separate shelf-location lines.] | Display one shelf-location line per physical copy, as specified in AD-UC-01 question 1. |
+| 1 | UI Conventions section 3 does not name a standalone Book title component. | Display the catalogue title as a heading/text element; do not invent a new control. |
+| 2 | The shared message list does not specify exact wording for the successful-save Toast. | Use “Đã lưu sách vào danh sách của bạn.” provisionally and confirm with Linh. |
+| 3 | The second copy's floor, room and shelf codes must be confirmed against synced library data. | The second location shown is illustrative only; replace it with validated catalogue data before implementation. |
 
