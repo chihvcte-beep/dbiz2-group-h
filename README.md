@@ -1,108 +1,150 @@
 # Group H Library Core System
 
-Bộ tài liệu phân tích và thiết kế của **Nhóm H, môn DBIZ2**. Sản phẩm là phần bổ sung cho hệ thống tra cứu thư viện hiện có (OPAC, [opac.nlv.gov.vn](https://opac.nlv.gov.vn)), giúp bạn đọc tìm đúng kệ sách, xem bản đồ thư viện, đọc và viết đánh giá sách, quét mã QR trên sách giấy và nhận gợi ý sách phù hợp.
+Analysis and design documents of **Group H, course DBIZ2**. The product is an add-on to the library's existing
+catalogue system (OPAC, [opac.nlv.gov.vn](https://opac.nlv.gov.vn)). It helps readers find the right shelf, browse a
+map of the library, read and write book reviews, scan a QR code on a physical book and get book recommendations.
 
-Kho này chỉ chứa tài liệu, chưa có mã nguồn sản phẩm. Các màn hình trong đây là bản vẽ thiết kế (wireframe), dùng làm đầu vào cho phần lập trình ở DBIZ3.
+This repository holds documents only, no product code. The screens are wireframes, the input for the build in DBIZ3.
 
-## Trạng thái hiện tại
+## Status
 
-Cập nhật ngày 23/11/2026.
+Updated 23/11/2026.
 
-| Hạng mục | Số lượng | Trạng thái |
+| Item | Count | Status |
 |---|---|---|
-| Use case và sơ đồ hoạt động | 15 | Draft |
-| Màn hình, kèm đặc tả | 15 | Draft |
-| Hộp thoại (modal) | 5 | Draft, đặc tả nằm trong tệp của màn hình chứa nó |
-| Yêu cầu chức năng (FR) trong tệp Excel | 81 | Đã có đủ, gồm FR-02-23, FR-02-24, FR-02-25, FR-04-21 và nội dung mới của FR-02-07, FR-02-08 (cập nhật 23/11/2026) |
-| Giờ công và chi phí | | Must: 252,4 giờ, 68,92 triệu đồng. Must + Should: 345,6 giờ, 93,68 triệu đồng. Toàn bộ phạm vi: 506,6 giờ, 136,98 triệu đồng, **vượt năng lực 360 giờ** |
+| Use cases, each with an activity and a sequence diagram | 15 | Draft |
+| Screens, each with a screen spec | 15 | Draft |
+| Modals (specified inside the spec of their parent screen) | 5 | Draft |
+| Functional requirements (FR) | 81 | In [fr_list.md](docs/requirements/fr_list.md) |
+| Effort and cost | | In [cost.md](docs/requirements/cost.md) |
 
-Việc còn phải làm và người phụ trách được theo dõi tại một nơi duy nhất: [Pending tasks](%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/decision-index.md#pending-tasks).
+Work still to be done, with owners, is tracked in one place:
+[Pending tasks](docs/project_brief/decision_index.md#pending-tasks).
 
-## Phạm vi sản phẩm
+## Product scope
 
-Hệ thống có hai nhóm người dùng: **Bạn đọc** (Reader) và **Nhân viên tại thư viện** (On-site Staff).
+Two groups of users: **Readers** and **On-site Staff**.
 
-| Mã | Nhóm chức năng | Người dùng | Use case | Màn hình |
+| ID | Feature | Users | Use cases | Screens |
 |---|---|---|---|---|
-| F-01 | Vị trí sách và bản đồ thư viện | Bạn đọc | UC-01, 02 | S-F01-01, 02 |
-| F-02 | Đánh giá sách và mã QR | Bạn đọc, Nhân viên | UC-04, 05, 06, 10, 13, 14 | S-F02-01 đến 04 |
-| F-03 | Khám phá sách, lịch sử đọc và gợi ý | Bạn đọc | UC-03, 07, 08, 09, 12 | S-F03-01, 02, 03, 06, 07 |
-| F-04 | Đăng nhập, phân quyền và vận hành | Tất cả | UC-11, 15 | S-F00-01 đến 03, S-F04-01 |
+| F-01 | Book location and library map | Reader | UC-01, 02 | S-F01-01, 02 |
+| F-02 | Book reviews and QR codes | Reader, On-site Staff | UC-04, 05, 06, 10, 13, 14 | S-F02-01 to 04 |
+| F-03 | Discovery, reading history and recommendations | Reader | UC-03, 07, 08, 09, 12 | S-F03-01, 02, 03, 06, 07 |
+| F-04 | Sign-in, access and operations | All | UC-11, 15 | S-F00-01 to 03, S-F04-01 |
 
-Mức ưu tiên của use case:
+Use case priority:
 
 - **Must:** UC-01, 02, 04, 05, 06, 10, 11, 15
 - **Should:** UC-03, 07, 12
 - **Could:** UC-08, 09, 13, 14
 
-**Không thuộc phạm vi:** mượn, trả và gia hạn sách; đọc sách trực tuyến ngay trên nền tảng; tìm kiếm theo từ khoá (OPAC đã có); tài khoản bạn đọc trực tuyến và đăng nhập Google; trang quản trị đầy đủ cho thủ thư. Danh sách đầy đủ và lý do nằm ở sheet `W0_Scope`, Bảng 3 của tệp Excel.
+**Out of scope:** borrowing, returning and renewing books; reading books online inside the platform; keyword search
+(the OPAC already has it); online reader accounts and Google sign-in; a full librarian workspace. The full list and
+reasons: [scope.md, Table 3](docs/project_brief/scope.md#table-3-wont-have).
 
-## Cấu trúc thư mục
+## Documents
 
-```text
-[DBIZ 2] GROUP H/
-├── CVCA.pdf                     Quan hệ giá trị giữa các bên
-├── Context diagram.pdf          Ranh giới hệ thống
-├── Use case diagram.pdf         Sơ đồ use case
-├── SEQUENCE DIAGRAM/            Sơ đồ tuần tự, từng luồng
-├── GROUP-H_UC_FR_COST.xlsx      Use case, FR, ưu tiên, chi phí
-├── ACTIVITY DIAGRAM/
-│   ├── activity-index.md        Danh mục sơ đồ hoạt động
-│   └── AD-UC-01 … AD-UC-15.md   Mỗi use case một sơ đồ
-└── EXTERNAL DESIGN/
-    ├── usage-flow.md            Luồng sử dụng
-    ├── screen-list.md           Danh sách màn hình và hộp thoại
-    ├── screen-transition.md     Sơ đồ chuyển màn hình
-    ├── ui-conventions.md        Quy ước giao diện
-    ├── decision-index.md        Sổ quyết định và việc còn lại
-    └── screens/
-        ├── specs/               Đặc tả từng màn hình
-        ├── notes/               Ghi chú wireframe
-        ├── img/                 Ảnh màn hình và các trạng thái
-        └── src/                 Tệp nguồn wireframe
-```
+| Folder | File | What it holds |
+|---|---|---|
+| [project_brief/](docs/project_brief/) | [cvca.md](docs/project_brief/cvca.md) | Customer value chain: who pays whom and who gives what information |
+| | [context_diagram.md](docs/project_brief/context_diagram.md) | System boundary and the flows that cross it |
+| | [scope.md](docs/project_brief/scope.md) | Features, what is left out, data the system keeps or reads |
+| | [decision_index.md](docs/project_brief/decision_index.md) | Every decision and the pending tasks |
+| [system_design/](docs/system_design/) | [use_case.md](docs/system_design/use_case.md) | Use case diagram and the list of all use cases |
+| | [sequence_index.md](docs/system_design/sequence_diagram/sequence_index.md) | Index of the 15 sequence diagrams (`sd_uc_01.md` … `sd_uc_15.md`) |
+| | [system_architecture.md](docs/system_design/system_architecture.md) | Parts of the system, data stores, connections to outside systems |
+| [requirements/](docs/requirements/) | [fr_list.md](docs/requirements/fr_list.md) | All functional requirements, priorities and work items |
+| | [cost.md](docs/requirements/cost.md) | Effort, cost and cash flow (kept apart from the FRs) |
+| [activity_diagram/](docs/activity_diagram/) | [activity_index.md](docs/activity_diagram/activity_index.md) | Index of the 15 activity diagrams (`ad_uc_01.md` … `ad_uc_15.md`) |
+| [external_design/](docs/external_design/) | [usage_flow.md](docs/external_design/usage_flow.md) | How a user moves through the product |
+| | [screen_list.md](docs/external_design/screen_list.md) | All screens and modals, with links to their specs |
+| | [screen_transition.md](docs/external_design/screen_transition.md) | Screen transition diagram |
+| | [ui_conventions.md](docs/external_design/ui_conventions.md) | UI rules, standard messages and design tokens |
+| | [screens/specs/](docs/external_design/screens/specs/) | One screen spec per screen, with its mock-up |
+| | [screens/notes/](docs/external_design/screens/notes/) | Wireframe notes per screen and modal |
+| | [screens/img/](docs/external_design/screens/img/) | Mock-up images of every screen and state |
+| | [screens/src/](docs/external_design/screens/src/) | Wireframe sources (HTML, CSS, draw.io) |
+| `archive/` | | Local only, not pushed to GitHub. The original PDFs and the workbook, frozen on 23/11/2026, stay in Git history at commit [cd61897](https://github.com/chihvcte-beep/dbiz2-group-h/tree/cd61897/%5BDBIZ%202%5D%20GROUP%20H). Do not edit. |
 
-## Nên đọc theo thứ tự nào
+## Reading order
 
-1. **Hiểu bài toán:** [CVCA](%5BDBIZ%202%5D%20GROUP%20H/CVCA.pdf), [Context diagram](%5BDBIZ%202%5D%20GROUP%20H/Context%20diagram.pdf), [Use case diagram](%5BDBIZ%202%5D%20GROUP%20H/Use%20case%20diagram.pdf).
-2. **Nắm phạm vi và yêu cầu:** [GROUP-H_UC_FR_COST.xlsx](%5BDBIZ%202%5D%20GROUP%20H/GROUP-H_UC_FR_COST.xlsx).
-3. **Xem nghiệp vụ từng use case:** [activity-index.md](%5BDBIZ%202%5D%20GROUP%20H/ACTIVITY%20DIAGRAM/activity-index.md), rồi mở tệp `AD-UC-xx.md` cần xem.
-4. **Xem người dùng đi qua sản phẩm thế nào:** [usage-flow.md](%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/usage-flow.md), [screen-list.md](%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/screen-list.md), [screen-transition.md](%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/screen-transition.md).
-5. **Xem chi tiết màn hình:** [ui-conventions.md](%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/ui-conventions.md), rồi đặc tả trong [screens/specs/](%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/screens/specs).
-6. **Tra lý do của một quyết định:** [decision-index.md](%5BDBIZ%202%5D%20GROUP%20H/EXTERNAL%20DESIGN/decision-index.md), tìm theo mã được trích trong tài liệu, ví dụ `D7` hoặc `L8-01`.
+1. **The problem:** [cvca.md](docs/project_brief/cvca.md), [context_diagram.md](docs/project_brief/context_diagram.md),
+   [scope.md](docs/project_brief/scope.md).
+2. **Use cases and system:** [use_case.md](docs/system_design/use_case.md),
+   [system_architecture.md](docs/system_design/system_architecture.md).
+3. **Requirements:** [fr_list.md](docs/requirements/fr_list.md).
+4. **Business flow of each use case:** [activity_index.md](docs/activity_diagram/activity_index.md), then
+   [sequence_index.md](docs/system_design/sequence_diagram/sequence_index.md).
+5. **How a user moves through the product:** [usage_flow.md](docs/external_design/usage_flow.md),
+   [screen_list.md](docs/external_design/screen_list.md),
+   [screen_transition.md](docs/external_design/screen_transition.md).
+6. **Screen detail:** [ui_conventions.md](docs/external_design/ui_conventions.md), then the specs in
+   [screens/specs/](docs/external_design/screens/specs/).
+7. **Why something was decided:** [decision_index.md](docs/project_brief/decision_index.md); search for the ID cited in
+   the document, for example `D7` or `L8-01`.
 
-## Quy ước đặt mã
+## ID conventions
 
-| Mã | Ý nghĩa | Ví dụ |
+| ID | Meaning | Example |
 |---|---|---|
 | `UC-nn` | Use case | `UC-04` |
-| `FR-<nhóm>-<nn>` | Yêu cầu chức năng | `FR-02-23` |
-| `AD-UC-nn` | Sơ đồ hoạt động của một use case | `AD-UC-10` |
-| `S-F<nhóm>-<nn>` | Màn hình. `S-F00` là màn hình đăng nhập dùng chung | `S-F01-02` |
-| `M-F00-<nn>` | Hộp thoại dùng chung cho nhiều màn hình | `M-F00-01` |
-| `M-<màn hình>-<nn>` | Hộp thoại của một màn hình | `M-F02-03-01` |
-| `MSG-nn` | Thông báo chuẩn trong `ui-conventions.md` | `MSG-04` |
-| `D<n>`, `UI Q<n>`, `L8-<nn>` | Quyết định trong `decision-index.md` | `D12` |
+| `FR-<feature>-<nn>` | Functional requirement | `FR-02-23` |
+| `AD-UC-nn` / `SD-UC-nn` | Activity / sequence diagram of one use case | `AD-UC-10` |
+| `S-F<feature>-<nn>` | Screen. `S-F00` is the shared sign-in | `S-F01-02` |
+| `M-F00-<nn>` | Modal shared by several screens | `M-F00-01` |
+| `M-<screen>-<nn>` | Modal of one screen | `M-F02-03-01` |
+| `MSG-nn` | Standard message in [ui_conventions.md](docs/external_design/ui_conventions.md) | `MSG-04` |
+| `D<n>`, `UI Q<n>`, `L8-<nn>` | Decision in [decision_index.md](docs/project_brief/decision_index.md) | `D12` |
 
-## Quy tắc khi cập nhật tài liệu
+IDs keep their upper-case form inside documents. File names are the same ID in lower-case snake_case:
+`AD-UC-10` is in `ad_uc_10.md`, `S-F01-02` in `screen_spec_s_f01_02.md`.
 
-- **Đổi quyết định:** thêm một dòng mới có mã mới vào `decision-index.md` để thay dòng cũ. Không sửa yêu cầu trong tài liệu nếu chưa có dòng này.
-- **Giá trị giao diện:** màu, cỡ chữ và mẫu câu chỉ định nghĩa một lần trong `ui-conventions.md`. Tệp `screens/src/ui-tokens.css` chép đúng từ mục 6 của tệp đó.
-- **Màn hình và trạng thái:** thông báo lỗi, danh sách trống hay xác nhận là trạng thái của màn hình, không tách thành màn hình mới.
-- **Mã đã bỏ:** không dùng lại, ví dụ `S-F03-04` và `S-F03-05`.
-- **Ngôn ngữ:** tài liệu đặc tả viết bằng tiếng Anh, chữ trên giao diện viết bằng tiếng Việt có dấu.
+<a id="workbook-labels"></a>
 
-## Xem sơ đồ và wireframe
+## Workbook labels
 
-- Sơ đồ trong các tệp `.md` viết bằng Mermaid. Sơ đồ hoạt động dùng dạng `swimlane-beta` và đã được kiểm tra hiển thị với Mermaid 12.3.0 trên Chrome. Trình xem dùng phiên bản cũ hơn có thể không vẽ được.
-- Tệp `.html` trong `screens/src/` mở trực tiếp bằng trình duyệt.
-- Tệp `.drawio` mở bằng [diagrams.net](https://app.diagrams.net).
+Until 23/11/2026 the FRs and costs lived in an Excel workbook, now frozen at commit [cd61897](https://github.com/chihvcte-beep/dbiz2-group-h/tree/cd61897/%5BDBIZ%202%5D%20GROUP%20H) (D51). Older
+text still cites its sheets. They now mean:
 
-## Thành viên và phân công
+| Label in older text | Now in |
+|---|---|
+| W0 Table 1 (use case inventory) | [use_case.md §3](docs/system_design/use_case.md#3-use-case-inventory-w0-table-1) |
+| W0 Tables 2, 3, 4 (features, won't have, data functions) | [scope.md](docs/project_brief/scope.md) |
+| W1 (function list), W4 (priorities), W5 §4 (open questions) | [fr_list.md](docs/requirements/fr_list.md) |
+| Parameters, W2_Costing, W2_Rollup, W5 §1–3, W6 | [cost.md](docs/requirements/cost.md) |
 
-Người soát tài liệu của nhóm là **Chi**. Linh giữ tệp `ui-conventions.md`.
+## Rules for updating documents
 
-| Thành viên | Đặc tả màn hình phụ trách |
+- **Changing a decision:** add a new row with a new ID to
+  [decision_index.md](docs/project_brief/decision_index.md) that supersedes the old one. Do not change a requirement
+  in any document without that row.
+- **Changing an FR:** edit [fr_list.md](docs/requirements/fr_list.md) directly (D51), then ask the cost owner to
+  update [cost.md](docs/requirements/cost.md). Totals in cost.md are not automatic.
+- **UI values:** colours, font sizes and message wording are defined once in
+  [ui_conventions.md](docs/external_design/ui_conventions.md).
+  [ui_tokens.css](docs/external_design/screens/src/ui_tokens.css) copies its section 6 exactly.
+- **Screens and states:** error messages, empty lists and confirmations are states of a screen, not new screens.
+- **Retired IDs** are never reused, for example `S-F03-04` and `S-F03-05`.
+- **Language:** documents in English; text on the screens in Vietnamese with diacritics.
+- **File names:** lower-case snake_case, inside `docs/`. Every mention of another file is a clickable link.
+
+## AI tools
+
+AI assistants working in this repository follow [AGENTS.md](AGENTS.md). In short: they do not read
+[cost.md](docs/requirements/cost.md) or the archived workbook unless asked for cost work in so many words.
+
+## Viewing diagrams and wireframes
+
+- Diagrams in `.md` files are written in Mermaid. Activity diagrams use `swimlane-beta`, checked with Mermaid 12.3.0
+  in Chrome; older viewers may fail to draw them.
+- `.html` files in [screens/src/](docs/external_design/screens/src/) open directly in a browser.
+- `.drawio` files open in [diagrams.net](https://app.diagrams.net).
+
+## Team
+
+The document reviewer is **Chi**. Linh owns [ui_conventions.md](docs/external_design/ui_conventions.md).
+
+| Member | Screen specs |
 |---|---|
 | Ha | S-F00-01, S-F00-02, S-F02-03 |
 | Linh | S-F00-03, S-F03-01, S-F04-01 |

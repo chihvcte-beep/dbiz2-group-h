@@ -1,0 +1,148 @@
+<!doctype html>
+<!--
+  Screen ID: S-F03-01
+  Screen name: Access-format filter and results
+  Vietnamese title: Lọc theo hình thức
+  Frame: reader (360px, export 3x = 1080px)
+  ui-conventions version: v0.12
+  Author / date: Linh (screen) · HTML source rebuilt from the exported images by Chi, 23/11/2026
+  States (URL hash; add "-numbered" to show element numbers):
+    #default (no format selected, D19) #empty #loading #error #success (Bản giấy, page 1 of 3, a book with both formats shows both labels, D9) #page-2
+  Element numbers follow screen_spec_s_f03_01.md section 3.
+  Colours, sizes and fonts come only from ui_tokens.css.
+-->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-F03-01 · Lọc theo hình thức</title>
+  <link rel="stylesheet" href="ui_tokens.css">
+  <style>
+    .title-wrap { display: inline-flex; min-width: 0; }
+    .toast.is-floating.wrap { white-space: normal; width: calc(100% - var(--screen-padding) * 2); }
+    .actions { display: flex; flex-direction: column; gap: var(--space-3); }
+    .saved-card { display: flex; flex-direction: column; gap: var(--space-3); }
+    .saved-card .book-row { border-bottom: 0; padding: 0; }
+    .saved-card .secondary-button { align-self: flex-end; }
+    .label-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .result-list .book-row:last-child { border-bottom: 0; }
+  </style>
+</head>
+<body data-frame="reader">
+  <div class="frame">
+
+    <section data-state="default">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Lọc theo hình thức</h1></span>
+      </header>
+      <main class="screen-body">
+        <div class="group"><span class="field-label">Chọn hình thức truy cập</span>
+        <div class="segmented-control has-num" role="group" aria-label="Hình thức truy cập"><span class="num">3</span><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Trực tuyến</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Bản giấy</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Cả hai</button></div>
+        </div>
+      </main>
+    </section>
+
+    <section data-state="empty">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Lọc theo hình thức</h1></span>
+      </header>
+      <main class="screen-body">
+        <div class="group"><span class="field-label">Chọn hình thức truy cập</span>
+        <div class="segmented-control" role="group" aria-label="Hình thức truy cập"><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Trực tuyến</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Bản giấy</button><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Cả hai</button></div>
+        </div>
+        <div class="empty-state has-num"><span class="num">5</span><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg><p>Không tìm thấy sách. Hãy chọn hình thức khác.</p></div>
+      </main>
+    </section>
+
+    <section data-state="loading">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Lọc theo hình thức</h1>
+      </header>
+      <main class="screen-body">
+        <div class="group"><span class="field-label">Chọn hình thức truy cập</span>
+        <div class="segmented-control" role="group" aria-label="Hình thức truy cập"><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Trực tuyến</button><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Bản giấy</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Cả hai</button></div>
+        </div>
+        <div class="card group"><div class="skeleton line"></div><div class="skeleton line short"></div></div>
+        <div class="card group"><div class="skeleton line"></div><div class="skeleton line short"></div></div>
+        <div class="card group"><div class="skeleton line"></div><div class="skeleton line short"></div></div>
+      </main>
+    </section>
+
+    <section data-state="error">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Lọc theo hình thức</h1></span>
+      </header>
+      <main class="screen-body">
+        <div class="group"><span class="field-label">Chọn hình thức truy cập</span>
+        <div class="segmented-control" role="group" aria-label="Hình thức truy cập"><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Trực tuyến</button><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Bản giấy</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Cả hai</button></div>
+        </div>
+        <div class="banner error has-num" role="alert"><span class="num">8</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="banner-body"><span>Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.</span><button class="secondary-button has-num" type="button"><span class="num">9</span>Thử lại</button></div></div>
+      </main>
+    </section>
+
+    <section data-state="success">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Lọc theo hình thức</h1></span>
+      </header>
+      <main class="screen-body">
+        <div class="group"><span class="field-label">Chọn hình thức truy cập</span>
+        <div class="segmented-control" role="group" aria-label="Hình thức truy cập"><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Trực tuyến</button><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Bản giấy</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Cả hai</button></div>
+        </div>
+        <h2 class="section-title">Kết quả phù hợp</h2>
+        <div class="result-list">
+          <div class="book-row has-num" role="link" tabindex="0"><span class="num">4</span><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Principles of Economics</span><span class="book-author">N. Gregory Mankiw</span><span class="label-row"><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span></span></div></div>
+          <div class="book-row" role="link" tabindex="0"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Kinh tế học Vi mô</span><span class="book-author">Hal R. Varian</span><span class="label-row"><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Trực tuyến</span></span><a class="text-link has-num" href="#"><span class="num">6</span>Mở trên OPAC</a></div></div>
+          <div class="book-row" role="link" tabindex="0"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Marketing Căn bản</span><span class="book-author">Philip Kotler</span><span class="label-row"><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span></span></div></div>
+          <div class="book-row" role="link" tabindex="0"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Quản trị học</span><span class="book-author">Nguyễn Hữu Thân</span><span class="label-row"><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span></span></div></div>
+        </div>
+        <nav class="pagination has-num" aria-label="Phân trang"><span class="num">10</span><button class="secondary-button" type="button" disabled>Trang trước</button><span class="page-status">Trang 1 / 3</span><button class="secondary-button" type="button">Trang sau</button></nav>
+      </main>
+    </section>
+
+    <section data-state="page-2">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Lọc theo hình thức</h1>
+      </header>
+      <main class="screen-body">
+        <div class="group"><span class="field-label">Chọn hình thức truy cập</span>
+        <div class="segmented-control" role="group" aria-label="Hình thức truy cập"><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Trực tuyến</button><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Bản giấy</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Cả hai</button></div>
+        </div>
+        <h2 class="section-title">Kết quả phù hợp</h2>
+        <div class="result-list">
+          <div class="book-row" role="link" tabindex="0"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Tài chính Doanh nghiệp</span><span class="book-author">Trần Ngọc Thơ</span><span class="label-row"><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Trực tuyến</span></span><a class="text-link" href="#">Mở trên OPAC</a></div></div>
+          <div class="book-row" role="link" tabindex="0"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Kế toán Quản trị</span><span class="book-author">Phạm Văn Dược</span><span class="label-row"><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span></span></div></div>
+          <div class="book-row" role="link" tabindex="0"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Luật Kinh tế</span><span class="book-author">Nguyễn Hợp Toàn</span><span class="label-row"><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span></span></div></div>
+          <div class="book-row" role="link" tabindex="0"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Thống kê Ứng dụng</span><span class="book-author">Hà Văn Sơn</span><span class="label-row"><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span></span></div></div>
+        </div>
+        <nav class="pagination" aria-label="Phân trang"><button class="secondary-button" type="button">Trang trước</button><span class="page-status">Trang 2 / 3</span><button class="secondary-button" type="button">Trang sau</button></nav>
+      </main>
+    </section>
+
+  </div>
+
+  <script>
+    // Show the section named after "#", e.g. #error. "-numbered" at the end turns on the circles.
+    (function () {
+      function apply() {
+        var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+        var numbered = /-numbered$/.test(hash);
+        var state = hash.replace(/-numbered$/, '') || 'default';
+        var sections = document.querySelectorAll('[data-state]');
+        var found = false;
+        sections.forEach(function (s) { if (s.getAttribute('data-state') === state) found = true; });
+        if (!found) state = 'default';
+        sections.forEach(function (s) { s.classList.toggle('is-active', s.getAttribute('data-state') === state); });
+        document.body.classList.toggle('numbered', numbered);
+      }
+      window.addEventListener('hashchange', apply);
+      apply();
+    })();
+  </script>
+</body>
+</html>

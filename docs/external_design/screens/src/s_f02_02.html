@@ -1,0 +1,427 @@
+<!doctype html>
+<!--
+  Screen ID: S-F02-02
+  Screen name: Book information and reviews (QR landing page)
+  Vietnamese title: Thông tin và đánh giá sách
+  Frame: reader (360px, export 3x = 1080px)
+  ui-conventions version: v0.8
+  Author / date: Hoa (drawing) · HTML source rebuilt from Hoa's approved image s_f02_02_states.png · 22/11/2026
+
+  States (URL hash; add "-numbered" to show the element numbers):
+    #default  #empty  #loading  #error  #error-2  #error-3  #success
+  Element numbers follow notes/s_f02_02_notes.md. Same review panel as S-F02-01 (L8-07),
+  without "Báo cáo đánh giá". Delete confirmation = M-F02-01-01 (in s_f02_01.html).
+  Group decision 22/11/2026 (Chi): no Back button in the Screen header (D5, the page is only opened by
+  scanning the QR label); «Xem thêm đánh giá» Load more button #10 while more published reviews remain (D6). Invalid-QR error: Text link «Về OPAC» #16 to the OPAC main menu (D37).
+  Only ui_tokens.css values are used: no colour, size or font is written in this file.
+-->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-F02-02 · Thông tin và đánh giá sách</title>
+  <link rel="stylesheet" href="ui_tokens.css">
+  <style>
+    /* Layout helpers for this screen. Values come only from ui_tokens.css. */
+    .context-card { display: flex; flex-direction: column; gap: var(--space-3); }
+    .context-card .book-row { border-bottom: 0; padding: 0; }
+    .summary { display: flex; flex-direction: column; gap: var(--space-1); }
+    .summary-title { color: var(--colour-text); font-weight: var(--font-weight-semibold); }
+    .summary-text { margin: 0; font-size: var(--font-size-small); color: var(--colour-text-muted); }
+    .text-link.link-strong { font-weight: var(--font-weight-semibold); align-self: flex-start; }
+    .editor-card { display: flex; flex-direction: column; gap: var(--space-2); }
+    .editor-card .checkbox { align-self: flex-start; }
+    .review-list { display: flex; flex-direction: column; }
+    .reviewer-line { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); min-width: 0; }
+    .review-date { flex: none; font-size: var(--font-size-small); color: var(--colour-text-muted); }
+    .review-text { margin: 0; }
+    .own-badge { display: inline-flex; align-items: center; padding: 0 var(--space-2); border-radius: var(--space-1); background: var(--colour-surface); color: var(--colour-text-body); font-size: var(--font-size-small); font-weight: var(--font-weight-regular); line-height: var(--line-height-body); }
+    .empty-box { background: var(--colour-surface); border: var(--border-width) solid var(--colour-border-light); border-radius: var(--radius); padding: var(--space-4); }
+    .screen-header > .num { top: var(--space-1); left: var(--space-1); }
+    .banner .banner-title { font-weight: var(--font-weight-semibold); }
+    .toast.is-block { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-1); width: 100%; }
+    .toast .toast-title { font-weight: var(--font-weight-semibold); }
+    .toast .toast-note { font-size: var(--font-size-small); }
+    .skeleton-stack { display: flex; flex-direction: column; gap: var(--space-3); }
+    .skeleton.sk-book { height: calc(var(--space-12) * 3); border-radius: var(--radius); }
+    .skeleton.sk-form { height: calc(var(--space-12) * 3 + var(--space-8)); border-radius: var(--radius); }
+    .skeleton.sk-review { height: calc(var(--space-12) * 2 + var(--space-4)); border-radius: var(--radius); }
+  </style>
+</head>
+<body data-frame="reader">
+  <div class="frame">
+
+    <!-- ========================================================
+         STATE: DEFAULT  (img/s_f02_02/s_f02_02.png) - no Report action, no Back; Load more #10 (more reviews remain)
+         ======================================================== -->
+    <section data-state="default">
+      <header class="screen-header has-num"><span class="num">1</span>
+        <h1 class="screen-title">Thông tin và đánh giá sách</h1>
+      </header>
+      <main class="screen-body">
+        <div class="card context-card has-num"><span class="num">2</span>
+          <div class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Principles of Economics</span><span class="book-author">N. Gregory Mankiw</span><span class="small muted">Chủ đề: Kinh tế học</span></div></div>
+          <div class="summary">
+            <span class="summary-title">Tóm tắt</span>
+            <p class="summary-text">Cuốn sách giới thiệu các nguyên lý kinh tế học cơ bản, từ cung cầu đến hoạt động của nền kinh tế.</p>
+          </div>
+          <a class="text-link link-strong has-num"><span class="num">3</span>Xem sách trên OPAC</a>
+        </div>
+        <div class="card editor-card has-num"><span class="num">4</span>
+          <h2 class="section-title">Viết đánh giá</h2>
+          <div class="field text-area-with-counter">
+            <label class="field-label" for="review-text-d">Nội dung đánh giá</label>
+            <textarea id="review-text-d" placeholder="Chia sẻ cảm nhận của bạn về cuốn sách..."></textarea>
+            <span class="counter">0/2.000</span>
+            <span class="field-hint has-num"><span class="num">6</span>Đánh giá không được chứa từ ngữ xúc phạm, quảng cáo hoặc thông tin cá nhân.</span>
+          </div>
+          <label class="checkbox has-num"><span class="num">5</span><input type="checkbox"><span>Đăng ẩn danh</span></label>
+          <button class="primary-button has-num" type="button"><span class="num">7</span>Đăng đánh giá</button>
+        </div>
+        <div class="group">
+          <h2 class="section-title">Đánh giá từ bạn đọc</h2>
+          <div class="review-list">
+            <div class="review-item has-num"><span class="num">8</span>
+              <div class="review-head"><span class="reviewer-line"><span class="reviewer">Nguyễn Văn An</span><span class="own-badge">Đánh giá của bạn</span></span><span class="review-date">12/11/2026</span></div>
+              <p class="review-text">Cuốn sách trình bày các khái niệm kinh tế học rõ ràng, có ví dụ dễ hiểu và phù hợp để ôn tập.</p>
+              <div class="review-actions"><button class="text-button">Sửa</button><button class="text-button danger">Xoá đánh giá</button></div>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Trần Minh Anh</span><span class="review-date">12/11/2026</span></div>
+              <p class="review-text">Một số nhận xét trong bài viết có ngôn từ xúc phạm, không phù hợp với quy định cộng đồng.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Lê Thu Hà</span><span class="review-date">11/11/2026</span></div>
+              <p class="review-text">Phần giải thích về cung và cầu khá dễ theo dõi. Ví dụ thực tế giúp tôi hiểu bài nhanh hơn.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Bạn đọc ẩn danh</span><span class="review-date">10/11/2026</span></div>
+              <p class="review-text">Nội dung có hệ thống, tuy nhiên một vài chương cần đọc chậm để nắm chắc kiến thức.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Phạm Quang Huy</span><span class="review-date">10/11/2026</span></div>
+              <p class="review-text">Sách phù hợp cho người mới bắt đầu tìm hiểu kinh tế học.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Đỗ Ngọc Mai</span><span class="review-date">09/11/2026</span></div>
+              <p class="review-text">Các biểu đồ minh hoạ hữu ích khi học những khái niệm cơ bản.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Nguyễn Hải Yến</span><span class="review-date">08/11/2026</span></div>
+              <p class="review-text">Bố cục rõ ràng, dễ tra cứu từng chủ đề.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Bạn đọc ẩn danh</span><span class="review-date">06/11/2026</span></div>
+              <p class="review-text">Tôi thích cách tác giả đưa ví dụ vào từng phần.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Vũ Đức Long</span><span class="review-date">04/11/2026</span></div>
+              <p class="review-text">Một tài liệu tham khảo tốt cho môn học.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Hoàng Thu Trang</span><span class="review-date">02/11/2026</span></div>
+              <p class="review-text">Một số nội dung hơi dài nhưng nhìn chung dễ hiểu.</p>
+            </div>
+          </div>
+        </div>
+        <button class="load-more-button has-num" type="button"><span class="num">10</span>Xem thêm đánh giá</button>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: EMPTY  (img/s_f02_02/s_f02_02_empty.png) - book found, no published reviews
+         ======================================================== -->
+    <section data-state="empty">
+      <header class="screen-header has-num"><span class="num">1</span>
+        <h1 class="screen-title">Thông tin và đánh giá sách</h1>
+      </header>
+      <main class="screen-body">
+        <div class="card context-card has-num"><span class="num">2</span>
+          <div class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Principles of Economics</span><span class="book-author">N. Gregory Mankiw</span><span class="small muted">Chủ đề: Kinh tế học</span></div></div>
+          <div class="summary">
+            <span class="summary-title">Tóm tắt</span>
+            <p class="summary-text">Cuốn sách giới thiệu các nguyên lý kinh tế học cơ bản, từ cung cầu đến hoạt động của nền kinh tế.</p>
+          </div>
+          <a class="text-link link-strong has-num"><span class="num">3</span>Xem sách trên OPAC</a>
+        </div>
+        <div class="card editor-card has-num"><span class="num">4</span>
+          <h2 class="section-title">Viết đánh giá</h2>
+          <div class="field text-area-with-counter">
+            <label class="field-label" for="review-text-e">Nội dung đánh giá</label>
+            <textarea id="review-text-e" placeholder="Chia sẻ cảm nhận của bạn về cuốn sách..."></textarea>
+            <span class="counter">0/2.000</span>
+            <span class="field-hint has-num"><span class="num">6</span>Đánh giá không được chứa từ ngữ xúc phạm, quảng cáo hoặc thông tin cá nhân.</span>
+          </div>
+          <label class="checkbox has-num"><span class="num">5</span><input type="checkbox"><span>Đăng ẩn danh</span></label>
+          <button class="primary-button has-num" type="button"><span class="num">7</span>Đăng đánh giá</button>
+        </div>
+        <div class="group">
+          <h2 class="section-title">Đánh giá từ bạn đọc</h2>
+          <div class="empty-box empty-state has-num"><span class="num">11</span>
+            <p>Không có đánh giá nào để hiển thị. Hãy là người đầu tiên viết đánh giá cho cuốn sách này.</p>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: LOADING  (img/s_f02_02/s_f02_02_loading.png) - MSG-05: skeleton only, no text
+         ======================================================== -->
+    <section data-state="loading">
+      <header class="screen-header has-num"><span class="num">1</span>
+        <h1 class="screen-title">Thông tin và đánh giá sách</h1>
+      </header>
+      <main class="screen-body" aria-busy="true">
+        <div class="skeleton-stack has-num"><span class="num">13</span>
+          <div class="skeleton sk-book"></div>
+          <div class="skeleton sk-form"></div>
+          <div class="skeleton sk-review"></div>
+          <div class="skeleton sk-review"></div>
+        </div>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: ERROR  (img/s_f02_02/s_f02_02_error.png) - invalid QR, book not found (FR-02-16), with «Về OPAC» #16 (D37)
+         ======================================================== -->
+    <section data-state="error">
+      <header class="screen-header has-num"><span class="num">1</span>
+        <h1 class="screen-title">Thông tin và đánh giá sách</h1>
+      </header>
+      <main class="screen-body">
+        <div class="banner error has-num" role="alert"><span class="num">9</span>
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+          <div class="banner-body">
+            <span class="banner-title">Không tìm thấy sách.</span>
+            <span>Mã QR không gắn với sách nào. Vui lòng quét lại mã trên sách hoặc tìm sách trên OPAC.</span>
+            <a class="text-link link-strong has-num"><span class="num">16</span>Về OPAC</a>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: ERROR-2  (img/s_f02_02/s_f02_02_error_2.png) - network error Banner #9 + Thử lại #15
+         ======================================================== -->
+    <section data-state="error-2">
+      <header class="screen-header has-num"><span class="num">1</span>
+        <h1 class="screen-title">Thông tin và đánh giá sách</h1>
+      </header>
+      <main class="screen-body">
+        <div class="banner error has-num" role="alert"><span class="num">9</span>
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+          <div class="banner-body">
+            <span>Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.</span>
+            <button class="secondary-button has-num" type="button"><span class="num">15</span>Thử lại</button>
+          </div>
+        </div>
+        <div class="card context-card has-num"><span class="num">2</span>
+          <div class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Principles of Economics</span><span class="book-author">N. Gregory Mankiw</span><span class="small muted">Chủ đề: Kinh tế học</span></div></div>
+          <div class="summary">
+            <span class="summary-title">Tóm tắt</span>
+            <p class="summary-text">Cuốn sách giới thiệu các nguyên lý kinh tế học cơ bản, từ cung cầu đến hoạt động của nền kinh tế.</p>
+          </div>
+          <a class="text-link link-strong has-num"><span class="num">3</span>Xem sách trên OPAC</a>
+        </div>
+        <div class="card editor-card has-num"><span class="num">4</span>
+          <h2 class="section-title">Viết đánh giá</h2>
+          <div class="field text-area-with-counter">
+            <label class="field-label" for="review-text-e2">Nội dung đánh giá</label>
+            <textarea id="review-text-e2" placeholder="Chia sẻ cảm nhận của bạn về cuốn sách..."></textarea>
+            <span class="counter">0/2.000</span>
+            <span class="field-hint has-num"><span class="num">6</span>Đánh giá không được chứa từ ngữ xúc phạm, quảng cáo hoặc thông tin cá nhân.</span>
+          </div>
+          <label class="checkbox has-num"><span class="num">5</span><input type="checkbox"><span>Đăng ẩn danh</span></label>
+          <button class="primary-button has-num" type="button"><span class="num">7</span>Đăng đánh giá</button>
+        </div>
+        <div class="group">
+          <h2 class="section-title">Đánh giá từ bạn đọc</h2>
+          <div class="review-list">
+            <div class="review-item has-num"><span class="num">8</span>
+              <div class="review-head"><span class="reviewer-line"><span class="reviewer">Nguyễn Văn An</span><span class="own-badge">Đánh giá của bạn</span></span><span class="review-date">12/11/2026</span></div>
+              <p class="review-text">Cuốn sách trình bày các khái niệm kinh tế học rõ ràng, có ví dụ dễ hiểu và phù hợp để ôn tập.</p>
+              <div class="review-actions"><button class="text-button">Sửa</button><button class="text-button danger">Xoá đánh giá</button></div>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Trần Minh Anh</span><span class="review-date">12/11/2026</span></div>
+              <p class="review-text">Một số nhận xét trong bài viết có ngôn từ xúc phạm, không phù hợp với quy định cộng đồng.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Lê Thu Hà</span><span class="review-date">11/11/2026</span></div>
+              <p class="review-text">Phần giải thích về cung và cầu khá dễ theo dõi. Ví dụ thực tế giúp tôi hiểu bài nhanh hơn.</p>
+            </div>
+          </div>
+        </div>
+        <button class="load-more-button has-num" type="button"><span class="num">10</span>Xem thêm đánh giá</button>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: ERROR-3  (img/s_f02_02/s_f02_02_error_3.png) - review validation: Banner #9 + Inline error #14
+         ======================================================== -->
+    <section data-state="error-3">
+      <header class="screen-header has-num"><span class="num">1</span>
+        <h1 class="screen-title">Thông tin và đánh giá sách</h1>
+      </header>
+      <main class="screen-body">
+        <div class="banner error has-num" role="alert"><span class="num">9</span>
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+          <div class="banner-body"><span>Nội dung đánh giá không hợp lệ.</span></div>
+        </div>
+        <div class="card context-card has-num"><span class="num">2</span>
+          <div class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Principles of Economics</span><span class="book-author">N. Gregory Mankiw</span><span class="small muted">Chủ đề: Kinh tế học</span></div></div>
+          <div class="summary">
+            <span class="summary-title">Tóm tắt</span>
+            <p class="summary-text">Cuốn sách giới thiệu các nguyên lý kinh tế học cơ bản, từ cung cầu đến hoạt động của nền kinh tế.</p>
+          </div>
+          <a class="text-link link-strong has-num"><span class="num">3</span>Xem sách trên OPAC</a>
+        </div>
+        <div class="card editor-card has-num"><span class="num">4</span>
+          <h2 class="section-title">Viết đánh giá</h2>
+          <div class="field text-area-with-counter is-error">
+            <label class="field-label" for="review-text-e3">Nội dung đánh giá</label>
+            <textarea id="review-text-e3" aria-invalid="true" aria-describedby="review-error-e3">Nội dung vượt quá giới hạn hoặc trống...</textarea>
+            <span class="counter is-over"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>2.020/2.000</span>
+            <div class="inline-error has-num" id="review-error-e3"><span class="num">14</span><span class="bang">!</span><span>Nội dung đánh giá không hợp lệ (1–2.000 ký tự).</span></div>
+            <span class="field-hint has-num"><span class="num">6</span>Đánh giá không được chứa từ ngữ xúc phạm, quảng cáo hoặc thông tin cá nhân.</span>
+          </div>
+          <label class="checkbox has-num"><span class="num">5</span><input type="checkbox"><span>Đăng ẩn danh</span></label>
+          <button class="primary-button has-num" type="button"><span class="num">7</span>Đăng đánh giá</button>
+        </div>
+        <div class="group">
+          <h2 class="section-title">Đánh giá từ bạn đọc</h2>
+          <div class="review-list">
+            <div class="review-item has-num"><span class="num">8</span>
+              <div class="review-head"><span class="reviewer-line"><span class="reviewer">Nguyễn Văn An</span><span class="own-badge">Đánh giá của bạn</span></span><span class="review-date">12/11/2026</span></div>
+              <p class="review-text">Cuốn sách trình bày các khái niệm kinh tế học rõ ràng, có ví dụ dễ hiểu và phù hợp để ôn tập.</p>
+              <div class="review-actions"><button class="text-button">Sửa</button><button class="text-button danger">Xoá đánh giá</button></div>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Trần Minh Anh</span><span class="review-date">12/11/2026</span></div>
+              <p class="review-text">Một số nhận xét trong bài viết có ngôn từ xúc phạm, không phù hợp với quy định cộng đồng.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Lê Thu Hà</span><span class="review-date">11/11/2026</span></div>
+              <p class="review-text">Phần giải thích về cung và cầu khá dễ theo dõi. Ví dụ thực tế giúp tôi hiểu bài nhanh hơn.</p>
+            </div>
+          </div>
+        </div>
+        <button class="load-more-button has-num" type="button"><span class="num">10</span>Xem thêm đánh giá</button>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: SUCCESS  (img/s_f02_02/s_f02_02_success.png) - Toast #12 + full refreshed list
+         ======================================================== -->
+    <section data-state="success">
+      <header class="screen-header has-num"><span class="num">1</span>
+        <h1 class="screen-title">Thông tin và đánh giá sách</h1>
+      </header>
+      <main class="screen-body">
+        <div class="card context-card has-num"><span class="num">2</span>
+          <div class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Principles of Economics</span><span class="book-author">N. Gregory Mankiw</span><span class="small muted">Chủ đề: Kinh tế học</span></div></div>
+          <div class="summary">
+            <span class="summary-title">Tóm tắt</span>
+            <p class="summary-text">Cuốn sách giới thiệu các nguyên lý kinh tế học cơ bản, từ cung cầu đến hoạt động của nền kinh tế.</p>
+          </div>
+          <a class="text-link link-strong has-num"><span class="num">3</span>Xem sách trên OPAC</a>
+        </div>
+        <div class="card editor-card has-num"><span class="num">4</span>
+          <h2 class="section-title">Viết đánh giá</h2>
+          <div class="field text-area-with-counter">
+            <label class="field-label" for="review-text-s">Nội dung đánh giá</label>
+            <textarea id="review-text-s" placeholder="Chia sẻ cảm nhận của bạn về cuốn sách..."></textarea>
+            <span class="counter">0/2.000</span>
+            <span class="field-hint has-num"><span class="num">6</span>Đánh giá không được chứa từ ngữ xúc phạm, quảng cáo hoặc thông tin cá nhân.</span>
+          </div>
+          <label class="checkbox has-num"><span class="num">5</span><input type="checkbox"><span>Đăng ẩn danh</span></label>
+          <button class="primary-button has-num" type="button"><span class="num">7</span>Đăng đánh giá</button>
+        </div>
+        <div class="group">
+          <h2 class="section-title">Đánh giá từ bạn đọc</h2>
+          <div class="review-list">
+            <div class="review-item has-num"><span class="num">8</span>
+              <div class="review-head"><span class="reviewer-line"><span class="reviewer">Nguyễn Văn An</span><span class="own-badge">Đánh giá của bạn</span></span><span class="review-date">21/11/2026</span></div>
+              <p class="review-text">Bổ sung thêm nhận xét sau khi đọc kỹ phần kinh tế vĩ mô.</p>
+              <div class="review-actions"><button class="text-button">Sửa</button><button class="text-button danger">Xoá đánh giá</button></div>
+            </div>
+            <div class="review-item">
+              <div class="review-head"><span class="reviewer-line"><span class="reviewer">Nguyễn Văn An</span><span class="own-badge">Đánh giá của bạn</span></span><span class="review-date">12/11/2026</span></div>
+              <p class="review-text">Cuốn sách trình bày các khái niệm kinh tế học rõ ràng, có ví dụ dễ hiểu và phù hợp để ôn tập.</p>
+              <div class="review-actions"><button class="text-button">Sửa</button><button class="text-button danger">Xoá đánh giá</button></div>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Trần Minh Anh</span><span class="review-date">12/11/2026</span></div>
+              <p class="review-text">Một số nhận xét trong bài viết có ngôn từ xúc phạm, không phù hợp với quy định cộng đồng.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Lê Thu Hà</span><span class="review-date">11/11/2026</span></div>
+              <p class="review-text">Phần giải thích về cung và cầu khá dễ theo dõi. Ví dụ thực tế giúp tôi hiểu bài nhanh hơn.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Bạn đọc ẩn danh</span><span class="review-date">10/11/2026</span></div>
+              <p class="review-text">Nội dung có hệ thống, tuy nhiên một vài chương cần đọc chậm để nắm chắc kiến thức.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Phạm Quang Huy</span><span class="review-date">10/11/2026</span></div>
+              <p class="review-text">Sách phù hợp cho người mới bắt đầu tìm hiểu kinh tế học.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Đỗ Ngọc Mai</span><span class="review-date">09/11/2026</span></div>
+              <p class="review-text">Các biểu đồ minh hoạ hữu ích khi học những khái niệm cơ bản.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Nguyễn Hải Yến</span><span class="review-date">08/11/2026</span></div>
+              <p class="review-text">Bố cục rõ ràng, dễ tra cứu từng chủ đề.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Bạn đọc ẩn danh</span><span class="review-date">06/11/2026</span></div>
+              <p class="review-text">Tôi thích cách tác giả đưa ví dụ vào từng phần.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Vũ Đức Long</span><span class="review-date">04/11/2026</span></div>
+              <p class="review-text">Một tài liệu tham khảo tốt cho môn học.</p>
+            </div>
+            <div class="review-item has-num"><span class="num">9</span>
+              <div class="review-head"><span class="reviewer">Hoàng Thu Trang</span><span class="review-date">02/11/2026</span></div>
+              <p class="review-text">Một số nội dung hơi dài nhưng nhìn chung dễ hiểu.</p>
+            </div>
+          </div>
+        </div>
+        <button class="load-more-button has-num" type="button"><span class="num">10</span>Xem thêm đánh giá</button>
+        <div class="toast is-block has-num" role="status"><span class="num">12</span>
+          <span class="toast-title">Đã đăng đánh giá.</span>
+          <span class="toast-note">(Cũng dùng: Đã cập nhật / Đã xoá đánh giá.)</span>
+        </div>
+      </main>
+    </section>
+
+  </div>
+
+  <script>
+    (function () {
+      // Content height (used by the export script to size the screenshot).
+      function measure() {
+        document.documentElement.setAttribute('data-content-height', document.querySelector('.frame').scrollHeight);
+      }
+      function apply() {
+        var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+        var numbered = /-numbered$/.test(hash);
+        var state = hash.replace(/-numbered$/, '') || 'default';
+        var sections = document.querySelectorAll('[data-state]');
+        var found = false;
+        sections.forEach(function (s) { if (s.getAttribute('data-state') === state) found = true; });
+        if (!found) state = 'default';
+        sections.forEach(function (s) {
+          s.classList.toggle('is-active', s.getAttribute('data-state') === state);
+        });
+        document.body.classList.toggle('numbered', numbered);
+        measure();
+      }
+      window.addEventListener('hashchange', apply);
+      apply();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(apply);
+    })();
+  </script>
+</body>
+</html>

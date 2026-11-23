@@ -1,0 +1,458 @@
+<!doctype html>
+<!--
+  Screen ID: S-F03-02
+  Screen name: Reading history and preferences
+  Vietnamese title: Lịch sử đọc và sở thích
+  Frame: reader (360px, export 3x = 1080px)
+  ui-conventions version: v0.9
+  Author / date: Trieu · 21/11/2026
+-->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-F03-02 · Lịch sử đọc và sở thích</title>
+  <link rel="stylesheet" href="ui_tokens.css">
+  <style>
+    /* Specialized layouts using design tokens */
+    .progress-bar-bg {
+      height: var(--space-1);
+      background: var(--colour-surface);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      margin-top: var(--space-1);
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--colour-brand-red);
+      border-radius: var(--radius-pill);
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 var(--space-2);
+      min-height: var(--space-6);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-small);
+      font-weight: var(--font-weight-medium);
+      border: var(--border-width) solid;
+    }
+    .status-badge.reading {
+      border-color: var(--colour-info-border);
+      background: var(--colour-info-bg);
+      color: var(--colour-info-text);
+    }
+    .status-badge.finished {
+      border-color: var(--colour-success-border);
+      background: var(--colour-success-bg);
+      color: var(--colour-success-text);
+    }
+    .history-card {
+      background: var(--colour-card);
+      border: var(--border-width) solid var(--colour-border-light);
+      border-radius: var(--radius);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .history-card-top {
+      display: flex;
+      gap: var(--space-3);
+    }
+    .edit-panel {
+      background: var(--colour-surface);
+      border-radius: var(--radius);
+      padding: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2);
+    }
+  </style>
+</head>
+<body data-frame="reader">
+  <div class="frame">
+
+    <!-- ========================================================
+         STATE: DEFAULT
+         ======================================================== -->
+    <section data-state="default">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span>
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title has-num"><span class="num">2</span>Lịch sử đọc và sở thích</h1>
+      </header>
+
+      <main class="screen-body">
+        <div class="group">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <h2 class="section-title has-num"><span class="num">3</span>Lịch sử đọc</h2>
+            <span class="muted small">3 cuốn</span>
+          </div>
+          <span class="muted small">Ghi nhận tự động từ sách mượn tại thư viện hoặc đọc trực tuyến.</span>
+        </div>
+
+        <!-- Book 1: Reading, 20% with inline edit active -->
+        <div class="history-card has-num">
+          <span class="num">4</span>
+          <div class="history-card-top">
+            <div class="cover">Cover</div>
+            <div class="book-meta">
+              <span class="book-title">Principles of Economics</span>
+              <span class="book-author">N. Gregory Mankiw</span>
+              <div style="display:flex; gap:var(--space-2); align-items:center; flex-wrap:wrap; margin-top:var(--space-1);">
+                <span class="format-label">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+                </span>
+                <span class="status-badge reading has-num"><span class="num">5</span>Đang đọc</span>
+              </div>
+              <div class="has-num" style="margin-top:var(--space-1);">
+                <span class="num">6</span>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 20%;"></div></div>
+                <div style="display:flex; justify-content:space-between; font-size:var(--font-size-small); color:var(--colour-text-muted); margin-top:2px;">
+                  <span>Tiến độ: 20%</span>
+                  <span>Ngày mượn: 12/10/2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inline Edit Form -->
+          <div class="edit-panel">
+            <div class="field has-num">
+              <span class="num">7</span>
+              <label class="field-label" for="edit-status-1">Trạng thái đọc</label>
+              <select id="edit-status-1" class="select">
+                <option selected>Đang đọc</option>
+                <option>Đã đọc xong</option>
+              </select>
+            </div>
+
+            <div class="field has-num">
+              <span class="num">8</span>
+              <label class="field-label" for="edit-progress-1">Tiến độ đọc</label>
+              <div class="number-input">
+                <input id="edit-progress-1" inputmode="numeric" value="20">
+                <span>%</span>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:var(--space-2);">
+              <button class="primary-button has-num" type="button" style="flex:1;"><span class="num">9</span>Lưu thay đổi</button>
+              <button class="secondary-button has-num" type="button" style="width:auto;"><span class="num">10</span>Huỷ</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Book 2: Digital Marketing Basics -->
+        <div class="history-card">
+          <div class="history-card-top">
+            <div class="cover">Cover</div>
+            <div class="book-meta">
+              <span class="book-title">Digital Marketing Basics</span>
+              <span class="book-author">Philip Kotler</span>
+              <div style="display:flex; gap:var(--space-2); align-items:center; flex-wrap:wrap; margin-top:var(--space-1);">
+                <span class="format-label">
+                  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Trực tuyến
+                </span>
+                <span class="status-badge reading">Đang đọc</span>
+              </div>
+              <div style="margin-top:var(--space-1);">
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%;"></div></div>
+                <div style="display:flex; justify-content:space-between; font-size:var(--font-size-small); color:var(--colour-text-muted); margin-top:2px;">
+                  <span>Tiến độ: 0%</span>
+                  <span>Đọc ngày: 01/11/2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="secondary-button has-num" type="button" style="width:100%;"><span class="num">11</span>Cập nhật tiến độ</button>
+        </div>
+
+        <!-- Book 3: Microeconomics Finished -->
+        <div class="history-card">
+          <div class="history-card-top">
+            <div class="cover">Cover</div>
+            <div class="book-meta">
+              <span class="book-title">Kinh tế học Vi mô</span>
+              <span class="book-author">Hal R. Varian</span>
+              <div style="display:flex; gap:var(--space-2); align-items:center; flex-wrap:wrap; margin-top:var(--space-1);">
+                <span class="format-label">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+                </span>
+                <span class="status-badge finished">Đã đọc xong</span>
+              </div>
+              <div style="margin-top:var(--space-1);">
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%;"></div></div>
+                <div style="display:flex; justify-content:space-between; font-size:var(--font-size-small); color:var(--colour-text-muted); margin-top:2px;">
+                  <span>Tiến độ: 100%</span>
+                  <span>Trả ngày: 15/10/2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="secondary-button" type="button" style="width:100%;">Cập nhật tiến độ</button>
+        </div>
+
+        <!-- Preferences Section -->
+        <div class="card group has-num">
+          <span class="num">12</span>
+          <h2 class="section-title">Sở thích đọc sách</h2>
+          <span class="muted small">Chọn các chủ đề từ danh mục để hệ thống gợi ý sách phù hợp.</span>
+
+          <div class="multi-select-chips has-num" role="group" aria-label="Chủ đề quan tâm">
+            <span class="num">13</span>
+            <button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Kinh tế</button>
+            <button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Marketing</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Công nghệ thông tin</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Kỹ năng mềm</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Văn học</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Khoa học</button>
+          </div>
+
+          <button class="secondary-button has-num" type="button" style="width:100%;"><span class="num">14</span>Lưu sở thích</button>
+        </div>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: EMPTY
+         ======================================================== -->
+    <section data-state="empty">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại">
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title">Lịch sử đọc và sở thích</h1>
+      </header>
+
+      <main class="screen-body">
+        <div class="empty-state has-num">
+          <span class="num">15</span>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>
+          <p>Chưa có lịch sử đọc nào. Sách bạn mượn hoặc đọc trực tuyến sẽ tự động xuất hiện tại đây.</p>
+        </div>
+
+        <div class="card group">
+          <h2 class="section-title">Sở thích đọc sách</h2>
+          <span class="muted small">Bạn có thể chọn trước các chủ đề quan tâm để nhận gợi ý sách:</span>
+          <div class="multi-select-chips" role="group" aria-label="Chủ đề quan tâm">
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Kinh tế</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Marketing</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Công nghệ thông tin</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Kỹ năng mềm</button>
+          </div>
+          <button class="secondary-button" type="button" style="width:100%;">Lưu sở thích</button>
+        </div>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: LOADING
+         ======================================================== -->
+    <section data-state="loading">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại">
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title">Lịch sử đọc và sở thích</h1>
+      </header>
+
+      <main class="screen-body has-num" aria-busy="true">
+        <span class="num">19</span>
+        <div class="group"><div class="skeleton line short"></div></div>
+        
+        <div class="book-row">
+          <div class="skeleton block"></div>
+          <div class="book-meta">
+            <div class="skeleton line"></div>
+            <div class="skeleton line short"></div>
+            <div class="skeleton line" style="height:6px; margin-top:8px;"></div>
+          </div>
+        </div>
+
+        <div class="book-row">
+          <div class="skeleton block"></div>
+          <div class="book-meta">
+            <div class="skeleton line"></div>
+            <div class="skeleton line short"></div>
+            <div class="skeleton line" style="height:6px; margin-top:8px;"></div>
+          </div>
+        </div>
+
+        <div class="card group" style="margin-top:var(--space-4);">
+          <div class="skeleton line short"></div>
+          <div class="skeleton line"></div>
+          <div style="height:48px;" class="skeleton"></div>
+        </div>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: ERROR (INLINE VALIDATION ERROR ON PROGRESS)
+         ======================================================== -->
+    <section data-state="error">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại">
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title">Lịch sử đọc và sở thích</h1>
+      </header>
+
+      <main class="screen-body">
+        <div class="history-card">
+          <div class="history-card-top">
+            <div class="cover">Cover</div>
+            <div class="book-meta">
+              <span class="book-title">Principles of Economics</span>
+              <span class="book-author">N. Gregory Mankiw</span>
+              <div style="display:flex; gap:var(--space-2); align-items:center;">
+                <span class="format-label">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+                </span>
+                <span class="status-badge reading">Đang đọc</span>
+              </div>
+              <div style="margin-top:var(--space-1);">
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 20%;"></div></div>
+                <div style="font-size:var(--font-size-small); color:var(--colour-text-muted); margin-top:2px;">
+                  <span>Tiến độ đã lưu: 20% (giữ nguyên)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inline Edit Form with Error -->
+          <div class="edit-panel">
+            <div class="field">
+              <label class="field-label" for="edit-status-err">Trạng thái đọc</label>
+              <select id="edit-status-err" class="select">
+                <option selected>Đang đọc</option>
+                <option>Đã đọc xong</option>
+              </select>
+            </div>
+
+            <div class="field is-error has-num">
+              <span class="num">16</span>
+              <label class="field-label" for="edit-progress-err">Tiến độ đọc</label>
+              <div class="number-input">
+                <input id="edit-progress-err" class="is-error" aria-invalid="true" value="120">
+                <span>%</span>
+              </div>
+              <div class="inline-error">
+                <span class="bang">!</span>
+                <span>Tiến độ đọc phải từ 0% đến 100%. Dữ liệu đã lưu trước đó được giữ nguyên.</span>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:var(--space-2);">
+              <button class="primary-button" type="button" style="flex:1;">Lưu thay đổi</button>
+              <button class="secondary-button" type="button" style="width:auto;">Huỷ</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: ERROR-2 (PAGE LOAD FAILED MSG-04)
+         ======================================================== -->
+    <section data-state="error-2">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại">
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title">Lịch sử đọc và sở thích</h1>
+      </header>
+
+      <main class="screen-body">
+        <div class="banner error has-num" role="alert">
+          <span class="num">17</span>
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+          <div class="banner-body">
+            <span>Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.</span>
+            <button class="secondary-button" type="button">Thử lại</button>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: SUCCESS
+         ======================================================== -->
+    <section data-state="success">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại">
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="screen-title">Lịch sử đọc và sở thích</h1>
+      </header>
+
+      <main class="screen-body">
+        <div class="group">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <h2 class="section-title">Lịch sử đọc</h2>
+            <span class="muted small">3 cuốn</span>
+          </div>
+        </div>
+
+        <!-- Book 1 updated to 65% -->
+        <div class="history-card">
+          <div class="history-card-top">
+            <div class="cover">Cover</div>
+            <div class="book-meta">
+              <span class="book-title">Principles of Economics</span>
+              <span class="book-author">N. Gregory Mankiw</span>
+              <div style="display:flex; gap:var(--space-2); align-items:center;">
+                <span class="format-label">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+                </span>
+                <span class="status-badge reading">Đang đọc</span>
+              </div>
+              <div style="margin-top:var(--space-1);">
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 65%;"></div></div>
+                <div style="display:flex; justify-content:space-between; font-size:var(--font-size-small); color:var(--colour-success-text); font-weight:var(--font-weight-medium); margin-top:2px;">
+                  <span>Tiến độ mới: 65%</span>
+                  <span class="muted">Vừa cập nhật</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="secondary-button" type="button" style="width:100%;">Cập nhật tiến độ</button>
+        </div>
+      </main>
+
+      <div class="toast is-floating has-num" role="status">
+        <span class="num">18</span>
+        <svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Đã cập nhật tiến độ đọc.
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    (function () {
+      function apply() {
+        var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+        var numbered = /-numbered$/.test(hash);
+        var state = hash.replace(/-numbered$/, '') || 'default';
+        var sections = document.querySelectorAll('[data-state]');
+        var found = false;
+        sections.forEach(function (s) { if (s.getAttribute('data-state') === state) found = true; });
+        if (!found) state = 'default';
+        sections.forEach(function (s) {
+          s.classList.toggle('is-active', s.getAttribute('data-state') === state);
+        });
+        document.body.classList.toggle('numbered', numbered);
+      }
+      window.addEventListener('hashchange', apply);
+      apply();
+    })();
+  </script>
+</body>
+</html>
