@@ -20,17 +20,18 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Hoa
 | 13 | Loading placeholder | Skeleton | Replaces book information and review content | MSG-05 |
 | 14 | Field validation feedback | Inline error | Shared review-panel text validation (empty or over 2,000 characters) | FR-02-01, FR-02-11 |
 | 15 | Retry action | Secondary button | “Thử lại” inside MSG-04 Banner | FR-04-20 |
+| 16 | Way out of the invalid-QR error | Text link | “Về OPAC” in the error Banner, shown only when the QR code is linked to no book; opens the existing OPAC main menu | D37 |
 
 ## States drawn
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/S-F02-02.png | Title-only header (no Back), book title, author, subjects, summary, OPAC link, shared review panel (no review IDs, no Report), first 10 reviews and Load more “Xem thêm đánh giá” (#10); numbered variant in S-F02-02-numbered.png (#1–#10, re-exported 22/11/2026) | FR-02-05, FR-02-01, FR-02-02 |
-| Empty | img/S-F02-02-empty.png | Book found, no published reviews; empty state message (#11) with prompt to write first review while book information stays visible; no Load more | FR-02-15 |
-| Loading | img/S-F02-02-loading.png | Title-only header; Skeleton blocks (#13) replace book information and reviews | MSG-05 |
-| Error | img/S-F02-02-error.png | Invalid QR: “Không tìm thấy sách.” with next-step guidance in Banner | FR-02-16 |
-| Error-2 | img/S-F02-02-error-2.png | MSG-04 network error with retry action (#15); page content preserved, including Load more (#10) | FR-04-20 |
-| Error-3 | img/S-F02-02-error-3.png | Shared review-panel validation error (FR-02-11) with Banner and Inline error (#14); page content preserved, including Load more (#10) | FR-02-11, FR-02-01 |
-| Success | img/S-F02-02-success.png | Review action confirmation Toast (#12) and full refreshed review list with Load more (#10) | FR-02-12 |
+| Default | img/S-F02-02/S-F02-02.png | Title-only header (no Back), book title, author, subjects, summary, OPAC link, shared review panel (no review IDs, no Report), first 10 reviews and Load more “Xem thêm đánh giá” (#10); numbered variant in S-F02-02-numbered.png (#1–#10, re-exported 22/11/2026) | FR-02-05, FR-02-01, FR-02-02 |
+| Empty | img/S-F02-02/S-F02-02-empty.png | Book found, no published reviews; empty state message (#11) with prompt to write first review while book information stays visible; no Load more | FR-02-15 |
+| Loading | img/S-F02-02/S-F02-02-loading.png | Title-only header; Skeleton blocks (#13) replace book information and reviews | MSG-05 |
+| Error | img/S-F02-02/S-F02-02-error.png | Invalid QR: “Không tìm thấy sách.” with next-step guidance and the “Về OPAC” link in Banner (D37) | FR-02-16 |
+| Error-2 | img/S-F02-02/S-F02-02-error-2.png | MSG-04 network error with retry action (#15); page content preserved, including Load more (#10) | FR-04-20 |
+| Error-3 | img/S-F02-02/S-F02-02-error-3.png | Shared review-panel validation error (FR-02-11) with Banner and Inline error (#14); page content preserved, including Load more (#10) | FR-02-11, FR-02-01 |
+| Success | img/S-F02-02/S-F02-02-success.png | Review action confirmation Toast (#12) and full refreshed review list with Load more (#10) | FR-02-12 |
 
 ## Actions and where they go
 | Element | User action | Goes to |

@@ -7,14 +7,14 @@
 | Feature | F-03 Discovery, Reading History & Recommendation |
 | Primary actor | Reader; two parts start by themselves: a time event (daily loan sync finished) and an accept event (online book opened, from UC-03) |
 | Lanes | Reader · Library Core System |
-| Inputs (L3-L5) | Context Diagram (Reader flows "Reading history & preferences", "Reading history"; Library Internal System flow "Borrow/return records") · Use Case Diagram (UC-07, includes Sign in UC-11) · Sequence: Reader Interaction Flow (UC-07 with UC-09; note on automatic entries) · W0 Table 1 (login required), Table 3 (no automatic progress tracking), Table 4 (Reading history & preferences, ILF; Reader loan records, EIF) · W1 rows FR-03-01, FR-03-02, FR-03-03, FR-03-04, FR-03-05, FR-03-22, FR-04-08 |
+| Inputs (L3-L5) | Context Diagram (Reader flows "Reading history & preferences", "Reading history"; Library Internal System flow "Borrow/return records") · Use Case Diagram (UC-07, includes Sign in UC-11) · Sequence: [SD-UC-07](../SEQUENCE%20DIAGRAM/SD-UC-07.md) · W0 Table 1 (login required), Table 3 (no automatic progress tracking), Table 4 (Reading history & preferences, ILF; Reader loan records, EIF) · W1 rows FR-03-01, FR-03-02, FR-03-03, FR-03-04, FR-03-05, FR-03-22, FR-04-08 |
 | Trigger | (a) The reader opens their reading history and preferences. (b) Time event: the daily loan records sync has finished (FR-04-10). (c) Accept event: a signed-in reader opened an online book from the filter results (AD-UC-03). |
 | Preconditions | (a) The reader may not be signed in yet: the flow checks the session (FR-04-08) and calls Sign in (UC-11). (b) Loan records of library card accounts are synced daily (FR-04-10). |
 | Success end state | (a) The reader has seen their reading history with reading status; every update that passed the check is saved and shown; the reader chooses Finish. (b) Every new borrow record has put its book into that reader's history. (c) The opened online book is in that reader's history. |
 | Failure end state | An update fails the check: it is rejected, the saved data stays unchanged and an error message is shown (FR-03-22). Or the reader chose not to sign in. |
 | FRs covered | FR-03-01, FR-03-02, FR-03-03, FR-03-04, FR-03-05, FR-03-22, FR-04-08; FR-04-01 through the call to UC-11 |
 | Business rules applied | Reading status is Reading or Finished; progress is between 0 and 100 percent (FR-03-04). A failed update keeps the saved data (FR-03-22). Progress is entered by hand in release 1 (W0 Table 3). History entries are added automatically for borrowed books of library card accounts (FR-03-03) and for online books opened by signed-in readers (FR-03-02). The loan records are read, never written (W0 Table 4). |
-| Version / status | v1.2 · Draft |
+| Version / status | v1.3 · Draft |
 | Author | Owner D (F-03) |
 
 ## 1. Diagram
@@ -175,7 +175,7 @@ screen.
 
 | Reader action | Screen ID |
 |---|---|
-| Open reading history and preferences (r1) | S-F03-02 (from a link in the existing OPAC personal area) |
+| Open reading history and preferences (r1) | S-F03-02 (from a link in the existing OPAC personal area, or at any time from «Sở thích» on S-F03-07, D10b) |
 | Sign in now? (d1) | S-F03-02 (modal M-F00-01 "Sign in to continue?") |
 | Sign in (UC-11) (c1) | S-F00-01 → S-F00-02, then back to S-F03-02 |
 | What does the reader do? (d2), Submit the reading status and progress of a book (r2), Submit updated reading preferences (r3) | S-F03-02 |
@@ -198,4 +198,6 @@ None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#
 | Every FR of UC-07 appears in the diagram | Pass (6 of 6 W1 rows whose source trace names UC-07) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
 | Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
+| v1.3: entry from «Sở thích» on S-F03-07 added to section 5; diagram unchanged | Pass (checked by script and by reading) | AI assistant | 2026-11-23 |
+| Renders after v1.3 (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-23 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

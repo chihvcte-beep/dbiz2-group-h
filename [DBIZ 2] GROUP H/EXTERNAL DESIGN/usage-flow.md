@@ -3,8 +3,8 @@
 | Field | Value |
 |---|---|
 | Product | Group H Library Core System |
-| Version | v1.0 |
-| Date | 2026-11-08 |
+| Version | v1.1 |
+| Date | 2026-11-23 (v1.0 2026-11-08) |
 | Sources | W0 Table 1 (use case inventory); Use Case Diagram; Context Diagram; `ACTIVITY DIAGRAM/activity-index.md` and `AD-UC-01.md` to `AD-UC-14.md` |
 
 The product is an add-on to the library's existing OPAC. Existing OPAC pages (catalogue and search
@@ -13,10 +13,11 @@ goes back to; they are situations or exits in the flows below, never boxes.
 
 ## Note
 
-- [x] Every row of the Inputs check table in `ACTIVITY DIAGRAM/activity-index.md` is "Done" or is
-      a task in its source document. Rows 1, 2, 6 and 8 are Done. Rows 3 (Use Case Diagram: sync
-      use case, Integrator; L8-20), 4, 5 and 7 (Sequence Diagrams, Owners A, C, D) are fixed in their
-      source documents and do not change the flows below; they are listed as tasks in
+- [x] Every row of the Inputs check table in [decision-index.md](decision-index.md#activity-index) is "Done" or is
+      a task in its source document. Rows 1, 2, 4, 5, 6, 7 and 8 are Done (rows 4, 5 and 7 in
+      `SEQUENCE DIAGRAM/`, 23/11/2026). Row 3 is Done: the daily sync is
+      UC-15 with `AD-UC-15.md` (D48); it has no flow because no person starts it. Adding UC-15 to the
+      Use Case Diagram PDF is a task in
       [decision-index.md](decision-index.md#pending-tasks).
 
 Sign-in convention used in every flow: UC-11 is drawn as a box reached by a dashed arrow
@@ -78,7 +79,7 @@ flowchart LR
   U11 -->|"then ask"| U8
   U11 -->|"then see suggestions"| U9
   U11 -->|"then update history"| U7
-  U9 -.->|"no reading data yet:<br>set preferences"| U7
+  U9 -->|"set preferences<br>(any time)"| U7
   U7 -->|"see suggestions built on them"| U9
   U7 --> Z3(["History, progress and<br>preferences up to date"])
   U8 -.->|"AI search unavailable"| U3["UC-03: Filter books by access format<br>(online, physical or both)"]
@@ -102,8 +103,8 @@ The reader opens the chatbot and the suggestions from the OPAC main menu, and th
 and preferences from the OPAC personal area. UC-07 joined this flow from the earlier flow "keep my
 reading history and reading list" (L8-22): the history and preferences are
 what the suggestions are built on (FR-03-19), so the reader either updates them first and then sees
-suggestions, or stops when the history is up to date. UC-07 is also reached from UC-09 when there is
-no reading data yet and the reader is asked to set preferences (FR-03-19).
+suggestions, or stops when the history is up to date. UC-07 is also reached from UC-09 at any time
+through «Sở thích» (D10b), and by the prompt to set preferences when there is no reading data yet (FR-03-19).
 
 The chatbot checks sign-in after the reader sends the first message (AD-UC-08); the flow shows only
 that sign-in comes before the search can be used. UC-03 is reached when AI search is temporarily
@@ -140,7 +141,7 @@ flowchart LR
 
 The reader opens the reviews from the existing OPAC Book Detail page (UC-05) or by scanning the QR
 label on the book with a phone camera (UC-06). Report is only offered from UC-05: AD-UC-06 has no
-Report call. The arrow UC-05 to UC-04 is kept because S-F02-01 offers both use cases (L8-17).
+Report call. The arrow UC-05 to UC-04 is drawn in AD-UC-05 as the calls `c2`, `c3`, `c4` (L8-17).
 
 
 UC-11 has no flow of its own: the reader signs in only when a use case needs it (flows above).
@@ -180,7 +181,7 @@ that readers send in UC-14 (flow "Reader: read and review a book"; AD-UC-13 prec
 | UC-10 (part) Automatic QR code generation for new physical books (FR-02-07) | Time (daily catalogue sync finished) | `AD-UC-10.md` time event `t1`; no screen |
 | UC-07 (part) Reading-history entries from borrowed books (FR-03-03) | Time (daily loan records sync finished, FR-04-10) | `AD-UC-07.md` time event `t1`; no screen |
 | UC-07 (part) Reading-history entry when a signed-in reader opens an online book (FR-03-02) | Accept event from UC-03 (online book opened) | `AD-UC-07.md` accept event `e1`; `AD-UC-03.md` `s5` (L8-19) |
-| Sync data from the library internal system (planned; FR-04-09, FR-04-10, FR-04-11, FR-01-05) | Time (daily) / Library Internal System | Planned use case without an ID or activity diagram yet (activity-index Inputs check row 3; L8-20) |
+| UC-15 Sync data from the library internal system (FR-04-09, FR-04-10, FR-04-11, FR-01-05) | Time (daily, 02:00) / Library Internal System | `AD-UC-15.md` time event `t1`; no screen (D48) |
 
 ## Checks before you save
 
@@ -203,7 +204,7 @@ that readers send in UC-14 (flow "Reader: read and review a book"; AD-UC-13 prec
 - [x] No box is a click or a screen; no box tells two use cases. Every box is one `UC-xx` with its
       W0 name; the only diamonds are the reader's or the staff's choice between use cases.
 - [x] Every flow renders on mermaid.live. All 4 diagrams were parsed without error by Mermaid
-      11.4.1 (the engine behind mermaid.live; re-run 2026-11-22); every label is in double quotes and
+      11.4.1 (the engine behind mermaid.live; re-run 2026-11-22), and rendered again with Mermaid 12.3.0 in Chrome on 2026-11-23 after the v1.1 edits; every label is in double quotes and
       no node is named `end`.
 - [x] After Block 2: every step has at least one screen, and every screen in the screen list
       appears in some step. All 15 screens appear: S-F00-01 and S-F00-02 (UC-11), S-F00-03 (UC-10,

@@ -12,7 +12,7 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Hoa
 ## States drawn
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/M-F02-01-02.png | Confirmation modal over dimmed S-F02-01 parent showing another reader’s review behind; no reason input | FR-02-09 |
+| Default | img/M-F02-01-02/M-F02-01-02.png | Confirmation modal over dimmed S-F02-01 parent showing another reader’s review behind; no reason input | FR-02-09 |
 | Empty | Not applicable: confirmation modal has no list | — | — |
 | Loading | Not applicable: no modal-level loading state is specified | — | — |
 | Error | Not applicable: duplicate-report feedback is shown on parent S-F02-01 | FR-02-21 |

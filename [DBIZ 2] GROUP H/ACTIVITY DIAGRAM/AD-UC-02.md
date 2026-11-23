@@ -7,7 +7,7 @@
 | Feature | F-01 Book Location & Library Map |
 | Primary actor | Reader |
 | Lanes | Reader · Library Core System |
-| Inputs (L3-L5) | Context Diagram (Reader; flow "Shelf location & library map"; Library Internal System flow "Shelf placement, floors & rooms") · Use Case Diagram (UC-02) · Sequence: User Interface Flow (UC-01, UC-02) · W0 Table 3 (no screen to edit floor plans), Table 4 (Book placement & library layout, EIF) · W1 rows FR-01-02, FR-01-03, FR-01-09, FR-01-10, FR-01-11 |
+| Inputs (L3-L5) | Context Diagram (Reader; flow "Shelf location & library map"; Library Internal System flow "Shelf placement, floors & rooms") · Use Case Diagram (UC-02) · Sequence: [SD-UC-02](../SEQUENCE%20DIAGRAM/SD-UC-02.md) · W0 Table 3 (no screen to edit floor plans), Table 4 (Book placement & library layout, EIF) · W1 rows FR-01-02, FR-01-03, FR-01-09, FR-01-10, FR-01-11 |
 | Trigger | The reader asks for the digital library map, from the menu or from a book's shelf location (UC-01) |
 | Preconditions | No sign-in is needed (W0 Table 1). The digital floor plan exists and its room codes match the Library Internal System (FR-01-04). Floors and rooms have been synced (FR-04-09). |
 | Success end state | The reader has seen the map of the library, switched floors and selected rooms as they wished, and chooses Finish. |

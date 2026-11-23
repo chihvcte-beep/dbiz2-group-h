@@ -7,14 +7,14 @@
 | Feature | F-02 Reviews & QR |
 | Primary actor | On-site Staff |
 | Lanes | On-site Staff · Library Core System |
-| Inputs (L3-L5) | Context Diagram (On-site Staff flows "Reported reviews", "Remove review", "Staff sign-in"; Library Internal System flow "Staff accounts") · Use Case Diagram (UC-13) · Sequence: User Review Reporting Flow (UC-14 with UC-13) · W0 Table 1 (staff login), Table 4 (Book review, ILF) · W1 rows FR-02-10, FR-02-14, FR-02-19, FR-02-20, FR-04-07, FR-04-08, FR-04-12, FR-04-18 (FR-04-05 and FR-04-06 are not part of UC-13: AD-UC-13 Q3); new FR-04-21 (D7), as written in `EXTERNAL DESIGN/huong-dan/FR-bo-sung-22-11.md` |
+| Inputs (L3-L5) | Context Diagram (On-site Staff flows "Reported reviews", "Remove review", "Staff sign-in"; Library Internal System flow "Staff accounts") · Use Case Diagram (UC-13) · Sequence: [SD-UC-13](../SEQUENCE%20DIAGRAM/SD-UC-13.md) · W0 Table 1 (staff login), Table 4 (Book review, ILF) · W1 rows FR-02-10, FR-02-14, FR-02-19, FR-02-20, FR-04-07, FR-04-08, FR-04-12, FR-04-18, FR-04-21 (D7) (FR-04-05 and FR-04-06 are not part of UC-13: AD-UC-13 Q3) |
 | Trigger | On-site Staff open the staff page to handle the reported reviews |
 | Preconditions | Staff have an internal library account (FR-04-07). Readers have reported reviews through UC-14. |
 | Success end state | Every reported review the staff handled is either removed from public display (with an audit entry) or kept public with its report dismissed; staff stop when they choose. |
 | Failure end state | No reported reviews are waiting (FR-02-19), or staff cannot sign in (wrong account or no staff role) and stop trying. |
 | FRs covered | FR-02-10, FR-02-14, FR-02-19, FR-02-20, FR-04-07, FR-04-08, FR-04-12, FR-04-18, FR-04-21 |
-| Business rules applied | Removal needs a confirmation (FR-02-10). Every removal writes an audit entry (FR-04-12). A dismissed review stays public and leaves the reported list (FR-02-20). Staff judge whether a review breaks the rules (`d3`) against exactly the three criteria shown to readers in the hint under the review field on S-F02-01 and S-F02-02 (MSG-14): no offensive language, no advertising, no personal information (D20); the system does not judge content. The staff page opens only with a staff session and role: staff sign in before the page opens (FR-04-08, FR-04-07). A wrong account or an account without the staff role is rejected with an error message, and staff may try again (FR-04-18). The staff session does not end by time: it ends only when staff choose Sign out (FR-04-21, D7). |
-| Version / status | v1.4 · Draft |
+| Business rules applied | Removal needs a confirmation (FR-02-10). Every review removal and every successful staff sign-in writes an audit entry (FR-04-12; D30). A dismissed review stays public and leaves the reported list (FR-02-20). Staff judge whether a review breaks the rules (`d3`) against exactly the three criteria shown to readers in the hint under the review field on S-F02-01 and S-F02-02 (MSG-14): no offensive language, no advertising, no personal information (D20); the system does not judge content. The staff page opens only with a staff session and role: staff sign in before the page opens (FR-04-08, FR-04-07). A wrong account or an account without the staff role is rejected with an error message, and staff may try again (FR-04-18). The staff session does not end by time: it ends only when staff choose Sign out (FR-04-21, D7). |
+| Version / status | v1.5 · Draft |
 | Author | Owner C (F-02) |
 
 ## 1. Diagram
@@ -61,6 +61,7 @@ swimlane-beta TB
     d6{"Valid account with the staff role?"}
     s9("Reject the sign-in and show an error message (FR-04-18)")
     s10("Start a staff session and open the staff page (FR-04-07)")
+    s12("Write an audit entry for the staff sign-in (FR-04-12)")
     m1{" "}
     s2("Retrieve the reported reviews (FR-02-14)")
     d2{"Are there reported reviews?"}
@@ -80,7 +81,7 @@ swimlane-beta TB
   d6 -->|"[No]"| s9 --> d1
   d1 -->|"[Yes]"| m0
   d1 -->|"[No]"| stop1
-  d6 -->|"[Yes]"| s10 --> mA
+  d6 -->|"[Yes]"| s10 --> s12 --> mA
   d0 -->|"[Yes]"| mA
   mA --> a1 --> m1 --> s2 --> d2
   d2 -->|"[No]"| s3 --> stop2
@@ -107,6 +108,8 @@ Reading notes:
   staff come back through after a rejected sign-in; `mA` gathers the two signed-in paths before `a1`.
 - `d6 [No]` covers a wrong account and an account without the staff role (FR-04-18, L8-03). Staff
   sign in with their own action, not with UC-11 (the reader sign-in).
+- A successful staff sign-in writes an audit entry (`s12`, FR-04-12, D30), as the reader sign-in
+  does in AD-UC-11 `s8`. A rejected sign-in writes none.
 - The staff session does not end by time (D7). Sign out (`d7`, `a6`, `s11`) is drawn once, when
   staff stop handling reviews; «Đăng xuất» is on every staff screen, so staff can sign out at any
   time (FR-04-21).
@@ -125,6 +128,7 @@ Reading notes:
 | s9 | Action | Reject the sign-in and show an error message | FR-04-18 |
 | d1 | Decision (Staff) | Try again? | FR-04-18 |
 | s10 | Action | Start a staff session and open the staff page | FR-04-07 |
+| s12 | Action | Write an audit entry for the staff sign-in | FR-04-12 |
 | a1 | Action (Staff) | Open the reported reviews | FR-02-14 |
 | s2 | Action | Retrieve the reported reviews | FR-02-14 |
 | d2 | Decision | Are there reported reviews? | FR-02-19 |
@@ -147,9 +151,9 @@ Reading notes:
 
 | Branch | Given | When | Then |
 |---|---|---|---|
-| d0 [No] → d6 [Yes] | the staff member is not signed in | they open the staff page and sign in with internal account "staff.lan", which has the staff role | a staff session starts and the staff page opens; they can open the reported reviews |
+| d0 [No] → d6 [Yes] | the staff member is not signed in | they open the staff page and sign in with internal account "staff.lan", which has the staff role | a staff session starts, an audit entry "staff.lan, staff sign-in, time" is written and the staff page opens; they can open the reported reviews |
 | d6 [No] → d1 [Yes] | the staff member is not signed in | they enter a wrong password for "staff.lan", then the right one | the first try is rejected with an error message; the second try opens the staff page |
-| d6 [No] → d1 [No] | internal account "lib.reader" exists but has no staff role | they sign in with it and then give up | the sign-in is rejected with an error message; the staff page does not open |
+| d6 [No] → d1 [No] | internal account "lib.reader" exists but has no staff role | they sign in with it and then give up | the sign-in is rejected with an error message; no audit entry is written; the staff page does not open |
 | d0 [Yes] → d2 [No] | no review has an open report | signed-in staff open the reported reviews | a message says no reported reviews are waiting |
 | d2 [Yes] | reviews #91 and #95 have open reports | signed-in staff open the reported reviews | #91 and #95 are listed |
 | d3 [Yes] → d4 [Yes] | review #91 contains insults | staff choose Remove and confirm | #91 is no longer shown publicly, leaves the list, and an audit entry "staff.lan, review removal, time" is written |
@@ -165,7 +169,7 @@ Reading notes:
 |---|---|
 | Review | Published (kept by `s7`), Removed (written by `s5`) |
 | Review report | Open (read by `s2`), Dismissed (written by `s7`), Upheld (when `s5` removes the review) (AD-UC-13 Q5) |
-| Audit entry | written by `s6` |
+| Audit entry | written by `s6` (review removal) and `s12` (staff sign-in) |
 | Staff session | Signed-in (written by `s10`), Ended (written by `s11`) |
 
 ## 5. Screens touched
@@ -203,4 +207,6 @@ None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#
 | v1.4 sign out (D7): guards on `d7`, each new action cites one FR | Pass (checked by reading) | AI assistant | 2026-11-22 |
 | Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
 | Review criteria (D20): business rule for `d3` updated; diagram and node trace unchanged | Pass (checked by reading) | AI assistant | 2026-11-22 |
+| v1.5 (D30): `s12` added between `s10` and `mA`, the new action cites one FR | Pass (checked by reading) | AI assistant | 2026-11-23 |
+| Renders after v1.5 (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-23 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

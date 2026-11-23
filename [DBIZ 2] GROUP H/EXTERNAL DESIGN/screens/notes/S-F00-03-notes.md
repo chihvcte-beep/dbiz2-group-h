@@ -19,11 +19,11 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.9 · Author: Ha · S
 
 | State | Image | What the user sees | FR |
 | --- | --- | --- | --- |
-| Default | img/S-F00-03.png, img/S-F00-03-numbered.png | Sign-in card centred in the frame: title, account and password fields, full-width «Đăng nhập». | FR-04-07 |
+| Default | img/S-F00-03/S-F00-03.png, img/S-F00-03/S-F00-03-numbered.png | Sign-in card centred in the frame: title, account and password fields, full-width «Đăng nhập». | FR-04-07 |
 | Empty | Not applicable: this is a form. | — | — |
-| Loading | img/S-F00-03-loading.png, img/S-F00-03-loading-numbered.png | Credential and role check. | FR-04-07 |
-| Error | img/S-F00-03-error.png, img/S-F00-03-error-numbered.png | Không thể đăng nhập. Bạn kiểm tra thông tin tài khoản rồi thử lại. The same text covers invalid credentials and a missing staff role. | FR-04-18 |
-| Error — network | img/S-F00-03-error-2.png, img/S-F00-03-error-2-numbered.png | MSG-04. Account name retained. | FR-04-20 |
+| Loading | img/S-F00-03/S-F00-03-loading.png, img/S-F00-03/S-F00-03-loading-numbered.png | Credential and role check. | FR-04-07 |
+| Error | img/S-F00-03/S-F00-03-error.png, img/S-F00-03/S-F00-03-error-numbered.png | Không thể đăng nhập. Bạn kiểm tra thông tin tài khoản rồi thử lại. The same text covers invalid credentials and a missing staff role. | FR-04-18 |
+| Error — network | img/S-F00-03/S-F00-03-error-2.png, img/S-F00-03/S-F00-03-error-2-numbered.png | MSG-04. Account name retained. | FR-04-20 |
 | Success | S-F04-01 | Valid staff session starts and the staff page opens. | FR-04-07 |
 
 ## Actions and where they go

@@ -30,12 +30,12 @@ Actor: Reader · Frame: 360px (export 3x = 1080px) · UI conventions: v0.8 · Au
 
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/S-F03-02.png, img/S-F03-02-numbered.png | Reading history list showing 3 books with format labels, status badges, progress bars, and update triggers. Below is the subject preferences section with subject chips. | FR-03-01, FR-03-04, FR-03-05 |
-| Empty | img/S-F03-02-empty.png | Empty state for reading history with friendly icon and guidance; preferences section remains visible and editable. | FR-03-01* |
-| Loading | img/S-F03-02-loading.png | Skeleton cards and lines while history and preferences are being retrieved. | MSG-05 |
-| Error (Inline) | img/S-F03-02-error.png, img/S-F03-02-error-numbered.png | User entered invalid progress (e.g. 120%); 2px red border on input, inline error with “!” appears directly under input, previous value (20%) is retained. Also handles invalid subject preferences (AD-UC-07 d4 [No]). | FR-03-22 |
-| Error (Page load) | img/S-F03-02-error-2.png | Page-level system/network error banner with MSG-04 and “Thử lại” secondary button. | FR-04-20 |
-| Success | img/S-F03-02-success.png | Updated progress (e.g. 65%) reflected in list with floating toast notification “Đã cập nhật tiến độ đọc.”. | FR-03-01, FR-03-04 |
+| Default | img/S-F03-02/S-F03-02.png, img/S-F03-02/S-F03-02-numbered.png | Reading history list showing 3 books with format labels, status badges, progress bars, and update triggers. Below is the subject preferences section with subject chips. | FR-03-01, FR-03-04, FR-03-05 |
+| Empty | img/S-F03-02/S-F03-02-empty.png | Empty state for reading history with friendly icon and guidance; preferences section remains visible and editable. | FR-03-01* |
+| Loading | img/S-F03-02/S-F03-02-loading.png | Skeleton cards and lines while history and preferences are being retrieved. | MSG-05 |
+| Error (Inline) | img/S-F03-02/S-F03-02-error.png, img/S-F03-02/S-F03-02-error-numbered.png | User entered invalid progress (e.g. 120%); 2px red border on input, inline error with “!” appears directly under input, previous value (20%) is retained. Also handles invalid subject preferences (AD-UC-07 d4 [No]). | FR-03-22 |
+| Error (Page load) | img/S-F03-02/S-F03-02-error-2.png | Page-level system/network error banner with MSG-04 and “Thử lại” secondary button. | FR-04-20 |
+| Success | img/S-F03-02/S-F03-02-success.png | Updated progress (e.g. 65%) reflected in list with floating toast notification “Đã cập nhật tiến độ đọc.”. | FR-03-01, FR-03-04 |
 
 ## Actions and where they go
 

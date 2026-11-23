@@ -20,12 +20,12 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Hoa
 ## States drawn
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/S-F02-04.png | Header with «Đăng xuất» at the right; open reports #91 and #95 in queue; #91 selected; Remove and Dismiss actions; numbered variant in S-F02-04-numbered.png (#1–#5, #11; re-exported 22/11/2026) | FR-02-14, FR-02-10, FR-02-20 |
-| Empty | img/S-F02-04-empty.png | Header with «Đăng xuất»; no reported reviews are waiting | FR-02-19 |
-| Loading | img/S-F02-04-loading.png | Header with «Đăng xuất»; skeleton queue and detail | MSG-05 |
-| Error | img/S-F02-04-error.png | Single header with «Đăng xuất»; MSG-04 Banner with retry action; no Empty or Toast | FR-04-20 |
-| Success | img/S-F02-04-success.png | Header with «Đăng xuất»; remove outcome: #91 leaves queue and public display; #95 remains in queue/detail for next step (d5); toast “Đã gỡ đánh giá.” | FR-02-10, FR-04-12 |
-| Success-2 | img/S-F02-04-success-2.png | Header with «Đăng xuất»; dismiss outcome: #91 leaves queue but stays public; #95 remains in queue/detail for next step (d5); toast “Đã bỏ qua báo cáo.” | FR-02-20 |
+| Default | img/S-F02-04/S-F02-04.png | Header with «Đăng xuất» at the right; open reports #91 and #95 in queue; #91 selected; Remove and Dismiss actions; numbered variant in S-F02-04-numbered.png (#1–#5, #11; re-exported 22/11/2026) | FR-02-14, FR-02-10, FR-02-20 |
+| Empty | img/S-F02-04/S-F02-04-empty.png | Header with «Đăng xuất»; no reported reviews are waiting | FR-02-19 |
+| Loading | img/S-F02-04/S-F02-04-loading.png | Header with «Đăng xuất»; skeleton queue and detail | MSG-05 |
+| Error | img/S-F02-04/S-F02-04-error.png | Single header with «Đăng xuất»; MSG-04 Banner with retry action; no Empty or Toast | FR-04-20 |
+| Success | img/S-F02-04/S-F02-04-success.png | Header with «Đăng xuất»; remove outcome: #91 leaves queue and public display; #95 remains in queue/detail for next step (d5); toast “Đã gỡ đánh giá.” | FR-02-10, FR-04-12 |
+| Success-2 | img/S-F02-04/S-F02-04-success-2.png | Header with «Đăng xuất»; dismiss outcome: #91 leaves queue but stays public; #95 remains in queue/detail for next step (d5); toast “Đã bỏ qua báo cáo.” | FR-02-20 |
 
 ## Actions and where they go
 | Element | User action | Goes to |

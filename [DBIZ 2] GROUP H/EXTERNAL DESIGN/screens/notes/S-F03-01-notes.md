@@ -6,7 +6,7 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Nhi
 
 | # | Element | Component | Content / data source | FR |
 |---|---|---|---|---|
-| 1 | Back button | Screen header | Accessible name: “Quay lại”. Return to the existing OPAC catalogue / search results from which the reader opened the filter. | — |
+| 1 | Back button | Screen header | Accessible name: “Quay lại”. Return to where the reader opened the filter: the existing OPAC catalogue / search results, or `S-F03-06` (D35). | — |
 | 2 | Screen title | Screen header | “Lọc theo hình thức”. | — |
 | 3 | Instruction label | Section title | “Chọn hình thức truy cập”. | FR-03-12 |
 | 4 | Access-format selector | Segmented control | Exactly three choices: “Trực tuyến”, “Bản giấy”, “Cả hai”. “Cả hai” means books that have both a physical copy and an online version. | FR-03-12 |
@@ -20,17 +20,17 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Nhi
 
 | State | Image | What the user sees | Source / FR |
 |---|---|---|---|
-| Default | img/S-F03-01.png | The three access-format choices are visible. No option is selected on first entry; matching results appear after the reader chooses a format. | UC-03 · FR-03-12; D19 |
-| Empty | img/S-F03-01-empty.png | No matching books are found. Show the empty-state sentence once and keep the selector available for another choice. | AD-UC-03 d1 [No], s3 · FR-03-23 |
-| Loading | img/S-F03-01-loading.png | Skeleton placeholders while the system retrieves books for the selected access format. No loading text. | System step s1 · FR-03-12; MSG-05 |
-| Error | img/S-F03-01-error.png | Shared MSG-04 banner and “Thử lại” action. Retain the selected format and any data already shown. | FR-04-20 |
-| Results | img/S-F03-01-success.png | Matching books appear on S-F03-01 with format labels. The example shows one physical book and one online book. The result list stays on this screen while the reader changes the format or finishes filtering. | AD-UC-03 d1 [Yes], s2 · FR-03-12 |
+| Default | img/S-F03-01/S-F03-01.png | The three access-format choices are visible. No option is selected on first entry; matching results appear after the reader chooses a format. | UC-03 · FR-03-12; D19 |
+| Empty | img/S-F03-01/S-F03-01-empty.png | No matching books are found. Show the empty-state sentence once and keep the selector available for another choice. | AD-UC-03 d1 [No], s3 · FR-03-23 |
+| Loading | img/S-F03-01/S-F03-01-loading.png | Skeleton placeholders while the system retrieves books for the selected access format. No loading text. | System step s1 · FR-03-12; MSG-05 |
+| Error | img/S-F03-01/S-F03-01-error.png | Shared MSG-04 banner and “Thử lại” action. Retain the selected format and any data already shown. | FR-04-20 |
+| Results | img/S-F03-01/S-F03-01-success.png | Matching books appear on S-F03-01 with format labels. The example shows one physical book and one online book. The result list stays on this screen while the reader changes the format or finishes filtering. | AD-UC-03 d1 [Yes], s2 · FR-03-12 |
 
 ## Actions and where they go
 
 | Element / event | User action / system event | Result / destination |
 |---|---|---|
-| Back button | Reader taps Back | Existing OPAC catalogue / search results (exit destination). |
+| Back button | Reader taps Back | Existing OPAC catalogue / search results (exit destination), or `S-F03-06` when opened from the chatbot (D35). |
 | Access-format selector | Reader chooses “Trực tuyến”, “Bản giấy” or “Cả hai” | System retrieves matching books from the whole synced catalogue; results update on S-F03-01. |
 | Choose another format | Reader changes the selected format after an empty state or results | Stay on S-F03-01; retrieve and display the new matching results from page 1 (D14). |
 | Physical book row | Reader opens a physical book result | Existing OPAC Book Detail (exit destination); the current project does not create another book-detail screen here. |

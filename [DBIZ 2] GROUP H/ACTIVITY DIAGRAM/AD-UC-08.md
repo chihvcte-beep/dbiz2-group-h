@@ -7,14 +7,14 @@
 | Feature | F-03 Discovery, Reading History & Recommendation |
 | Primary actor | Reader |
 | Lanes | Reader · Library Core System (the AI Service step sits inside this lane) |
-| Inputs (L3-L5) | Context Diagram (Reader flows "Chatbot questions", "Recommendations & chatbot answers"; system function "AI chatbot & recommendations") · Use Case Diagram (UC-08, includes Sign in UC-11) · Sequence: AI Service Chatbot · W0 Table 1 (login required), Table 4 (Chatbot conversations, ILF) · W1 rows FR-03-09, FR-03-10, FR-03-16, FR-03-17, FR-03-18, FR-04-08 |
+| Inputs (L3-L5) | Context Diagram (Reader flows "Chatbot questions", "Recommendations & chatbot answers"; system function "AI chatbot & recommendations") · Use Case Diagram (UC-08, includes Sign in UC-11) · Sequence: [SD-UC-08](../SEQUENCE%20DIAGRAM/SD-UC-08.md) · W0 Table 1 (login required), Table 4 (Chatbot conversations, ILF) · W1 rows FR-03-09, FR-03-10, FR-03-16, FR-03-17, FR-03-18, FR-04-08 |
 | Trigger | The reader sends an inquiry message to the chatbot |
 | Preconditions | The reader may not be signed in yet: the flow checks the session and prompts sign-in with a library card (FR-03-18). |
 | Success end state | Each message got a reply: book result cards, or a no-results message with other search terms. The reader message and the chatbot reply are saved in that reader's conversation history (FR-03-10). |
 | Failure end state | The AI Service did not answer in time or returned an error: the reader is told AI search is temporarily unavailable and advised to use the format filter (FR-03-17). Or the reader chose not to sign in. |
 | FRs covered | FR-03-09, FR-03-10, FR-03-16, FR-03-17, FR-03-18, FR-04-08; FR-04-01, FR-01-01 and FR-03-12 through the calls to UC-11, UC-01 and UC-03 |
-| Business rules applied | The chatbot is only for signed-in library card readers (FR-03-18). Every reader message and chatbot reply is saved per reader (FR-03-10). If the AI fails, the reader is pointed to the format filter (FR-03-17). |
-| Version / status | v1.2 · Draft |
+| Business rules applied | The chatbot is only for signed-in library card readers (FR-03-18). Every reader message and chatbot reply is saved per reader (FR-03-10). If the AI fails, the reader is pointed to the format filter (FR-03-17). A message sent before sign-in is kept and goes on by itself after sign-in (D1). |
+| Version / status | v1.4 · Draft |
 | Author | Owner D (F-03) |
 
 ## 1. Diagram
@@ -43,12 +43,15 @@ swimlane-beta TB
     d4{"What does the reader do next?"}
     c2[["View book shelf location (UC-01) (FR-01-01)"]]
     c3[["Filter books by access format (UC-03) (FR-03-12)"]]
+    r2("Open an online book from a result card on the OPAC (FR-03-09)")
+    stop5@{ shape: fr-circ }
     stop1@{ shape: fr-circ }
     stop2@{ shape: fr-circ }
     stop3@{ shape: fr-circ }
     stop4@{ shape: fr-circ }
   end
   subgraph SYS["Library Core System"]
+    mS{" "}
     s0("Check the reader's session (FR-04-08)")
     d0{"Valid signed-in session?"}
     s1("Deny the request and prompt the reader<br/>to sign in with a library card (FR-03-18)")
@@ -64,9 +67,9 @@ swimlane-beta TB
     a1("AI Service: find matching catalogue books<br/>and compose the reply (FR-03-09)")
   end
 
-  start --> m0 --> r1 --> s0 --> d0
+  start --> m0 --> r1 --> mS --> s0 --> d0
   d0 -->|"[No]"| s1 --> d1
-  d1 -->|"[Yes]"| c1 --> m0
+  d1 -->|"[Yes]"| c1 --> mS
   d1 -->|"[No]"| stop1
   d0 -->|"[Yes]"| s2 --> s3 --> a1 --> d2
   d2 -->|"[No]"| s4 --> m2
@@ -77,6 +80,7 @@ swimlane-beta TB
   d4 -->|"[Send another message]"| m0
   d4 -->|"[Open a physical book from a result card]"| c2 --> stop3
   d4 -->|"[Use the format filter]"| c3 --> stop4
+  d4 -->|"[Open an online book from a result card]"| r2 --> stop5
   d4 -->|"[Close the chat]"| stop2
 ```
 
@@ -86,12 +90,16 @@ Reading notes:
   Core System"), and the Context Diagram does not show it as an outside party. So its step `a1` sits
   in the system lane with the prefix "AI Service:". The old flowchart drew it as a box inside the
   system lane; `swimlane-beta` does not draw nested lanes.
-- `m0` is the merge the reader comes back through for each new message, and after signing in.
+- `m0` is the merge the reader comes back through for each new message. After sign-in the flow
+  re-enters at `mS`, after `r1`: the message already sent goes on by itself, and the reader does
+  not send it again (D1).
 - When the AI fails (`d2 [No]`), the reader message is already saved (`s2`) but no reply is saved.
 - v1.2 turns `d4` into the reader's next choice and adds two calls: `c2` opens a physical book from
   a result card on the existing OPAC Book Detail and asks for its shelf location (UC-01, drawn in
   AD-UC-01); `c3` follows the advice of `s4` and opens the format filter (UC-03, drawn in AD-UC-03).
   They back the usage-flow arrows UC-08 to UC-01 and UC-08 to UC-03.
+- v1.4 adds `r2`: a card of an online book opens the book on the existing OPAC Book Detail, where the
+  reader opens or downloads it. The platform does not see that step (D42).
 
 ## 2. Node trace
 
@@ -115,18 +123,20 @@ Reading notes:
 | d4 | Decision (Reader) | What does the reader do next? | FR-03-09, FR-01-01, FR-03-17 |
 | c2 | Call (Reader) | View book shelf location (UC-01) | FR-01-01 |
 | c3 | Call (Reader) | Filter books by access format (UC-03) | FR-03-12 |
+| r2 | Action (Reader) | Open an online book from a result card on the OPAC | FR-03-09 |
 
 ## 3. Branches and acceptance tests
 
 | Branch | Given | When | Then |
 |---|---|---|---|
 | d0 [No] → d1 [No] | the reader is not signed in | they send "books about supply chains" and decline to sign in | the message is not sent; a prompt to sign in with a library card is shown |
-| d0 [No] → d1 [Yes] | the reader is not signed in | they sign in with card 0012345 and send the message again | the session is checked again and the message goes on |
+| d0 [No] → d1 [Yes] | the reader is not signed in | they send the message and sign in with card 0012345 | the session is checked again and the message goes on by itself, without sending it again |
 | d0 [Yes] → d2 [No] | the AI Service does not answer within 10 seconds | the signed-in reader sends "books about supply chains" | the message is saved; a notice says AI search is temporarily unavailable and suggests the format filter |
 | d2 [Yes] → d3 [Yes] | the catalogue holds 4 books on supply chains | the reader sends "books about supply chains" | message and reply are saved; the reply shows 4 book cards |
 | d3 [No] | the catalogue holds no book on "underwater basket weaving" | the reader sends that inquiry | message and reply are saved; the reply says no results were found and suggests other terms or subjects |
 | d4 [Send another message] | a reply is shown | the reader sends another message | the flow starts again from `r1` |
 | d4 [Open a physical book from a result card] | the reply shows 4 book cards | the reader opens the card of a physical book | the book opens on the existing OPAC Book Detail and UC-01 starts (shelf location) |
+| d4 [Open an online book from a result card] | the reply shows a card of an online book | the reader chooses «Xem chi tiết sách» on it | the book opens on the existing OPAC Book Detail; the activity ends |
 | d4 [Use the format filter] | the notice says AI search is temporarily unavailable | the reader follows the advice to use the format filter | the access-format filter opens and UC-03 starts |
 | d4 [Close the chat] | a reply is shown | the reader closes the chat | the activity ends; the conversation stays saved |
 
@@ -145,6 +155,7 @@ Filled in during Lesson 8, from the Screen List.
 | Send an inquiry message to the chatbot (r1), What does the reader do next? (d4) | S-F03-06 |
 | View book shelf location (UC-01) (c2) | S-F03-06 → existing OPAC Book Detail → S-F01-01 |
 | Filter books by access format (UC-03) (c3) | S-F03-06 → S-F03-01 |
+| Open an online book from a result card on the OPAC (r2) | S-F03-06 → existing OPAC Book Detail (exit) |
 | Sign in now? (d1) | S-F03-06 (modal M-F00-01 "Sign in to continue?", text FR-03-18) |
 | Sign in (UC-11) (c1) | S-F00-01 → S-F00-02, then back to S-F03-06 |
 | See the reply with book result cards (s6) | S-F03-06 |
@@ -167,4 +178,7 @@ None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#
 | Every FR of UC-08 appears in the diagram | Pass (5 of 5 W1 rows whose source trace names UC-08) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass (AI Service step moved into the system lane) | AI assistant | 2026-11-04 |
 | Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
+| v1.3: sign-in returns through merge `mS` after `r1`, so the message continues (D1) | Pass (checked by script and by reading) | AI assistant | 2026-11-23 |
+| Renders after v1.3 (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-23 |
+| v1.4: `r2` and `stop5` added for an online book; the new action cites one FR | Pass (checked by script) | AI assistant | 2026-11-23 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

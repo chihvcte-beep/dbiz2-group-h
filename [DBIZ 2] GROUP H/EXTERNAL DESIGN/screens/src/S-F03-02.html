@@ -12,7 +12,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>S-F03-02 · Lịch sử đọc và sở thích</title>
-  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="ui-tokens.css">
   <style>
     /* Specialized layouts using design tokens */
     .progress-bar-bg {
@@ -206,14 +206,14 @@
           <h2 class="section-title">Sở thích đọc sách</h2>
           <span class="muted small">Chọn các chủ đề từ danh mục để hệ thống gợi ý sách phù hợp.</span>
 
-          <div class="checkbox-grid has-num" style="margin:var(--space-2) 0;">
+          <div class="multi-select-chips has-num" role="group" aria-label="Chủ đề quan tâm">
             <span class="num">13</span>
-            <label class="checkbox"><input type="checkbox" checked><span>Kinh tế</span></label>
-            <label class="checkbox"><input type="checkbox" checked><span>Marketing</span></label>
-            <label class="checkbox"><input type="checkbox"><span>Công nghệ thông tin</span></label>
-            <label class="checkbox"><input type="checkbox"><span>Kỹ năng mềm</span></label>
-            <label class="checkbox"><input type="checkbox"><span>Văn học</span></label>
-            <label class="checkbox"><input type="checkbox"><span>Khoa học</span></label>
+            <button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Kinh tế</button>
+            <button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Marketing</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Công nghệ thông tin</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Kỹ năng mềm</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Văn học</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Khoa học</button>
           </div>
 
           <button class="secondary-button has-num" type="button" style="width:100%;"><span class="num">14</span>Lưu sở thích</button>
@@ -236,18 +236,17 @@
         <div class="empty-state has-num">
           <span class="num">15</span>
           <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>
-          <h2 class="section-title">Chưa có lịch sử đọc nào</h2>
-          <p class="muted">Sách bạn mượn tại thư viện hoặc đọc trực tuyến trên hệ thống sẽ tự động xuất hiện tại đây.</p>
+          <p>Chưa có lịch sử đọc nào. Sách bạn mượn hoặc đọc trực tuyến sẽ tự động xuất hiện tại đây.</p>
         </div>
 
         <div class="card group">
           <h2 class="section-title">Sở thích đọc sách</h2>
           <span class="muted small">Bạn có thể chọn trước các chủ đề quan tâm để nhận gợi ý sách:</span>
-          <div class="checkbox-grid" style="margin:var(--space-2) 0;">
-            <label class="checkbox"><input type="checkbox"><span>Kinh tế</span></label>
-            <label class="checkbox"><input type="checkbox"><span>Marketing</span></label>
-            <label class="checkbox"><input type="checkbox"><span>Công nghệ thông tin</span></label>
-            <label class="checkbox"><input type="checkbox"><span>Kỹ năng mềm</span></label>
+          <div class="multi-select-chips" role="group" aria-label="Chủ đề quan tâm">
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Kinh tế</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Marketing</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Công nghệ thông tin</button>
+            <button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Kỹ năng mềm</button>
           </div>
           <button class="secondary-button" type="button" style="width:100%;">Lưu sở thích</button>
         </div>

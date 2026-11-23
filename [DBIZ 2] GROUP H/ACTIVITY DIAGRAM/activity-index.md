@@ -14,7 +14,7 @@ one decision, more than one lane, or a time trigger. A use case that is a single
 "not needed" and a one-line reason. A use case has at most one diagram, and one diagram never
 covers two use cases.
 
-All 14 use cases have at least one decision and two lanes, so all have a diagram, including the
+All 15 use cases have at least one decision and two lanes, so all have a diagram, including the
 Should and Could ones (drawn now rather than marked "later").
 
 Priority: W0 Table 1 has no priority column, so the column below shows the effective priority (W4)
@@ -39,6 +39,7 @@ in words and cites the FR that states it.
 | UC-12 | Save physical books to a personal list, and remove them | F-03 | Should (FR-03-06) | `AD-UC-12.md` | Draft | |
 | UC-13 | Remove reviews that violate rules | F-02 | Could (FR-02-10) | `AD-UC-13.md` | Draft | |
 | UC-14 | Report a review that violates rules | F-02 | Could (FR-02-09) | `AD-UC-14.md` | Draft | |
+| UC-15 | Sync data from the library internal system (started by time, D48) | F-04 | Must (FR-04-09) | `AD-UC-15.md` | Draft | |
 
 Decisions on the open questions of the AD files and on the Lesson 8 questions (L8-01 … L8-22): see
 [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#activity-index).

@@ -22,12 +22,12 @@ Actor: Reader · Frame: 360px (export 3x = 1080px) · UI conventions: v0.8 · Au
 
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/S-F03-06.png, img/S-F03-06-numbered.png | Fresh conversational search screen with ready message composer at bottom. | FR-03-09, FR-03-18 |
-| Empty | img/S-F03-06-empty.png | Empty state identical to Default: empty conversation space with ready message composer (§2.3). | FR-03-09 |
-| Loading | img/S-F03-06-loading.png | User's sent query bubble displayed; assistant bubble below displays “Đang tải…”; composer input is busy. | AD-UC-08 Q1, MSG-05 |
-| Success / Results | img/S-F03-06-success.png | Assistant reply containing 4 rich book cards with format labels and “Xem chi tiết sách” links. | FR-03-09, FR-03-10 |
-| No-match | img/S-F03-06-no-match.png | Assistant conversational message explaining that no titles matched, suggesting alternative search angles. | FR-03-16 |
-| Error | img/S-F03-06-error.png | Banner error notifying AI service interruption, providing direct fallback text link to S-F03-01. | FR-03-17 |
+| Default | img/S-F03-06/S-F03-06.png, img/S-F03-06/S-F03-06-numbered.png | Fresh conversational search screen with ready message composer at bottom. | FR-03-09, FR-03-18 |
+| Empty | img/S-F03-06/S-F03-06-empty.png | Empty state identical to Default: empty conversation space with ready message composer (§2.3). | FR-03-09 |
+| Loading | img/S-F03-06/S-F03-06-loading.png | User's sent query bubble displayed; assistant bubble below displays “Đang tải…”; composer input is busy. | AD-UC-08 Q1, MSG-05 |
+| Success / Results | img/S-F03-06/S-F03-06-success.png | Assistant reply containing 4 rich book cards with format labels and “Xem chi tiết sách” links. | FR-03-09, FR-03-10 |
+| No-match | img/S-F03-06/S-F03-06-no-match.png | Assistant conversational message explaining that no titles matched, suggesting alternative search angles. | FR-03-16 |
+| Error | img/S-F03-06/S-F03-06-error.png | Banner error notifying AI service interruption, providing direct fallback text link to S-F03-01. | FR-03-17 |
 
 ## Actions and where they go
 

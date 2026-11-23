@@ -12,7 +12,7 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Hoa
 ## States drawn
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/M-F02-01-01.png | Confirmation modal over dimmed S-F02-01 parent showing the reader’s own review behind; also reused from S-F02-02 | FR-02-04 |
+| Default | img/M-F02-01-01/M-F02-01-01.png | Confirmation modal over dimmed S-F02-01 parent showing the reader’s own review behind; also reused from S-F02-02 | FR-02-04 |
 | Empty | Not applicable: a confirmation modal has no list | — | — |
 | Loading | Not applicable: no loading state is defined for this confirmation modal | — | — |
 | Error | Not applicable: no modal-level error state is defined; errors belong to the parent screen | — | — |

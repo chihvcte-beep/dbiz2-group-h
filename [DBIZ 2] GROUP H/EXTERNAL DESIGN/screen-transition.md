@@ -1,6 +1,6 @@
 # Screen Transition Diagram: Group H Library Core System
 
-Product: Group H Library Core System · Version v1.1 · Date 2026-11-22 (v1.0 2026-11-08) · Screen IDs from [screen-list.md](screen-list.md)
+Product: Group H Library Core System · Version v1.3 · Date 2026-11-23 (v1.2 2026-11-23, v1.1 2026-11-22, v1.0 2026-11-08) · Screen IDs from [screen-list.md](screen-list.md)
 
 One diagram per actor. The Reader sees 11 product screens (fewer than 15), so the Reader has one
 diagram; On-site Staff see 4 screens and have their own diagram.
@@ -29,10 +29,11 @@ flowchart LR
   S03_07["S-F03-07<br>Book recommendations"]
 
   eRes -->|"chooses Filter by access format"| S03_01
-  S03_01 -->|"chooses another access format"| S03_01
+  S03_01 -->|"chooses another access format or another page"| S03_01
   S03_01 -->|"opens an online book"| eOnline
   S03_01 -->|"opens a physical book"| eBD
-  S03_01 -->|"back"| eRes
+  S03_01 -->|"back, when opened from the OPAC"| eRes
+  S03_01 -->|"back, when opened from the chatbot"| S03_06
 
   eBD -->|"requests the shelf location"| S01_01
   S01_01 -->|"chooses View on map"| S01_02
@@ -51,9 +52,10 @@ flowchart LR
   S02_01 -->|"back"| eBD
 
   eQR --> S02_02
-  S02_02 -->|"writes, edits or deletes own review (confirms delete in dialog)"| S02_02
+  S02_02 -->|"loads more reviews; writes, edits or deletes own review (confirms delete in dialog)"| S02_02
   S02_02 -->|"review action without a session, chooses Sign in in dialog"| S00_01
   S02_02 -->|"chooses View this book on the OPAC"| eBD
+  S02_02 -->|"[QR code linked to no book] chooses Về OPAC"| eMenu
 
   ePA -->|"chooses Reading history"| S03_02
   S03_02 -->|"submits reading status and progress, or preferences"| S03_02
@@ -106,12 +108,15 @@ does not choose or type it again. **Cancel** («Huỷ») on S-F00-01 or S-F00-02
 rule and is not drawn, to keep the diagram readable: the reader is back on the starting screen with
 nothing lost and the action still waiting; repeating it opens the sign-in dialog again. **Not now** in
 the dialog closes it and the reader stays on the same screen. S-F00-01 has no Back; S-F00-02 keeps
-its back arrow to S-F00-01.
+its back arrow to S-F00-01. A reader who signs in without a pending action does so from the
+«Đăng nhập» link, which is only on the OPAC main menu (D34).
 
 S-F02-02 (QR landing page) has **no Back** and no back arrow: the page opens only by scanning the QR
 label (also when the reader returns after sign-in), and its only way out is "View this book on the
-OPAC" (D5). "Sở thích" on S-F03-07 is shown in every signed-in state, so S-F03-07 → S-F03-02 is
-possible at any time, not only before there is reading data (D10b).
+OPAC" (D5). When the QR code is linked to no book there is no book to open, so that error state offers
+«Về OPAC» to the OPAC main menu instead (D37). "Sở thích" on S-F03-07 is shown in every signed-in state, so S-F03-07 → S-F03-02 is
+possible at any time, not only before there is reading data (D10b). Back on S-F03-01 returns to where
+the filter was opened: the OPAC results, or S-F03-06 when AI search was unavailable (D35).
 
 Sign in (AD-UC-11), moves and states: card number found → S-F00-02 (move). Card number not found →
 error state of S-F00-01. Wrong OTP with fewer than 5 attempts → "code incorrect" state of S-F00-02,
@@ -134,7 +139,7 @@ flowchart LR
   S00_03 -->|"signs in [wrong account or no staff role], tries again"| S00_03
   S00_03 -->|"signs in [account with the staff role]"| S04_01
   S04_01 -->|"chooses Print QR labels"| S02_03
-  S02_03 -->|"selects books, chooses Print labels, [label sheet produced] prints from the preview dialog"| S02_03
+  S02_03 -->|"chooses Chưa in nhãn or Đã in nhãn; selects books or opens another page; chooses In nhãn or In lại nhãn, [label sheet produced] prints from the preview dialog, then chooses Đã in xong or Đóng"| S02_03
   S02_03 -->|"back"| S04_01
   S04_01 -->|"chooses Reported reviews"| S02_04
   S02_04 -->|"selects a reported review, then Remove (confirms in dialog) or Dismiss the report"| S02_04
@@ -142,6 +147,9 @@ flowchart LR
   S04_01 -->|"chooses Đăng xuất"| S00_03
   S02_03 -->|"chooses Đăng xuất"| S00_03
   S02_04 -->|"chooses Đăng xuất"| S00_03
+  S04_01 -->|"[staff session no longer valid]"| S00_03
+  S02_03 -->|"[staff session no longer valid]"| S00_03
+  S02_04 -->|"[staff session no longer valid]"| S00_03
 ```
 
 Main task "print QR labels": S-F04-01 → S-F02-03, preview dialog, print: 2 screens. Without a staff
@@ -155,9 +163,14 @@ reported reviews waiting" are states of the screen staff are on.
 
 Sign out (FR-04-21; D7): "Đăng xuất" in the header of S-F04-01, S-F02-03 and
 S-F02-04 ends the staff session and opens S-F00-03 (`s14` in AD-UC-10, `s11` in AD-UC-13). The staff
-session has no time-out: it stays valid until staff sign out, so there is no "session expired" arrow.
+session has no time-out: it stays valid until staff sign out, so there is no "session expired" arrow. If the
+session was already ended elsewhere (for example «Đăng xuất» in another tab), the next action on a staff
+screen opens S-F00-03 (D36).
 Moving between pages of the S-F02-03 list (20 books per page, ticks kept) stays on S-F02-03 and is
-part of the "selects books" loop.
+part of the "selects books" loop. In the preview dialog, «Đã in xong» records the books and writes the
+audit entry (D32); «Đóng» records nothing. Both return to S-F02-03. The filter «Đã in nhãn» and «In lại
+nhãn» stay on S-F02-03: a reprint uses the shared QR code, and its «Đã in xong» writes only the audit
+entry (D40). A sheet of more than 24 labels continues on further A4 pages in the same dialog (D41).
 
 Conventions:
 
@@ -171,7 +184,7 @@ Conventions:
 - Rounded stadium nodes are existing OPAC pages, the QR scan and the staff page link (outside the
   product). An arrow into a stadium means the reader leaves the product for that existing page.
 - Not drawn because no one navigates: automatic QR generation after the daily catalogue sync
-  (AD-UC-10), reading-history entries from loan sync (AD-UC-07) and the planned data sync use case.
+  (AD-UC-10), reading-history entries from loan sync (AD-UC-07) and the data sync UC-15 (AD-UC-15).
 
 ## Checks before you save
 
@@ -183,14 +196,15 @@ Conventions:
       S-F03-02, S-F03-03; QR scan → S-F02-02; S-F00-01 → S-F00-02; staff page link → S-F00-03 or
       S-F04-01 → S-F02-03, S-F02-04.
 - [x] No dead end: every screen has a way out. S-F02-02 (QR landing page) has "View this book on the
-      OPAC" to the existing OPAC Book Detail (L8-08); it has no Back (D5). Every staff screen also has "Đăng xuất" to S-F00-03 (D7). Screens whose only way out, apart
+      OPAC" to the existing OPAC Book Detail (L8-08); it has no Back (D5); its invalid-QR error state has «Về OPAC» to the OPAC main menu (D37). Every staff screen also has "Đăng xuất" to S-F00-03 (D7). Screens whose only way out, apart
       from sign-in and same-screen actions, is a back arrow: S-F01-02, S-F02-01, S-F03-02, S-F03-03,
       S-F02-03, S-F02-04 (the task is finished on the screen itself).
 - [x] The main task of each actor reaches its result in three screens or fewer: Reader "find where a
       physical book is" 2 screens; On-site Staff "print QR labels" 2 screens (3 with sign-in).
-- [x] Every arrow label is a user action or a system event, never a screen name (56 Reader and 13 staff
+- [x] Every arrow label is a user action or a system event, never a screen name (58 Reader and 16 staff
       labels checked; the entry arrow from the QR scan carries no label). Re-checked 2026-11-22 after
-      the three "chooses Đăng xuất" arrows and the new S-F03-07 → S-F03-02 label.
+      the three "chooses Đăng xuất" arrows and the new S-F03-07 → S-F03-02 label, and on 2026-11-23
+      after the two new Reader arrows and the three "[staff session no longer valid]" arrows.
 - [x] Usage-flow paths: all 20 Reader arrows between use cases in usage-flow.md (3 of them dashed
       "not signed in") and the 2 staff arrows have a path (table below; flows joined, L8-22).
       UC-03, UC-08 and UC-09 → UC-01 pass through the existing OPAC Book Detail, and UC-07 → UC-09
@@ -199,7 +213,8 @@ Conventions:
 - [x] The diagram renders: both diagrams pass the Mermaid 11.4.1 parser without error (scripted check,
       2026-11-08); every label quoted, `<br>` for line breaks, no node named `end`, no `-` in node IDs.
       Re-run on 2026-11-22 after the edits (one changed Reader label, three new staff arrows): both
-      diagrams still pass the Mermaid 11.4.1 parser without error.
+      diagrams still pass the Mermaid 11.4.1 parser without error. Rendered again with Mermaid 12.3.0
+      in Chrome on 2026-11-23 after the v1.2 edits.
 
 ## Usage-flow paths
 

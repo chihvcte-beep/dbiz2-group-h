@@ -23,14 +23,14 @@ Actor: Reader · Frame: 360px (exported at 3x / 1080px) · UI conventions: v0.8 
 
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | `img/S-F01-01.png` | Book title and author; one shelf-location line for each physical copy, the primary shelf location first (D27); Save and View on map actions. | FR-01-01, FR-03-06, FR-01-03 |
+| Default | `img/S-F01-01/S-F01-01.png` | Book title and author; one shelf-location line for each physical copy, the primary shelf location first (D27); Save and View on map actions. | FR-01-01, FR-03-06, FR-01-03 |
 | Empty | Not applicable | This is a single-book location view, not a list; no separate Empty state is defined. | — |
-| Loading | `img/S-F01-01-loading.png` | Skeleton placeholders replace the title, author, location lines and action areas while data loads. | FR-01-01 |
-| Error — shelf location unavailable | `img/S-F01-01-error.png` | Book title remains visible; show the exact MSG-06 banner instead of shelf details. | FR-01-07 |
-| Error — network/load failure | `img/S-F01-01-error-2.png` | Show MSG-04 and the “Thử lại” action when the page cannot load. | FR-04-20* |
-| Success — saved | `img/S-F01-01-success.png` | Keep the Default layout and show the save-confirmation Toast. | FR-03-06 |
-| Success — already saved | `img/S-F01-01-success-2.png` | Keep the Default layout and show the already-saved Toast. | FR-03-24 |
-| Information — online only | `img/S-F01-01-online-only.png` | Show online-only information; omit shelf locations, Save and View on map. | FR-01-06 |
+| Loading | `img/S-F01-01/S-F01-01-loading.png` | Skeleton placeholders replace the title, author, location lines and action areas while data loads. | FR-01-01 |
+| Error — shelf location unavailable | `img/S-F01-01/S-F01-01-error.png` | Book title remains visible; show the exact MSG-06 banner instead of shelf details. | FR-01-07 |
+| Error — network/load failure | `img/S-F01-01/S-F01-01-error-2.png` | Show MSG-04 and the “Thử lại” action when the page cannot load. | FR-04-20* |
+| Success — saved | `img/S-F01-01/S-F01-01-success.png` | Keep the Default layout and show the save-confirmation Toast. | FR-03-06 |
+| Success — already saved | `img/S-F01-01/S-F01-01-success-2.png` | Keep the Default layout and show the already-saved Toast. | FR-03-24 |
+| Information — online only | `img/S-F01-01/S-F01-01-online-only.png` | Show online-only information; omit shelf locations, Save and View on map. | FR-01-06 |
 
 ## Actions and where they go
 

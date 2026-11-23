@@ -5,22 +5,22 @@
   Vietnamese title: Đánh giá bị báo cáo
   Frame: staff (1280px, export 1x = 1280px)
   ui-conventions version: v0.8
-  Author / date: Hoa · rebuilt as HTML source from Hoa's drawing (img/S-F02-04-states.png,
-                 img/S-F02-04-numbered.png, img/M-F02-04-01-numbered.png) · 22/11/2026
+  Author / date: Hoa · rebuilt as HTML source from Hoa's drawing (img/S-F02-04/S-F02-04-states.png,
+                 img/S-F02-04/S-F02-04-numbered.png, img/M-F02-04-01/M-F02-04-01-numbered.png) · 22/11/2026
 
   States (open in Chrome from disk):
-    S-F02-04.html            Default    -> img/S-F02-04.png
-    S-F02-04.html#empty      Empty      -> img/S-F02-04-empty.png
-    S-F02-04.html#loading    Loading    -> img/S-F02-04-loading.png
-    S-F02-04.html#error      Error      -> img/S-F02-04-error.png
-    S-F02-04.html#success    Success    -> img/S-F02-04-success.png   (review removed)
-    S-F02-04.html#success-2  Success-2  -> img/S-F02-04-success-2.png (report dismissed)
-    S-F02-04.html#modal      M-F02-04-01 over dimmed S-F02-04 -> img/M-F02-04-01.png
+    S-F02-04.html            Default    -> img/S-F02-04/S-F02-04.png
+    S-F02-04.html#empty      Empty      -> img/S-F02-04/S-F02-04-empty.png
+    S-F02-04.html#loading    Loading    -> img/S-F02-04/S-F02-04-loading.png
+    S-F02-04.html#error      Error      -> img/S-F02-04/S-F02-04-error.png
+    S-F02-04.html#success    Success    -> img/S-F02-04/S-F02-04-success.png   (review removed)
+    S-F02-04.html#success-2  Success-2  -> img/S-F02-04/S-F02-04-success-2.png (report dismissed)
+    S-F02-04.html#modal      M-F02-04-01 over dimmed S-F02-04 -> img/M-F02-04-01/M-F02-04-01.png
   Add "-numbered" to any state (e.g. #default-numbered, #modal-numbered) to show the element numbers.
   Numbers: S-F02-04 #1-#11 = notes/S-F02-04-notes.md; modal #1-#3 = notes/M-F02-04-01-notes.md.
   #11 «Đăng xuất» (Secondary button, right of the header, every state and the modal background) added by
   Group decision 22/11/2026 (Chi), D7: staff stay signed in until they choose «Đăng xuất» (-> S-F00-03, FR-04-21).
-  Colours, sizes and fonts come only from tokens.css. Layout lengths that copy Hoa's drawing are
+  Colours, sizes and fonts come only from ui-tokens.css. Layout lengths that copy Hoa's drawing are
   written as calc() of tokens.
 -->
 <html lang="vi">
@@ -28,7 +28,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>S-F02-04 · Đánh giá bị báo cáo</title>
-  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="ui-tokens.css">
   <style>
     /* frame height = content height (export) */
     .frame { min-height: 0; }
@@ -208,7 +208,7 @@
       <main class="page">
         <div class="banner error has-num" role="alert"><span class="num">7</span>
           <div class="banner-body">
-            <span>Không thể tải danh sách đánh giá bị báo cáo do lỗi kết nối.</span>
+            <span>Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.</span>
             <button class="secondary-button has-num" type="button">Thử lại<span class="num after">10</span></button>
           </div>
         </div>

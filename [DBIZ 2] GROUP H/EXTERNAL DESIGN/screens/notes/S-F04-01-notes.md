@@ -18,10 +18,10 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 
 | State | Image | What the user sees | FR |
 | --- | --- | --- | --- |
-| Default | img/S-F04-01.png, img/S-F04-01-numbered.png | Two staff task tiles. | FR-04-07 |
+| Default | img/S-F04-01/S-F04-01.png, img/S-F04-01/S-F04-01-numbered.png | Two staff task tiles. | FR-04-07 |
 | Empty | Not applicable: the menu has fixed options. | — | — |
-| Loading | img/S-F04-01-loading.png, img/S-F04-01-loading-numbered.png | Skeleton while opening the staff page. | FR-04-08 |
-| Error | img/S-F04-01-error.png, img/S-F04-01-error-numbered.png | MSG-04. Requests without a staff session open S-F00-03. | FR-04-20, FR-04-08 |
+| Loading | img/S-F04-01/S-F04-01-loading.png, img/S-F04-01/S-F04-01-loading-numbered.png | Skeleton while opening the staff page. | FR-04-08 |
+| Error | img/S-F04-01/S-F04-01-error.png, img/S-F04-01/S-F04-01-error-numbered.png | MSG-04. Requests without a staff session open S-F00-03. | FR-04-20, FR-04-08 |
 | Success | Not applicable: opening the menu uses its default state. | — | — |
 
 ## Actions and where they go

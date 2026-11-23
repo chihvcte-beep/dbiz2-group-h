@@ -12,7 +12,7 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Hoa
 ## States drawn
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/M-F02-04-01.png | Confirmation modal over dimmed S-F02-04 parent showing selected review #91 and the header «Đăng xuất» button behind (D7); numbered variant in M-F02-04-01-numbered.png (#1–#3, re-exported 22/11/2026) | FR-02-10 |
+| Default | img/M-F02-04-01/M-F02-04-01.png | Confirmation modal over dimmed S-F02-04 parent showing selected review #91 and the header «Đăng xuất» button behind (D7); numbered variant in M-F02-04-01-numbered.png (#1–#3, re-exported 22/11/2026) | FR-02-10 |
 | Empty | Not applicable: confirmation modal has no list | — | — |
 | Loading | Not applicable: no modal-level loading state is specified | — | — |
 | Error | Not applicable: no modal-level error state is specified | — | — |

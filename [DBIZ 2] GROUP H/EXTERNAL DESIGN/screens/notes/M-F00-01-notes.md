@@ -15,7 +15,7 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Ha
 
 | State | Image | What the user sees | FR |
 | --- | --- | --- | --- |
-| Default | img/M-F00-01.png, img/M-F00-01-numbered.png | General (MSG-01): “Bạn cần đăng nhập bằng thẻ thư viện để làm việc này.” | FR-04-08 |
+| Default | img/M-F00-01/M-F00-01.png, img/M-F00-01/M-F00-01-numbered.png | General (MSG-01): “Bạn cần đăng nhập bằng thẻ thư viện để làm việc này.” | FR-04-08 |
 | Wording variant — chatbot | Same layout as Default | Chatbot (MSG-02): “Bạn cần đăng nhập bằng thẻ thư viện để trò chuyện với trợ lý tìm sách.” | FR-03-18 |
 | Wording variant — recommendations | Same layout as Default | Recommendations (MSG-03): “Gợi ý riêng cho bạn cần tài khoản thẻ thư viện. Hãy đăng nhập để xem.” | FR-03-21 |
 | Empty | Not applicable: the modal only asks the reader to choose. | — | — |
@@ -30,7 +30,7 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Ha
 | Sign in | Open reader sign-in. After OTP acceptance resume the requested action at the origin (L8-01). | S-F00-01 |
 | Not now | Close and end the pending request. | S-F01-01, S-F02-01, S-F02-02, S-F03-02, S-F03-03, S-F03-06, S-F03-07 |
 
-The modal is the same on all seven entry screens listed above. The dimmed background in img/M-F00-01.png illustrates S-F01-01 only.
+The modal is the same on all seven entry screens listed above. The dimmed background in img/M-F00-01/M-F00-01.png illustrates S-F01-01 only.
 
 ## Open questions
 

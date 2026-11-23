@@ -15,7 +15,7 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Hoa
 | 8 | Other readers’ reviews | Review item | Book review › review text, reviewer, posted date (no review ID code on UI); text button “Báo cáo đánh giá” on S-F02-01 only | FR-02-02, FR-02-13, FR-02-09, FR-02-21 |
 | 9 | Next page | Load more button | “Xem thêm đánh giá”; appends the next 10 reviews, newest first; shown while more published reviews remain (D6) | FR-02-02 |
 | 10 | Empty list message | Empty state | “Không có đánh giá nào để hiển thị. Hãy là người đầu tiên viết đánh giá cho cuốn sách này.” (or book-not-found variant when book does not exist); replaces review list | FR-02-15 |
-| 11 | Page-level feedback | Banner | MSG-04 network error; “Bạn đã báo cáo đánh giá này.” for duplicate report; “Không thể thực hiện thao tác trên đánh giá không thuộc về bạn.” for non-owner edit/delete | FR-04-20, FR-02-21, FR-02-11 |
+| 11 | Page-level feedback | Banner | MSG-04 network error; “Bạn đã báo cáo đánh giá này.” for duplicate report; “Bạn không thể báo cáo đánh giá của chính mình.” for the reader's own review (D39); “Không thể thực hiện thao tác trên đánh giá không thuộc về bạn.” for non-owner edit/delete | FR-04-20, FR-02-21, FR-02-24, FR-02-11 |
 | 12 | Field validation feedback | Inline error | Empty review text / over 2,000 characters (inline error message under field) | FR-02-01, FR-02-11 |
 | 13 | Success confirmation | Toast | “Đã đăng đánh giá.” / “Đã cập nhật đánh giá.” / “Đã xoá đánh giá.” / “Đã gửi báo cáo.” | FR-02-12, FR-02-09 |
 | 14 | Loading placeholder | Skeleton | Same shape as book context, form and review list | MSG-05 |
@@ -24,13 +24,14 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Hoa
 ## States drawn
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/S-F02-01.png | Book context, review editor, own review, other reviews (10 per page, no review IDs), text-button actions, and next-page action | FR-02-01, FR-02-02, FR-02-03, FR-02-04, FR-02-09 |
-| Empty | img/S-F02-01-empty.png | Book exists but has no published reviews; empty state message with prompt to write the first review, no review list | FR-02-15 |
-| Loading | img/S-F02-01-loading.png | Skeleton blocks replace content; no loading text | MSG-05 |
-| Error | img/S-F02-01-error.png | Page content preserved; empty or over-limit review text with Inline error; error-numbered image included | FR-02-01, FR-02-11 |
-| Error-2 | img/S-F02-01-error-2.png | Page content preserved; MSG-04 network error Banner with “Thử lại” button; numbered variant included | FR-04-20 |
-| Error-3 | img/S-F02-01-error-3.png | Page content preserved; Banner with “Bạn đã báo cáo đánh giá này.” or non-owner action message; numbered variant included | FR-02-21, FR-02-11 |
-| Success | img/S-F02-01-success.png | Confirmation toast (“Đã đăng đánh giá.” / “Đã gửi báo cáo.”) and refreshed review list preserving existing reviews (including own review and #91) | FR-02-12, FR-02-09 |
+| Default | img/S-F02-01/S-F02-01.png | Book context, review editor, own review, other reviews (10 per page, no review IDs), text-button actions, and next-page action | FR-02-01, FR-02-02, FR-02-03, FR-02-04, FR-02-09 |
+| Empty | img/S-F02-01/S-F02-01-empty.png | Book exists but has no published reviews; empty state message with prompt to write the first review, no review list | FR-02-15 |
+| Loading | img/S-F02-01/S-F02-01-loading.png | Skeleton blocks replace content; no loading text | MSG-05 |
+| Error | img/S-F02-01/S-F02-01-error.png | Page content preserved; empty or over-limit review text with Inline error; error-numbered image included | FR-02-01, FR-02-11 |
+| Error-2 | img/S-F02-01/S-F02-01-error-2.png | Page content preserved; MSG-04 network error Banner with “Thử lại” button; numbered variant included | FR-04-20 |
+| Error-3 | img/S-F02-01/S-F02-01-error-3.png | Page content preserved; Banner with “Bạn đã báo cáo đánh giá này.” or non-owner action message; numbered variant included. “Bạn không thể báo cáo đánh giá của chính mình.” uses the same Banner (D39) | FR-02-21, FR-02-24, FR-02-11 |
+| Error-4 | img/S-F02-01/S-F02-01-error-4.png | Banner “Bạn không thể báo cáo đánh giá của chính mình.”; no report saved (D39) | FR-02-24 |
+| Success | img/S-F02-01/S-F02-01-success.png | Confirmation toast (“Đã đăng đánh giá.” / “Đã gửi báo cáo.”) and refreshed review list preserving existing reviews (including own review and #91) | FR-02-12, FR-02-09 |
 
 ## Actions and where they go
 | Element | User action | Goes to |

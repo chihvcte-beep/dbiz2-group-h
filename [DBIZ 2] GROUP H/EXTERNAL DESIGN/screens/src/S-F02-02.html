@@ -12,17 +12,17 @@
   Element numbers follow notes/S-F02-02-notes.md. Same review panel as S-F02-01 (L8-07),
   without "Báo cáo đánh giá". Delete confirmation = M-F02-01-01 (in S-F02-01.html).
   Group decision 22/11/2026 (Chi): no Back button in the Screen header (D5, the page is only opened by
-  scanning the QR label); «Xem thêm đánh giá» Load more button #10 while more published reviews remain (D6).
-  Only tokens.css values are used: no colour, size or font is written in this file.
+  scanning the QR label); «Xem thêm đánh giá» Load more button #10 while more published reviews remain (D6). Invalid-QR error: Text link «Về OPAC» #16 to the OPAC main menu (D37).
+  Only ui-tokens.css values are used: no colour, size or font is written in this file.
 -->
 <html lang="vi">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>S-F02-02 · Thông tin và đánh giá sách</title>
-  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="ui-tokens.css">
   <style>
-    /* Layout helpers for this screen. Values come only from tokens.css. */
+    /* Layout helpers for this screen. Values come only from ui-tokens.css. */
     .context-card { display: flex; flex-direction: column; gap: var(--space-3); }
     .context-card .book-row { border-bottom: 0; padding: 0; }
     .summary { display: flex; flex-direction: column; gap: var(--space-1); }
@@ -52,7 +52,7 @@
   <div class="frame">
 
     <!-- ========================================================
-         STATE: DEFAULT  (img/S-F02-02.png) - no Report action, no Back; Load more #10 (more reviews remain)
+         STATE: DEFAULT  (img/S-F02-02/S-F02-02.png) - no Report action, no Back; Load more #10 (more reviews remain)
          ======================================================== -->
     <section data-state="default">
       <header class="screen-header has-num"><span class="num">1</span>
@@ -129,7 +129,7 @@
     </section>
 
     <!-- ========================================================
-         STATE: EMPTY  (img/S-F02-02-empty.png) - book found, no published reviews
+         STATE: EMPTY  (img/S-F02-02/S-F02-02-empty.png) - book found, no published reviews
          ======================================================== -->
     <section data-state="empty">
       <header class="screen-header has-num"><span class="num">1</span>
@@ -165,7 +165,7 @@
     </section>
 
     <!-- ========================================================
-         STATE: LOADING  (img/S-F02-02-loading.png) - MSG-05: skeleton only, no text
+         STATE: LOADING  (img/S-F02-02/S-F02-02-loading.png) - MSG-05: skeleton only, no text
          ======================================================== -->
     <section data-state="loading">
       <header class="screen-header has-num"><span class="num">1</span>
@@ -182,7 +182,7 @@
     </section>
 
     <!-- ========================================================
-         STATE: ERROR  (img/S-F02-02-error.png) - invalid QR, book not found (FR-02-16)
+         STATE: ERROR  (img/S-F02-02/S-F02-02-error.png) - invalid QR, book not found (FR-02-16), with «Về OPAC» #16 (D37)
          ======================================================== -->
     <section data-state="error">
       <header class="screen-header has-num"><span class="num">1</span>
@@ -194,13 +194,14 @@
           <div class="banner-body">
             <span class="banner-title">Không tìm thấy sách.</span>
             <span>Mã QR không gắn với sách nào. Vui lòng quét lại mã trên sách hoặc tìm sách trên OPAC.</span>
+            <a class="text-link link-strong has-num"><span class="num">16</span>Về OPAC</a>
           </div>
         </div>
       </main>
     </section>
 
     <!-- ========================================================
-         STATE: ERROR-2  (img/S-F02-02-error-2.png) - network error Banner #9 + Thử lại #15
+         STATE: ERROR-2  (img/S-F02-02/S-F02-02-error-2.png) - network error Banner #9 + Thử lại #15
          ======================================================== -->
     <section data-state="error-2">
       <header class="screen-header has-num"><span class="num">1</span>
@@ -210,7 +211,7 @@
         <div class="banner error has-num" role="alert"><span class="num">9</span>
           <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
           <div class="banner-body">
-            <span>Không thể tải dữ liệu do lỗi kết nối.</span>
+            <span>Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.</span>
             <button class="secondary-button has-num" type="button"><span class="num">15</span>Thử lại</button>
           </div>
         </div>
@@ -256,7 +257,7 @@
     </section>
 
     <!-- ========================================================
-         STATE: ERROR-3  (img/S-F02-02-error-3.png) - review validation: Banner #9 + Inline error #14
+         STATE: ERROR-3  (img/S-F02-02/S-F02-02-error-3.png) - review validation: Banner #9 + Inline error #14
          ======================================================== -->
     <section data-state="error-3">
       <header class="screen-header has-num"><span class="num">1</span>
@@ -310,7 +311,7 @@
     </section>
 
     <!-- ========================================================
-         STATE: SUCCESS  (img/S-F02-02-success.png) - Toast #12 + full refreshed list
+         STATE: SUCCESS  (img/S-F02-02/S-F02-02-success.png) - Toast #12 + full refreshed list
          ======================================================== -->
     <section data-state="success">
       <header class="screen-header has-num"><span class="num">1</span>

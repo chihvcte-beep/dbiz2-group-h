@@ -24,11 +24,11 @@ Actor: Reader · Frame: 360px (export 3x = 1080px) · UI conventions: v0.8 · Au
 
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/S-F03-07.png, img/S-F03-07-numbered.png | Header with «Sở thích» button; personalised recommendation list (displays up to 10 books; wireframe illustrates representative sample) with format labels. Entire book row is tappable. Numbered image shows #1–#5 (re-exported 22/11/2026). | FR-03-11 |
-| Cold-start | img/S-F03-07-cold-start.png | Reader has no history/preferences: header with «Sở thích» button, callout banner with “Thiết lập sở thích đọc ngay” text link, followed by popular books list. | FR-03-19 |
-| Topped-up | img/S-F03-07-topped-up.png | Fewer than 3 personalised matches: shows personalized books supplemented by trending books in the same subject from the last 30 days; each trending book carries the Trend tag «Xu hướng». | FR-03-20 |
-| Loading | img/S-F03-07-loading.png | Header with «Sở thích» button; skeleton book rows during recommendation calculation. | MSG-05 |
-| Error | img/S-F03-07-error.png | Header with «Sở thích» button; MSG-04 network load error banner with “Thử lại” action button. | FR-04-20 |
+| Default | img/S-F03-07/S-F03-07.png, img/S-F03-07/S-F03-07-numbered.png | Header with «Sở thích» button; personalised recommendation list (displays up to 10 books; wireframe illustrates representative sample) with format labels. Entire book row is tappable. Numbered image shows #1–#5 (re-exported 22/11/2026). | FR-03-11 |
+| Cold-start | img/S-F03-07/S-F03-07-cold-start.png | Reader has no history/preferences: header with «Sở thích» button, callout banner with “Thiết lập sở thích đọc ngay” text link, followed by popular books list. | FR-03-19 |
+| Topped-up | img/S-F03-07/S-F03-07-topped-up.png | Fewer than 3 personalised matches: shows personalized books supplemented by trending books in the same subject from the last 30 days; each trending book carries the Trend tag «Xu hướng». | FR-03-20 |
+| Loading | img/S-F03-07/S-F03-07-loading.png | Header with «Sở thích» button; skeleton book rows during recommendation calculation. | MSG-05 |
+| Error | img/S-F03-07/S-F03-07-error.png | Header with «Sở thích» button; MSG-04 network load error banner with “Thử lại” action button. | FR-04-20 |
 | Empty | *Not applicable* | Khi chưa có dữ liệu đọc cá nhân, hệ thống tự động hiển thị danh sách sách phổ biến nhất (FR-03-19), do đó màn hình không bao giờ bị trống. | FR-03-19 |
 | Success | *Not applicable* | Màn hình hiển thị danh sách kết quả trực tiếp, không có thông báo Toast xác nhận riêng. | FR-03-11 |
 

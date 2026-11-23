@@ -21,12 +21,12 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Nhi
 
 | State | Image | What the user sees | Source / FR |
 |---|---|---|---|
-| Default | img/S-F03-03.png | Saved physical books with format labels, synced shelf locations and “Bỏ khỏi danh sách” actions. One row demonstrates an unavailable shelf location. | FR-03-06, FR-03-07, FR-01-07, FR-03-08 |
-| Empty | img/S-F03-03-empty.png | “Bạn chưa lưu sách nào. Bấm Lưu vào danh sách ở trang vị trí kệ sách.” | FR-03-25; UI Conventions §4 |
-| Loading | img/S-F03-03-loading.png | Skeleton placeholders while saved books and shelf locations are retrieved. | FR-03-07; MSG-05 |
-| Error | img/S-F03-03-error.png | Shared MSG-04 banner and “Thử lại” action. Retain any data already shown. | FR-04-20 |
-| Success | img/S-F03-03-success.png | The selected book has been removed, the list is refreshed, and a short success Toast appears. | FR-03-08 |
-| Location unavailable | img/S-F03-03-error-2.png | The affected row shows the exact MSG-06 wording; other saved books remain visible. | FR-01-07; MSG-06 |
+| Default | img/S-F03-03/S-F03-03.png | Saved physical books with format labels, synced shelf locations and “Bỏ khỏi danh sách” actions. One row demonstrates an unavailable shelf location. | FR-03-06, FR-03-07, FR-01-07, FR-03-08 |
+| Empty | img/S-F03-03/S-F03-03-empty.png | “Bạn chưa lưu sách nào. Bấm Lưu vào danh sách ở trang vị trí kệ sách.” | FR-03-25; UI Conventions §4 |
+| Loading | img/S-F03-03/S-F03-03-loading.png | Skeleton placeholders while saved books and shelf locations are retrieved. | FR-03-07; MSG-05 |
+| Error | img/S-F03-03/S-F03-03-error.png | Shared MSG-04 banner and “Thử lại” action. Retain any data already shown. | FR-04-20 |
+| Success | img/S-F03-03/S-F03-03-success.png | The selected book has been removed, the list is refreshed, and a short success Toast appears. | FR-03-08 |
+| Location unavailable | img/S-F03-03/S-F03-03-error-2.png | The affected row shows the exact MSG-06 wording; other saved books remain visible. | FR-01-07; MSG-06 |
 
 ## Actions and where they go
 

@@ -7,14 +7,14 @@
 | Feature | F-03 Discovery, Reading History & Recommendation |
 | Primary actor | Reader |
 | Lanes | Reader · Library Core System |
-| Inputs (L3-L5) | Context Diagram (Reader flows "Filters queries", "Reading format"; Library Internal System flow "Book catalog & availability") · Use Case Diagram (UC-03) · Sequence: User Interface Flow (UC-03) · W0 Table 3 (FR-03-14 and FR-03-15 cut; no viewer or download on this platform), Table 4 (Online book read log, ILF; Reading history & preferences, ILF) · W1 rows FR-03-12, FR-03-23, FR-03-13, FR-03-02 |
+| Inputs (L3-L5) | Context Diagram (Reader flows "Filters queries", "Reading format"; Library Internal System flow "Book catalog & availability") · Use Case Diagram (UC-03) · Sequence: [SD-UC-03](../SEQUENCE%20DIAGRAM/SD-UC-03.md) · W0 Table 3 (FR-03-14 and FR-03-15 cut; no viewer or download on this platform), Table 4 (Online book read log, ILF; Reading history & preferences, ILF) · W1 rows FR-03-12, FR-03-23, FR-03-13, FR-03-02 |
 | Trigger | The reader opens the access-format filter |
 | Preconditions | No sign-in is needed (W0 Table 1). The catalogue, with the access format of each book, has been synced (FR-04-09). |
 | Success end state | The reader sees the books in the chosen access format, each with its access-format label. Every online book the reader opened from the results is recorded in the anonymous read log and, for a signed-in reader, in their reading history. |
 | Failure end state | No book matches: the reader is told no books were found and may choose another format. |
 | FRs covered | FR-03-12, FR-03-23, FR-03-13, FR-03-02; FR-01-01 through the call to UC-01 |
-| Business rules applied | Three choices only: Online, Physical or Both (FR-03-12). An empty result invites another choice instead of ending the search (FR-03-23). Every online-book read is logged without any reader identity (FR-03-13). Only a signed-in library card reader gets a history entry (FR-03-02). The book itself opens on the current OPAC; this platform builds no viewer or download (W0 Table 3). |
-| Version / status | v1.3 · Draft |
+| Business rules applied | Three choices only: Online, Physical or Both (FR-03-12). An empty result invites another choice instead of ending the search (FR-03-23). Every online-book read is logged without any reader identity (FR-03-13). Only a signed-in library card reader gets a history entry (FR-03-02). The book itself opens on the current OPAC; this platform builds no viewer or download (W0 Table 3). Results are shown 20 per page; choosing another access format returns to page 1 (FR-03-12; D9, D14, D33). |
+| Version / status | v1.4 · Draft |
 | Author | Owner D (F-03) |
 
 ## 1. Diagram
@@ -41,6 +41,7 @@ swimlane-beta TB
     r2("Choose an access format:<br/>Online, Physical or Both (FR-03-12)")
     d2{"What does the reader do next?"}
     r3("Open an online book from the results (FR-03-13)")
+    r4("Open another page of the results (FR-03-12)")
     c1[["View book shelf location (UC-01) (FR-01-01)"]]
     stop1@{ shape: fr-circ }
     stop2@{ shape: fr-circ }
@@ -48,12 +49,13 @@ swimlane-beta TB
   subgraph SYS["Library Core System"]
     s1("Retrieve the books in the selected access format (FR-03-12)")
     d1{"Are there matching books?"}
-    s2("Display the matching books with<br/>their access-format labels (FR-03-12)")
+    s2("Display the matching books with their<br/>access-format labels, 20 per page (FR-03-12)")
     s3("Display that no books were found (FR-03-23)")
     m2{" "}
     s4("Record the book and the time of the read<br/>without any reader identity (FR-03-13)")
     d3{"Is the reader signed in<br/>with a library card?"}
     s5("Add the book to the reader's reading history (FR-03-02)")
+    s6("Show that page of the results (FR-03-12)")
   end
 
   start --> r1 --> m1 --> r2 --> s1 --> d1
@@ -61,6 +63,7 @@ swimlane-beta TB
   d1 -->|"[No]"| s3 --> m2
   m2 --> d2
   d2 -->|"[Choose another access format]"| m1
+  d2 -->|"[Open another page]"| r4 --> s6 --> m2
   d2 -->|"[Open an online book]"| r3 --> s4 --> d3
   d3 -->|"[Yes]"| s5 --> m2
   d3 -->|"[No]"| m2
@@ -84,6 +87,8 @@ Reading notes:
 - v1.3 adds the call `c1`: from a physical book in the results the reader opens the book on the
   existing OPAC Book Detail and asks for its shelf location, which is UC-01 (drawn once in AD-UC-01,
   not copied here). It backs the usage-flow arrow UC-03 to UC-01.
+- v1.4 adds paging: `r4` → `s6` shows another page of 20 books and comes back through `m2` (D9,
+  D33). Choosing another format goes back through `m1` and starts at page 1 (D14).
 
 ## 2. Node trace
 
@@ -93,9 +98,11 @@ Reading notes:
 | r2 | Action (Reader) | Choose an access format: Online, Physical or Both | FR-03-12 |
 | s1 | Action | Retrieve the books in the selected access format | FR-03-12 |
 | d1 | Decision | Are there matching books? | FR-03-23 |
-| s2 | Action | Display the matching books with their access-format labels | FR-03-12 |
+| s2 | Action | Display the matching books with their access-format labels, 20 per page | FR-03-12 |
 | s3 | Action | Display that no books were found | FR-03-23 |
-| d2 | Decision (Reader) | What does the reader do next? | FR-03-23, FR-03-13, FR-01-01 |
+| d2 | Decision (Reader) | What does the reader do next? | FR-03-12, FR-03-23, FR-03-13, FR-01-01 |
+| r4 | Action (Reader) | Open another page of the results | FR-03-12 |
+| s6 | Action | Show that page of the results | FR-03-12 |
 | r3 | Action (Reader) | Open an online book from the results | FR-03-13 |
 | c1 | Call (Reader) | View book shelf location (UC-01) | FR-01-01 |
 | s4 | Action | Record the book and the time of the read without any reader identity | FR-03-13 |
@@ -109,6 +116,8 @@ Reading notes:
 | d1 [Yes] | the catalogue holds 120 physical books and 45 online books | the reader chooses Online | 45 books are listed, each labelled "Online" |
 | d1 [No] | the catalogue holds no book with both a physical copy and an online version | the reader chooses Both | the page says no books were found |
 | d2 [Choose another access format] | "no books were found" is shown for Both | the reader chooses Physical | the physical books are listed with the label "Physical" |
+| d2 [Open another page] | the Physical results hold 45 books and page 1 is shown | the reader chooses «Trang sau» | books 21 to 40 are shown |
+| d2 [Choose another access format] (from page 2) | page 2 of the Physical results is shown | the reader chooses Online | the Online results are shown from page 1 |
 | d2 [Open an online book] → d3 [Yes] | reader 0012345 is signed in and the Online results are shown | they open "Digital Marketing Basics" | the read log gets one row (book, time, no reader identity) and the book is added to reader 0012345's reading history |
 | d3 [No] | the reader is not signed in and the Online results are shown | they open "Digital Marketing Basics" | the read log gets one row (book, time, no reader identity); no history entry is made |
 | d2 [Open a physical book] | the Physical results are shown | the reader opens "Principles of Economics" | the book opens on the existing OPAC Book Detail and UC-01 starts (shelf location) |
@@ -130,6 +139,7 @@ Filled in during Lesson 8, from the Screen List.
 |---|---|
 | Open the access-format filter (r1) | S-F03-01 (from a link on the existing OPAC search results) |
 | Choose an access format: Online, Physical or Both (r2), What does the reader do next? (d2) | S-F03-01 |
+| Open another page of the results (r4), see that page (s6) | S-F03-01 (Pagination) |
 | See that no books were found (s3) | S-F03-01 (empty state) |
 | Open an online book from the results (r3) | S-F03-01 → exit: online book on the current OPAC (outside the product) |
 | View book shelf location (UC-01) (c1) | S-F03-01 → existing OPAC Book Detail → S-F01-01 |
@@ -150,4 +160,6 @@ None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#
 | Every FR of UC-03 appears in the diagram | Pass (4 of 4 non-Won't W1 rows whose source trace names UC-03; FR-03-14, FR-03-15 are Won't) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass | AI assistant | 2026-11-04 |
 | Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
+| v1.4: paging `r4`, `s6` through merge `m2`, each new action cites one FR | Pass (checked by script and by reading) | AI assistant | 2026-11-23 |
+| Renders after v1.4 (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-23 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

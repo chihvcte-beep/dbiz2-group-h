@@ -7,14 +7,14 @@
 | Feature | F-03 Discovery, Reading History & Recommendation |
 | Primary actor | Reader |
 | Lanes | Reader · Library Core System (the AI Service step sits inside this lane) |
-| Inputs (L3-L5) | Context Diagram (Reader flow "Recommendations & chatbot answers"; system function "AI chatbot & recommendations") · Use Case Diagram (UC-09, includes Sign in UC-11) · Sequence: Reader Interaction Flow (UC-07 with UC-09) · W0 Table 1 (login required), Table 4 (Reading history & preferences, Chatbot conversations, Book QR codes) · W1 rows FR-03-11, FR-03-19, FR-03-20, FR-03-21, FR-04-08 |
+| Inputs (L3-L5) | Context Diagram (Reader flow "Recommendations & chatbot answers"; system function "AI chatbot & recommendations") · Use Case Diagram (UC-09, includes Sign in UC-11) · Sequence: [SD-UC-09](../SEQUENCE%20DIAGRAM/SD-UC-09.md) · W0 Table 1 (login required), Table 4 (Reading history & preferences, Chatbot conversations, Book QR codes) · W1 rows FR-03-11, FR-03-19, FR-03-20, FR-03-21, FR-04-08 |
 | Trigger | The reader opens the recommendations section |
 | Preconditions | The reader may not be signed in yet: the flow checks the session and shows a sign-in prompt (FR-03-21). |
 | Success end state | The reader sees a list of recommended books: personalised, topped up with trending books when short, or popular books when there is no reader data. |
 | Failure end state | The reader is not signed in and chooses not to sign in: no recommendations are shown. |
 | FRs covered | FR-03-11, FR-03-19, FR-03-20, FR-03-21, FR-04-08; FR-04-01, FR-01-01 and FR-03-05 through the calls to UC-11, UC-01 and UC-07 |
 | Business rules applied | Personalised recommendations need a library card account (FR-03-21). With no reading history, preferences or chatbot conversations, popular books by QR scan count are shown and the reader is asked to set preferences (FR-03-19). Fewer than three matching titles are topped up with trending books of the same subjects (FR-03-20). |
-| Version / status | v1.2 · Draft |
+| Version / status | v1.3 · Draft |
 | Author | Owner D (F-03) |
 
 ## 1. Diagram
@@ -43,6 +43,8 @@ swimlane-beta TB
     d4{"What does the reader do next?"}
     c2[["View book shelf location (UC-01) (FR-01-01)"]]
     c3[["Update reading preferences (UC-07) (FR-03-05)"]]
+    r3("Open a recommended online book on the OPAC (FR-03-11)")
+    stop4@{ shape: fr-circ }
     stop1@{ shape: fr-circ }
     stop2@{ shape: fr-circ }
     stop3@{ shape: fr-circ }
@@ -74,6 +76,7 @@ swimlane-beta TB
   m1 --> s5 --> r2 --> d4
   d4 -->|"[Open a physical book]"| c2 --> stop3
   d4 -->|"[Set reading preferences]"| c3 --> m0
+  d4 -->|"[Open an online book]"| r3 --> stop4
   d4 -->|"[Finish]"| stop2
 ```
 
@@ -89,6 +92,8 @@ Reading notes:
   AD-UC-07). After `c3` the flow re-enters through the merge `m0`, so the list is built again with
   the new preferences. They back the usage-flow arrows UC-09 to UC-01, UC-09 to UC-07 and UC-07 to
   UC-09.
+- v1.3 adds `r3`: a recommended online book opens on the existing OPAC Book Detail, where the reader
+  opens or downloads it. The platform does not see that step (D42).
 
 ## 2. Node trace
 
@@ -111,6 +116,7 @@ Reading notes:
 | d4 | Decision (Reader) | What does the reader do next? | FR-03-11, FR-01-01, FR-03-19 |
 | c2 | Call (Reader) | View book shelf location (UC-01) | FR-01-01 |
 | c3 | Call (Reader) | Update reading preferences (UC-07) | FR-03-05 |
+| r3 | Action (Reader) | Open a recommended online book on the OPAC | FR-03-11 |
 
 ## 3. Branches and acceptance tests
 
@@ -123,6 +129,7 @@ Reading notes:
 | d3 [No] | the reader's data gives only 2 matching titles, both in Economics | they open recommendations | the 2 titles are shown, topped up with the most borrowed Economics books of the last 30 days |
 | d4 [Open a physical book] | the recommended list is shown | the reader opens a recommended physical book | the book opens on the existing OPAC Book Detail and UC-01 starts (shelf location) |
 | d4 [Set reading preferences] | a new reader sees popular books and the prompt to set preferences | they set "Economics" as a preference and come back | the session is checked again and the list is rebuilt with Economics titles |
+| d4 [Open an online book] | the list shows "Chiến lược Marketing Đột phá" as an online book | the reader opens it | the book opens on the existing OPAC Book Detail; the activity ends |
 | d4 [Finish] | the recommended list is shown | the reader leaves the section | the activity ends |
 
 ## 4. Object states used
@@ -145,6 +152,7 @@ Filled in during Lesson 8, from the Screen List.
 | View the recommended books (r2), What does the reader do next? (d4) | S-F03-07 |
 | View book shelf location (UC-01) (c2) | S-F03-07 → existing OPAC Book Detail → S-F01-01 |
 | Update reading preferences (UC-07) (c3) | S-F03-07 → S-F03-02, then back to S-F03-07 |
+| Open a recommended online book on the OPAC (r3) | S-F03-07 → existing OPAC Book Detail (exit) |
 | See popular books and the prompt to set reading preferences (s3) | S-F03-07 (no-history state) |
 
 ## 6. Open questions
@@ -163,4 +171,5 @@ None. Decisions: see [decision-index.md](../EXTERNAL%20DESIGN/decision-index.md#
 | Every FR of UC-09 appears in the diagram | Pass (4 of 4 W1 rows whose source trace names UC-09) | AI assistant | 2026-11-04 |
 | Lane names match the Context Diagram | Pass (AI Service step moved into the system lane) | AI assistant | 2026-11-04 |
 | Renders (Mermaid 12.3.0, swimlane-beta, Chrome) | Pass | AI assistant | 2026-11-22 |
+| v1.3: `r3` and `stop4` added for an online book; the new action cites one FR | Pass (checked by script) | AI assistant | 2026-11-23 |
 | AI critic prompt run, findings resolved or logged | Not yet run by the team | | |

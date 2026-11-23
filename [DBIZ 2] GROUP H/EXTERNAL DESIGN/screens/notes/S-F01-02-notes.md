@@ -20,14 +20,14 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Nhi
 
 | State | Image | What the user sees | FR |
 |---|---|---|---|
-| Default | img/S-F01-02.png | Opened from the OPAC menu. Lowest floor number is selected by default; floor selector and room tiles are shown; no room is highlighted and no shelf-location details are shown. | FR-01-02 |
+| Default | img/S-F01-02/S-F01-02.png | Opened from the OPAC menu. Lowest floor number is selected by default; floor selector and room tiles are shown; no room is highlighted and no shelf-location details are shown. | FR-01-02 |
 | Empty | Not applicable: this is a map view, not a list. A missing or unreadable floor plan is an Error state, not an empty map. | — | — |
-| Loading | img/S-F01-02-loading.png | Skeleton placeholders while synced floor/room data and the floor plan are retrieved. | FR-01-02 |
-| Error — map unavailable | img/S-F01-02-error.png | MSG-07 when opened from a book, keeping shelf-location details visible above the map; MSG-12 when opened from the OPAC menu (D23). | FR-01-10 |
-| Error — room cannot be identified | img/S-F01-02-error-2.png | MSG-08 when room R-299 is not found on the plan. Show the plain map and keep shelf-location details visible. R-299 is the sample missing room code; R-204 remains the confirmed room sample. | FR-01-09 |
-| Error — selected floor unavailable | img/S-F01-02-error-3.png | Show MSG-07 (opened from a book) or MSG-12 (opened from the OPAC menu) above the previous floor’s map. Keep the previous map visible so the reader can choose another floor. | FR-01-10 |
-| Success — book room highlighted | img/S-F01-02-success.png | Opened from S-F01-01: show the book’s floor, keep shelf details visible and highlight its room using fill, a 3px border and the text “Sách của bạn ở đây”. | FR-01-03 |
-| Success — selected room | img/S-F01-02-selected-room.png | After selecting a room from the map, highlight the selected tile and show its room name, room code and floor. Example: “Phòng đọc A (R-204), Tầng 2”. No shelf-location details are shown when entered from the menu. | FR-01-11 |
+| Loading | img/S-F01-02/S-F01-02-loading.png | Skeleton placeholders while synced floor/room data and the floor plan are retrieved. | FR-01-02 |
+| Error — map unavailable | img/S-F01-02/S-F01-02-error.png | MSG-07 when opened from a book, keeping shelf-location details visible above the map; MSG-12 when opened from the OPAC menu (D23). | FR-01-10 |
+| Error — room cannot be identified | img/S-F01-02/S-F01-02-error-2.png | MSG-08 when room R-299 is not found on the plan. Show the plain map and keep shelf-location details visible. R-299 is the sample missing room code; R-204 remains the confirmed room sample. | FR-01-09 |
+| Error — selected floor unavailable | img/S-F01-02/S-F01-02-error-3.png | Show MSG-07 (opened from a book) or MSG-12 (opened from the OPAC menu) above the previous floor’s map. Keep the previous map visible so the reader can choose another floor. | FR-01-10 |
+| Success — book room highlighted | img/S-F01-02/S-F01-02-success.png | Opened from S-F01-01: show the book’s floor, keep shelf details visible and highlight its room using fill, a 3px border and the text “Sách của bạn ở đây”. | FR-01-03 |
+| Success — selected room | img/S-F01-02/S-F01-02-selected-room.png | After selecting a room from the map, highlight the selected tile and show its room name, room code and floor. Example: “Phòng đọc A (R-204), Tầng 2”. No shelf-location details are shown when entered from the menu. | FR-01-11 |
 
 ## Actions and where they go
 
