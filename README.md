@@ -64,7 +64,6 @@ reasons: [scope.md, Table 3](docs/project_brief/scope.md#table-3-wont-have).
 | | [screens/notes/](docs/external_design/screens/notes/) | Wireframe notes per screen and modal |
 | | [screens/img/](docs/external_design/screens/img/) | Mock-up images of every screen and state |
 | | [screens/src/](docs/external_design/screens/src/) | Wireframe sources (HTML, CSS, draw.io) |
-| `archive/` | | Local only, not pushed to GitHub. The original PDFs and the workbook, frozen on 23/11/2026, stay in Git history at commit [cd61897](https://github.com/chihvcte-beep/dbiz2-group-h/tree/cd61897/%5BDBIZ%202%5D%20GROUP%20H). Do not edit. |
 
 ## Reading order
 
