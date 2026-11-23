@@ -139,15 +139,3 @@ AI assistants working in this repository follow [AGENTS.md](AGENTS.md). In short
   in Chrome; older viewers may fail to draw them.
 - `.html` files in [screens/src/](docs/external_design/screens/src/) open directly in a browser.
 - `.drawio` files open in [diagrams.net](https://app.diagrams.net).
-
-## Team
-
-The document reviewer is **Chi**. Linh owns [ui_conventions.md](docs/external_design/ui_conventions.md).
-
-| Member | Screen specs |
-|---|---|
-| Ha | S-F00-01, S-F00-02, S-F02-03 |
-| Linh | S-F00-03, S-F03-01, S-F04-01 |
-| Hoa | S-F02-01, S-F02-02, S-F02-04 |
-| Nhi | S-F01-01, S-F01-02, S-F03-03 |
-| Trieu | S-F03-02, S-F03-06, S-F03-07 |
