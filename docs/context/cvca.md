@@ -7,7 +7,7 @@ Who pays whom, who gives what information to whom, and where our system sits amo
 | Version | v1.0 · 23/11/2026 |
 | Redrawn from | [CVCA.pdf @ cd61897](https://github.com/chihvcte-beep/dbiz2-group-h/blob/cd61897/%5BDBIZ%202%5D%20GROUP%20H/CVCA.pdf) (original, kept in Git history), with "availability" removed (check of 23/11/2026) |
 | Status | Draft, waiting for group review |
-| Used by | [scope.md](../function_list/scope.md) (coverage check: every primary actor is served by a feature), [context_diagram.md](context_diagram.md) |
+| Used by | [scope.md](../function-list/scope.md) (coverage check: every primary actor is served by a feature), [context-diagram.md](context-diagram.md) |
 
 ## 1. Diagram
 
@@ -89,7 +89,7 @@ flowchart LR
   code"; staff **receive** the attached QR code and the reported reviews. QR codes are in fact generated
   automatically for new physical books (FR-02-07); staff print the labels (FR-02-08).
 - The flow "reader feedback and rate books" from readers to the library was removed from the CVCA before this
-  redraw ([scope.md](../function_list/scope.md#table-3-wont-have)): reviews stay inside this product.
+  redraw ([scope.md](../function-list/scope.md#table-3-wont-have)): reviews stay inside this product.
 - "Availability" was removed from the flow "book catalogue and availability" (check of 23/11/2026): copy
   availability stays on the existing OPAC. The reader flow "book status and location" is kept as drawn.
 - Payment flows: Readers → National Library, National Library → Web developers.

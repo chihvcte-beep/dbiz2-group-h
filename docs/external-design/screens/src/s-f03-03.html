@@ -1,0 +1,124 @@
+<!doctype html>
+<!--
+  Screen ID: S-F03-03
+  Screen name: Saved books list
+  Vietnamese title: Sách đã lưu
+  Frame: reader (360px, export 3x = 1080px)
+  ui-conventions version: v0.12
+  Author / date: Nhi (screen) · HTML source rebuilt from the exported images by Chi, 23/11/2026
+  States (URL hash; add "-numbered" to show element numbers):
+    #default #empty #loading #error #success (Kinh tế học Vi mô removed) #error-2 (row-level MSG-06 on Quản trị học only)
+  Element numbers follow screen-spec-s-f03-03.md section 3.
+  Colours, sizes and fonts come only from ui-tokens.css.
+-->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-F03-03 · Sách đã lưu</title>
+  <link rel="stylesheet" href="ui-tokens.css">
+  <style>
+    .title-wrap { display: inline-flex; min-width: 0; }
+    .toast.is-floating.wrap { white-space: normal; width: calc(100% - var(--screen-padding) * 2); }
+    .actions { display: flex; flex-direction: column; gap: var(--space-3); }
+    .saved-card { display: flex; flex-direction: column; gap: var(--space-3); }
+    .saved-card .book-row { border-bottom: 0; padding: 0; }
+    .saved-card .secondary-button { align-self: flex-end; }
+    .result-list .book-row:last-child { border-bottom: 0; }
+  </style>
+</head>
+<body data-frame="reader">
+  <div class="frame">
+
+    <section data-state="default">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Sách đã lưu</h1>
+      </header>
+      <main class="screen-body">
+        <span class="muted small">Danh sách sách bản giấy bạn đã lưu</span>
+        <div class="card saved-card has-num"><span class="num">2</span><div class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Principles of Economics</span><span class="book-author">N. Gregory Mankiw</span><span class="format-label has-num"><span class="num">3</span><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span></div></div><div class="shelf-location-line has-num"><span class="num">4</span><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Tầng 2 · Phòng R-204 · Kệ S-12</span></div><button class="secondary-button has-num" type="button"><span class="num">6</span>Bỏ khỏi danh sách</button></div>
+        <div class="card saved-card"><div class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Kinh tế học Vi mô</span><span class="book-author">Hal R. Varian</span><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span></div></div><div class="shelf-location-line"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Tầng 1 · Phòng R-102 · Kệ B-03</span></div><button class="secondary-button" type="button">Bỏ khỏi danh sách</button></div>
+      </main>
+    </section>
+
+    <section data-state="empty">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Sách đã lưu</h1>
+      </header>
+      <main class="screen-body">
+        <div class="empty-state has-num"><span class="num">7</span><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg><p>Bạn chưa lưu sách nào. Bấm Lưu vào danh sách ở trang vị trí kệ sách.</p></div>
+      </main>
+    </section>
+
+    <section data-state="loading">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Sách đã lưu</h1>
+      </header>
+      <main class="screen-body">
+        <span class="muted small">Danh sách sách bản giấy bạn đã lưu</span>
+        <div class="card group"><div class="skeleton line"></div><div class="skeleton line short"></div></div>
+        <div class="card group"><div class="skeleton line"></div><div class="skeleton line short"></div></div>
+      </main>
+    </section>
+
+    <section data-state="error">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Sách đã lưu</h1>
+      </header>
+      <main class="screen-body">
+        <span class="muted small">Danh sách sách bản giấy bạn đã lưu</span>
+        <div class="banner error has-num" role="alert"><span class="num">8</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="banner-body"><span>Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.</span><button class="secondary-button has-num" type="button"><span class="num">9</span>Thử lại</button></div></div>
+      </main>
+    </section>
+
+    <section data-state="success">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Sách đã lưu</h1>
+      </header>
+      <main class="screen-body">
+        <span class="muted small">Danh sách sách bản giấy bạn đã lưu</span>
+        <div class="card saved-card"><div class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Principles of Economics</span><span class="book-author">N. Gregory Mankiw</span><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span></div></div><div class="shelf-location-line"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Tầng 2 · Phòng R-204 · Kệ S-12</span></div><button class="secondary-button" type="button">Bỏ khỏi danh sách</button></div>
+      </main>
+      <div class="toast is-floating wrap has-num" role="status"><span class="num">10</span><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Đã bỏ sách khỏi danh sách.</span></div>
+    </section>
+
+    <section data-state="error-2">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Sách đã lưu</h1>
+      </header>
+      <main class="screen-body">
+        <span class="muted small">Danh sách sách bản giấy bạn đã lưu</span>
+        <div class="card saved-card"><div class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Principles of Economics</span><span class="book-author">N. Gregory Mankiw</span><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span></div></div><div class="shelf-location-line"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Tầng 2 · Phòng R-204 · Kệ S-12</span></div><button class="secondary-button" type="button">Bỏ khỏi danh sách</button></div>
+        <div class="card saved-card"><div class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Kinh tế học Vi mô</span><span class="book-author">Hal R. Varian</span><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span></div></div><div class="shelf-location-line"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Tầng 1 · Phòng R-102 · Kệ B-03</span></div><button class="secondary-button" type="button">Bỏ khỏi danh sách</button></div>
+        <div class="card saved-card"><div class="book-row"><div class="cover">Cover</div><div class="book-meta"><span class="book-title">Quản trị học</span><span class="book-author">Nguyễn Hữu Thân</span><span class="format-label"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy</span></div></div><div class="banner error has-num" role="alert"><span class="num">5</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="banner-body"><span>Chưa có vị trí kệ của sách này. Bạn hỏi quầy thông tin ở tầng trệt nhé.</span></div></div><button class="secondary-button" type="button">Bỏ khỏi danh sách</button></div>
+      </main>
+    </section>
+
+  </div>
+
+  <script>
+    // Show the section named after "#", e.g. #error. "-numbered" at the end turns on the circles.
+    (function () {
+      function apply() {
+        var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+        var numbered = /-numbered$/.test(hash);
+        var state = hash.replace(/-numbered$/, '') || 'default';
+        var sections = document.querySelectorAll('[data-state]');
+        var found = false;
+        sections.forEach(function (s) { if (s.getAttribute('data-state') === state) found = true; });
+        if (!found) state = 'default';
+        sections.forEach(function (s) { s.classList.toggle('is-active', s.getAttribute('data-state') === state); });
+        document.body.classList.toggle('numbered', numbered);
+      }
+      window.addEventListener('hashchange', apply);
+      apply();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<!--
+  Screen ID: S-F01-02
+  Screen name: Interactive digital library map
+  Vietnamese title: Bản đồ thư viện
+  Frame: reader (360px, export 3x = 1080px)
+  ui-conventions version: v0.12
+  Author / date: Nhi (screen) · HTML source rebuilt from the exported images by Chi, 23/11/2026
+  States (URL hash; add "-numbered" to show element numbers):
+    #default (from the OPAC menu, Tầng 1) #loading #error (from a book, MSG-07) #error-menu (from the menu, MSG-12, D23) #error-2 (room not found) #error-3 (Tầng 3 cannot be read; Tầng 2 stays shown) #success (book room highlighted) #selected-room
+  Element numbers follow screen-spec-s-f01-02.md section 3.
+  Colours, sizes and fonts come only from ui-tokens.css.
+-->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-F01-02 · Bản đồ thư viện</title>
+  <link rel="stylesheet" href="ui-tokens.css">
+  <style>
+    .title-wrap { display: inline-flex; min-width: 0; }
+    .toast.is-floating.wrap { white-space: normal; width: calc(100% - var(--screen-padding) * 2); }
+    .actions { display: flex; flex-direction: column; gap: var(--space-3); }
+    .saved-card { display: flex; flex-direction: column; gap: var(--space-3); }
+    .saved-card .book-row { border-bottom: 0; padding: 0; }
+    .saved-card .secondary-button { align-self: flex-end; }
+    .result-list .book-row:last-child { border-bottom: 0; }
+  </style>
+</head>
+<body data-frame="reader">
+  <div class="frame">
+
+    <section data-state="default">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Bản đồ thư viện</h1></span>
+      </header>
+      <main class="screen-body">
+        <div class="group"><span class="field-label">Chọn tầng</span>
+        <div class="segmented-control has-num" role="group" aria-label="Chọn tầng"><span class="num">3</span><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 1</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 2</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 3</button></div>
+        </div>
+        <div class="floor-plan has-num" aria-label="Sơ đồ Tầng 1"><span class="num">4</span><div class="room-tile has-num"><span class="num">5</span><span>R-101</span></div><div class="room-tile"><span>R-102</span></div><div class="room-tile"><span>R-103</span></div><div class="room-tile"><span>R-104</span></div></div>
+      </main>
+    </section>
+
+    <section data-state="loading">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <h1 class="screen-title">Bản đồ thư viện</h1>
+      </header>
+      <main class="screen-body">
+        <div class="group"><span class="field-label">Chọn tầng</span>
+        <div class="segmented-control" role="group" aria-label="Chọn tầng"><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 1</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 2</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 3</button></div>
+        </div>
+        <div class="skeleton line"></div>
+        <div class="card group"><div class="skeleton line"></div><div class="skeleton line"></div><div class="skeleton line short"></div></div>
+      </main>
+    </section>
+
+    <section data-state="error">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Bản đồ thư viện</h1></span>
+      </header>
+      <main class="screen-body">
+        <div class="shelf-location-line has-num"><span class="num">6</span><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Tầng 2 · Phòng R-204 · Kệ S-12</span></div>
+        <div class="group"><span class="field-label">Chọn tầng</span>
+        <div class="segmented-control" role="group" aria-label="Chọn tầng"><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 1</button><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 2</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 3</button></div>
+        </div>
+        <div class="banner error has-num" role="alert"><span class="num">7</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="banner-body"><span>Bản đồ tạm thời không hiển thị được. Thông tin vị trí kệ vẫn ở phía trên.</span></div></div>
+      </main>
+    </section>
+
+    <section data-state="error-menu">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Bản đồ thư viện</h1></span>
+      </header>
+      <main class="screen-body">
+        <div class="group"><span class="field-label">Chọn tầng</span>
+        <div class="segmented-control" role="group" aria-label="Chọn tầng"><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 1</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 2</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 3</button></div>
+        </div>
+        <div class="banner error has-num" role="alert"><span class="num">7</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="banner-body"><span>Bản đồ tạm thời không hiển thị được. Bạn thử lại sau nhé.</span></div></div>
+      </main>
+    </section>
+
+    <section data-state="error-2">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Bản đồ thư viện</h1></span>
+      </header>
+      <main class="screen-body">
+        <div class="shelf-location-line has-num"><span class="num">6</span><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Tầng 2 · Phòng R-299 · Kệ S-03</span></div>
+        <div class="group"><span class="field-label">Chọn tầng</span>
+        <div class="segmented-control" role="group" aria-label="Chọn tầng"><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 1</button><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 2</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 3</button></div>
+        </div>
+        <div class="banner error has-num" role="alert"><span class="num">8</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="banner-body"><span>Không tìm thấy phòng này trên bản đồ. Thông tin vị trí kệ vẫn ở phía trên.</span></div></div>
+        <div class="floor-plan" aria-label="Sơ đồ Tầng 2"><div class="room-tile"><span>R-201</span></div><div class="room-tile"><span>R-202</span></div><div class="room-tile"><span>R-203</span></div><div class="room-tile"><span>R-204</span></div></div>
+      </main>
+    </section>
+
+    <section data-state="error-3">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Bản đồ thư viện</h1></span>
+      </header>
+      <main class="screen-body">
+        <div class="shelf-location-line has-num"><span class="num">6</span><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Tầng 2 · Phòng R-204 · Kệ S-12</span></div>
+        <div class="group"><span class="field-label">Chọn tầng</span>
+        <div class="segmented-control" role="group" aria-label="Chọn tầng"><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 1</button><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 2</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 3</button></div>
+        </div>
+        <div class="banner error has-num" role="alert"><span class="num">7</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="banner-body"><span>Bản đồ tạm thời không hiển thị được. Thông tin vị trí kệ vẫn ở phía trên.</span></div></div>
+        <div class="floor-plan" aria-label="Sơ đồ Tầng 2"><div class="room-tile"><span>R-201</span></div><div class="room-tile"><span>R-202</span></div><div class="room-tile"><span>R-203</span></div><div class="room-tile is-highlighted"><span>R-204</span><span class="tag"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Sách của bạn ở đây</span></div></div>
+      </main>
+    </section>
+
+    <section data-state="success">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Bản đồ thư viện</h1></span>
+      </header>
+      <main class="screen-body">
+        <div class="shelf-location-line has-num"><span class="num">6</span><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Tầng 2 · Phòng R-204 · Kệ S-12</span></div>
+        <div class="group"><span class="field-label">Chọn tầng</span>
+        <div class="segmented-control" role="group" aria-label="Chọn tầng"><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 1</button><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 2</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 3</button></div>
+        </div>
+        <div class="floor-plan" aria-label="Sơ đồ Tầng 2"><div class="room-tile has-num"><span class="num">5</span><span>R-201</span></div><div class="room-tile"><span>R-202</span></div><div class="room-tile"><span>R-203</span></div><div class="room-tile is-highlighted"><span>R-204</span><span class="tag"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Sách của bạn ở đây</span></div></div>
+      </main>
+    </section>
+
+    <section data-state="selected-room">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Bản đồ thư viện</h1></span>
+      </header>
+      <main class="screen-body">
+        <div class="group"><span class="field-label">Chọn tầng</span>
+        <div class="segmented-control" role="group" aria-label="Chọn tầng"><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 1</button><button type="button" aria-pressed="true"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 2</button><button type="button" aria-pressed="false"><svg class="icon check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tầng 3</button></div>
+        </div>
+        <div class="floor-plan" aria-label="Sơ đồ Tầng 2"><div class="room-tile"><span>R-201</span></div><div class="room-tile"><span>R-202</span></div><div class="room-tile"><span>R-203</span></div><div class="room-tile is-selected" aria-pressed="true"><span>R-204</span></div></div>
+        <div class="banner info has-num" role="status"><span class="num">9</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><div class="banner-body"><span>Phòng đọc A (R-204), Tầng 2</span></div></div>
+      </main>
+    </section>
+
+  </div>
+
+  <script>
+    // Show the section named after "#", e.g. #error. "-numbered" at the end turns on the circles.
+    (function () {
+      function apply() {
+        var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+        var numbered = /-numbered$/.test(hash);
+        var state = hash.replace(/-numbered$/, '') || 'default';
+        var sections = document.querySelectorAll('[data-state]');
+        var found = false;
+        sections.forEach(function (s) { if (s.getAttribute('data-state') === state) found = true; });
+        if (!found) state = 'default';
+        sections.forEach(function (s) { s.classList.toggle('is-active', s.getAttribute('data-state') === state); });
+        document.body.classList.toggle('numbered', numbered);
+      }
+      window.addEventListener('hashchange', apply);
+      apply();
+    })();
+  </script>
+</body>
+</html>

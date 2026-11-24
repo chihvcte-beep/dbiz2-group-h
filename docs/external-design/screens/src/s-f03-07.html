@@ -1,0 +1,362 @@
+<!doctype html>
+<!--
+  Screen ID: S-F03-07
+  Screen name: Book recommendations
+  Vietnamese title: Sách gợi ý cho bạn
+  Frame: reader (360px, export 3x = 1080px)
+  ui-conventions version: v0.9
+  Author / date: Trieu · 21/11/2026
+  Updated 22/11/2026 - Group decision 22/11/2026 (Chi):
+    D10a  trending titles added to a short list carry the Trend tag «Xu hướng» (.trend-tag, FR-03-20)
+    D10b  «Sở thích» Secondary button in the header in every signed-in state (incl. Cold-start)
+    D11   no recommendation-reason text on book rows
+  States (URL hash; add "-numbered" to show element numbers):
+    #default  #cold-start  #topped-up  #loading  #error
+  Element numbers follow screen-spec-s-f03-07.md section 3 (#1-#13).
+-->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-F03-07 · Sách gợi ý cho bạn</title>
+  <link rel="stylesheet" href="ui-tokens.css">
+  <style>
+    /* Styling conforming to ui-tokens.css */
+    .recommendations-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+    .header-left { display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
+    .title-wrap { display: block; min-width: 0; }
+    /* «Sở thích» Secondary button, compact as drawn (36px); shown in every signed-in state (D10b) */
+    .pref-button { flex: none; min-height: var(--space-9); padding: 0 var(--space-3); font-size: var(--font-size-button-staff); }
+  </style>
+</head>
+<body data-frame="reader">
+  <div class="frame">
+
+    <!-- ========================================================
+         STATE: DEFAULT (PERSONALISED RECOMMENDATIONS LIST)
+         ======================================================== -->
+    <section data-state="default">
+      <header class="screen-header">
+        <div class="recommendations-header">
+          <div class="header-left">
+            <button class="back has-num" aria-label="Quay lại"><span class="num">1</span>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Sách gợi ý cho bạn</h1></div>
+          </div>
+          <button class="secondary-button pref-button has-num" type="button"><span class="num">3</span>Sở thích</button>
+        </div>
+      </header>
+
+      <main class="screen-body">
+        <div class="group has-num">
+          <span class="num">4</span>
+          <span class="muted small">Gợi ý được cá nhân hoá dựa trên lịch sử đọc và chủ đề bạn quan tâm.</span>
+        </div>
+
+        <!-- Book 1 -->
+        <a class="book-row has-num" href="#">
+          <span class="num">5</span>
+          <div class="cover">Cover</div>
+          <div class="book-meta">
+            <span class="book-title">Quản trị Học Hiện đại</span>
+            <span class="book-author">Nguyễn Văn An</span>
+            <span class="format-label">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+            </span>
+          </div>
+        </a>
+
+        <!-- Book 2 -->
+        <a class="book-row" href="#">
+          <div class="cover">Cover</div>
+          <div class="book-meta">
+            <span class="book-title">Chiến lược Marketing Đột phá</span>
+            <span class="book-author">Trần Thu Hà</span>
+            <span class="format-label">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Trực tuyến
+            </span>
+          </div>
+        </a>
+
+        <!-- Book 3 -->
+        <a class="book-row" href="#">
+          <div class="cover">Cover</div>
+          <div class="book-meta">
+            <span class="book-title">Thực hành Kinh tế Vĩ mô</span>
+            <span class="book-author">Lê Minh Đức</span>
+            <span class="format-label">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+            </span>
+          </div>
+        </a>
+
+        <!-- Book 4 -->
+        <a class="book-row" href="#">
+          <div class="cover">Cover</div>
+          <div class="book-meta">
+            <span class="book-title">Tài chính Doanh nghiệp Ứng dụng</span>
+            <span class="book-author">Phạm Hoàng Nam</span>
+            <span class="format-label">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+            </span>
+          </div>
+        </a>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: COLD-START (NO DATA YET: POPULAR BOOKS BY QR SCANS)
+         ======================================================== -->
+    <section data-state="cold-start">
+      <header class="screen-header">
+        <div class="recommendations-header">
+          <div class="header-left">
+            <button class="back has-num" aria-label="Quay lại"><span class="num">1</span>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Sách gợi ý cho bạn</h1></div>
+          </div>
+          <button class="secondary-button pref-button has-num" type="button"><span class="num">3</span>Sở thích</button>
+        </div>
+      </header>
+
+      <main class="screen-body">
+        <div class="banner info has-num" role="region">
+          <span class="num">6</span>
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <div class="banner-body">
+            <span>Bạn chưa có lịch sử đọc hoặc sở thích. Dưới đây là các sách được bạn đọc quan tâm nhiều nhất qua mã QR.</span>
+            <a class="text-link has-num" href="#"><span class="num">7</span>Thiết lập sở thích đọc ngay</a>
+          </div>
+        </div>
+
+        <div class="group has-num">
+          <span class="num">8</span>
+          <h2 class="section-title">Sách phổ biến</h2>
+        </div>
+
+        <a class="book-row has-num" href="#">
+          <span class="num">9</span>
+          <div class="cover">Cover</div>
+          <div class="book-meta">
+            <span class="book-title">Nguyên lý Kinh tế học Thực hành</span>
+            <span class="book-author">Nguyễn Hoàng Long</span>
+            <span class="format-label">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+            </span>
+          </div>
+        </a>
+
+        <a class="book-row" href="#">
+          <div class="cover">Cover</div>
+          <div class="book-meta">
+            <span class="book-title">Phương pháp Tư duy Khoa học</span>
+            <span class="book-author">Trần Đình Trọng</span>
+            <span class="format-label">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+            </span>
+          </div>
+        </a>
+
+        <a class="book-row" href="#">
+          <div class="cover">Cover</div>
+          <div class="book-meta">
+            <span class="book-title">Kỹ năng Giao tiếp và Đàm phán</span>
+            <span class="book-author">Vũ Mai Linh</span>
+            <span class="format-label">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Trực tuyến
+            </span>
+          </div>
+        </a>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: TOPPED-UP (FEWER THAN 3 MATCHES TOPPED UP WITH TRENDING)
+         ======================================================== -->
+    <section data-state="topped-up">
+      <header class="screen-header">
+        <div class="recommendations-header">
+          <div class="header-left">
+            <button class="back has-num" aria-label="Quay lại"><span class="num">1</span>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Sách gợi ý cho bạn</h1></div>
+          </div>
+          <button class="secondary-button pref-button has-num" type="button"><span class="num">3</span>Sở thích</button>
+        </div>
+      </header>
+
+      <main class="screen-body">
+        <div class="group">
+          <span class="muted small">Gợi ý được cá nhân hoá dựa trên lịch sử đọc và chủ đề bạn quan tâm.</span>
+        </div>
+
+        <!-- 2 Personalised matches -->
+        <a class="book-row" href="#">
+          <div class="cover">Cover</div>
+          <div class="book-meta">
+            <span class="book-title">Kinh tế học Phát triển</span>
+            <span class="book-author">Nguyễn Văn An</span>
+            <span class="format-label">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+            </span>
+          </div>
+        </a>
+
+        <a class="book-row" href="#">
+          <div class="cover">Cover</div>
+          <div class="book-meta">
+            <span class="book-title">Lý thuyết Tài chính Doanh nghiệp</span>
+            <span class="book-author">Lê Minh Đức</span>
+            <span class="format-label">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Trực tuyến
+            </span>
+          </div>
+        </a>
+
+        <!-- Supplemented trending books (FR-03-20): same list, each carries the Trend tag «Xu hướng» (Group decision 22/11/2026 (Chi), D10a) -->
+        <a class="book-row has-num" href="#">
+          <span class="num">10</span>
+          <div class="cover">Cover</div>
+          <div class="book-meta">
+            <span class="book-title">Kinh tế Vĩ mô Thực tiễn</span>
+            <span class="book-author">Phạm Hoàng Nam</span>
+            <span class="format-label">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+            </span>
+            <span class="trend-tag has-num"><span class="num">13</span><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg>Xu hướng</span>
+          </div>
+        </a>
+
+        <a class="book-row" href="#">
+          <div class="cover">Cover</div>
+          <div class="book-meta">
+            <span class="book-title">Phân tích Báo cáo Tài chính</span>
+            <span class="book-author">Trần Thu Hà</span>
+            <span class="format-label">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+            </span>
+            <span class="trend-tag"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg>Xu hướng</span>
+          </div>
+        </a>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: LOADING
+         ======================================================== -->
+    <section data-state="loading">
+      <header class="screen-header">
+        <div class="recommendations-header">
+          <div class="header-left">
+            <button class="back has-num" aria-label="Quay lại"><span class="num">1</span>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Sách gợi ý cho bạn</h1></div>
+          </div>
+          <button class="secondary-button pref-button has-num" type="button"><span class="num">3</span>Sở thích</button>
+        </div>
+      </header>
+
+      <main class="screen-body has-num" aria-busy="true">
+        <span class="num">11</span>
+        <div class="book-row">
+          <div class="skeleton block"></div>
+          <div class="book-meta">
+            <div class="skeleton line"></div>
+            <div class="skeleton line short"></div>
+          </div>
+        </div>
+
+        <div class="book-row">
+          <div class="skeleton block"></div>
+          <div class="book-meta">
+            <div class="skeleton line"></div>
+            <div class="skeleton line short"></div>
+          </div>
+        </div>
+
+        <div class="book-row">
+          <div class="skeleton block"></div>
+          <div class="book-meta">
+            <div class="skeleton line"></div>
+            <div class="skeleton line short"></div>
+          </div>
+        </div>
+
+        <div class="book-row">
+          <div class="skeleton block"></div>
+          <div class="book-meta">
+            <div class="skeleton line"></div>
+            <div class="skeleton line short"></div>
+          </div>
+        </div>
+
+        <div class="book-row">
+          <div class="skeleton block"></div>
+          <div class="book-meta">
+            <div class="skeleton line"></div>
+            <div class="skeleton line short"></div>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <!-- ========================================================
+         STATE: ERROR (LOAD FAILED MSG-04)
+         ======================================================== -->
+    <section data-state="error">
+      <header class="screen-header">
+        <div class="recommendations-header">
+          <div class="header-left">
+            <button class="back has-num" aria-label="Quay lại"><span class="num">1</span>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="title-wrap has-num"><span class="num">2</span><h1 class="screen-title">Sách gợi ý cho bạn</h1></div>
+          </div>
+          <button class="secondary-button pref-button has-num" type="button"><span class="num">3</span>Sở thích</button>
+        </div>
+      </header>
+
+      <main class="screen-body">
+        <div class="banner error has-num" role="alert">
+          <span class="num">12</span>
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+          <div class="banner-body">
+            <span>Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.</span>
+            <button class="secondary-button" type="button">Thử lại</button>
+          </div>
+        </div>
+      </main>
+    </section>
+
+  </div>
+
+  <script>
+    (function () {
+      function apply() {
+        var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+        var numbered = /-numbered$/.test(hash);
+        var state = hash.replace(/-numbered$/, '') || 'default';
+        var sections = document.querySelectorAll('[data-state]');
+        var found = false;
+        sections.forEach(function (s) { if (s.getAttribute('data-state') === state) found = true; });
+        if (!found) state = 'default';
+        sections.forEach(function (s) {
+          s.classList.toggle('is-active', s.getAttribute('data-state') === state);
+        });
+        document.body.classList.toggle('numbered', numbered);
+      }
+      window.addEventListener('hashchange', apply);
+      apply();
+    })();
+  </script>
+</body>
+</html>

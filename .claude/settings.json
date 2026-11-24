@@ -1,7 +1,7 @@
 {
   "permissions": {
     "deny": [
-      "Read(./docs/function_list/cost.md)",
+      "Read(./docs/function-list/cost.md)",
       "Read(./docs/requirements/cost.md)",
       "Read(./docs/archive/**)"
     ]

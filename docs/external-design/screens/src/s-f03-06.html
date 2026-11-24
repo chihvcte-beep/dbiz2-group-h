@@ -1,0 +1,305 @@
+<!doctype html>
+<!--
+  Screen ID: S-F03-06
+  Screen name: AI chatbot book search
+  Vietnamese title: Trợ lý tìm sách AI
+  Frame: reader (360px, export 3x = 1080px)
+  ui-conventions version: v0.9
+  Author / date: Trieu · 21/11/2026
+-->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-F03-06 · Trợ lý tìm sách AI</title>
+  <link rel="stylesheet" href="ui-tokens.css">
+  <style>
+    /* Chat layout styling adhering to design tokens */
+    .chat-layout {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: var(--colour-background);
+    }
+    .chat-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--screen-padding);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .composer-wrap {
+      flex: none;
+      background: var(--colour-card);
+      border-top: var(--border-width) solid var(--colour-border-light);
+    }
+  </style>
+</head>
+<body data-frame="reader">
+  <div class="frame">
+
+    <!-- ========================================================
+         STATE: DEFAULT (= EMPTY CHAT READY FOR INPUT)
+         ======================================================== -->
+    <section data-state="default">
+      <div class="chat-layout">
+        <header class="screen-header">
+          <button class="back has-num" aria-label="Quay lại"><span class="num">1</span>
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <h1 class="screen-title has-num"><span class="num">2</span>Trợ lý tìm sách AI</h1>
+        </header>
+
+        <main class="chat-content has-num">
+          <span class="num">3</span>
+          <div class="empty-state">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h.01M12 12h.01M16 12h.01M9 16h6"/></svg>
+            <h2 class="section-title">Hỏi trợ lý tìm sách</h2>
+            <p class="muted">Nhập câu hỏi bằng ngôn ngữ tự nhiên để tìm sách theo chủ đề, nội dung hoặc tác giả.</p>
+          </div>
+        </main>
+
+        <div class="composer-wrap">
+          <div class="message-composer">
+            <div class="has-num" style="flex:1;">
+              <span class="num">8</span>
+              <input class="text-input" type="text" placeholder="Nhập câu hỏi của bạn...">
+            </div>
+            <button class="primary-button has-num" type="button"><span class="num">9</span>Gửi</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         STATE: EMPTY (IDENTICAL TO DEFAULT PER §2.3)
+         ======================================================== -->
+    <section data-state="empty">
+      <div class="chat-layout">
+        <header class="screen-header">
+          <button class="back" aria-label="Quay lại">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <h1 class="screen-title">Trợ lý tìm sách AI</h1>
+        </header>
+
+        <main class="chat-content">
+          <div class="empty-state">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h.01M12 12h.01M16 12h.01M9 16h6"/></svg>
+            <h2 class="section-title">Hỏi trợ lý tìm sách</h2>
+            <p class="muted">Nhập câu hỏi bằng ngôn ngữ tự nhiên để tìm sách theo chủ đề, nội dung hoặc tác giả.</p>
+          </div>
+        </main>
+
+        <div class="composer-wrap">
+          <div class="message-composer">
+            <input class="text-input" type="text" placeholder="Nhập câu hỏi của bạn...">
+            <button class="primary-button" type="button">Gửi</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         STATE: SUCCESS (RESULTS RETURNED WITH 4 BOOK CARDS)
+         ======================================================== -->
+    <section data-state="success">
+      <div class="chat-layout">
+        <header class="screen-header">
+          <button class="back" aria-label="Quay lại">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <h1 class="screen-title">Trợ lý tìm sách AI</h1>
+        </header>
+
+        <main class="chat-content">
+          <!-- Reader inquiry -->
+          <div class="chat-bubble reader has-num">
+            <span class="num">4</span>
+            <span>Tìm giúp mình các sách về chuỗi cung ứng và logistics</span>
+          </div>
+
+          <!-- Bot reply with 4 book cards -->
+          <div class="chat-bubble bot has-num">
+            <span class="num">5</span>
+            <span>Mình tìm thấy 4 cuốn sách phù hợp trong danh mục thư viện:</span>
+
+            <!-- Book Card 1 -->
+            <div class="book-card has-num">
+              <span class="num">6</span>
+              <span class="book-title">Quản trị Chuỗi Cung ứng Toàn cầu</span>
+              <span class="book-author">Nguyễn Như Phong</span>
+              <span class="format-label">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+              </span>
+              <a class="text-link has-num" href="#"><span class="num">7</span>Xem chi tiết sách</a>
+            </div>
+
+            <!-- Book Card 2 -->
+            <div class="book-card">
+              <span class="book-title">Logistics và Quản lý Chuỗi Cung ứng</span>
+              <span class="book-author">Martin Christopher</span>
+              <span class="format-label">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+              </span>
+              <a class="text-link" href="#">Xem chi tiết sách</a>
+            </div>
+
+            <!-- Book Card 3 -->
+            <div class="book-card">
+              <span class="book-title">Vận tải Quốc tế và Thực hành Logistics</span>
+              <span class="book-author">Trần Minh Anh</span>
+              <span class="format-label">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Trực tuyến
+              </span>
+              <a class="text-link" href="#">Xem chi tiết sách</a>
+            </div>
+
+            <!-- Book Card 4 -->
+            <div class="book-card">
+              <span class="book-title">Nguyên lý Vận hành Chuỗi Cung ứng</span>
+              <span class="book-author">Michael H. Hugos</span>
+              <span class="format-label">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg>Bản giấy
+              </span>
+              <a class="text-link" href="#">Xem chi tiết sách</a>
+            </div>
+          </div>
+        </main>
+
+        <div class="composer-wrap">
+          <div class="message-composer">
+            <input class="text-input" type="text" placeholder="Nhập câu hỏi tiếp theo...">
+            <button class="primary-button" type="button">Gửi</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         STATE: LOADING (AI THINKING WITHIN 10S)
+         ======================================================== -->
+    <section data-state="loading">
+      <div class="chat-layout">
+        <header class="screen-header">
+          <button class="back" aria-label="Quay lại">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <h1 class="screen-title">Trợ lý tìm sách AI</h1>
+        </header>
+
+        <main class="chat-content">
+          <div class="chat-bubble reader">
+            <span>Tìm giúp mình các sách về chuỗi cung ứng và logistics</span>
+          </div>
+
+          <div class="chat-bubble bot has-num" aria-busy="true">
+            <span class="num">10</span>
+            <div style="display:flex; align-items:center; gap:var(--space-2);">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span>Đang tải…</span>
+            </div>
+          </div>
+        </main>
+
+        <div class="composer-wrap">
+          <div class="message-composer">
+            <input class="text-input" type="text" disabled placeholder="Đang tra cứu danh mục...">
+            <button class="primary-button" type="button" disabled>Gửi</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         STATE: NO-MATCH (FR-03-16 NO CATALOGUE BOOKS MATCH)
+         ======================================================== -->
+    <section data-state="no-match">
+      <div class="chat-layout">
+        <header class="screen-header">
+          <button class="back" aria-label="Quay lại">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <h1 class="screen-title">Trợ lý tìm sách AI</h1>
+        </header>
+
+        <main class="chat-content">
+          <div class="chat-bubble reader">
+            <span>Tìm sách kỹ thuật đan rổ dưới nước</span>
+          </div>
+
+          <div class="chat-bubble bot has-num">
+            <span class="num">11</span>
+            <span>Không tìm thấy sách nào phù hợp với yêu cầu trên. Bạn hãy thử tìm với các chủ đề liên quan như Thủ công mỹ nghệ, Kỹ năng dã ngoại hoặc chọn từ khóa khác nhé.</span>
+          </div>
+        </main>
+
+        <div class="composer-wrap">
+          <div class="message-composer">
+            <input class="text-input" type="text" placeholder="Nhập câu hỏi khác...">
+            <button class="primary-button" type="button">Gửi</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         STATE: ERROR (AI UNAVAILABLE >10S / TIMEOUT FR-03-17)
+         ======================================================== -->
+    <section data-state="error">
+      <div class="chat-layout">
+        <header class="screen-header">
+          <button class="back" aria-label="Quay lại">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <h1 class="screen-title">Trợ lý tìm sách AI</h1>
+        </header>
+
+        <main class="chat-content">
+          <div class="chat-bubble reader">
+            <span>Tìm giúp mình các sách về chuỗi cung ứng và logistics</span>
+          </div>
+
+          <div class="banner error has-num" role="alert">
+            <span class="num">12</span>
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+            <div class="banner-body">
+              <span>Tìm kiếm bằng AI đang tạm ngưng. Bạn hãy dùng bộ lọc hình thức.</span>
+              <a class="text-link has-num" href="#"><span class="num">13</span>Lọc theo hình thức</a>
+            </div>
+          </div>
+        </main>
+
+        <div class="composer-wrap">
+          <div class="message-composer">
+            <input class="text-input" type="text" disabled placeholder="Tìm kiếm AI tạm thời gián đoạn">
+            <button class="primary-button" type="button" disabled>Gửi</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    (function () {
+      function apply() {
+        var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+        var numbered = /-numbered$/.test(hash);
+        var state = hash.replace(/-numbered$/, '') || 'default';
+        var sections = document.querySelectorAll('[data-state]');
+        var found = false;
+        sections.forEach(function (s) { if (s.getAttribute('data-state') === state) found = true; });
+        if (!found) state = 'default';
+        sections.forEach(function (s) {
+          s.classList.toggle('is-active', s.getAttribute('data-state') === state);
+        });
+        document.body.classList.toggle('numbered', numbered);
+      }
+      window.addEventListener('hashchange', apply);
+      apply();
+    })();
+  </script>
+</body>
+</html>

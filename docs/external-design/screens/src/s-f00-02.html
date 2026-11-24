@@ -1,0 +1,296 @@
+<!doctype html>
+<!--
+  Screen ID: S-F00-02
+  Screen name: Verify email OTP
+  Vietnamese title: Nhập mã xác thực
+  Frame: reader (360px, export 3x = 1080px)
+  ui-conventions version: v0.9
+  Author / date: Ha (wireframe) · HTML redraw from the Draw.io source 23/11/2026 (Chi)
+
+  #13: the registered email is shown in full (D2, D15), except in #error-4 where no code was sent (D31).
+  bandoc@example.com is sample data.
+  States: #default #loading #error #error-2 #error-3 #error-4 #error-5 (network) #success.
+  Recovery states (#error-2/3/4): «Gửi mã mới» is the one Primary button; «Đăng nhập» is a disabled Secondary.
+  Numbers: #1-#13 = notes/s-f00-02-notes.md.
+  Add "-numbered" to a state (e.g. #error-numbered) to show the element numbers.
+  Colours, sizes and fonts come only from ui-tokens.css.
+-->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-F00-02 · Nhập mã xác thực</title>
+  <link rel="stylesheet" href="ui-tokens.css">
+  <style>
+    /* numbered images only: where the element-number circles sit */
+    .num.after { top: 50%; left: calc(100% + var(--space-1)); transform: translateY(-50%); }
+    .num.before { top: 50%; left: auto; right: calc(100% + var(--space-1)); transform: translateY(-50%); }
+    .title-wrap { display: inline-flex; min-width: 0; }
+    .modal .modal-title > .num, .modal .modal-body > .num { top: 0; left: calc(var(--space-6) * -1); }
+
+    .reader-form { display: flex; flex-direction: column; gap: var(--space-4); }
+    .form-actions { display: flex; flex-direction: column; gap: var(--space-2); }
+    .form-actions .primary-button, .form-actions .secondary-button { width: 100%; }
+    .banner-body .secondary-button { width: auto; }
+    .field > .num { left: auto; right: calc(var(--space-2) * -1); }
+    .code-hints { display: flex; flex-direction: column; gap: var(--space-2); }
+    .hint-line { margin: 0; min-height: var(--size-icon); display: flex; align-items: center; padding-right: var(--space-6); }
+    .hint-line > span.hint-text { display: inline; }
+    .hint-line > .num { top: 50%; left: auto; right: calc(var(--space-2) * -1); transform: translateY(-50%); }
+  </style>
+</head>
+<body data-frame="reader">
+  <div class="frame">
+
+    <!-- ===================== DEFAULT ===================== -->
+    <section data-state="default">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><h1 class="screen-title">Nhập mã xác thực</h1><span class="num after">2</span></span>
+      </header>
+      <main class="screen-body">
+        <form class="reader-form" onsubmit="return false">
+          
+          <div class="code-hints">
+            <p class="field-hint hint-line has-num"><span class="num">13</span><span class="hint-text">Mã đã được gửi tới bandoc@example.com.</span></p>
+            <p class="field-hint hint-line has-num"><span class="num">3</span><span class="hint-text">Mã có hiệu lực trong 5 phút.</span></p>
+          </div>
+          <div class="field has-num"><span class="num">4</span>
+            <label class="field-label" for="default-code">Mã xác thực</label>
+            <input class="code-input" id="default-code" type="text" inputmode="numeric" maxlength="6">
+            
+          </div>
+          
+          <div class="form-actions">
+            <button class="primary-button has-num" type="button"><span class="num">5</span>Đăng nhập</button>
+            <button class="secondary-button has-num" type="button"><span class="num">6</span>Gửi mã mới</button>
+            <button class="secondary-button has-num" type="button"><span class="num">7</span>Huỷ</button>
+          </div>
+        </form>
+      </main>
+      
+    </section>
+
+    <!-- ===================== LOADING (MSG-05) ===================== -->
+    <section data-state="loading">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><h1 class="screen-title">Nhập mã xác thực</h1><span class="num after">2</span></span>
+      </header>
+      <main class="screen-body">
+        <form class="reader-form" onsubmit="return false" aria-busy="true">
+          
+          <div class="code-hints">
+            <p class="field-hint hint-line has-num"><span class="num">13</span><span class="hint-text">Mã đã được gửi tới bandoc@example.com.</span></p>
+            <p class="field-hint hint-line has-num"><span class="num">3</span><span class="hint-text">Mã có hiệu lực trong 5 phút.</span></p>
+          </div>
+          <div class="field has-num"><span class="num">4</span>
+            <label class="field-label" for="loading-code">Mã xác thực</label>
+            <input class="code-input" id="loading-code" type="text" inputmode="numeric" maxlength="6" value="482913" disabled>
+            
+          </div>
+          <div class="group has-num"><span class="num">10</span><div class="skeleton line"></div><div class="skeleton line short"></div></div>
+          <div class="form-actions">
+            <button class="primary-button has-num is-disabled" type="button" disabled><span class="num">5</span>Đăng nhập</button>
+            <button class="secondary-button has-num" type="button"><span class="num">6</span>Gửi mã mới</button>
+            <button class="secondary-button has-num" type="button"><span class="num">7</span>Huỷ</button>
+          </div>
+        </form>
+      </main>
+      
+    </section>
+
+    <!-- ===================== ERROR: incorrect code, attempts left ===================== -->
+    <section data-state="error">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><h1 class="screen-title">Nhập mã xác thực</h1><span class="num after">2</span></span>
+      </header>
+      <main class="screen-body">
+        <form class="reader-form" onsubmit="return false">
+          
+          <div class="code-hints">
+            <p class="field-hint hint-line has-num"><span class="num">13</span><span class="hint-text">Mã đã được gửi tới bandoc@example.com.</span></p>
+            <p class="field-hint hint-line has-num"><span class="num">3</span><span class="hint-text">Mã có hiệu lực trong 5 phút.</span></p>
+          </div>
+          <div class="field is-error has-num"><span class="num">4</span>
+            <label class="field-label" for="error-code">Mã xác thực</label>
+            <input class="code-input" id="error-code" type="text" inputmode="numeric" maxlength="6" value="111111">
+            <div class="inline-error has-num" role="alert"><span class="num">8</span><span class="bang" aria-hidden="true">!</span><span>Mã chưa đúng. Bạn còn 3 lần thử.</span></div>
+          </div>
+          
+          <div class="form-actions">
+            <button class="primary-button has-num" type="button"><span class="num">5</span>Đăng nhập</button>
+            <button class="secondary-button has-num" type="button"><span class="num">6</span>Gửi mã mới</button>
+            <button class="secondary-button has-num" type="button"><span class="num">7</span>Huỷ</button>
+          </div>
+        </form>
+      </main>
+      
+    </section>
+
+    <!-- ===================== ERROR 2: fifth incorrect attempt ===================== -->
+    <section data-state="error-2">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><h1 class="screen-title">Nhập mã xác thực</h1><span class="num after">2</span></span>
+      </header>
+      <main class="screen-body">
+        <form class="reader-form" onsubmit="return false">
+          <div class="banner error has-num" role="alert"><span class="num">9</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="banner-body"><span>Bạn đã nhập sai 5 lần. Mã này không còn dùng được, hãy bấm Gửi mã mới.</span></div></div>
+          <div class="code-hints">
+            <p class="field-hint hint-line has-num"><span class="num">13</span><span class="hint-text">Mã đã được gửi tới bandoc@example.com.</span></p>
+            
+          </div>
+          <div class="field has-num"><span class="num">4</span>
+            <label class="field-label" for="error-2-code">Mã xác thực</label>
+            <input class="code-input" id="error-2-code" type="text" inputmode="numeric" maxlength="6" disabled>
+            
+          </div>
+          
+          <div class="form-actions">
+            <button class="secondary-button has-num" type="button" disabled><span class="num">5</span>Đăng nhập</button>
+            <button class="primary-button has-num" type="button"><span class="num">6</span>Gửi mã mới</button>
+            <button class="secondary-button has-num" type="button"><span class="num">7</span>Huỷ</button>
+          </div>
+        </form>
+      </main>
+      
+    </section>
+
+    <!-- ===================== ERROR 3: expired or used code ===================== -->
+    <section data-state="error-3">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><h1 class="screen-title">Nhập mã xác thực</h1><span class="num after">2</span></span>
+      </header>
+      <main class="screen-body">
+        <form class="reader-form" onsubmit="return false">
+          <div class="banner error has-num" role="alert"><span class="num">9</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="banner-body"><span>Mã đã hết hạn hoặc đã được sử dụng. Hãy bấm Gửi mã mới.</span></div></div>
+          <div class="code-hints">
+            <p class="field-hint hint-line has-num"><span class="num">13</span><span class="hint-text">Mã đã được gửi tới bandoc@example.com.</span></p>
+            
+          </div>
+          <div class="field has-num"><span class="num">4</span>
+            <label class="field-label" for="error-3-code">Mã xác thực</label>
+            <input class="code-input" id="error-3-code" type="text" inputmode="numeric" maxlength="6" disabled>
+            
+          </div>
+          
+          <div class="form-actions">
+            <button class="secondary-button has-num" type="button" disabled><span class="num">5</span>Đăng nhập</button>
+            <button class="primary-button has-num" type="button"><span class="num">6</span>Gửi mã mới</button>
+            <button class="secondary-button has-num" type="button"><span class="num">7</span>Huỷ</button>
+          </div>
+        </form>
+      </main>
+      
+    </section>
+
+    <!-- ===================== ERROR 4: code could not be sent ===================== -->
+    <section data-state="error-4">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><h1 class="screen-title">Nhập mã xác thực</h1><span class="num after">2</span></span>
+      </header>
+      <main class="screen-body">
+        <form class="reader-form" onsubmit="return false">
+          <div class="banner error has-num" role="alert"><span class="num">9</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="banner-body"><span>Không gửi được mã. Hãy bấm Gửi mã mới để thử lại.</span></div></div>
+          <div class="field has-num"><span class="num">4</span>
+            <label class="field-label" for="error-4-code">Mã xác thực</label>
+            <input class="code-input" id="error-4-code" type="text" inputmode="numeric" maxlength="6" disabled>
+            
+          </div>
+          
+          <div class="form-actions">
+            <button class="secondary-button has-num" type="button" disabled><span class="num">5</span>Đăng nhập</button>
+            <button class="primary-button has-num" type="button"><span class="num">6</span>Gửi mã mới</button>
+            <button class="secondary-button has-num" type="button"><span class="num">7</span>Huỷ</button>
+          </div>
+        </form>
+      </main>
+      
+    </section>
+
+    <!-- ===================== ERROR 5: network failure (MSG-04), code kept ===================== -->
+    <section data-state="error-5">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><h1 class="screen-title">Nhập mã xác thực</h1><span class="num after">2</span></span>
+      </header>
+      <main class="screen-body">
+        <form class="reader-form" onsubmit="return false">
+          <div class="banner error has-num" role="alert"><span class="num">9</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="banner-body"><span>Không tải được trang. Bạn kiểm tra kết nối mạng rồi thử lại.</span><button class="secondary-button has-num" type="button"><span class="num">12</span>Thử lại</button></div></div>
+          <div class="code-hints">
+            <p class="field-hint hint-line has-num"><span class="num">13</span><span class="hint-text">Mã đã được gửi tới bandoc@example.com.</span></p>
+            <p class="field-hint hint-line has-num"><span class="num">3</span><span class="hint-text">Mã có hiệu lực trong 5 phút.</span></p>
+          </div>
+          <div class="field has-num"><span class="num">4</span>
+            <label class="field-label" for="error-5-code">Mã xác thực</label>
+            <input class="code-input" id="error-5-code" type="text" inputmode="numeric" maxlength="6" value="482913">
+            
+          </div>
+          
+          <div class="form-actions">
+            <button class="primary-button has-num" type="button"><span class="num">5</span>Đăng nhập</button>
+            <button class="secondary-button has-num" type="button"><span class="num">6</span>Gửi mã mới</button>
+            <button class="secondary-button has-num" type="button"><span class="num">7</span>Huỷ</button>
+          </div>
+        </form>
+      </main>
+      
+    </section>
+
+    <!-- ===================== SUCCESS: new code sent ===================== -->
+    <section data-state="success">
+      <header class="screen-header">
+        <button class="back has-num" aria-label="Quay lại"><span class="num">1</span><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap has-num"><h1 class="screen-title">Nhập mã xác thực</h1><span class="num after">2</span></span>
+      </header>
+      <main class="screen-body">
+        <form class="reader-form" onsubmit="return false">
+          
+          <div class="code-hints">
+            <p class="field-hint hint-line has-num"><span class="num">13</span><span class="hint-text">Mã đã được gửi tới bandoc@example.com.</span></p>
+            <p class="field-hint hint-line has-num"><span class="num">3</span><span class="hint-text">Mã có hiệu lực trong 5 phút.</span></p>
+          </div>
+          <div class="field has-num"><span class="num">4</span>
+            <label class="field-label" for="success-code">Mã xác thực</label>
+            <input class="code-input" id="success-code" type="text" inputmode="numeric" maxlength="6">
+            
+          </div>
+          
+          <div class="form-actions">
+            <button class="primary-button has-num" type="button"><span class="num">5</span>Đăng nhập</button>
+            <button class="secondary-button has-num" type="button"><span class="num">6</span>Gửi mã mới</button>
+            <button class="secondary-button has-num" type="button"><span class="num">7</span>Huỷ</button>
+          </div>
+        </form>
+      </main>
+      <div class="toast is-floating has-num" role="status"><span class="num">11</span><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Đã gửi mã mới.</div>
+    </section>
+
+  </div>
+
+  <script>
+    // Show the section named after "#", e.g. #error. "-numbered" at the end turns on the circles.
+    (function () {
+      function apply() {
+        var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+        var numbered = /-numbered$/.test(hash);
+        var state = hash.replace(/-numbered$/, '') || 'default';
+        var sections = document.querySelectorAll('[data-state]');
+        var found = false;
+        sections.forEach(function (s) { if (s.getAttribute('data-state') === state) found = true; });
+        if (!found) state = 'default';
+        sections.forEach(function (s) {
+          s.classList.toggle('is-active', s.getAttribute('data-state') === state);
+        });
+        document.body.classList.toggle('numbered', numbered);
+      }
+      window.addEventListener('hashchange', apply);
+      apply();
+    })();
+  </script>
+</body>
+</html>

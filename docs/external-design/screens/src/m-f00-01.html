@@ -1,0 +1,157 @@
+<!doctype html>
+<!--
+  Screen ID: M-F00-01
+  Screen name: Sign in to continue?
+  Vietnamese title: Đăng nhập để tiếp tục?
+  Frame: reader (360px, export 3x = 1080px)
+  ui-conventions version: v0.9
+  Author / date: Ha (wireframe) · HTML redraw from the Draw.io source 23/11/2026 (Chi)
+
+  The dimmed background illustrates S-F01-01 only; the modal is the same on all seven entry screens.
+  States: #default (MSG-01) #chatbot (MSG-02) #recommendations (MSG-03). Only #default is exported.
+  Numbers: #1-#4 = notes/m-f00-01-notes.md.
+  Add "-numbered" to a state (e.g. #error-numbered) to show the element numbers.
+  Colours, sizes and fonts come only from ui-tokens.css.
+-->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>M-F00-01 · Đăng nhập để tiếp tục?</title>
+  <link rel="stylesheet" href="ui-tokens.css">
+  <style>
+    /* numbered images only: where the element-number circles sit */
+    .num.after { top: 50%; left: calc(100% + var(--space-1)); transform: translateY(-50%); }
+    .num.before { top: 50%; left: auto; right: calc(100% + var(--space-1)); transform: translateY(-50%); }
+    .title-wrap { display: inline-flex; min-width: 0; }
+    .modal .modal-title > .num, .modal .modal-body > .num { top: 0; left: calc(var(--space-6) * -1); }
+
+    .shelf-list { display: flex; flex-direction: column; gap: var(--space-3); }
+    .parent-actions { display: flex; flex-direction: column; gap: var(--space-2); }
+    .parent-actions .secondary-button { width: 100%; }
+    .modal-body { margin: 0; }
+  </style>
+</head>
+<body data-frame="reader">
+  <div class="frame">
+
+    <!-- ===================== DEFAULT: general (MSG-01) ===================== -->
+    <section data-state="default">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại" tabindex="-1"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap"><h1 class="screen-title">Vị trí kệ sách</h1></span>
+      </header>
+      <main class="screen-body" aria-hidden="true">
+        <div class="group">
+          <h2 class="section-title">Principles of Economics</h2>
+          <span class="book-author">N. Gregory Mankiw</span>
+        </div>
+        <div class="shelf-list">
+          <div class="card shelf-location-line"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Tầng 2 · Phòng R-204 · Kệ S-12</div>
+          <div class="card shelf-location-line"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Tầng 1 · Phòng R-102 · Kệ B-01</div>
+        </div>
+        <div class="parent-actions">
+          <button class="primary-button" type="button" tabindex="-1">Lưu vào danh sách</button>
+          <button class="secondary-button" type="button" tabindex="-1">Xem trên bản đồ</button>
+        </div>
+      </main>
+      <div class="modal-backdrop">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="default-title">
+          <h2 class="modal-title has-num" id="default-title"><span class="num">1</span>Đăng nhập để tiếp tục?</h2>
+          <p class="modal-body has-num"><span class="num">2</span>Bạn cần đăng nhập bằng thẻ thư viện để làm việc này.</p>
+          <div class="modal-actions">
+            <button class="primary-button has-num" type="button"><span class="num">3</span>Đăng nhập</button>
+            <button class="secondary-button has-num" type="button"><span class="num">4</span>Để sau</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WORDING VARIANT: chatbot (MSG-02) ===================== -->
+    <section data-state="chatbot">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại" tabindex="-1"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap"><h1 class="screen-title">Vị trí kệ sách</h1></span>
+      </header>
+      <main class="screen-body" aria-hidden="true">
+        <div class="group">
+          <h2 class="section-title">Principles of Economics</h2>
+          <span class="book-author">N. Gregory Mankiw</span>
+        </div>
+        <div class="shelf-list">
+          <div class="card shelf-location-line"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Tầng 2 · Phòng R-204 · Kệ S-12</div>
+          <div class="card shelf-location-line"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Tầng 1 · Phòng R-102 · Kệ B-01</div>
+        </div>
+        <div class="parent-actions">
+          <button class="primary-button" type="button" tabindex="-1">Lưu vào danh sách</button>
+          <button class="secondary-button" type="button" tabindex="-1">Xem trên bản đồ</button>
+        </div>
+      </main>
+      <div class="modal-backdrop">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="chatbot-title">
+          <h2 class="modal-title has-num" id="chatbot-title"><span class="num">1</span>Đăng nhập để tiếp tục?</h2>
+          <p class="modal-body has-num"><span class="num">2</span>Bạn cần đăng nhập bằng thẻ thư viện để trò chuyện với trợ lý tìm sách.</p>
+          <div class="modal-actions">
+            <button class="primary-button has-num" type="button"><span class="num">3</span>Đăng nhập</button>
+            <button class="secondary-button has-num" type="button"><span class="num">4</span>Để sau</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WORDING VARIANT: recommendations (MSG-03) ===================== -->
+    <section data-state="recommendations">
+      <header class="screen-header">
+        <button class="back" aria-label="Quay lại" tabindex="-1"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="title-wrap"><h1 class="screen-title">Vị trí kệ sách</h1></span>
+      </header>
+      <main class="screen-body" aria-hidden="true">
+        <div class="group">
+          <h2 class="section-title">Principles of Economics</h2>
+          <span class="book-author">N. Gregory Mankiw</span>
+        </div>
+        <div class="shelf-list">
+          <div class="card shelf-location-line"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Tầng 2 · Phòng R-204 · Kệ S-12</div>
+          <div class="card shelf-location-line"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Tầng 1 · Phòng R-102 · Kệ B-01</div>
+        </div>
+        <div class="parent-actions">
+          <button class="primary-button" type="button" tabindex="-1">Lưu vào danh sách</button>
+          <button class="secondary-button" type="button" tabindex="-1">Xem trên bản đồ</button>
+        </div>
+      </main>
+      <div class="modal-backdrop">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="recommendations-title">
+          <h2 class="modal-title has-num" id="recommendations-title"><span class="num">1</span>Đăng nhập để tiếp tục?</h2>
+          <p class="modal-body has-num"><span class="num">2</span>Gợi ý riêng cho bạn cần tài khoản thẻ thư viện. Hãy đăng nhập để xem.</p>
+          <div class="modal-actions">
+            <button class="primary-button has-num" type="button"><span class="num">3</span>Đăng nhập</button>
+            <button class="secondary-button has-num" type="button"><span class="num">4</span>Để sau</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Show the section named after "#", e.g. #error. "-numbered" at the end turns on the circles.
+    (function () {
+      function apply() {
+        var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+        var numbered = /-numbered$/.test(hash);
+        var state = hash.replace(/-numbered$/, '') || 'default';
+        var sections = document.querySelectorAll('[data-state]');
+        var found = false;
+        sections.forEach(function (s) { if (s.getAttribute('data-state') === state) found = true; });
+        if (!found) state = 'default';
+        sections.forEach(function (s) {
+          s.classList.toggle('is-active', s.getAttribute('data-state') === state);
+        });
+        document.body.classList.toggle('numbered', numbered);
+      }
+      window.addEventListener('hashchange', apply);
+      apply();
+    })();
+  </script>
+</body>
+</html>
