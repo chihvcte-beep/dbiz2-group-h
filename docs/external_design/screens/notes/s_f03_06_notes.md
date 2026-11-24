@@ -42,4 +42,4 @@ Actor: Reader · Frame: 360px (export 3x = 1080px) · UI conventions: v0.8 · Au
 
 ## Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f03-06).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f03-06).

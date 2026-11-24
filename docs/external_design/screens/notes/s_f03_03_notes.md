@@ -40,4 +40,4 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Nhi
 
 ## Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f03-03).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f03-03).

@@ -128,7 +128,7 @@ Numbered reference image: [m_f02_04_01_numbered.png](../img/m_f02_04_01/m_f02_04
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f02-04).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f02-04).
 
 ---
 

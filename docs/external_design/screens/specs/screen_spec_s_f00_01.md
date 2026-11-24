@@ -142,7 +142,7 @@ Title and actions are shared by all variants. Sign in opens S-F00-01. Not now cl
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f00-01).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f00-01).
 
 ---
 

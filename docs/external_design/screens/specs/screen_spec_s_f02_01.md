@@ -166,7 +166,7 @@ Rendered centred over `S-F02-01` dimmed by `colour/overlay`.
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f02-01).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f02-01).
 
 ---
 

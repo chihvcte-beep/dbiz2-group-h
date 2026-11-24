@@ -112,7 +112,7 @@ The wireframe uses `staff.lan` and a non-empty sample password as synthetic prev
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f00-03).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f00-03).
 
 ---
 

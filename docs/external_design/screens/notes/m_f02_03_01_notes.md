@@ -36,4 +36,4 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 
 ## Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#m-f02-03-01).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#m-f02-03-01).

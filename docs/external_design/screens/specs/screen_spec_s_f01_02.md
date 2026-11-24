@@ -137,7 +137,7 @@ Numbering follows Nhi's wireframe notes and [s_f01_02_numbered.png](../img/s_f01
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f01-02).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f01-02).
 
 ---
 

@@ -175,7 +175,7 @@ Variants: [reprint](../img/m_f02_03_01/m_f02_03_01_reprint.png) (D40) · [more t
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f02-03).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f02-03).
 
 ---
 

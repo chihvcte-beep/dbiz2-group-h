@@ -135,7 +135,7 @@ Numbering follows `S-F01-01` wireframe notes. State-only retry behaviour is list
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f01-01).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f01-01).
 
 ---
 

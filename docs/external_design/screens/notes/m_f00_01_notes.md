@@ -34,4 +34,4 @@ The modal is the same on all seven entry screens listed above. The dimmed backgr
 
 ## Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#m-f00-01).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#m-f00-01).

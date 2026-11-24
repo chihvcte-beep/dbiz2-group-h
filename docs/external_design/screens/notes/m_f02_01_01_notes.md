@@ -26,4 +26,4 @@ Actor: Reader · Frame: 360px · UI conventions: v0.8 · Author: Hoa
 
 ## Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#m-f02-01-01).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#m-f02-01-01).

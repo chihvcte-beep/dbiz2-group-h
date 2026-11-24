@@ -40,4 +40,4 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Hoa
 | Cancel modal | cancel removal | stays (review remains public and in queue) |
 
 ## Open questions
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f02-04).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f02-04).

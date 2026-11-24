@@ -120,7 +120,7 @@ Styles follow [UI conventions v0.8](../../ui_conventions.md#6-design-tokens). Ea
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f00-02).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f00-02).
 
 ---
 

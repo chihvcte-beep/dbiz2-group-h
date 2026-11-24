@@ -135,7 +135,7 @@ Numbering follows Nhi's v0.8 wireframe notes. The unavailable-location Banner be
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f03-03).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f03-03).
 
 ---
 

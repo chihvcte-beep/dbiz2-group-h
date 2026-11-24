@@ -129,7 +129,7 @@ Use [ui_conventions.md](../../ui_conventions.md) v0.8 §6 for all design tokens.
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f03-01).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f03-01).
 
 ---
 

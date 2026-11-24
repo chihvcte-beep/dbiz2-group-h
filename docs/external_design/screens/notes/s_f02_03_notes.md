@@ -53,6 +53,6 @@ Actor: On-site Staff · Frame: 1280px · UI conventions: v0.8 · Author: Ha
 
 ## Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f02-03).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f02-03).
 
 Sample-only catalogue additions: Introduction to Public Policy — Hoa Tran; Modern Business Ethics — An Nguyen; Essentials of Library Science — Linh Do; Foundations of Statistics — Ha Le; labelled-book samples: Library Management Today — Mai Tran, Research Methods Handbook — Quang Vu, Microeconomics in Practice — Thu Pham, Applied Corporate Finance — Nam Hoang. Principles of Economics uses placeholder author Minh Anh Pham. These names are fictional wireframe data.

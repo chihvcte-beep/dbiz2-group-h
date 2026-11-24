@@ -153,7 +153,7 @@
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f03-02).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f03-02).
 
 ---
 

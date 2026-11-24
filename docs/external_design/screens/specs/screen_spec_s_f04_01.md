@@ -105,7 +105,7 @@ Numbering follows [s_f04_01_notes.md](../notes/s_f04_01_notes.md) exactly. Eleme
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f04-01).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f04-01).
 
 ---
 

@@ -11,7 +11,7 @@ Version v0.13 · 23/11/2026 · Owner: Linh · Reviewer: Chi · Applies to the 15
 Every wireframe, notes file and screen spec follows this file. A value (colour, size, wording pattern) is defined
 once, here; [ui_tokens.css](screens/src/ui_tokens.css) copies section 6 exactly. Sections 1–5 follow `ui-conventions-template.md`;
 section 6 follows the teacher's LabDesk example; section 7 is added by the Lesson 8 guide. The decisions behind
-these values (`UI Q1` … and the group decisions `D1` …) are recorded in [decision_index.md](../project_brief/decision_index.md#ui-conventions).
+these values (`UI Q1` … and the group decisions `D1` …) are recorded in [decision_index.md](../project/decision_index.md#ui-conventions).
 
 ## 1. Language and tone
 
@@ -367,7 +367,7 @@ stacks under these rules.
 | v0.7 | 14/11/2026 | Tokens `colour/brand-red` and `colour/error-red` split; Inline error style; Primary button without icon; OTP of 6 digits; MSG-06 wording |
 | v0.8 | 21/11/2026 | 19/11 review applied: missing components and Vietnamese labels, modal naming, token and size notes |
 | v0.9 | 22/11/2026 | D1–D16 applied: section 6.1 Responsive layout; Screen header exceptions and staff «Đăng xuất»; Pagination, Trend tag, Selection counter; Label sheet and «Đã in xong»; MSG-10, MSG-11 |
-| v0.9 | 22/11/2026 | D17–D18 applied: «Đã in xong» is a Secondary button and the one-Primary rule has no exception; ticks kept after «Đóng». Modal titles filled from the modal notes. Decisions, consistency review and new-FR notes moved to [decision_index.md](../project_brief/decision_index.md#ui-conventions) |
+| v0.9 | 22/11/2026 | D17–D18 applied: «Đã in xong» is a Secondary button and the one-Primary rule has no exception; ticks kept after «Đóng». Modal titles filled from the modal notes. Decisions, consistency review and new-FR notes moved to [decision_index.md](../project/decision_index.md#ui-conventions) |
 | v0.10 | 23/11/2026 | D40–D41 applied: Segmented control on S-F02-03, «In lại nhãn», reprinted label without Shelf location line, label sheet of several A4 pages |
 | v0.11 | 23/11/2026 | D44 applied: Reader screens supported from 360px (was 320px) |
 | v0.12 | 23/11/2026 | D45 applied: Staff screens supported from 1280px (was 1024px) |

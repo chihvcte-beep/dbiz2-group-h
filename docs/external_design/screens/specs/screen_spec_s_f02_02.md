@@ -129,7 +129,7 @@ This screen embeds the **same review panel as `S-F02-01`** (`#4`–`#10`, `#12`,
 
 ## 9. Open questions
 
-None. Decisions: see [decision_index.md](../../../project_brief/decision_index.md#s-f02-02).
+None. Decisions: see [decision_index.md](../../../project/decision_index.md#s-f02-02).
 
 ---
 

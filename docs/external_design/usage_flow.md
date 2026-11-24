@@ -5,7 +5,7 @@
 | Product | Group H Library Core System |
 | Version | v1.1 |
 | Date | 2026-11-23 (v1.0 2026-11-08) |
-| Sources | W0 Table 1 (use case inventory); Use Case Diagram; Context Diagram; [activity_index.md](../activity_diagram/activity_index.md) and [ad_uc_01.md](../activity_diagram/ad_uc_01.md) to [ad_uc_14.md](../activity_diagram/ad_uc_14.md) |
+| Sources | W0 Table 1 (use case inventory); Use Case Diagram; Context Diagram; [activity_index.md](../activity/activity_index.md) and [ad_uc_01.md](../activity/ad_uc_01.md) to [ad_uc_14.md](../activity/ad_uc_14.md) |
 
 The product is an add-on to the library's existing OPAC. Existing OPAC pages (catalogue and search
 results, Book Detail, main menu, personal area, online book page) are where the reader comes from or
@@ -13,12 +13,12 @@ goes back to; they are situations or exits in the flows below, never boxes.
 
 ## Note
 
-- [x] Every row of the Inputs check table in [decision_index.md](../project_brief/decision_index.md#activity-index) is "Done" or is
+- [x] Every row of the Inputs check table in [decision_index.md](../project/decision_index.md#activity-index) is "Done" or is
       a task in its source document. Rows 1, 2, 4, 5, 6, 7 and 8 are Done (rows 4, 5 and 7 in
-      [sequence_diagram/](../system_design/sequence_diagram/), 23/11/2026). Row 3 is Done: the daily sync is
-      UC-15 with [ad_uc_15.md](../activity_diagram/ad_uc_15.md) (D48); it has no flow because no person starts it. Adding UC-15 to the
+      [use_case/](../use_case/), 23/11/2026). Row 3 is Done: the daily sync is
+      UC-15 with [ad_uc_15.md](../activity/ad_uc_15.md) (D48); it has no flow because no person starts it. Adding UC-15 to the
       Use Case Diagram PDF is a task in
-      [decision_index.md](../project_brief/decision_index.md#pending-tasks).
+      [decision_index.md](../project/decision_index.md#pending-tasks).
 
 Sign-in convention used in every flow: UC-11 is drawn as a box reached by a dashed arrow
 `"not signed in"`, then the flow goes on to the use case that needed it. A reader who is already
@@ -46,11 +46,11 @@ flowchart LR
 
 | Step | Use case | Activity diagram | Screens |
 |---|---|---|---|
-| (alt) | UC-03 Filter books by access format (online, physical or both) | [ad_uc_03.md](../activity_diagram/ad_uc_03.md) | S-F03-01 |
-| 1 | UC-01 View book shelf location | [ad_uc_01.md](../activity_diagram/ad_uc_01.md) | S-F01-01, S-F01-02 |
-| 1 (alt) or 2 | UC-02 Browse interactive digital library map | [ad_uc_02.md](../activity_diagram/ad_uc_02.md) | S-F01-02 |
-| (if not signed in) | UC-11 Register and sign in (library card with email OTP) | [ad_uc_11.md](../activity_diagram/ad_uc_11.md) | S-F00-01, S-F00-02 (from modal "Sign in to continue?" on S-F01-01 or S-F03-03) |
-| 1 (alt) or 2 (alt) | UC-12 Save physical books to a personal list for finding them later in the library, and remove them from the list | [ad_uc_12.md](../activity_diagram/ad_uc_12.md) | S-F01-01 (Save to my list), S-F03-03 |
+| (alt) | UC-03 Filter books by access format (online, physical or both) | [ad_uc_03.md](../activity/ad_uc_03.md) | S-F03-01 |
+| 1 | UC-01 View book shelf location | [ad_uc_01.md](../activity/ad_uc_01.md) | S-F01-01, S-F01-02 |
+| 1 (alt) or 2 | UC-02 Browse interactive digital library map | [ad_uc_02.md](../activity/ad_uc_02.md) | S-F01-02 |
+| (if not signed in) | UC-11 Register and sign in (library card with email OTP) | [ad_uc_11.md](../activity/ad_uc_11.md) | S-F00-01, S-F00-02 (from modal "Sign in to continue?" on S-F01-01 or S-F03-03) |
+| 1 (alt) or 2 (alt) | UC-12 Save physical books to a personal list for finding them later in the library, and remove them from the list | [ad_uc_12.md](../activity/ad_uc_12.md) | S-F01-01 (Save to my list), S-F03-03 |
 
 One goal, four ways in: the reader comes from the existing OPAC Book Detail page (UC-01 trigger),
 from the access-format results, where a physical book leads back to its Book Detail page, from
@@ -92,12 +92,12 @@ flowchart LR
 
 | Step | Use case | Activity diagram | Screens |
 |---|---|---|---|
-| (if not signed in) | UC-11 Register and sign in (library card with email OTP) | [ad_uc_11.md](../activity_diagram/ad_uc_11.md) | S-F00-01, S-F00-02 (from modal "Sign in to continue?" on S-F03-06, S-F03-07 or S-F03-02) |
-| 1 | UC-08 AI-based conversational book search | [ad_uc_08.md](../activity_diagram/ad_uc_08.md) | S-F03-06 |
-| 1 (alt) | UC-09 Automatic personalised book recommendations | [ad_uc_09.md](../activity_diagram/ad_uc_09.md) | S-F03-07 |
-| 1 (alt) or (alt) | UC-07 Update and view personal reading history and preferences | [ad_uc_07.md](../activity_diagram/ad_uc_07.md) | S-F03-02 |
-| (alt) | UC-03 Filter books by access format (online, physical or both) | [ad_uc_03.md](../activity_diagram/ad_uc_03.md) | S-F03-01 |
-| 2 | UC-01 View book shelf location | [ad_uc_01.md](../activity_diagram/ad_uc_01.md) | S-F01-01, S-F01-02 |
+| (if not signed in) | UC-11 Register and sign in (library card with email OTP) | [ad_uc_11.md](../activity/ad_uc_11.md) | S-F00-01, S-F00-02 (from modal "Sign in to continue?" on S-F03-06, S-F03-07 or S-F03-02) |
+| 1 | UC-08 AI-based conversational book search | [ad_uc_08.md](../activity/ad_uc_08.md) | S-F03-06 |
+| 1 (alt) | UC-09 Automatic personalised book recommendations | [ad_uc_09.md](../activity/ad_uc_09.md) | S-F03-07 |
+| 1 (alt) or (alt) | UC-07 Update and view personal reading history and preferences | [ad_uc_07.md](../activity/ad_uc_07.md) | S-F03-02 |
+| (alt) | UC-03 Filter books by access format (online, physical or both) | [ad_uc_03.md](../activity/ad_uc_03.md) | S-F03-01 |
+| 2 | UC-01 View book shelf location | [ad_uc_01.md](../activity/ad_uc_01.md) | S-F01-01, S-F01-02 |
 
 The reader opens the chatbot and the suggestions from the OPAC main menu, and the reading history
 and preferences from the OPAC personal area. UC-07 joined this flow from the earlier flow "keep my
@@ -133,11 +133,11 @@ flowchart LR
 
 | Step | Use case | Activity diagram | Screens |
 |---|---|---|---|
-| 1 | UC-05 View book reviews | [ad_uc_05.md](../activity_diagram/ad_uc_05.md) | S-F02-01 |
-| 1 (alt) | UC-06 Access book information and reviews via QR code (physical books; reviews via UC-04) | [ad_uc_06.md](../activity_diagram/ad_uc_06.md) | S-F02-02 |
-| (if not signed in) | UC-11 Register and sign in (library card with email OTP) | [ad_uc_11.md](../activity_diagram/ad_uc_11.md) | S-F00-01, S-F00-02 (from modal "Sign in to continue?" on S-F02-01 or S-F02-02) |
-| 2 | UC-04 Write, edit and delete own book reviews | [ad_uc_04.md](../activity_diagram/ad_uc_04.md) | S-F02-01, S-F02-02 (modal "Delete your review?") |
-| 2 (alt) | UC-14 Report a review that violates rules | [ad_uc_14.md](../activity_diagram/ad_uc_14.md) | S-F02-01 (modal "Report this review?") |
+| 1 | UC-05 View book reviews | [ad_uc_05.md](../activity/ad_uc_05.md) | S-F02-01 |
+| 1 (alt) | UC-06 Access book information and reviews via QR code (physical books; reviews via UC-04) | [ad_uc_06.md](../activity/ad_uc_06.md) | S-F02-02 |
+| (if not signed in) | UC-11 Register and sign in (library card with email OTP) | [ad_uc_11.md](../activity/ad_uc_11.md) | S-F00-01, S-F00-02 (from modal "Sign in to continue?" on S-F02-01 or S-F02-02) |
+| 2 | UC-04 Write, edit and delete own book reviews | [ad_uc_04.md](../activity/ad_uc_04.md) | S-F02-01, S-F02-02 (modal "Delete your review?") |
+| 2 (alt) | UC-14 Report a review that violates rules | [ad_uc_14.md](../activity/ad_uc_14.md) | S-F02-01 (modal "Report this review?") |
 
 The reader opens the reviews from the existing OPAC Book Detail page (UC-05) or by scanning the QR
 label on the book with a phone camera (UC-06). Report is only offered from UC-05: AD-UC-06 has no
@@ -161,8 +161,8 @@ flowchart LR
 
 | Step | Use case | Activity diagram | Screens |
 |---|---|---|---|
-| 1 or 2 | UC-10 Print QR code labels for physical books (QR codes are generated automatically) | [ad_uc_10.md](../activity_diagram/ad_uc_10.md) | S-F00-03, S-F04-01, S-F02-03 (modal "QR label sheet preview") |
-| 1 or 2 | UC-13 Remove reviews that violate rules | [ad_uc_13.md](../activity_diagram/ad_uc_13.md) | S-F00-03, S-F04-01, S-F02-04 (modal "Remove this review?") |
+| 1 or 2 | UC-10 Print QR code labels for physical books (QR codes are generated automatically) | [ad_uc_10.md](../activity/ad_uc_10.md) | S-F00-03, S-F04-01, S-F02-03 (modal "QR label sheet preview") |
+| 1 or 2 | UC-13 Remove reviews that violate rules | [ad_uc_13.md](../activity/ad_uc_13.md) | S-F00-03, S-F04-01, S-F02-04 (modal "Remove this review?") |
 
 This flow joins the earlier flows "label new physical books" and "moderate reported reviews", which
 had one use case each (L8-22). Both
@@ -178,10 +178,10 @@ that readers send in UC-14 (flow "Reader: read and review a book"; AD-UC-13 prec
 
 | Use case | Started by | Described in |
 |---|---|---|
-| UC-10 (part) Automatic QR code generation for new physical books (FR-02-07) | Time (daily catalogue sync finished) | [ad_uc_10.md](../activity_diagram/ad_uc_10.md) time event `t1`; no screen |
-| UC-07 (part) Reading-history entries from borrowed books (FR-03-03) | Time (daily loan records sync finished, FR-04-10) | [ad_uc_07.md](../activity_diagram/ad_uc_07.md) time event `t1`; no screen |
-| UC-07 (part) Reading-history entry when a signed-in reader opens an online book (FR-03-02) | Accept event from UC-03 (online book opened) | [ad_uc_07.md](../activity_diagram/ad_uc_07.md) accept event `e1`; [ad_uc_03.md](../activity_diagram/ad_uc_03.md) `s5` (L8-19) |
-| UC-15 Sync data from the library internal system (FR-04-09, FR-04-10, FR-04-11, FR-01-05) | Time (daily, 02:00) / Library Internal System | [ad_uc_15.md](../activity_diagram/ad_uc_15.md) time event `t1`; no screen (D48) |
+| UC-10 (part) Automatic QR code generation for new physical books (FR-02-07) | Time (daily catalogue sync finished) | [ad_uc_10.md](../activity/ad_uc_10.md) time event `t1`; no screen |
+| UC-07 (part) Reading-history entries from borrowed books (FR-03-03) | Time (daily loan records sync finished, FR-04-10) | [ad_uc_07.md](../activity/ad_uc_07.md) time event `t1`; no screen |
+| UC-07 (part) Reading-history entry when a signed-in reader opens an online book (FR-03-02) | Accept event from UC-03 (online book opened) | [ad_uc_07.md](../activity/ad_uc_07.md) accept event `e1`; [ad_uc_03.md](../activity/ad_uc_03.md) `s5` (L8-19) |
+| UC-15 Sync data from the library internal system (FR-04-09, FR-04-10, FR-04-11, FR-01-05) | Time (daily, 02:00) / Library Internal System | [ad_uc_15.md](../activity/ad_uc_15.md) time event `t1`; no screen (D48) |
 
 ## Checks before you save
 
